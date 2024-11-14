@@ -1,7 +1,7 @@
 {
   "name": "vue-datatable-tailwind",
-  "version": "0.0.0",
-  "private": true,
+  "version": "1.0.0",
+  "description": "Vue 3 DataTable component with Tailwind CSS",
   "type": "module",
   "main": "./dist/index.umd.cjs",
   "module": "./dist/index.js",
@@ -11,11 +11,22 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.umd.cjs"
-    }
+    },
+    "./style.css": "./dist/style.css"
   },
   "files": [
     "dist"
   ],
+  "keywords": [
+    "vue",
+    "vue3",
+    "datatable",
+    "tailwind"
+  ],
+  "peerDependencies": {
+    "vue": "^3.5.12",
+    "tailwindcss": "^3.4.14"
+  },
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
@@ -27,7 +38,6 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "vite-plugin-dts": "^4.3.0",
     "vue": "^3.5.12"
   },
   "devDependencies": {

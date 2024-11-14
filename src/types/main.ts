@@ -44,11 +44,11 @@ export interface SimpleFilterOption {
 }
 
 // 聯合類型 - 允許所有可能的過濾選項類型
-export type FilterOption = 
-    | NumberFilterOption 
-    | StringFilterOption 
-    | ArrayFilterOption 
-    | CustomFilterOption 
+export type FilterOption =
+    | NumberFilterOption
+    | StringFilterOption
+    | ArrayFilterOption
+    | CustomFilterOption
     | SimpleFilterOption;
 
 // 輔助型別檢查函數
@@ -73,25 +73,25 @@ export const createFilter = {
     number(field: string, comparison: NumberFilterOption['comparison'], criteria: number | [number, number]): NumberFilterOption {
         return { field, comparison, criteria };
     },
-    
+
     string(field: string, comparison: StringFilterOption['comparison'], criteria: string): StringFilterOption {
         return { field, comparison, criteria };
     },
-    
+
     array(field: string, criteria: (string | number)[]): ArrayFilterOption {
         return { field, comparison: 'in', criteria };
     },
-    
+
     custom<T = any>(
-        field: string, 
-        comparison: (value: any, criteria: T) => boolean, 
+        field: string,
+        comparison: (value: any, criteria: T) => boolean,
         criteria: T
     ): CustomFilterOption {
         return { field, comparison, criteria };
     }
 };
 
-/* 
+/*
     1. 簡單方式（向後兼容）
     const filterOptions = computed(() => {
         const filterOptionsArray = [];
@@ -109,34 +109,34 @@ export const createFilter = {
     import { createFilter } from './types/main';
     const filterOptions = computed(() => {
         const filterOptionsArray = [];
-        
+
         if (filter.value.status !== 'all') {
             filterOptionsArray.push(
                 createFilter.string('logisticsStatus', '=', filter.value.status)
             );
         }
-        
+
         if (filter.value.price) {
             filterOptionsArray.push(
                 createFilter.number('price', '>=', filter.value.price)
             );
         }
-        
+
         if (filter.value.categories?.length) {
             filterOptionsArray.push(
                 createFilter.array('category', filter.value.categories)
             );
         }
-        
+
         return filterOptionsArray;
     });
 
     3. 自定義複雜過濾
     const filterOptions = computed(() => {
         const filterOptionsArray = [];
-        
+
         filterOptionsArray.push(
-            createFilter.custom('complexField', 
+            createFilter.custom('complexField',
                 (value, criteria) => {
                     // 自定義過濾邏輯
                     return value.someProperty === criteria.expectedValue;
@@ -144,14 +144,10 @@ export const createFilter = {
                 { expectedValue: 'something' }
             )
         );
-        
+
         return filterOptionsArray;
     });
 */
-
-
-
-
 
 export type Item = Record<string, any>
 

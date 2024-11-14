@@ -11,19 +11,21 @@ export default defineConfig({
     plugins: [
         vue(),
         vueDevTools(),
-        dts({ include: ['src'] })
+        dts({ include: ['src'], rollupTypes: true })
     ],
     build: {
+        cssCodeSplit: true,
         lib: {
             entry: fileURLToPath(new URL('./src/index.ts', import.meta.url)),
             name: 'VueDataTableTailwind',
-            fileName: 'index'
+            fileName: (format) => `index.${format === 'es' ? 'js' : 'umd.cjs'}`
         },
         rollupOptions: {
-            external: ['vue'],
+            external: ['vue', 'tailwindcss'],
             output: {
                 globals: {
-                    vue: 'Vue'
+                    vue: 'Vue',
+                    tailwindcss: 'tailwindcss'
                 }
             }
         }
