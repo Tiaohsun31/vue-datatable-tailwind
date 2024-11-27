@@ -1,0 +1,46 @@
+:root {
+  /* 基礎變數 */
+  --theme-color: #4f46e5;
+  --theme-hover: #4338ca;
+  --theme-active: #3730a3;
+  --theme-light: #818cf8;
+  --theme-focus: rgba(79, 70, 229, 0.5);
+}
+
+/* 主題類名 */
+
+.bg-theme {
+  background-color: var(--theme-color);
+}
+
+.border-theme {
+  border-color: var(--theme-border);
+}
+
+.hover\:bg-theme-hover:hover {
+  background-color: var(--theme-hover);
+}
+
+.active\:bg-theme-active:active {
+  background-color: var(--theme-active);
+}
+
+.focus\:bg-theme-focus:focus {
+  background-color: var(--theme-focus);
+}
+
+.group-hover\:bg-theme-hover:hover {
+  background-color: var(--theme-hover);
+}
+
+.group-hover\:border-theme-hover:hover {
+  border-color: var(--theme-hover);
+}
+
+.group-hover\:border-theme-light:hover {
+  border-color: var(--theme-light);
+}
+
+.peer-focus\:ring-theme-focus:focus {
+  --tw-ring-color: var(--theme-focus);
+}
