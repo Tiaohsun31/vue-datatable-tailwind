@@ -11,7 +11,7 @@
   "typings": "./dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Tiaohsun31/vue-datatable-tailwind.git"
+    "url": "git+https://github.com/Tiaohsun31/vue-datatable-tailwind.git"
   },
   "exports": {
     ".": {
@@ -19,8 +19,12 @@
       "import": "./dist/index.js",
       "require": "./dist/index.umd.cjs"
     },
-    "./style.css": "./dist/style.css"
+    "./style.css": {
+      "import": "./dist/vue-datatable-tailwind.css",
+      "require": "./dist/vue-datatable-tailwind.css"
+    }
   },
+  "style": "./dist/vue-datatable-tailwind.css",
   "files": [
     "dist",
     "types"
@@ -45,14 +49,14 @@
     "type-check": "vue-tsc --build --force",
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
-    "prepare": "pnpm run build"
+    "prepare": "pnpm run build-only"
   },
   "devDependencies": {
     "@tsconfig/node22": "^22.0.0",
     "@types/jsdom": "^21.1.7",
     "@types/node": "^22.10.0",
-    "@vitejs/plugin-vue": "^5.2.0",
-    "@vitest/eslint-plugin": "1.1.10",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vitest/eslint-plugin": "1.1.12",
     "@vue/eslint-config-prettier": "^10.1.0",
     "@vue/eslint-config-typescript": "^14.1.4",
     "@vue/test-utils": "^2.4.6",
@@ -63,13 +67,13 @@
     "jsdom": "^25.0.1",
     "npm-run-all2": "^7.0.1",
     "postcss": "^8.4.49",
-    "prettier": "^3.4.0",
+    "prettier": "^3.4.1",
     "tailwindcss": "^3.4.15",
     "typescript": "~5.7.2",
-    "vite": "^5.4.11",
+    "vite": "^6.0.1",
     "vite-plugin-dts": "^4.3.0",
-    "vite-plugin-vue-devtools": "^7.6.4",
-    "vitest": "^2.1.5",
+    "vite-plugin-vue-devtools": "^7.6.5",
+    "vitest": "^2.1.6",
     "vue-tsc": "^2.1.10"
   }
 }
