@@ -5,18 +5,19 @@
     處理固定列的寬度
 
  */
-import { type Ref, computed } from 'vue';
+import { type Ref, computed, onMounted, onUnmounted, ref } from 'vue';
 import type { HeaderForRender } from '../types/internal';
 
 type FixedColumnsInfo = {
     value: string,
-    fixed: Boolean,
+    fixed: boolean,
     distance: number,
     width: number,
 };
 
 export default function useFixedColumn(
     headersForRender: Ref<HeaderForRender[]>,
+    tableBodyRef: Ref<HTMLElement | null>,
 ) {
     // 篩選出設置了 fixed: true 的列
     const fixedHeaders = computed((): HeaderForRender[] => headersForRender.value.filter((header) => header.fixed));
@@ -38,16 +39,46 @@ export default function useFixedColumn(
             width: header.width ?? 100,  // 列寬度
             // 計算距離左側的距離
             distance: index === 0 ? 0 : fixedHeadersWidthArr.reduce((previous: number, current: number, i: number): number => {
-                let distance = previous;
-                if (i < index) distance += current;
-                return distance;
-            }),
+                return i < index ? previous + current : previous;
+            }, 0),
         }));
+    });
+
+    const showShadow = ref(false);
+    let cleanup: (() => void) | null = null;
+
+    onMounted(() => {
+        const element = tableBodyRef.value;
+        if (element) {
+            const handleScroll = () => {
+                showShadow.value = element.scrollLeft > 0;
+            };
+
+            // 初始檢查
+            handleScroll();
+
+            // 添加事件監聽
+            element.addEventListener('scroll', handleScroll);
+
+            // 保存清理函數
+            cleanup = () => {
+                element.removeEventListener('scroll', handleScroll);
+            };
+        }
+    });
+
+    // 組件卸載時清理
+    onUnmounted(() => {
+        if (cleanup) {
+            cleanup();
+            cleanup = null;
+        }
     });
 
     return {
         fixedHeaders,
         lastFixedColumn,
         fixedColumnsInfos,
+        showShadow,
     };
 }

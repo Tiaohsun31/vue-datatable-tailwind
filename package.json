@@ -41,7 +41,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "run-p \"build-only {@}\" --",
+    "build": "run-p type-check \"build-only {@}\" --",
     "build:types": "vue-tsc --emitDeclarationOnly",
     "preview": "vite preview",
     "test:unit": "vitest",

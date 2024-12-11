@@ -2,12 +2,8 @@
 
     <div ref="dataTable" class="relative w-full" :class="[tableClassName]">
         <!-- Main Table Container -->
-        <div ref="tableBody" class="relative overflow-auto" :class="{
-            'border border-gray-200': true,
-            'min-h-[180px]': true,
-            'shadow-sm': showShadow,
-        }"
-            :style="[tableHeight ? `height: ${tableHeight}px` : '', tableMinHeight ? `min-height: ${tableMinHeight}px` : '']">
+        <div ref="tableBody" class="relative overflow-auto border border-gray-200 min-h-[180px]"
+            :class="[{ 'shadow-sm': showShadow }, tableBodyClass]">
             <table :id="tableNodeId" class="w-full border-collapse bg-white">
                 <colgroup>
                     <col v-for="(header, index) in headersForRender" :key="index" :style="getColStyle(header)" />
@@ -321,8 +317,6 @@ const props = withDefaults(defineProps<DataTableProps>(), {
     sortBy: '',
     sortType: 'asc',
     multiSort: false,
-    tableMinHeight: 180,
-    tableHeight: null,
     tableClassName: '',
     headerClassName: '',
     headerItemClassName: '',
@@ -392,18 +386,6 @@ const ifHasPaginationInfoSlot = computed(() => !!(slots.paginationInfo || slots[
 const dataTable = ref<HTMLDivElement | null>(null);
 const tableBody = ref<HTMLDivElement | null>(null);
 provide('dataTable', dataTable);
-
-// fixed-columns shadow
-const showShadow = ref(false);
-onMounted(() => {
-    if (tableBody.value) {
-        const element = tableBody.value;
-        element.addEventListener('scroll', () => {
-            showShadow.value = element.scrollLeft > 0;
-        });
-    }
-
-});
 
 const emits = defineEmits([
     'clickRow',
@@ -552,8 +534,10 @@ const {
     fixedHeaders,
     lastFixedColumn,
     fixedColumnsInfos,
+    showShadow
 } = useFixedColumn(
     headersForRender,
+    tableBody,
 );
 
 const {

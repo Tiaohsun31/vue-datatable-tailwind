@@ -72,8 +72,6 @@ declare const __VLS_component: DefineComponent<DataTableProps, {
     alternating: boolean;
     noHover: boolean;
     borderCell: boolean;
-    tableHeight: number | null;
-    tableMinHeight: number;
     tableClassName: string;
     checkboxColumnWidth: number | null;
     expandColumnWidth: number;
@@ -109,14 +107,14 @@ declare function __VLS_template(): {
         value: string;
         sortable?: boolean;
         sortType?: SortType | "none";
-        fixed?: Boolean;
+        fixed?: boolean;
         width?: number;
     }) => any>> & Partial<Record<`header-${string}`, (_: {
         text: string;
         value: string;
         sortable?: boolean;
         sortType?: SortType | "none";
-        fixed?: Boolean;
+        fixed?: boolean;
         width?: number;
     }) => any>> & Partial<Record<`item-${string}`, (_: {
         [x: string]: any;
@@ -131,7 +129,7 @@ declare function __VLS_template(): {
             value: string;
             sortable?: boolean;
             sortType?: SortType | "none";
-            fixed?: Boolean;
+            fixed?: boolean;
             width?: number;
         }): any;
         body?(_: {
@@ -385,12 +383,10 @@ export declare interface DataTableProps {
     noHover?: boolean;
     /** 單元格邊框 */
     borderCell?: boolean;
-    /** 表格高度 */
-    tableHeight?: number | null;
-    /** 表格最小高度 */
-    tableMinHeight?: number;
     /** 表格 CSS 類名 */
     tableClassName?: string;
+    /** 內容 CSS 類名 */
+    tableBodyClass?: string;
     /** 複選框列寬度 */
     checkboxColumnWidth?: number | null;
     /** 展開列寬度 */
@@ -464,7 +460,7 @@ declare type HeaderForRender = {
     value: string,
     sortable?: boolean,
     sortType?: SortType | 'none',
-    fixed?: Boolean,
+    fixed?: boolean,
     width?: number,
 }
 

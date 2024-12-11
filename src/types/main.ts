@@ -242,12 +242,10 @@ export interface DataTableProps {
     noHover?: boolean
     /** 單元格邊框 */
     borderCell?: boolean
-    /** 表格高度 */
-    tableHeight?: number | null
-    /** 表格最小高度 */
-    tableMinHeight?: number
     /** 表格 CSS 類名 */
     tableClassName?: string,
+    /** 內容 CSS 類名 */
+    tableBodyClass?: string,
 
     // 列配置
     /** 複選框列寬度 */
