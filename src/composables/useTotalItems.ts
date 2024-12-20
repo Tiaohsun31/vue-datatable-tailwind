@@ -215,7 +215,7 @@ export default function useTotalItems(
         return items.filter(item => !disabledRows(item));
     };
     const regularToggleSelectAll = (isChecked: boolean): void => {
-        selectItemsComputed.value = isChecked ? getSelectableItems(totalItems.value) : [];
+        selectItemsComputed.value = isChecked ? getSelectableItems(totalItems.value) : selectItemsComputed.value = [];
         if (isChecked) emits('selectAll');
     };
 

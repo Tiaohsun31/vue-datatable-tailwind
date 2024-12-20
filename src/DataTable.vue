@@ -529,6 +529,7 @@ const {
     showIndex,
     totalItems,
     totalItemsLength,
+    props.disabledRows
 );
 
 const prevPageEndIndex = computed(() => {

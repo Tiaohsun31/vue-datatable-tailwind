@@ -37,6 +37,7 @@ export default function usePageItems(
     showIndex: Ref<boolean>,
     totalItems: ComputedRef<Item[]>,
     totalItemsLength: ComputedRef<number>,
+    disabledRows: (item: Item) => boolean
 ) {
     const cacheManager = new PageCacheManager();
 
@@ -87,21 +88,15 @@ export default function usePageItems(
             return 'noneSelected';
         }
 
-        // 檢查是否存在選中項
-        const hasSelectedItems = selectItemsComputed.value.some(selected =>
-            totalItems.value.some(item =>
-                cacheManager.getItemKey(selected) === cacheManager.getItemKey(item)
-            )
-        );
+        const selectableItems = disabledRows
+            ? totalItems.value.filter(item => !disabledRows(item))
+            : totalItems.value;
 
-        if (!hasSelectedItems) {
-            return 'noneSelected';
-        }
+        const selectedCount = selectItemsComputed.value.length;
 
-        // 檢查是否全部選中
-        if (selectItemsComputed.value.length === totalItems.value.length) {
+        if (selectedCount === selectableItems.length) {
             const allSelected = selectItemsComputed.value.every(selected =>
-                totalItems.value.some(item =>
+                selectableItems.some(item =>
                     cacheManager.getItemKey(selected) === cacheManager.getItemKey(item)
                 )
             );
@@ -120,7 +115,7 @@ export default function usePageItems(
         switch (multipleSelectStatus.value) {
             case 'allSelected':
                 return itemsWithIndex.value.map(item => ({
-                    checkbox: true,
+                    checkbox: !disabledRows || !disabledRows(item), // 考慮禁用狀態
                     ...item
                 }));
             case 'noneSelected':
@@ -134,7 +129,7 @@ export default function usePageItems(
                         selected => cacheManager.getItemKey(item) === cacheManager.getItemKey(selected)
                     );
                     return {
-                        checkbox: isSelected,
+                        checkbox: isSelected && (!disabledRows || !disabledRows(item)),
                         ...item
                     };
                 });
