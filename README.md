@@ -21,6 +21,8 @@ The project is only a customized version, and the original functions have not be
 - Added `useBatchSelection` to handle large data selections, enabled by default for datasets exceeding 10,000 entries.
 - Modified some default values.
 - Default mobile view only supports next/previous page navigation.
+- Added `clickRowToSelect`, which allows you to select a table row by clicking on it.
+- Added selection-checkbox slot to customize the selection box.
 
 ## Usage Suggestions
 
@@ -39,6 +41,37 @@ The project is only a customized version, and the original functions have not be
 - `theme:'indigo'`
 - `theme:'#6366f1'`
 - `:theme:{ color:'indigo', variant: 'DEFAULT' }`
+
+## Class
+
+Because TailwindCSS is modified for style management, the rendering of some styles will lag behind the default styles. Please use the following methods.
+
+1. Use Tailwind's `!` modifier to force styles to be applied
+
+```typescript
+const bodyRowClassNameFunction: BodyRowClassNameFunction = (
+  item: Item,
+  rowNumber: number,
+): string => {
+  if (item.gender === 'male') return '!bg-blue-100'
+  return '!bg-red-100'
+}
+```
+
+2. Modify the style of odd and even rows
+
+```typescript
+const bodyRowClassNameFunction: BodyRowClassNameFunction = (
+  item: Item,
+  rowNumber: number,
+): string => {
+  const isEven = rowNumber % 2 === 0
+  if (item.gender === 'male') {
+    return isEven ? 'even:!bg-blue-100 odd:bg-blue-100' : 'odd:!bg-blue-100 even:bg-blue-100'
+  }
+  return isEven ? 'even:!bg-red-100 odd:bg-red-100' : 'odd:!bg-red-100 even:bg-red-100'
+}
+```
 
 ## Props
 

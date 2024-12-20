@@ -291,6 +291,8 @@ export interface DataTableProps {
     hideHeader?: boolean
     /** 已選擇的項目 */
     itemsSelected?: Item[] | null
+    /** 點擊行時是否觸發選擇 */
+    clickRowToSelect?: boolean;
     /** 加載狀態 */
     loading?: boolean
     /** 空數據提示文本 */
@@ -305,7 +307,7 @@ export interface DataTableProps {
     preventContextMenuRow?: boolean,
     /** 指定展開按鈕所在列 */
     expandColumn?: string;
-    /** */
+    /** 批量選擇閾值 */
     batchSelectionThreshold?: number
 }
 

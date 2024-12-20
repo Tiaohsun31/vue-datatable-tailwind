@@ -95,8 +95,13 @@
                                 : bodyRowClassName(item, index + 1),
                             { 'divide-x divide-gray-200': borderCell }
                         ]" @click="($event) => {
+                            if (clickRowToExpand) {
+                                updateExpandingItemIndexList(index + prevPageEndIndex, item, $event);
+                            }
+                            if (clickRowToSelect) {
+                                toggleSelectItem(item);
+                            }
                             clickRow(item, 'single', $event);
-                            clickRowToExpand && updateExpandingItemIndexList(index + prevPageEndIndex, item, $event);
                         }" @dblclick="($event) => clickRow(item, 'double', $event)"
                             @contextmenu="($event) => contextMenuRow(item, $event)">
                             <td v-for="(column, i) in headerColumns" :key="i" :style="getFixedDistance(column, 'td')"
@@ -137,7 +142,11 @@
                                     </IconExpand>
                                 </template>
                                 <template v-else-if="column === 'checkbox'">
-                                    <SingleSelectCheckBox :checked="item[column]" @change="toggleSelectItem(item)" />
+                                    <!-- Custom checkbox slot -->
+                                    <slot name="selection-checkbox" v-bind="{ item, index, toggleSelectItem }">
+                                        <SingleSelectCheckBox :checked="item[column]"
+                                            @change="toggleSelectItem(item)" />
+                                    </slot>
                                 </template>
                                 <slot v-else-if="slots['item']" name="item" v-bind="{ column, item }" />
                                 <template v-else>
@@ -329,6 +338,7 @@ const props = withDefaults(defineProps<DataTableProps>(), {
     rowsOfPageSeparatorMessage: 'of',
     clickEventType: 'single',
     clickRowToExpand: false,
+    clickRowToSelect: false,
     tableNodeId: '',
     showIndexSymbol: '#',
     preventContextMenuRow: false,
@@ -364,6 +374,7 @@ const {
     multiSort,
     mustSort,
     clickEventType,
+    clickRowToSelect,
     fixedExpand,
     fixedCheckbox,
     fixedIndex,
@@ -574,6 +585,13 @@ const getFixedDistance = (column: string, type: 'td' | 'th' = 'th') => {
         `;
     }
     return undefined;
+};
+
+
+const isItemSelected = (item: Item): boolean => {
+    return selectItemsComputed.value.some(
+        selectedItem => JSON.stringify(selectedItem) === JSON.stringify(item)
+    );
 };
 
 watch(loading, (newVal, oldVal) => {

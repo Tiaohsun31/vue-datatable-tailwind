@@ -91,6 +91,7 @@ declare const __VLS_component: DefineComponent<DataTableProps, {
     bodyItemClassName: BodyItemClassNameFunction | string;
     hideHeader: boolean;
     itemsSelected: Item[] | null;
+    clickRowToSelect: boolean;
     loading: boolean;
     emptyMessage: string;
     clickEventType: ClickEventType;
@@ -99,9 +100,10 @@ declare const __VLS_component: DefineComponent<DataTableProps, {
     preventContextMenuRow: boolean;
     expandColumn: string;
     batchSelectionThreshold: number;
-}, {}, {}, {}, string, ComponentProvideOptions, false, {}, any>;
+}, {}, {}, {}, string, ComponentProvideOptions, false, {}, HTMLDivElement>;
 
 declare function __VLS_template(): {
+    attrs: Partial<{}>;
     slots: Partial<Record<`header-${string}`, (_: {
         text: string;
         value: string;
@@ -234,6 +236,11 @@ declare function __VLS_template(): {
             expanded: boolean;
             toggle: (e: MouseEvent) => void;
         }): any;
+        "selection-checkbox"?(_: {
+            item: Item;
+            index: number;
+            toggleSelectItem: (item: Item) => void;
+        }): any;
         item?(_: {
             column: string;
             item: Item;
@@ -276,7 +283,7 @@ declare function __VLS_template(): {
         dataTable: HTMLDivElement;
         tableBody: HTMLDivElement;
     };
-    attrs: Partial<{}>;
+    rootEl: HTMLDivElement;
 };
 
 declare type __VLS_TemplateResult = ReturnType<typeof __VLS_template>;
@@ -423,6 +430,8 @@ export declare interface DataTableProps {
     hideHeader?: boolean;
     /** 已選擇的項目 */
     itemsSelected?: Item[] | null;
+    /** 點擊行時是否觸發選擇 */
+    clickRowToSelect?: boolean;
     /** 加載狀態 */
     loading?: boolean;
     /** 空數據提示文本 */
@@ -437,7 +446,7 @@ export declare interface DataTableProps {
     preventContextMenuRow?: boolean;
     /** 指定展開按鈕所在列 */
     expandColumn?: string;
-    /** */
+    /** 批量選擇閾值 */
     batchSelectionThreshold?: number;
 }
 

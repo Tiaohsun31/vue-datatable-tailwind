@@ -17,12 +17,14 @@
 
 - 移除了原始 SCSS，改用 TailwindCSS。
 - 重構程式碼結構。
-- 修改 usePageItems，使用緩存的 key 比較，提高效能以解決大數據選擇時卡頓問題。
-- 新增 expandColumn，提供自訂義展開欄位。
-- 新增 filterOption 輔助方法 createFilter。
-- 新增 useBatchSelection 處理大數據選擇問題，預設為10,000筆資料以上啟用。
+- 修改 `usePageItems`，使用緩存的 key 比較，提高效能以解決大數據選擇時卡頓問題。
+- 新增 `expandColumn`，提供自訂義展開欄位。
+- 新增 `filterOption` 輔助方法 `createFilter`。
+- 新增 `useBatchSelection` 處理大數據選擇問題，預設為10,000筆資料以上啟用。
 - 修改部分預設值。
 - 預設 Mobile 僅剩上下頁切換。
+- 新增 `clickRowToSelect`，點擊表格行可以進行選擇。
+- 新增 selection-checkbox slot，可以客製化選擇框。
 
 ## Usage suggestions
 
@@ -41,6 +43,37 @@
 - `theme:'indigo'`
 - `theme:'#6366f1'`
 - `:theme:{ color:'indigo', variant: 'DEFAULT' }`
+
+## Class
+
+因為改TailwindCSS進行樣式管理，部分樣式渲染會落後於預設樣式，請採用下列方式
+
+1. 使用 Tailwind 的 `!` 修飾符來強制應用樣式
+
+```typescript
+const bodyRowClassNameFunction: BodyRowClassNameFunction = (
+  item: Item,
+  rowNumber: number,
+): string => {
+  if (item.gender === '男') return '!bg-blue-100'
+  return '!bg-red-100'
+}
+```
+
+2. 修改奇偶行的樣式
+
+```typescript
+const bodyRowClassNameFunction: BodyRowClassNameFunction = (
+  item: Item,
+  rowNumber: number,
+): string => {
+  const isEven = rowNumber % 2 === 0
+  if (item.gender === '男') {
+    return isEven ? 'even:!bg-blue-100 odd:bg-blue-100' : 'odd:!bg-blue-100 even:bg-blue-100'
+  }
+  return isEven ? 'even:!bg-red-100 odd:bg-red-100' : 'odd:!bg-red-100 even:bg-red-100'
+}
+```
 
 ## Props
 
