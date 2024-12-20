@@ -680,13 +680,13 @@ function Ga(e, t) {
 }
 function Va(e, t, r, a, u, d, v, n, i, l, s, m, x, k, S, C, B, L, T) {
   const W = b(() => v.value.length ? {
-    hasFixedColumns: v.value.some((I) => I.fixed),
-    fixedHeaders: v.value.filter((I) => I.fixed),
-    unFixedHeaders: v.value.filter((I) => !I.fixed)
+    hasFixedColumns: v.value.some(($) => $.fixed),
+    fixedHeaders: v.value.filter(($) => $.fixed),
+    unFixedHeaders: v.value.filter(($) => !$.fixed)
   } : { hasFixedColumns: !1, fixedHeaders: [], unFixedHeaders: [] }), E = G(
     Ja(S.value, C.value, B.value)
   ), { determineHeaderSortState: xe } = Qa(s, x, B, E), me = b(() => {
-    const { fixedHeaders: I, unFixedHeaders: O } = W.value, F = [...I, ...O].map((f) => ({
+    const { fixedHeaders: $, unFixedHeaders: O } = W.value, F = [...$, ...O].map((f) => ({
       ...f,
       sortType: f.sortable ? xe(f.value) : void 0
     }));
@@ -714,23 +714,23 @@ function Va(e, t, r, a, u, d, v, n, i, l, s, m, x, k, S, C, B, L, T) {
       width: r.value
     }
   })), te = b(
-    () => me.value.map((I) => I.value)
-  ), we = (I, O) => {
+    () => me.value.map(($) => $.value)
+  ), we = ($, O) => {
     const F = O === "none" ? "asc" : O === "asc" ? "desc" : m.value ? "asc" : null;
     if (s.value) {
-      L(I, F);
+      L($, F);
       return;
     }
-    const f = B.value ? Ya(I, F, E.value) : Za(I, F);
-    E.value = f, T("updateSort", { sortType: F, sortBy: I });
-  }, U = b(() => (I) => {
+    const f = B.value ? Ya($, F, E.value) : Za($, F);
+    E.value = f, T("updateSort", { sortType: F, sortBy: $ });
+  }, U = b(() => ($) => {
     var F, f;
     const O = s.value ? (F = x.value) == null ? void 0 : F.sortBy : (f = E.value) == null ? void 0 : f.sortBy;
-    return Array.isArray(O) && O.includes(I);
-  }), ke = b(() => (I) => {
+    return Array.isArray(O) && O.includes($);
+  }), ke = b(() => ($) => {
     var F, f;
     const O = s.value ? (F = x.value) == null ? void 0 : F.sortBy : (f = E.value) == null ? void 0 : f.sortBy;
-    return Array.isArray(O) ? O.indexOf(I) + 1 : !1;
+    return Array.isArray(O) ? O.indexOf($) + 1 : !1;
   });
   return {
     clientSortOptions: E,
@@ -1114,7 +1114,7 @@ function cr(e, t, r, a, u, d, v, n, i, l, s) {
     }
   }), ke = (f) => {
     U.value = f ? T.value : [], f && s("selectAll");
-  }, I = (f) => {
+  }, $ = (f) => {
     const P = f.checkbox;
     if (delete f.checkbox, delete f.index, P)
       U.value = U.value.filter(
@@ -1141,7 +1141,7 @@ function cr(e, t, r, a, u, d, v, n, i, l, s) {
         ke(f);
     },
     toggleSelectItem: (f) => {
-      E.value ? ee(f) : I(f);
+      E.value ? ee(f) : $(f);
     },
     isProcessing: b(() => E.value && te.value),
     processProgress: we
@@ -1763,7 +1763,7 @@ const wr = ["id"], kr = ["onClick"], Pr = {
       mustSort: we,
       clickEventType: U,
       clickRowToSelect: ke,
-      fixedExpand: I,
+      fixedExpand: $,
       fixedCheckbox: O,
       fixedIndex: F,
       batchSelectionThreshold: f
@@ -1792,7 +1792,7 @@ const wr = ["id"], kr = ["onClick"], Pr = {
       u,
       d,
       O,
-      I,
+      $,
       F,
       x,
       J,
@@ -1977,7 +1977,7 @@ const wr = ["id"], kr = ["onClick"], Pr = {
                   typeof c.headerItemClassName == "string" ? c.headerItemClassName : c.headerItemClassName(g, A + 1),
                   `text-${c.headerTextDirection}`
                 ]]),
-                onClick: ($) => g.sortable && g.sortType ? o(Pt)(g.value, g.sortType) : null
+                onClick: (I) => g.sortable && g.sortType ? o(Pt)(g.value, g.sortType) : null
               }, [
                 g.text === "checkbox" && o(k) !== null ? (p(), ne(Yt, {
                   key: o(Qe),
@@ -2030,31 +2030,31 @@ const wr = ["id"], kr = ["onClick"], Pr = {
                   typeof c.bodyRowClassName == "string" ? c.bodyRowClassName : c.bodyRowClassName(g, A + 1),
                   { "divide-x divide-gray-200": c.borderCell }
                 ]]),
-                onClick: ($) => {
-                  c.clickRowToExpand && o(Re)(A + Z.value, g, $), o(ke) && o(Ee)(g), o(at)(g, "single", $);
+                onClick: (I) => {
+                  c.clickRowToExpand && o(Re)(A + Z.value, g, I), o(ke) && o(Ee)(g), o(at)(g, "single", I);
                 },
-                onDblclick: ($) => o(at)(g, "double", $),
-                onContextmenu: ($) => Lt(g, $)
+                onDblclick: (I) => o(at)(g, "double", I),
+                onContextmenu: (I) => Lt(g, I)
               }, [
-                (p(!0), y(X, null, he(o(Je), ($, Ft) => (p(), y("td", {
+                (p(!0), y(X, null, he(o(Je), (I, Ft) => (p(), y("td", {
                   key: Ft,
-                  style: oe(rt($, "td")),
+                  style: oe(rt(I, "td")),
                   class: _(["px-4 py-2", [
                     {
-                      "cursor-pointer": $ === "expand" && c.expandColumn === ""
+                      "cursor-pointer": I === "expand" && c.expandColumn === ""
                     },
-                    typeof c.bodyItemClassName == "string" ? c.bodyItemClassName : c.bodyItemClassName($, A + 1),
+                    typeof c.bodyItemClassName == "string" ? c.bodyItemClassName : c.bodyItemClassName(I, A + 1),
                     `text-${c.bodyTextDirection}`
                   ]]),
-                  onClick: (ye) => $ === "expand" && c.expandColumn === "" ? o(Re)(A + Z.value, g, ye) : null
+                  onClick: (ye) => I === "expand" && c.expandColumn === "" ? o(Re)(A + Z.value, g, ye) : null
                 }, [
-                  o(h)[`item-${$}`] ? M(c.$slots, `item-${$}`, q({
+                  o(h)[`item-${I}`] ? M(c.$slots, `item-${I}`, q({
                     key: 0,
                     ref_for: !0
-                  }, g)) : o(h)[`item-${$.toLowerCase()}`] ? M(c.$slots, `item-${$.toLowerCase()}`, q({
+                  }, g)) : o(h)[`item-${I.toLowerCase()}`] ? M(c.$slots, `item-${I.toLowerCase()}`, q({
                     key: 1,
                     ref_for: !0
-                  }, g)) : $ === c.expandColumn ? M(c.$slots, "expand-button", {
+                  }, g)) : I === c.expandColumn ? M(c.$slots, "expand-button", {
                     key: 2,
                     item: g,
                     expanded: o(Ne).includes(Z.value + A),
@@ -2068,22 +2068,22 @@ const wr = ["id"], kr = ["onClick"], Pr = {
                         class: _({ "transform -rotate-90": o(Ne).includes(Z.value + A) })
                       }, null, 8, ["class"])
                     ], 8, Br)
-                  ]) : $ === "expand" && c.expandColumn === "" ? (p(), ne(o(Ia), {
+                  ]) : I === "expand" && c.expandColumn === "" ? (p(), ne(o(Ia), {
                     key: 3,
                     class: _({ "transform rotate-90": o(Ne).includes(Z.value + A) })
-                  }, null, 8, ["class"])) : $ === "checkbox" ? M(c.$slots, "selection-checkbox", q({
+                  }, null, 8, ["class"])) : I === "checkbox" ? M(c.$slots, "selection-checkbox", q({
                     key: 4,
                     ref_for: !0
-                  }, { item: g, index: A, toggleSelectItem: o(Ee) }), () => [
+                  }, { item: g, index: A, toggleSelectItem: o(Ee), isItemSelected: g[I] }), () => [
                     z(ht, {
-                      checked: g[$],
+                      checked: g[I],
                       onChange: (ye) => o(Ee)(g)
                     }, null, 8, ["checked", "onChange"])
                   ]) : o(h).item ? M(c.$slots, "item", q({
                     key: 5,
                     ref_for: !0
-                  }, { column: $, item: g })) : (p(), y(X, { key: 6 }, [
-                    He(j(o(ir)($, g)), 1)
+                  }, { column: I, item: g })) : (p(), y(X, { key: 6 }, [
+                    He(j(o(ir)(I, g)), 1)
                   ], 64))
                 ], 14, $r))), 128))
               ], 42, Ir),

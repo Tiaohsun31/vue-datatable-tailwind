@@ -24,7 +24,7 @@
 - 修改部分預設值。
 - 預設 Mobile 僅剩上下頁切換。
 - 新增 `clickRowToSelect`，點擊表格行可以進行選擇。
-- 新增 selection-checkbox slot，可以客製化選擇框。
+- 新增 selection-checkbox slot，可以客製化選擇框，透過客製化控制框，可以由外部控制disabled等屬性。
 
 ## Usage suggestions
 

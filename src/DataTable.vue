@@ -143,7 +143,8 @@
                                 </template>
                                 <template v-else-if="column === 'checkbox'">
                                     <!-- Custom checkbox slot -->
-                                    <slot name="selection-checkbox" v-bind="{ item, index, toggleSelectItem }">
+                                    <slot name="selection-checkbox"
+                                        v-bind="{ item, index, toggleSelectItem, isItemSelected: item[column] }">
                                         <SingleSelectCheckBox :checked="item[column]"
                                             @change="toggleSelectItem(item)" />
                                     </slot>
@@ -585,13 +586,6 @@ const getFixedDistance = (column: string, type: 'td' | 'th' = 'th') => {
         `;
     }
     return undefined;
-};
-
-
-const isItemSelected = (item: Item): boolean => {
-    return selectItemsComputed.value.some(
-        selectedItem => JSON.stringify(selectedItem) === JSON.stringify(item)
-    );
 };
 
 watch(loading, (newVal, oldVal) => {

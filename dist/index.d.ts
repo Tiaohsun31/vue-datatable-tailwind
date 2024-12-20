@@ -240,6 +240,7 @@ declare function __VLS_template(): {
             item: Item;
             index: number;
             toggleSelectItem: (item: Item) => void;
+            isItemSelected: any;
         }): any;
         item?(_: {
             column: string;
