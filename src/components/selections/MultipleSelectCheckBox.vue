@@ -1,5 +1,6 @@
 <template>
-    <BaseCheckbox :checked="isChecked" :partial="isPartial" @change="emits('change', !isChecked)" />
+    <BaseCheckbox :checked="isChecked" :partial="isPartial" :disabled="disabled"
+        @change="emits('change', !isChecked)" />
 </template>
 
 <script setup lang="ts">
@@ -11,6 +12,10 @@ const props = defineProps({
         type: String as () => 'allSelected' | 'noneSelected' | 'partSelected',
         required: true
     },
+    disabled: {
+        type: Boolean,
+        default: false
+    }
 });
 
 const isChecked = computed(() => props.status === 'allSelected');

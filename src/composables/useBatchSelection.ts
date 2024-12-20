@@ -27,6 +27,7 @@ const getItemKey = (item: Item): string => {
 export function useBatchSelection(
     items: Ref<Item[]>,
     itemsSelected: Ref<Item[] | null>,
+    disabledRows: (item: Item) => boolean,
     emits: (event: EmitsEventName, ...args: any[]) => void,
 ) {
     const state = ref<BatchSelectionState>({
@@ -111,7 +112,11 @@ export function useBatchSelection(
             const totalItems = items.value;
             for (let i = 0; i < totalItems.length; i += BATCH_SIZE) {
                 const batch = totalItems.slice(i, Math.min(i + BATCH_SIZE, totalItems.length));
-                await processBatch(batch, isSelected, i);
+
+                // 過濾批次中的可選項目
+                const selectableBatch = batch.filter(item => !disabledRows(item));
+
+                await processBatch(selectableBatch, isSelected, i);
 
                 // 給 UI 線程一個更新的機會
                 await new Promise(resolve => setTimeout(resolve, 0));

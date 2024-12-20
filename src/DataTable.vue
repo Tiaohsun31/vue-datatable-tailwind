@@ -35,7 +35,8 @@
                             @click="(header.sortable && header.sortType) ? updateSortField(header.value, header.sortType) : null">
                             <!-- Checkbox Header -->
                             <MultipleSelectCheckBox v-if="header.text === 'checkbox' && itemsSelected !== null"
-                                :key="multipleSelectStatus" :status="multipleSelectStatus" @change="toggleSelectAll" />
+                                :disabled="areAllVisibleRowsDisabled" :key="multipleSelectStatus"
+                                :status="multipleSelectStatus" @change="toggleSelectAll" />
 
                             <!-- Regular Header Content -->
                             <div v-else class="items-center gap-2">
@@ -144,9 +145,9 @@
                                 <template v-else-if="column === 'checkbox'">
                                     <!-- Custom checkbox slot -->
                                     <slot name="selection-checkbox"
-                                        v-bind="{ item, index, toggleSelectItem, isItemSelected: item[column] }">
-                                        <SingleSelectCheckBox :checked="item[column]"
-                                            @change="toggleSelectItem(item)" />
+                                        v-bind="{ item, index, toggleSelectItem, isItemSelected: item[column], isItemDisabled: isItemDisabled(item) }">
+                                        <SingleSelectCheckBox :checked="item[column]" @change="toggleSelectItem(item)"
+                                            :disabled="isItemDisabled(item)" />
                                     </slot>
                                 </template>
                                 <slot v-else-if="slots['item']" name="item" v-bind="{ column, item }" />
@@ -381,6 +382,7 @@ const {
     fixedCheckbox,
     fixedIndex,
     batchSelectionThreshold,
+    disabledRows,
 } = toRefs(props);
 
 // global style related variable
@@ -489,6 +491,7 @@ const {
     serverItemsLength,
     multiSort,
     batchSelectionThreshold,
+    props.disabledRows,
     emits,
 );
 
@@ -592,6 +595,10 @@ const getFixedDistance = (column: string, type: 'td' | 'th' = 'th') => {
 const isItemDisabled = (item: Item): boolean => {
     return typeof props.disabledRows === 'function' ? props.disabledRows(item) : false;
 };
+
+const areAllVisibleRowsDisabled = computed(() => {
+    return pageItems.value.every(item => props.disabledRows(item));
+});
 
 watch(loading, (newVal, oldVal) => {
     if (serverOptionsComputed.value) {

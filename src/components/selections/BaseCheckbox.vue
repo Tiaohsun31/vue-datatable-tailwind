@@ -1,23 +1,27 @@
 <template>
-    <div class="relative inline-flex items-center justify-center h-5 w-5 cursor-pointer group"
-        @click.stop.prevent="$emit('change')">
-        <input type="checkbox" class="sr-only peer" :checked="isChecked" :aria-checked="isChecked" />
+    <div class="relative inline-flex items-center justify-center h-5 w-5" :class="[
+        !disabled && 'cursor-pointer group',
+        disabled && 'cursor-not-allowed opacity-50'
+    ]" @click.stop.prevent="!disabled && $emit('change')">
+        <input type="checkbox" class="sr-only peer" :checked="isChecked" :disabled="disabled"
+            :aria-checked="isChecked" />
         <div class="h-4 w-4 rounded transition-all duration-200 border" :class="[
             // Base states
             isChecked && !isPartial && [
                 'bg-theme border-theme',
-                'group-hover:bg-theme-hover group-hover:border-theme-hover'
+                !disabled && 'group-hover:bg-theme-hover group-hover:border-theme-hover'
             ],
             isPartial && [
                 'bg-theme border-theme',
-                'group-hover:bg-theme-hover group-hover:border-theme-hover'
+                !disabled && 'group-hover:bg-theme-hover group-hover:border-theme-hover'
             ],
             !isChecked && !isPartial && [
                 'border-gray-300 bg-white',
-                'group-hover:border-theme-light'
+                !disabled && 'group-hover:border-theme-light'
             ],
+
             // Focus states
-            'peer-focus:ring-2 peer-focus:ring-offset-1 peer-focus:ring-theme-focus'
+            !disabled && 'peer-focus:ring-2 peer-focus:ring-offset-1 peer-focus:ring-theme-focus'
         ]" :style="themeClasses.style">
             <!-- Checkmark for checked state -->
             <svg v-show="isChecked && !isPartial" class="h-4 w-4 text-white stroke-[3]" fill="none" viewBox="1 1 24 24"
@@ -37,15 +41,24 @@
 import { computed, inject, type ComputedRef } from 'vue';
 import type { ThemeStateClasses } from '@/types/internal';
 
-const props = defineProps({
-    checked: {
-        type: Boolean,
-        default: false
-    },
-    partial: {
-        type: Boolean,
-        default: false
-    }
+// const props = defineProps({
+//     checked: {
+//         type: Boolean,
+//         default: false
+//     },
+//     partial: {
+//         type: Boolean,
+//         default: false
+//     },
+//     disabled: {
+//         type: Boolean,
+//         default: false
+//     }
+// });
+const props = withDefaults(defineProps<{ checked: boolean, partial: boolean, disabled?: boolean }>(), {
+    checked: false,
+    partial: false,
+    disabled: false
 });
 
 const isChecked = computed(() => props.checked);

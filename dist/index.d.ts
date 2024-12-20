@@ -242,6 +242,7 @@ declare function __VLS_template(): {
             index: number;
             toggleSelectItem: (item: Item) => void;
             isItemSelected: any;
+            isItemDisabled: boolean;
         }): any;
         item?(_: {
             column: string;

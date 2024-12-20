@@ -20,6 +20,7 @@ export default function useTotalItems(
     serverItemsLength: Ref<number>,
     multiSort: Ref<boolean>,
     batchSelectionThreshold: Ref<number>,
+    disabledRows: (item: Item) => boolean,
     emits: (event: EmitsEventName, ...args: any[]) => void,
 ) {
     // 搜索邏輯
@@ -201,7 +202,7 @@ export default function useTotalItems(
         toggleSelectItem: batchToggleSelectItem,
         isProcessing,
         selectionProgress
-    } = useBatchSelection(totalItems, itemsSelected, emits);
+    } = useBatchSelection(totalItems, itemsSelected, disabledRows, emits);
 
     const selectItemsComputed = computed({
         get: () => itemsSelected.value ?? [],
@@ -209,9 +210,12 @@ export default function useTotalItems(
             emits('update:itemsSelected', value);
         },
     });
-
+    // 過濾出未被禁用的項目
+    const getSelectableItems = (items: Item[]) => {
+        return items.filter(item => !disabledRows(item));
+    };
     const regularToggleSelectAll = (isChecked: boolean): void => {
-        selectItemsComputed.value = isChecked ? totalItems.value : [];
+        selectItemsComputed.value = isChecked ? getSelectableItems(totalItems.value) : [];
         if (isChecked) emits('selectAll');
     };
 
@@ -233,6 +237,9 @@ export default function useTotalItems(
     };
 
     const toggleSelectAll = (isChecked: boolean): void => {
+        // 檢查是否所有項目都被禁用
+        const allItemsDisabled = totalItems.value.every(item => disabledRows(item));
+        if (allItemsDisabled) return;
 
         if (shouldUseBatchSelection.value) {
             emits('updateSelectionStatus', true);
@@ -249,6 +256,8 @@ export default function useTotalItems(
     };
 
     const toggleSelectItem = (item: Item): void => {
+        if (disabledRows(item)) return;
+
         if (shouldUseBatchSelection.value) {
             batchToggleSelectItem(item);
         } else {
