@@ -149,6 +149,7 @@ export type FilterOption =
 export type HeaderItemClassNameFunction = (header: Header, columnNumber: number) => string
 export type BodyRowClassNameFunction = (item: Item, rowNumber: number) => string
 export type BodyItemClassNameFunction = (column: string, rowNumber: number) => string
+export type BodyRowDisabledFunction = (item: Item) => boolean
 
 // 組件實例類型
 // /**
@@ -293,6 +294,8 @@ export interface DataTableProps {
     itemsSelected?: Item[] | null
     /** 點擊行時是否觸發選擇 */
     clickRowToSelect?: boolean;
+    /** Disabled行 */
+    disabledRows?: BodyRowDisabledFunction
     /** 加載狀態 */
     loading?: boolean
     /** 空數據提示文本 */

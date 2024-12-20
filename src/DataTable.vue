@@ -93,12 +93,12 @@
                             typeof bodyRowClassName === 'string'
                                 ? bodyRowClassName
                                 : bodyRowClassName(item, index + 1),
-                            { 'divide-x divide-gray-200': borderCell }
+                            { 'divide-x divide-gray-200': borderCell },
                         ]" @click="($event) => {
                             if (clickRowToExpand) {
                                 updateExpandingItemIndexList(index + prevPageEndIndex, item, $event);
                             }
-                            if (clickRowToSelect) {
+                            if (clickRowToSelect && !isItemDisabled(item)) {
                                 toggleSelectItem(item);
                             }
                             clickRow(item, 'single', $event);
@@ -333,6 +333,7 @@ const props = withDefaults(defineProps<DataTableProps>(), {
     bodyRowClassName: '',
     bodyExpandRowClassName: '',
     bodyItemClassName: '',
+    disabledRows: () => false,
     noHover: false,
     borderCell: false,
     mustSort: true,
@@ -586,6 +587,10 @@ const getFixedDistance = (column: string, type: 'td' | 'th' = 'th') => {
         `;
     }
     return undefined;
+};
+
+const isItemDisabled = (item: Item): boolean => {
+    return typeof props.disabledRows === 'function' ? props.disabledRows(item) : false;
 };
 
 watch(loading, (newVal, oldVal) => {

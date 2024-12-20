@@ -92,6 +92,7 @@ declare const __VLS_component: DefineComponent<DataTableProps, {
     hideHeader: boolean;
     itemsSelected: Item[] | null;
     clickRowToSelect: boolean;
+    disabledRows: BodyRowDisabledFunction;
     loading: boolean;
     emptyMessage: string;
     clickEventType: ClickEventType;
@@ -305,6 +306,8 @@ export declare type BodyItemClassNameFunction = (column: string, rowNumber: numb
 
 export declare type BodyRowClassNameFunction = (item: Item, rowNumber: number) => string;
 
+declare type BodyRowDisabledFunction = (item: Item) => boolean;
+
 declare type ClickEventType = 'single' | 'double'
 
 export declare type ClickRowArgument = Item & {
@@ -433,6 +436,8 @@ export declare interface DataTableProps {
     itemsSelected?: Item[] | null;
     /** 點擊行時是否觸發選擇 */
     clickRowToSelect?: boolean;
+    /** Disabled行 */
+    disabledRows?: BodyRowDisabledFunction;
     /** 加載狀態 */
     loading?: boolean;
     /** 空數據提示文本 */

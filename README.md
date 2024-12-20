@@ -23,6 +23,7 @@ The project is only a customized version, and the original functions have not be
 - Default mobile view only supports next/previous page navigation.
 - Added `clickRowToSelect`, which allows you to select a table row by clicking on it.
 - A new selection-checkbox slot is added, which can customize the selection box. Through the customized control box, attributes such as disabled can be controlled externally.
+- Added `disabledRows` to disable `clickRowToSelect` click event.
 
 ## Usage Suggestions
 
