@@ -47,6 +47,7 @@ export default function useHeaders(
     sortBy: Ref<string | string[]>,
     sortType: Ref<SortType | SortType[]>,
     multiSort: Ref<boolean>,
+    expandColumn: Ref<string>,
 
     updateServerOptionsSort: (newSortBy: string, newSortType: SortType | null) => void,
     emits: (event: EmitsEventName, ...args: any[]) => void,
@@ -99,7 +100,7 @@ export default function useHeaders(
             fixed: fixedIndex.value || computeFixedColumns.value.hasFixedColumns,
             width: indexColumnWidth.value
         },
-        expand: ifHasExpandSlot.value && {
+        expand: ifHasExpandSlot.value && !expandColumn.value && {
             text: '',
             value: 'expand',
             fixed: fixedExpand.value || computeFixedColumns.value.hasFixedColumns,

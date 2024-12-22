@@ -243,10 +243,10 @@ export interface DataTableProps {
     noHover?: boolean
     /** 單元格邊框 */
     borderCell?: boolean
-    /** 表格 CSS 類名 */
-    tableClassName?: string,
+    /** 表格包覆層 CSS */
+    tableWrapperClass?: string,
     /** 內容 CSS 類名 */
-    tableBodyClass?: string,
+    tableContainerClass?: string,
 
     // 列配置
     /** 複選框列寬度 */
@@ -269,15 +269,12 @@ export interface DataTableProps {
     /** 固定序號列 */
     fixedIndex?: boolean
 
-    // 文本方向配置
-    /** 表頭文本方向 */
-    headerTextDirection?: TextDirection
-    /** 表體文本方向 */
-    bodyTextDirection?: TextDirection
-
     // 樣式類名配置
+    tableClassName?: string,
     /** 表頭 CSS 類名 */
-    headerClassName?: string
+    headerClassName?: string,
+    /** 表體 CSS 類名 */
+    bodyClassName?: string,
     /** 表頭項目 CSS 類名 */
     headerItemClassName?: HeaderItemClassNameFunction | string
     /** 表體行 CSS 類名 */
@@ -286,6 +283,8 @@ export interface DataTableProps {
     bodyExpandRowClassName?: BodyRowClassNameFunction | string
     /** 表體項目 CSS 類名 */
     bodyItemClassName?: BodyItemClassNameFunction | string
+    /** 表尾 CSS 類名 */
+    footerClassName?: string
 
     // 其他配置
     /** 隱藏表頭 */
@@ -322,6 +321,15 @@ export type ClickRowArgument = Item & {
 export type UpdateSortArgument = {
     sortType: SortType | null
     sortBy: string
+}
+
+export interface PaginationInfo {
+    isFirstPage: boolean;
+    isLastPage: boolean;
+    currentPaginationNumber: number;
+    maxPaginationNumber: number;
+    nextPage: () => void;
+    prevPage: () => void;
 }
 
 // export interface UseHeadersOptions {

@@ -44,6 +44,7 @@ export type EmitsEventName =
     | 'updateTotalItems'
     | 'selectAll'
     | 'updateSelectionStatus'
+    | 'contextmenuRow'
 
 export interface ThemeStateClasses {
     base: string;

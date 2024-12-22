@@ -1,5 +1,5 @@
 <template>
-    <div class="flex items-center space-x-2" role="navigation" aria-label="Pagination navigation">
+    <div class="vdt-pagination flex items-center space-x-2 " role="navigation" aria-label="Pagination navigation">
         <!-- Previous Page Button -->
         <button type="button" class="relative inline-flex items-center p-1.5 rounded-md border" :class="[
             isFirstPage

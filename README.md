@@ -24,6 +24,11 @@ The project is only a customized version, and the original functions have not be
 - Added `clickRowToSelect`, which allows you to select a table row by clicking on it.
 - A new selection-checkbox slot is added, which can customize the selection box. Through the customized control box, attributes such as disabled can be controlled externally.
 - Added `disabledRows` to disable `clickRowToSelect` click event.
+- Rename `tableClassName` > `tableWrapperClass`
+- Added `tableContainerClass`, `footerClassName`
+- Added `.vdt-table-wrapper`, `.vdt-table-container`, `.vdt-table`, `.vdt-thead`, `.vdt-thead-tr`, `.vdt-thead- th`, `.vdt-tbody`, `.vdt-tbody-tr`, `.vdt-tbody-td`, `.vdt-expand-row`, `.vdt-footer`, `.vdt-pagination` , CSS, defaults to no value.
+- Remove `headerTextDirection`, please use `headerClassName` unified control instead, the default is `text-left`
+- Removed `bodyTextDirection`, added `bodyClassName`, `footerClassName`
 
 ## Usage Suggestions
 
@@ -43,37 +48,6 @@ The project is only a customized version, and the original functions have not be
 - `theme:'#6366f1'`
 - `:theme:{ color:'indigo', variant: 'DEFAULT' }`
 
-## Class
-
-Because TailwindCSS is modified for style management, the rendering of some styles will lag behind the default styles. Please use the following methods.
-
-1. Use Tailwind's `!` modifier to force styles to be applied
-
-```typescript
-const bodyRowClassNameFunction: BodyRowClassNameFunction = (
-  item: Item,
-  rowNumber: number,
-): string => {
-  if (item.gender === 'male') return '!bg-blue-100'
-  return '!bg-red-100'
-}
-```
-
-2. Modify the style of odd and even rows
-
-```typescript
-const bodyRowClassNameFunction: BodyRowClassNameFunction = (
-  item: Item,
-  rowNumber: number,
-): string => {
-  const isEven = rowNumber % 2 === 0
-  if (item.gender === 'male') {
-    return isEven ? 'even:!bg-blue-100 odd:bg-blue-100' : 'odd:!bg-blue-100 even:bg-blue-100'
-  }
-  return isEven ? 'even:!bg-red-100 odd:bg-red-100' : 'odd:!bg-red-100 even:bg-red-100'
-}
-```
-
 ## Props
 
 In addition to the original [Props](https://hc200ok.github.io/vue3-easy-data-table-doc/props/common-props.html), the following new props have been added:
@@ -83,11 +57,12 @@ In addition to the original [Props](https://hc200ok.github.io/vue3-easy-data-tab
 | expand-column           | false        | string                                                         | ‘’                                      | Specifies which column can be expanded.                                              |
 | theme                   | false        | string or ThemeConfig({ color: 'indigo', variant: 'DEFAULT' }) | { color: 'indigo', variant: 'DEFAULT' } | Replaces `theme-color`. Accepts HEX values like `#42b883` or Tailwind color names.   |
 | batchSelectionThreshold | false        | number                                                         | 10,000                                  | Enables batch selection for datasets exceeding this threshold, with a loading style. |
+clickRowToSelect | false | boolean | false | Click on the column to select the item or not
+disabledRows | false | BodyRowDisabledFunction = (item: Item) => boolean | false | Disable specific rows from being selected
 
 ## Slots
 
-- pagination-info: Customize pagination information.
-- expand-button: Customize the style of the expandable rows (`expand-column`).
+[Slot](./docs/api/slot.md)
 
 ## Require
 
@@ -100,7 +75,7 @@ export default {
     content: [
         "./index.html",
         "./src/**/*.{vue,js,ts,jsx,tsx}",
-
+        // Add the contents of DataTable in node_modules
         "./node_modules/vue-datatable-tailwind/dist/**/*.{js,vue}"
     ]
 }

@@ -1,5 +1,5 @@
 <template>
-    <div class="inline-flex rounded-md shadow-sm" role="navigation" aria-label="Pagination">
+    <div class="vdt-pagination inline-flex rounded-md shadow-sm" role="navigation" aria-label="Pagination">
         <div v-for="(item, i) in paginationItemsForRender" :key="i"
             class="relative inline-flex items-center justify-center" :style="themeClasses.style" :class="[
                 // Common styles for all items

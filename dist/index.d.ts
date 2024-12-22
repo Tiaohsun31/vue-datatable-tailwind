@@ -49,19 +49,32 @@ declare const __VLS_component: DefineComponent<DataTableProps, {
     onUpdateSelectionStatus?: ((...args: any[]) => any) | undefined;
     onContextmenuRow?: ((...args: any[]) => any) | undefined;
 }>, {
-    rowsItems: number[];
     sortBy: string | string[];
     sortType: SortType | SortType[];
     rowsPerPage: number;
-    items: Item[];
+    headerItemClassName: HeaderItemClassNameFunction | string;
+    multiSort: boolean;
     headers: Header[];
-    currentPage: number;
+    hideHeader: boolean;
+    fixedHeader: boolean;
+    headerClassName: string;
+    borderCell: boolean;
+    expandColumn: string;
+    bodyItemClassName: BodyItemClassNameFunction | string;
+    alternating: boolean;
+    noHover: boolean;
+    bodyRowClassName: BodyRowClassNameFunction | string;
+    loading: boolean;
+    bodyExpandRowClassName: BodyRowClassNameFunction | string;
+    rowsItems: number[];
+    rowsOfPageSeparatorMessage: string;
     hideFooter: boolean;
     hideRowsPerPage: boolean;
-    rowsPerPageMessage: string;
-    rowsOfPageSeparatorMessage: string;
     buttonsPagination: boolean;
-    multiSort: boolean;
+    footerClassName: string;
+    rowsPerPageMessage: string;
+    items: Item[];
+    currentPage: number;
     mustSort: boolean;
     filterOptions: FilterOption[] | null;
     searchField: string | string[];
@@ -69,72 +82,37 @@ declare const __VLS_component: DefineComponent<DataTableProps, {
     serverOptions: ServerOptions | null;
     serverItemsLength: number;
     theme: ThemeConfig | string;
-    alternating: boolean;
-    noHover: boolean;
-    borderCell: boolean;
-    tableClassName: string;
+    tableWrapperClass: string;
+    tableContainerClass: string;
     checkboxColumnWidth: number | null;
     expandColumnWidth: number;
     indexColumnWidth: number;
     showIndex: boolean;
     showIndexSymbol: string;
     fixedExpand: boolean;
-    fixedHeader: boolean;
     fixedCheckbox: boolean;
     fixedIndex: boolean;
-    headerTextDirection: TextDirection;
-    bodyTextDirection: TextDirection;
-    headerClassName: string;
-    headerItemClassName: HeaderItemClassNameFunction | string;
-    bodyRowClassName: BodyRowClassNameFunction | string;
-    bodyExpandRowClassName: BodyRowClassNameFunction | string;
-    bodyItemClassName: BodyItemClassNameFunction | string;
-    hideHeader: boolean;
+    tableClassName: string;
+    bodyClassName: string;
     itemsSelected: Item[] | null;
     clickRowToSelect: boolean;
     disabledRows: BodyRowDisabledFunction;
-    loading: boolean;
     emptyMessage: string;
     clickEventType: ClickEventType;
     clickRowToExpand: boolean;
     tableNodeId: string;
     preventContextMenuRow: boolean;
-    expandColumn: string;
     batchSelectionThreshold: number;
 }, {}, {}, {}, string, ComponentProvideOptions, false, {}, HTMLDivElement>;
 
 declare function __VLS_template(): {
     attrs: Partial<{}>;
-    slots: Partial<Record<`header-${string}`, (_: {
-        text: string;
-        value: string;
-        sortable?: boolean;
-        sortType?: SortType | "none";
-        fixed?: boolean;
-        width?: number;
-    }) => any>> & Partial<Record<`header-${string}`, (_: {
-        text: string;
-        value: string;
-        sortable?: boolean;
-        sortType?: SortType | "none";
-        fixed?: boolean;
-        width?: number;
-    }) => any>> & Partial<Record<`item-${string}`, (_: {
-        [x: string]: any;
-        key?: string | number;
-    }) => any>> & Partial<Record<`item-${string}`, (_: {
-        [x: string]: any;
-        key?: string | number;
-    }) => any>> & {
+    slots: Partial<Record<NonNullable<string | number>, (_: {
+        header: HeaderForRender;
+        index: number;
+        sortable: boolean | undefined;
+    }) => any>> & Partial<Record<NonNullable<string | number>, (_: any) => any>> & {
         "customize-headers"?(_: {}): any;
-        header?(_: {
-            text: string;
-            value: string;
-            sortable?: boolean;
-            sortType?: SortType | "none";
-            fixed?: boolean;
-            width?: number;
-        }): any;
         body?(_: {
             [x: number]: Item;
             length: number;
@@ -232,22 +210,6 @@ declare function __VLS_template(): {
             };
             headers: HeaderForRender[];
         }): any;
-        "expand-button"?(_: {
-            item: Item;
-            expanded: boolean;
-            toggle: (e: MouseEvent) => void;
-        }): any;
-        "selection-checkbox"?(_: {
-            item: Item;
-            index: number;
-            toggleSelectItem: (item: Item) => void;
-            isItemSelected: any;
-            isItemDisabled: boolean;
-        }): any;
-        item?(_: {
-            column: string;
-            item: Item;
-        }): any;
         expand?(_: {
             [x: string]: any;
             key?: string | number;
@@ -268,10 +230,10 @@ declare function __VLS_template(): {
         loading?(_: {}): any;
         "empty-message"?(_: {}): any;
         "pagination-info"?(_: {
-            currentPageFirstIndex: number;
-            currentPageLastIndex: number;
-            totalItemsLength: number;
-            rowsOfPageSeparatorMessage: string;
+            firstIndex: number;
+            lastIndex: number;
+            total: number;
+            separator: string;
         }): any;
         pagination?(_: {
             isFirstPage: boolean;
@@ -280,11 +242,12 @@ declare function __VLS_template(): {
             maxPaginationNumber: number;
             nextPage: () => void;
             prevPage: () => void;
+            updatePage: (page: number) => void;
         }): any;
     };
     refs: {
-        dataTable: HTMLDivElement;
-        tableBody: HTMLDivElement;
+        tableWrapper: HTMLDivElement;
+        tableContainer: HTMLDivElement;
     };
     rootEl: HTMLDivElement;
 };
@@ -395,10 +358,10 @@ export declare interface DataTableProps {
     noHover?: boolean;
     /** 單元格邊框 */
     borderCell?: boolean;
-    /** 表格 CSS 類名 */
-    tableClassName?: string;
+    /** 表格包覆層 CSS */
+    tableWrapperClass?: string;
     /** 內容 CSS 類名 */
-    tableBodyClass?: string;
+    tableContainerClass?: string;
     /** 複選框列寬度 */
     checkboxColumnWidth?: number | null;
     /** 展開列寬度 */
@@ -417,12 +380,11 @@ export declare interface DataTableProps {
     fixedCheckbox?: boolean;
     /** 固定序號列 */
     fixedIndex?: boolean;
-    /** 表頭文本方向 */
-    headerTextDirection?: TextDirection;
-    /** 表體文本方向 */
-    bodyTextDirection?: TextDirection;
+    tableClassName?: string;
     /** 表頭 CSS 類名 */
     headerClassName?: string;
+    /** 表體 CSS 類名 */
+    bodyClassName?: string;
     /** 表頭項目 CSS 類名 */
     headerItemClassName?: HeaderItemClassNameFunction | string;
     /** 表體行 CSS 類名 */
@@ -431,6 +393,8 @@ export declare interface DataTableProps {
     bodyExpandRowClassName?: BodyRowClassNameFunction | string;
     /** 表體項目 CSS 類名 */
     bodyItemClassName?: BodyItemClassNameFunction | string;
+    /** 表尾 CSS 類名 */
+    footerClassName?: string;
     /** 隱藏表頭 */
     hideHeader?: boolean;
     /** 已選擇的項目 */

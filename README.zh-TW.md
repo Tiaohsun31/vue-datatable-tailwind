@@ -15,8 +15,8 @@
 
 ## Refactoring and customization
 
-- 移除了原始 SCSS，改用 TailwindCSS。
 - 重構程式碼結構。
+- 移除了原始 SCSS，改用 TailwindCSS。
 - 修改 `usePageItems`，使用緩存的 key 比較，提高效能以解決大數據選擇時卡頓問題。
 - 新增 `expandColumn`，提供自訂義展開欄位。
 - 新增 `filterOption` 輔助方法 `createFilter`。
@@ -26,6 +26,11 @@
 - 新增 `clickRowToSelect`，點擊表格行可以進行選擇。
 - 新增 selection-checkbox slot，可以客製化選擇框，透過客製化控制框，可以由外部控制disabled等屬性。
 - 新增 `disabledRows` 禁用 `clickRowToSelect` 點擊事件。
+- 重新命名，`tableClassName` > `tableWrapperClass`
+- 新增 `tableContainerClass`、`footerClassName`
+- 新增 `.vdt-table-wrapper`、`.vdt-table-container`、`.vdt-table`、`.vdt-thead`、`.vdt-thead-tr`、`.vdt-thead-th`、`.vdt-tbody`、`.vdt-tbody-tr`、`.vdt-tbody-td`、`.vdt-expand-row`、`.vdt-footer`、`.vdt-pagination`，CSS，預設無任何值。
+- 移除`headerTextDirection`，請改用`headerClassName`統一控制，預設為`text-left`
+- 移除`bodyTextDirection`，新增`bodyClassName`、`footerClassName`
 
 ## Usage suggestions
 
@@ -45,37 +50,6 @@
 - `theme:'#6366f1'`
 - `:theme:{ color:'indigo', variant: 'DEFAULT' }`
 
-## Class
-
-因為改TailwindCSS進行樣式管理，部分樣式渲染會落後於預設樣式，請採用下列方式
-
-1. 使用 Tailwind 的 `!` 修飾符來強制應用樣式
-
-```typescript
-const bodyRowClassNameFunction: BodyRowClassNameFunction = (
-  item: Item,
-  rowNumber: number,
-): string => {
-  if (item.gender === '男') return '!bg-blue-100'
-  return '!bg-red-100'
-}
-```
-
-2. 修改奇偶行的樣式
-
-```typescript
-const bodyRowClassNameFunction: BodyRowClassNameFunction = (
-  item: Item,
-  rowNumber: number,
-): string => {
-  const isEven = rowNumber % 2 === 0
-  if (item.gender === '男') {
-    return isEven ? 'even:!bg-blue-100 odd:bg-blue-100' : 'odd:!bg-blue-100 even:bg-blue-100'
-  }
-  return isEven ? 'even:!bg-red-100 odd:bg-red-100' : 'odd:!bg-red-100 even:bg-red-100'
-}
-```
-
 ## Props
 
 除了原本的[Props](https://hc200ok.github.io/vue3-easy-data-table-doc/props/common-props.html)外，新增下面Props
@@ -85,11 +59,11 @@ const bodyRowClassNameFunction: BodyRowClassNameFunction = (
 | expand-column           | false        | string                                                         | ‘’                                      | 指定某Column欄位可以擴展 　                                    |
 | theme                   | false        | string or ThemeConfig({ color: 'indigo', variant: 'DEFAULT' }) | { color: 'indigo', variant: 'DEFAULT' } | 取代theme-color，可填入 HEX ‘#42b883’，或者Tailwind Color Name |
 | batchSelectionThreshold | false        | number                                                         | 10,000                                  | 超過預設值，啟用批次選擇，具有Loading樣式                      |
-
+clickRowToSelect | false | boolean | false | 點擊列，是否選擇項目
+disabledRows | false | BodyRowDisabledFunction = (item: Item) => boolean | false | 禁止特定行被選取
 ## Slot
 
-- pagination-info: 客製化分頁訊息
-- expand-button: 可客製化擴展列(expand-column)樣式
+參考 [Slot](./docs/api/slot.md)
 
 ## Require
 
