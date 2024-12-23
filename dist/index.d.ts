@@ -82,8 +82,6 @@ declare const __VLS_component: DefineComponent<DataTableProps, {
     serverOptions: ServerOptions | null;
     serverItemsLength: number;
     theme: ThemeConfig | string;
-    tableWrapperClass: string;
-    tableContainerClass: string;
     checkboxColumnWidth: number | null;
     expandColumnWidth: number;
     indexColumnWidth: number;
@@ -92,6 +90,8 @@ declare const __VLS_component: DefineComponent<DataTableProps, {
     fixedExpand: boolean;
     fixedCheckbox: boolean;
     fixedIndex: boolean;
+    wrapperClassName: string;
+    containerClassName: string;
     tableClassName: string;
     bodyClassName: string;
     itemsSelected: Item[] | null;
@@ -270,7 +270,7 @@ export declare type BodyItemClassNameFunction = (column: string, rowNumber: numb
 
 export declare type BodyRowClassNameFunction = (item: Item, rowNumber: number) => string;
 
-declare type BodyRowDisabledFunction = (item: Item) => boolean;
+declare type BodyRowDisabledFunction = (item: Item, rowNumber?: number) => boolean;
 
 declare type ClickEventType = 'single' | 'double'
 
@@ -358,10 +358,6 @@ export declare interface DataTableProps {
     noHover?: boolean;
     /** 單元格邊框 */
     borderCell?: boolean;
-    /** 表格包覆層 CSS */
-    tableWrapperClass?: string;
-    /** 內容 CSS 類名 */
-    tableContainerClass?: string;
     /** 複選框列寬度 */
     checkboxColumnWidth?: number | null;
     /** 展開列寬度 */
@@ -380,6 +376,11 @@ export declare interface DataTableProps {
     fixedCheckbox?: boolean;
     /** 固定序號列 */
     fixedIndex?: boolean;
+    /** 表格包覆層 CSS */
+    wrapperClassName?: string;
+    /** 內容 CSS 類名 */
+    containerClassName?: string;
+    /** 表格 CSS 類名 */
     tableClassName?: string;
     /** 表頭 CSS 類名 */
     headerClassName?: string;

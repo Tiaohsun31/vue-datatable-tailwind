@@ -52,14 +52,14 @@ function aa(e, t, a, s, o, i, d, l, r) {
   return {
     handleRowClick: (b, h, w) => {
       if (!b.target.closest(".checkbox, .expand-button") && (o.value && d(w, h, b), i.value && !s(h) && l(h), e.value === "single")) {
-        const B = u(h, w);
-        r("clickRow", B, b);
+        const N = u(h, w);
+        r("clickRow", N, b);
       }
     },
     handleRowDoubleClick: (b, h, w) => {
       if (e.value === "double") {
-        const B = u(h, w);
-        r("clickRow", B, b);
+        const N = u(h, w);
+        r("clickRow", N, b);
       }
     },
     handleRowContextMenu: (b, h) => {
@@ -125,15 +125,15 @@ function sa(e, t) {
     showShadow: i
   };
 }
-function ra(e, t, a, s, o, i, d, l, r, u, n, g, v, b, h, w, B, $, O, M) {
+function ra(e, t, a, s, o, i, d, l, r, u, n, g, v, b, h, w, N, $, O, M) {
   const Z = y(() => d.value.length ? {
-    hasFixedColumns: d.value.some((N) => N.fixed),
-    fixedHeaders: d.value.filter((N) => N.fixed),
-    unFixedHeaders: d.value.filter((N) => !N.fixed)
+    hasFixedColumns: d.value.some((B) => B.fixed),
+    fixedHeaders: d.value.filter((B) => B.fixed),
+    unFixedHeaders: d.value.filter((B) => !B.fixed)
   } : { hasFixedColumns: !1, fixedHeaders: [], unFixedHeaders: [] }), H = _(
-    la(h.value, w.value, B.value)
-  ), { determineHeaderSortState: ue } = ua(n, v, B, H), ee = y(() => {
-    const { fixedHeaders: N, unFixedHeaders: j } = Z.value, L = [...N, ...j].map((E) => ({
+    la(h.value, w.value, N.value)
+  ), { determineHeaderSortState: ue } = ua(n, v, N, H), ee = y(() => {
+    const { fixedHeaders: B, unFixedHeaders: j } = Z.value, L = [...B, ...j].map((E) => ({
       ...E,
       sortType: E.sortable ? ue(E.value) : void 0
     }));
@@ -161,23 +161,23 @@ function ra(e, t, a, s, o, i, d, l, r, u, n, g, v, b, h, w, B, $, O, M) {
       width: a.value
     }
   })), we = y(
-    () => ee.value.map((N) => N.value)
-  ), Pe = (N, j) => {
+    () => ee.value.map((B) => B.value)
+  ), Pe = (B, j) => {
     const L = j === "none" ? "asc" : j === "asc" ? "desc" : g.value ? "asc" : null;
     if (n.value) {
-      O(N, L);
+      O(B, L);
       return;
     }
-    const E = B.value ? oa(N, L, H.value) : ia(N, L);
-    H.value = E, M("updateSort", { sortType: L, sortBy: N });
-  }, V = y(() => (N) => {
+    const E = N.value ? oa(B, L, H.value) : ia(B, L);
+    H.value = E, M("updateSort", { sortType: L, sortBy: B });
+  }, V = y(() => (B) => {
     var L, E;
     const j = n.value ? (L = v.value) == null ? void 0 : L.sortBy : (E = H.value) == null ? void 0 : E.sortBy;
-    return Array.isArray(j) && j.includes(N);
-  }), Ce = y(() => (N) => {
+    return Array.isArray(j) && j.includes(B);
+  }), Ce = y(() => (B) => {
     var L, E;
     const j = n.value ? (L = v.value) == null ? void 0 : L.sortBy : (E = H.value) == null ? void 0 : E.sortBy;
-    return Array.isArray(j) ? j.indexOf(N) + 1 : !1;
+    return Array.isArray(j) ? j.indexOf(B) + 1 : !1;
   });
   return {
     clientSortOptions: H,
@@ -271,7 +271,7 @@ function ca(e, t, a, s, o, i, d, l, r, u) {
         (H) => n.getItemKey(Z) === n.getItemKey(H)
       )
     ) ? "allSelected" : "partSelected";
-  }), B = y(() => {
+  }), N = y(() => {
     if (!t.value)
       return h.value;
     switch (w.value) {
@@ -299,7 +299,7 @@ function ca(e, t, a, s, o, i, d, l, r, u) {
     currentPageFirstIndex: g,
     currentPageLastIndex: v,
     multipleSelectStatus: w,
-    pageItems: B
+    pageItems: N
   };
 }
 function fa(e, t, a, s, o, i, d) {
@@ -464,9 +464,9 @@ function xa(e, t, a, s) {
   const i = async (n, g, v) => new Promise((b) => {
     requestAnimationFrame(() => {
       const h = new Set(o.value.selectedItems), w = new Map(o.value.itemsMap);
-      for (let B = 0; B < n.length; B++) {
-        const $ = n[B], O = Te($);
-        g ? (h.add(O), w.set(O, $)) : h.delete(O), o.value.processedCount = v + B + 1, o.value.visualProgress = o.value.processedCount / o.value.totalCount * 100;
+      for (let N = 0; N < n.length; N++) {
+        const $ = n[N], O = Te($);
+        g ? (h.add(O), w.set(O, $)) : h.delete(O), o.value.processedCount = v + N + 1, o.value.visualProgress = o.value.processedCount / o.value.totalCount * 100;
       }
       o.value.selectedItems = h, o.value.itemsMap = w, b();
     });
@@ -490,7 +490,7 @@ function xa(e, t, a, s) {
     const g = Te(n), v = { ...n };
     delete v.checkbox, delete v.index;
     const b = new Set(o.value.selectedItems), h = new Map(o.value.itemsMap);
-    b.has(g) ? (b.delete(g), s("deselectRow", v)) : (b.add(g), h.set(g, v), s("selectRow", v)), o.value.selectedItems = b, o.value.itemsMap = h, s("update:itemsSelected", Array.from(h.values()).filter((B) => b.has(Te(B))));
+    b.has(g) ? (b.delete(g), s("deselectRow", v)) : (b.add(g), h.set(g, v), s("selectRow", v)), o.value.selectedItems = b, o.value.itemsMap = h, s("update:itemsSelected", Array.from(h.values()).filter((N) => b.has(Te(N))));
   }, r = y(() => o.value.selectedItems.size === 0 ? [] : Array.from(o.value.itemsMap.entries()).filter(([n]) => o.value.selectedItems.has(n)).map(([, n]) => n)), u = y(() => o.value.visualProgress);
   return {
     selectedItems: r,
@@ -530,7 +530,7 @@ function wa(e, t, a, s, o, i, d, l, r, u, n, g) {
       default:
         return !1;
     }
-  }, B = y(() => {
+  }, N = y(() => {
     var p;
     return (p = t.value) != null && p.length ? h.value.filter(
       (k) => t.value.every((P) => {
@@ -544,8 +544,8 @@ function wa(e, t, a, s, o, i, d, l, r, u, n, g) {
     return $(ne, ke, P[F]);
   }), M = y(() => {
     if (a.value) return s.value;
-    if (!e.value) return B.value;
-    const { sortBy: p, sortDesc: k } = e.value, P = [...B.value];
+    if (!e.value) return N.value;
+    const { sortBy: p, sortDesc: k } = e.value, P = [...N.value];
     return r.value && Array.isArray(p) && Array.isArray(k) ? p.length ? O(P, p, k, p.length - 1) : P : P.sort((F, te) => {
       const ae = X(p, F), Q = X(p, te);
       return $(ae, Q, k);
@@ -561,7 +561,7 @@ function wa(e, t, a, s, o, i, d, l, r, u, n, g) {
     set: (p) => {
       g("update:itemsSelected", p);
     }
-  }), Ce = (p) => p.filter((k) => !n(k)), N = (p) => {
+  }), Ce = (p) => p.filter((k) => !n(k)), B = (p) => {
     V.value = p ? Ce(M.value) : V.value = [], p && g("selectAll");
   }, j = (p) => {
     const k = p.checkbox;
@@ -588,7 +588,7 @@ function wa(e, t, a, s, o, i, d, l, r, u, n, g) {
             g("updateSelectionStatus", !1);
           }
         } else
-          N(p);
+          B(p);
     },
     toggleSelectItem: (p) => {
       n(p) || (H.value ? xe(p) : j(p));
@@ -1035,7 +1035,7 @@ const re = /* @__PURE__ */ Pa($a), Ke = {
   light: "400",
   DEFAULT: "500",
   dark: "600"
-}, Ba = (e) => {
+}, Na = (e) => {
   const t = mt(e);
   if (!t) return { color: "indigo", variant: "DEFAULT" };
   let a = { color: "indigo", variant: "DEFAULT" }, s = 1 / 0;
@@ -1054,7 +1054,7 @@ const re = /* @__PURE__ */ Pa($a), Ke = {
     const r = Fa(t, l);
     r < s && (s = r, a = d);
   }), a;
-}, Na = (e, t) => {
+}, Ba = (e, t) => {
   const a = Ke[t], s = t === "dark" ? "700" : t === "DEFAULT" ? "600" : "500";
   return {
     "--theme-color": re[e][a],
@@ -1067,7 +1067,7 @@ const re = /* @__PURE__ */ Pa($a), Ke = {
     // 添加 50% 透明度
   };
 }, Aa = (e) => {
-  const { color: t, variant: a = "DEFAULT" } = typeof e == "string" && e.startsWith("#") ? Ba(e) : typeof e == "object" ? e : { color: e, variant: "DEFAULT" };
+  const { color: t, variant: a = "DEFAULT" } = typeof e == "string" && e.startsWith("#") ? Na(e) : typeof e == "object" ? e : { color: e, variant: "DEFAULT" };
   return {
     base: "bg-theme border-theme text-white",
     hover: "hover:bg-theme-hover",
@@ -1075,7 +1075,7 @@ const re = /* @__PURE__ */ Pa($a), Ke = {
     disabled: "bg-gray-300 cursor-not-allowed",
     hex: typeof e == "string" && e.startsWith("#") ? e : re[t][Ke[a]],
     tailwindName: t,
-    style: Na(t, a)
+    style: Ba(t, a)
   };
 };
 function mt(e) {
@@ -1771,7 +1771,7 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
   class: "vdt-pagination flex items-center space-x-2",
   role: "navigation",
   "aria-label": "Pagination navigation"
-}, $n = ["disabled"], Bn = ["disabled"], vt = /* @__PURE__ */ R({
+}, $n = ["disabled"], Nn = ["disabled"], vt = /* @__PURE__ */ R({
   __name: "PaginationArrows",
   props: {
     isFirstPage: {
@@ -1827,10 +1827,10 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
         W(c(La), {
           class: S({ "opacity-50": e.isLastPage })
         }, null, 8, ["class"])
-      ], 10, Bn)
+      ], 10, Nn)
     ]));
   }
-}), Nn = {
+}), Bn = {
   class: "vdt-pagination inline-flex rounded-md shadow-sm",
   role: "navigation",
   "aria-label": "Pagination"
@@ -1944,7 +1944,7 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
           }
       return l;
     });
-    return (l, r) => (m(), x("div", Nn, [
+    return (l, r) => (m(), x("div", Bn, [
       (m(!0), x(oe, null, Y(d.value, (u, n) => (m(), x("div", {
         key: n,
         class: S(["relative inline-flex items-center justify-center", [
@@ -2117,8 +2117,6 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
     alternating: { type: Boolean, default: !0 },
     noHover: { type: Boolean, default: !1 },
     borderCell: { type: Boolean, default: !1 },
-    tableWrapperClass: { default: "" },
-    tableContainerClass: { default: "" },
     checkboxColumnWidth: { default: null },
     expandColumnWidth: { default: 36 },
     indexColumnWidth: { default: 60 },
@@ -2128,6 +2126,8 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
     fixedHeader: { type: Boolean, default: !1 },
     fixedCheckbox: { type: Boolean, default: !1 },
     fixedIndex: { type: Boolean, default: !1 },
+    wrapperClassName: { default: "" },
+    containerClassName: { default: "" },
     tableClassName: { default: "" },
     headerClassName: { default: "" },
     bodyClassName: { default: "" },
@@ -2178,7 +2178,7 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
       loading: b,
       items: h,
       rowsPerPage: w,
-      searchField: B,
+      searchField: N,
       searchValue: $,
       serverItemsLength: O,
       showIndex: M,
@@ -2191,7 +2191,7 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
       clickRowToExpand: Pe,
       clickRowToSelect: V,
       fixedExpand: Ce,
-      fixedCheckbox: N,
+      fixedCheckbox: B,
       fixedIndex: j,
       batchSelectionThreshold: L,
       expandColumn: E
@@ -2219,7 +2219,7 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
       r,
       o,
       i,
-      N,
+      B,
       Ce,
       j,
       g,
@@ -2251,15 +2251,15 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
       totalItemsLength: $e,
       toggleSelectAll: $t,
       toggleSelectItem: Xe,
-      isProcessing: Bt,
-      processProgress: Nt
+      isProcessing: Nt,
+      processProgress: Bt
     } = wa(
       Ge,
       n,
       ne,
       h,
       v,
-      B,
+      N,
       $,
       O,
       ee,
@@ -2268,8 +2268,8 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
       Q
     ), {
       currentPaginationNumber: de,
-      maxPaginationNumber: Be,
-      isLastPage: Ne,
+      maxPaginationNumber: Ne,
+      isLastPage: Be,
       isFirstPage: Ae,
       nextPage: Fe,
       prevPage: Re,
@@ -2358,7 +2358,7 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
       ne.value ? Pt(f) : Se(1);
     }), fe([$, n], () => {
       ne.value || Se(1);
-    }), fe([de, Ge, B, $, n], () => {
+    }), fe([de, Ge, N, $, n], () => {
       at();
     }, { deep: !0 }), fe(ce, (f) => {
       Q("updatePageItems", f);
@@ -2368,9 +2368,9 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
       currentPageFirstIndex: _e,
       currentPageLastIndex: et,
       clientItemsLength: $e,
-      maxPaginationNumber: Be,
+      maxPaginationNumber: Ne,
       currentPaginationNumber: de,
-      isLastPage: Ne,
+      isLastPage: Be,
       isFirstPage: Ae,
       nextPage: Fe,
       prevPage: Re,
@@ -2381,12 +2381,12 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
     }), (f, se) => (m(), x("div", {
       ref_key: "tableWrapper",
       ref: te,
-      class: S(["vdt-table-wrapper relative w-full", [f.tableWrapperClass]])
+      class: S(["vdt-table-wrapper relative w-full", [f.wrapperClassName]])
     }, [
       C("div", {
         ref_key: "tableContainer",
         ref: ae,
-        class: S(["vdt-table-container relative overflow-auto border scroll-smooth border-gray-200 min-h-[180px]", [{ "shadow-sm": c(rt) }, f.tableContainerClass]])
+        class: S(["vdt-table-container relative overflow-auto border scroll-smooth border-gray-200 min-h-[180px]", [{ "shadow-sm": c(rt) }, f.containerClassName]])
       }, [
         C("table", {
           id: f.tableNodeId,
@@ -2430,7 +2430,7 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
           }, [
             I(f.$slots, "body-prepend", q(le({
               items: c(ce),
-              pagination: { isFirstPage: c(Ae), isLastPage: c(Ne), currentPaginationNumber: c(de), maxPaginationNumber: c(Be), nextPage: c(Fe), prevPage: c(Re) },
+              pagination: { isFirstPage: c(Ae), isLastPage: c(Be), currentPaginationNumber: c(de), maxPaginationNumber: c(Ne), nextPage: c(Fe), prevPage: c(Re) },
               headers: c(he)
             }))),
             (m(!0), x(oe, null, Y(c(ce), (A, T) => (m(), x(oe, {
@@ -2478,7 +2478,7 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
             ], 64))), 128)),
             I(f.$slots, "body-append", q(le({
               items: c(ce),
-              pagination: { isFirstPage: c(Ae), isLastPage: c(Ne), currentPaginationNumber: c(de), maxPaginationNumber: c(Be), nextPage: c(Fe), prevPage: c(Re), updatePage: c(Se) },
+              pagination: { isFirstPage: c(Ae), isLastPage: c(Be), currentPaginationNumber: c(de), maxPaginationNumber: c(Ne), nextPage: c(Fe), prevPage: c(Re), updatePage: c(Se) },
               headers: c(he)
             })))
           ], 2)) : D("", !0)
@@ -2511,9 +2511,9 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
         currentPageLastIndex: c(et),
         totalItemsLength: c($e),
         currentPaginationNumber: c(de),
-        maxPaginationNumber: c(Be),
+        maxPaginationNumber: c(Ne),
         isFirstPage: c(Ae),
-        isLastPage: c(Ne)
+        isLastPage: c(Be)
       }, {
         "onUpdate:rowsPerPage": c(Ze),
         onNextPage: c(Fe),
@@ -2535,8 +2535,8 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
           key: "1"
         } : void 0
       ]), 1040, ["onUpdate:rowsPerPage", "onNextPage", "onPrevPage", "onUpdatePage"]),
-      ze(W(ta, { progress: c(Nt) }, null, 8, ["progress"]), [
-        [Ue, c(Bt)]
+      ze(W(ta, { progress: c(Bt) }, null, 8, ["progress"]), [
+        [Ue, c(Nt)]
       ])
     ], 2));
   }
