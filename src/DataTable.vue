@@ -1,9 +1,9 @@
 <template>
-    <div ref="tableWrapper" class="vdt-table-wrapper relative w-full" :class="[tableWrapperClass]">
+    <div ref="tableWrapper" class="vdt-table-wrapper relative w-full" :class="[wrapperClassName]">
         <!-- Main Table Container -->
         <div ref="tableContainer"
             class="vdt-table-container relative overflow-auto border scroll-smooth border-gray-200 min-h-[180px]"
-            :class="[{ 'shadow-sm': showShadow }, tableContainerClass]">
+            :class="[{ 'shadow-sm': showShadow }, containerClassName]">
             <table :id="tableNodeId" class="vdt-table w-full border-collapse bg-white" :class="[tableClassName]">
                 <colgroup>
                     <col v-for="(header, index) in headersForRender" :key="index" :style="getColStyle(header)" />
@@ -26,9 +26,11 @@
                 }" :is-multi-sorting="isMultiSorting" :get-multi-sort-number="getMultiSortNumber"
                     :get-fixed-distance="getFixedDistance" @header-click="handleHeaderClick"
                     @toggle-select-all="toggleSelectAll">
+
                     <template v-for="(_, name) in $slots" #[name]="slotData">
                         <slot :name="name" v-bind="slotData"></slot>
                     </template>
+
                 </TableHeader>
 
                 <!-- Table Body -->
@@ -59,7 +61,6 @@
                             <template v-for="(_, name) in $slots" #[name]="slotData">
                                 <slot :name="name" v-bind="slotData"></slot>
                             </template>
-
                         </TableBodyRow>
 
                         <!-- Expandable Row -->
@@ -195,9 +196,10 @@ const props = withDefaults(defineProps<DataTableProps>(), {
     sortBy: '',
     sortType: 'asc',
     multiSort: false,
-    tableWrapperClass: '',
-    tableContainerClass: '',
-    tableClassName:'',
+
+    wrapperClassName: '',
+    containerClassName: '',
+    tableClassName: '',
     headerClassName: '',
     headerItemClassName: '',
     bodyClassName: '',

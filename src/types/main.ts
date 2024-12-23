@@ -243,10 +243,6 @@ export interface DataTableProps {
     noHover?: boolean
     /** 單元格邊框 */
     borderCell?: boolean
-    /** 表格包覆層 CSS */
-    tableWrapperClass?: string,
-    /** 內容 CSS 類名 */
-    tableContainerClass?: string,
 
     // 列配置
     /** 複選框列寬度 */
@@ -270,6 +266,11 @@ export interface DataTableProps {
     fixedIndex?: boolean
 
     // 樣式類名配置
+    /** 表格包覆層 CSS */
+    wrapperClassName?: string,
+    /** 內容 CSS 類名 */
+    containerClassName?: string,
+    /** 表格 CSS 類名 */
     tableClassName?: string,
     /** 表頭 CSS 類名 */
     headerClassName?: string,
