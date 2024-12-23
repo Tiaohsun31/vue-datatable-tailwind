@@ -54,13 +54,13 @@
 
 除了原本的[Props](https://hc200ok.github.io/vue3-easy-data-table-doc/props/common-props.html)外，新增下面Props
 
-| **Name**                | **Required** | **Type**                                                       | **Default**                             | **Description**                                                |
-| ----------------------- | ------------ | -------------------------------------------------------------- | --------------------------------------- | -------------------------------------------------------------- |
-| expand-column           | false        | string                                                         | ‘’                                      | 指定某Column欄位可以擴展 　                                    |
-| theme                   | false        | string or ThemeConfig({ color: 'indigo', variant: 'DEFAULT' }) | { color: 'indigo', variant: 'DEFAULT' } | 取代theme-color，可填入 HEX ‘#42b883’，或者Tailwind Color Name |
-| batchSelectionThreshold | false        | number                                                         | 10,000                                  | 超過預設值，啟用批次選擇，具有Loading樣式                      |
-| clickRowToSelect        | false        | boolean                                                        | false                                   | 點擊列，是否選擇項目                                           |
-| disabledRows            | false        | BodyRowDisabledFunction = (item: Item) => boolean              | false                                   | 禁止特定行被選取                                               |
+| **Name**                | **Required** | **Type**                                                              | **Default**                             | **Description**                                                |
+| ----------------------- | ------------ | --------------------------------------------------------------------- | --------------------------------------- | -------------------------------------------------------------- |
+| expand-column           | false        | string                                                                | ‘’                                      | 指定某Column欄位可以擴展 　                                    |
+| theme                   | false        | string or ThemeConfig({ color: 'indigo', variant: 'DEFAULT' })        | { color: 'indigo', variant: 'DEFAULT' } | 取代theme-color，可填入 HEX ‘#42b883’，或者Tailwind Color Name |
+| batchSelectionThreshold | false        | number                                                                | 10,000                                  | 超過預設值，啟用批次選擇，具有Loading樣式                      |
+| clickRowToSelect        | false        | boolean                                                               | false                                   | 點擊列，是否選擇項目                                           |
+| disabledRows            | false        | BodyRowDisabledFunction = (item: Item, rowNumber?: number) => boolean | false                                   | 禁止特定行被選取                                               |
 
 ## Slot
 
@@ -78,7 +78,7 @@ export default {
         "./index.html",
         "./src/**/*.{vue,js,ts,jsx,tsx}",
         // 添加 node_modules 中 DataTable 的內容
-        "./node_modules/vue-datatable-tailwind/dist/**/*.{js,vue}"
+        "./node_modules/@tiaohsun/vue-datatable-tailwind/dist/**/*.{js,vue}"
     ]
 }
 ```

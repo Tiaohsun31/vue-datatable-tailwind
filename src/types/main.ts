@@ -149,7 +149,7 @@ export type FilterOption =
 export type HeaderItemClassNameFunction = (header: Header, columnNumber: number) => string
 export type BodyRowClassNameFunction = (item: Item, rowNumber: number) => string
 export type BodyItemClassNameFunction = (column: string, rowNumber: number) => string
-export type BodyRowDisabledFunction = (item: Item) => boolean
+export type BodyRowDisabledFunction = (item: Item, rowNumber?: number) => boolean
 
 // 組件實例類型
 // /**

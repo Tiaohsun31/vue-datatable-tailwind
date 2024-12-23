@@ -52,13 +52,13 @@ The project is only a customized version. Please read the document below for rel
 
 In addition to the original [Props](https://hc200ok.github.io/vue3-easy-data-table-doc/props/common-props.html), the following new props have been added:
 
-| **Name**                | **Required** | **Type**                                                       | **Default**                             | **Description**                                                                      |
-| ----------------------- | ------------ | -------------------------------------------------------------- | --------------------------------------- | ------------------------------------------------------------------------------------ |
-| expand-column           | false        | string                                                         | ‘’                                      | Specifies which column can be expanded.                                              |
-| theme                   | false        | string or ThemeConfig({ color: 'indigo', variant: 'DEFAULT' }) | { color: 'indigo', variant: 'DEFAULT' } | Replaces `theme-color`. Accepts HEX values like `#42b883` or Tailwind color names.   |
-| batchSelectionThreshold | false        | number                                                         | 10,000                                  | Enables batch selection for datasets exceeding this threshold, with a loading style. |
-| clickRowToSelect        | false        | boolean                                                        | false                                   | Click on the column to select the item or not                                        |
-| disabledRows            | false        | BodyRowDisabledFunction = (item: Item) => boolean              | false                                   | Disable specific rows from being selected                                            |
+| **Name**                | **Required** | **Type**                                                              | **Default**                             | **Description**                                                                      |
+| ----------------------- | ------------ | --------------------------------------------------------------------- | --------------------------------------- | ------------------------------------------------------------------------------------ |
+| expand-column           | false        | string                                                                | ‘’                                      | Specifies which column can be expanded.                                              |
+| theme                   | false        | string or ThemeConfig({ color: 'indigo', variant: 'DEFAULT' })        | { color: 'indigo', variant: 'DEFAULT' } | Replaces `theme-color`. Accepts HEX values like `#42b883` or Tailwind color names.   |
+| batchSelectionThreshold | false        | number                                                                | 10,000                                  | Enables batch selection for datasets exceeding this threshold, with a loading style. |
+| clickRowToSelect        | false        | boolean                                                               | false                                   | Click on the column to select the item or not                                        |
+| disabledRows            | false        | BodyRowDisabledFunction = (item: Item, rowNumber?: number) => boolean | false                                   | Disable specific rows from being selected                                            |
 
 ## Slots
 
@@ -76,7 +76,7 @@ export default {
         "./index.html",
         "./src/**/*.{vue,js,ts,jsx,tsx}",
         // Add the contents of DataTable in node_modules
-        "./node_modules/vue-datatable-tailwind/dist/**/*.{js,vue}"
+        "./node_modules/@tiaohsun/vue-datatable-tailwind/dist/**/*.{js,vue}"
     ]
 }
 ```
