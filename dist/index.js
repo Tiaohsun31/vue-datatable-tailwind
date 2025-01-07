@@ -1350,15 +1350,15 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
     };
     return (d, l) => (m(), x("th", {
       style: ie(e.fixedDistance),
-      class: S(["vdt-thead-th px-4 py-3 font-semibold tracking-wider bg-gray-100 group", [
+      class: S(["vdt-thead-th px-4 py-3 font-semibold tracking-wider bg-gray-200 group", [
         "px-4 py-3 font-semibold tracking-wider group",
         {
-          "cursor-pointer hover:bg-gray-200": e.header.sortable,
+          "cursor-pointer hover:bg-gray-300": e.header.sortable,
           "shadow-[1px_0_0_0_rgba(0,0,0,0.1)]": e.header.value === e.lastFixedColumn
         },
         e.header.sortable && {
-          "bg-gray-100": e.header.sortType === "none",
-          "bg-gray-200": e.header.sortType && ["desc", "asc"].includes(e.header.sortType)
+          "bg-gray-200": e.header.sortType === "none",
+          "bg-gray-300": e.header.sortType && ["desc", "asc"].includes(e.header.sortType)
         },
         typeof e.headerItemClassName == "string" ? e.headerItemClassName : e.headerItemClassName(e.header, e.index + 1)
       ]]),
@@ -1539,8 +1539,8 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
     };
     return (r, u) => (m(), x("tr", {
       class: S(["vdt-tbody-tr transition-colors", [
-        { "bg-gray-50": r.alternating && r.index % 2 === 0 },
-        { "bg-white": !r.alternating || r.index % 2 === 1 },
+        { "bg-white": r.alternating && r.index % 2 === 0 },
+        { "bg-gray-50": !r.alternating || r.index % 2 === 1 },
         { "hover:bg-gray-100": !r.noHover },
         { "divide-x divide-gray-200": r.borderCell },
         o.value

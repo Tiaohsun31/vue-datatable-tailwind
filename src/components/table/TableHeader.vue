@@ -13,7 +13,7 @@
                 :is-multi-sorting="isMultiSorting" :get-multi-sort-number="getMultiSortNumber"
                 @header-click="handleHeaderClick" @toggle-select-all="toggleSelectAll">
                 <template v-for="(_, name) in $slots" #[name]="slotData">
-                    <slot :name="name" v-bind="slotData" />
+                    <slot :name="name" v-bind="slotData"></slot>
                 </template>
             </TableHeaderCell>
         </tr>

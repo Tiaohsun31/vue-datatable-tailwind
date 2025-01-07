@@ -1,17 +1,18 @@
 <!-- components/table/BodyRow.vue -->
 <template>
     <tr class="vdt-tbody-tr transition-colors " :class="[
-        { 'bg-gray-50': alternating && index % 2 === 0 },
-        { 'bg-white': !alternating || index % 2 === 1 },
+        { 'bg-white': alternating && index % 2 === 0 },
+        { 'bg-gray-50': !alternating || index % 2 === 1 },
         { 'hover:bg-gray-100': !noHover },
         { 'divide-x divide-gray-200': borderCell },
         rowClassName
     ]" @click="handleRowClick" @dblclick="handleRowDoubleClick" @contextmenu="handleContextMenu">
         <slot name="prepend"></slot>
         <template v-for="(column, columnIndex) in columns" :key="columnIndex">
-            <TableBodyCell :column="column" :item="item" :index="index"
-            :style="getFixedDistance?.(column, 'td')" :is-disabled="isDisabled"  @toggle-select="() => $emit('toggle-select', item)"
-                :expand-column="expandColumn" :is-expanded="isExpanded" @toggle-expand="(event) => $emit('toggle-expand', event, index, item)">
+            <TableBodyCell :column="column" :item="item" :index="index" :style="getFixedDistance?.(column, 'td')"
+                :is-disabled="isDisabled" @toggle-select="() => $emit('toggle-select', item)"
+                :expand-column="expandColumn" :is-expanded="isExpanded"
+                @toggle-expand="(event) => $emit('toggle-expand', event, index, item)">
 
                 <template v-for="(_, name) in $slots" #[name]="slotData">
                     <slot :name="name" v-bind="slotData"></slot>

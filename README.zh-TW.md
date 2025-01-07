@@ -50,6 +50,37 @@
 - `theme:'#6366f1'`
 - `:theme:{ color:'indigo', variant: 'DEFAULT' }`
 
+## Class
+
+因為改TailwindCSS進行樣式管理，部分樣式渲染會落後於預設樣式，請採用下列方式
+
+1. 使用 Tailwind 的 `!` 修飾符來強制應用樣式
+
+```typescript
+const bodyRowClassNameFunction: BodyRowClassNameFunction = (
+  item: Item,
+  rowNumber: number,
+): string => {
+  if (item.gender === '男') return '!bg-blue-100'
+  return '!bg-red-100'
+}
+```
+
+2. 修改奇偶行的樣式
+
+```typescript
+const bodyRowClassNameFunction: BodyRowClassNameFunction = (
+  item: Item,
+  rowNumber: number,
+): string => {
+  const isEven = rowNumber % 2 === 0
+  if (item.gender === '男') {
+    return isEven ? 'even:!bg-blue-100 odd:bg-blue-100' : 'odd:!bg-blue-100 even:bg-blue-100'
+  }
+  return isEven ? 'even:!bg-red-100 odd:bg-red-100' : 'odd:!bg-red-100 even:bg-red-100'
+}
+```
+
 ## Props
 
 除了原本的[Props](https://hc200ok.github.io/vue3-easy-data-table-doc/props/common-props.html)外，新增下面Props

@@ -1,14 +1,14 @@
 <!-- components/table/TableHeaderCell.vue -->
 <template>
-    <th :style="fixedDistance" class="vdt-thead-th px-4 py-3 font-semibold tracking-wider bg-gray-100 group" :class="[
+    <th :style="fixedDistance" class="vdt-thead-th px-4 py-3 font-semibold tracking-wider bg-gray-200 group" :class="[
         'px-4 py-3 font-semibold tracking-wider group',
         {
-            'cursor-pointer hover:bg-gray-200': header.sortable,
+            'cursor-pointer hover:bg-gray-300': header.sortable,
             'shadow-[1px_0_0_0_rgba(0,0,0,0.1)]': header.value === lastFixedColumn,
         },
         header.sortable && {
-            'bg-gray-100': header.sortType === 'none',
-            'bg-gray-200': header.sortType && ['desc', 'asc'].includes(header.sortType)
+            'bg-gray-200': header.sortType === 'none',
+            'bg-gray-300': header.sortType && ['desc', 'asc'].includes(header.sortType)
         },
         typeof headerItemClassName === 'string'
             ? headerItemClassName

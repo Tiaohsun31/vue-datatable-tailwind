@@ -48,6 +48,37 @@ The project is only a customized version. Please read the document below for rel
 - `theme:'#6366f1'`
 - `:theme:{ color:'indigo', variant: 'DEFAULT' }`
 
+## Class
+
+Because TailwindCSS is modified for style management, the rendering of some styles will lag behind the default styles. Please use the following methods.
+
+1. Use Tailwind's `!` modifier to force styles to be applied
+
+```typescript
+const bodyRowClassNameFunction: BodyRowClassNameFunction = (
+  item: Item,
+  rowNumber: number,
+): string => {
+  if (item.gender === 'male') return '!bg-blue-100'
+  return '!bg-red-100'
+}
+```
+
+2. Modify the style of odd and even rows
+
+```typescript
+const bodyRowClassNameFunction: BodyRowClassNameFunction = (
+  item: Item,
+  rowNumber: number,
+): string => {
+  const isEven = rowNumber % 2 === 0
+  if (item.gender === 'male') {
+    return isEven ? 'even:!bg-blue-100 odd:bg-blue-100' : 'odd:!bg-blue-100 even:bg-blue-100'
+  }
+  return isEven ? 'even:!bg-red-100 odd:bg-red-100' : 'odd:!bg-red-100 even:bg-red-100'
+}
+```
+
 ## Props
 
 In addition to the original [Props](https://hc200ok.github.io/vue3-easy-data-table-doc/props/common-props.html), the following new props have been added:
