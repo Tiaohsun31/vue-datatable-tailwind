@@ -19,7 +19,7 @@
         <template v-else-if="isExpandColumn">
             <slot name="expand-button" v-bind="{ item, expanded: isExpanded, toggle: handleExpandToggle }">
                 <button @click.stop="handleExpandToggle" class="inline-flex items-center">
-                    <IconExpandColumn :class="{ 'transform -rotate-90': isExpanded }" />
+                    <IconExpand :class="{ 'transform rotate-90': isExpanded }" />
                 </button>
             </slot>
         </template>
@@ -41,7 +41,7 @@
 import { computed } from 'vue'
 import type { Item } from '../../types/main'
 import SingleSelectCheckbox from '../selections/SingleSelectCheckBox.vue'
-import { IconExpandColumn } from '../icons'
+import { IconExpand } from '../icons'
 import { generateColumnContent } from '../../utils/utils'
 
 const props = defineProps<{

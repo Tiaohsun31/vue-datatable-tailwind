@@ -102,6 +102,7 @@ declare const __VLS_component: DefineComponent<DataTableProps, {
     clickRowToExpand: boolean;
     tableNodeId: string;
     preventContextMenuRow: boolean;
+    expandTransition: boolean;
     batchSelectionThreshold: number;
 }, {}, {}, {}, string, ComponentProvideOptions, false, {}, HTMLDivElement>;
 
@@ -418,6 +419,8 @@ export declare interface DataTableProps {
     preventContextMenuRow?: boolean;
     /** 指定展開按鈕所在列 */
     expandColumn?: string;
+    /** 是否啟用展開過渡效果 */
+    expandTransition?: boolean;
     /** 批量選擇閾值 */
     batchSelectionThreshold?: number;
 }

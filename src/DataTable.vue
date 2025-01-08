@@ -36,8 +36,7 @@
                 <!-- Table Body -->
                 <slot v-if="ifHasBodySlot" name="body" v-bind="pageItems"></slot>
 
-                <tbody v-else-if="headerColumns.length" class="vdt-tbody text-sm divide-y divide-gray-200"
-                    :class="[bodyClassName]">
+                <tbody v-else-if="headerColumns.length" class="vdt-tbody text-sm" :class="[bodyClassName]">
                     <!-- Body Prepend Slot -->
                     <slot name="body-prepend" v-bind="{
                         items: pageItems,
@@ -65,7 +64,7 @@
 
                         <!-- Expandable Row -->
                         <TableExpandRow
-                            v-if="ifHasExpandSlot && expandingItemIndexList.includes(index + prevPageEndIndex)"
+                            v-if="shouldEnableTransition || expandingItemIndexList.includes(index + prevPageEndIndex)"
                             :item="item" :index="index" :columns-count="headersForRender.length"
                             :loading="item.expandLoading"
                             :is-expanded="expandingItemIndexList.includes(index + prevPageEndIndex)"
@@ -220,6 +219,7 @@ const props = withDefaults(defineProps<DataTableProps>(), {
     showIndexSymbol: '#',
     preventContextMenuRow: false,
     expandColumn: '',
+    expandTransition: undefined,
     batchSelectionThreshold: 10000,
     theme: () => ({ color: 'indigo', variant: 'DEFAULT' }) as ThemeConfig,
     items: () => [],
@@ -267,6 +267,12 @@ provide('themeClasses', themeClasses);
 const slots = useSlots();
 const ifHasExpandSlot = computed(() => !!slots.expand);
 const ifHasBodySlot = computed(() => !!slots.body);
+
+const shouldEnableTransition = computed(() =>
+    typeof props.expandTransition !== 'undefined'
+        ? props.expandTransition
+        : ifHasExpandSlot.value
+)
 
 // global dataTable $ref
 const tableWrapper = ref<HTMLDivElement | null>(null);

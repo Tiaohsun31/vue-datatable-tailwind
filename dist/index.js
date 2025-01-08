@@ -1,16 +1,16 @@
-var qt = Object.defineProperty;
-var Wt = (e, t, a) => t in e ? qt(e, t, { enumerable: !0, configurable: !0, writable: !0, value: a }) : e[t] = a;
-var He = (e, t, a) => Wt(e, typeof t != "symbol" ? t + "" : t, a);
-import { defineComponent as R, inject as ye, openBlock as m, createElementBlock as x, Fragment as oe, renderList as Y, createElementVNode as C, normalizeClass as S, normalizeStyle as ie, unref as c, toDisplayString as z, ref as _, computed as y, onMounted as ht, onUnmounted as zt, watch as fe, createVNode as W, withModifiers as Ve, withDirectives as ze, vShow as Ue, createBlock as U, useSlots as bt, renderSlot as I, normalizeProps as q, guardReactiveProps as le, createCommentVNode as D, createSlots as pe, withCtx as G, mergeProps as J, createTextVNode as Ee, onBeforeUnmount as Ut, Transition as Vt, toRefs as Kt, provide as it } from "vue";
-const Gt = { class: "inline-flex relative w-[60px] h-[60px]" }, Jt = /* @__PURE__ */ R({
+var Wt = Object.defineProperty;
+var zt = (e, t, a) => t in e ? Wt(e, t, { enumerable: !0, configurable: !0, writable: !0, value: a }) : e[t] = a;
+var He = (e, t, a) => zt(e, typeof t != "symbol" ? t + "" : t, a);
+import { defineComponent as R, inject as ye, openBlock as m, createElementBlock as w, Fragment as oe, renderList as Y, createElementVNode as C, normalizeClass as S, normalizeStyle as le, unref as c, toDisplayString as z, ref as _, computed as y, onMounted as ht, onUnmounted as Ut, watch as fe, createVNode as W, withModifiers as Ve, withDirectives as ze, vShow as Ue, createBlock as U, useSlots as bt, renderSlot as I, normalizeProps as q, guardReactiveProps as re, createCommentVNode as D, createSlots as pe, withCtx as G, mergeProps as J, createTextVNode as Ee, onBeforeUnmount as Vt, Transition as Kt, toRefs as Gt, provide as it } from "vue";
+const Jt = { class: "inline-flex relative w-[60px] h-[60px]" }, Yt = /* @__PURE__ */ R({
   __name: "Loading",
   setup(e) {
     const t = ye("themeClasses");
-    return (a, s) => (m(), x("div", Gt, [
-      (m(), x(oe, null, Y(4, (o) => C("div", {
-        key: o,
-        class: S(["box-border absolute w-4/5 h-4/5 m-2 border-[8px] border-transparent rounded-full animate-ring", [`animate-delay-${(o - 1) * 150}`]]),
-        style: ie({
+    return (a, n) => (m(), w("div", Jt, [
+      (m(), w(oe, null, Y(4, (l) => C("div", {
+        key: l,
+        class: S(["box-border absolute w-4/5 h-4/5 m-2 border-[8px] border-transparent rounded-full animate-ring", [`animate-delay-${(l - 1) * 150}`]]),
+        style: le({
           borderTopColor: c(t).hex
         })
       }, null, 6)), 64))
@@ -18,82 +18,82 @@ const Gt = { class: "inline-flex relative w-[60px] h-[60px]" }, Jt = /* @__PURE_
   }
 }), me = (e, t) => {
   const a = e.__vccOpts || e;
-  for (const [s, o] of t)
-    a[s] = o;
+  for (const [n, l] of t)
+    a[n] = l;
   return a;
-}, Yt = /* @__PURE__ */ me(Jt, [["__scopeId", "data-v-e9a27991"]]), Zt = { class: "absolute inset-0 bg-black/50 flex items-center justify-center z-50" }, Qt = { class: "bg-white p-6 rounded-lg shadow-xl space-y-4" }, Xt = { class: "w-64" }, _t = { class: "h-2 bg-gray-200 rounded" }, ea = { class: "text-center text-sm text-gray-600" }, ta = /* @__PURE__ */ R({
+}, Zt = /* @__PURE__ */ me(Yt, [["__scopeId", "data-v-e9a27991"]]), Qt = { class: "absolute inset-0 bg-black/50 flex items-center justify-center z-50" }, Xt = { class: "bg-white p-6 rounded-lg shadow-xl space-y-4" }, _t = { class: "w-64" }, ea = { class: "h-2 bg-gray-200 rounded" }, ta = { class: "text-center text-sm text-gray-600" }, aa = /* @__PURE__ */ R({
   __name: "SelectionLoadingOverlay",
   props: {
     progress: {}
   },
   setup(e) {
     const t = ye("themeClasses");
-    return (a, s) => (m(), x("div", Zt, [
-      C("div", Qt, [
-        s[0] || (s[0] = C("div", { class: "text-center text-lg font-medium" }, " Processing data selection... ", -1)),
-        C("div", Xt, [
-          C("div", _t, [
+    return (a, n) => (m(), w("div", Qt, [
+      C("div", Xt, [
+        n[0] || (n[0] = C("div", { class: "text-center text-lg font-medium" }, " Processing data selection... ", -1)),
+        C("div", _t, [
+          C("div", ea, [
             C("div", {
               class: "h-2 rounded transition-all duration-300 ease-out",
-              style: ie({ width: `${a.progress}%`, backgroundColor: c(t).hex })
+              style: le({ width: `${a.progress}%`, backgroundColor: c(t).hex })
             }, null, 4)
           ])
         ]),
-        C("div", ea, z(Math.round(a.progress)) + "% ", 1)
+        C("div", ta, z(Math.round(a.progress)) + "% ", 1)
       ])
     ]));
   }
 });
-function aa(e, t, a, s, o, i, d, l, r) {
+function na(e, t, a, n, l, i, d, o, r) {
   const u = (b, h) => {
-    const w = { ...b };
-    return t.value && (delete w.checkbox, w.isSelected = b.checkbox), a.value && (delete w.index, w.indexInCurrentPage = h + 1), w;
+    const x = { ...b };
+    return t.value && (delete x.checkbox, x.isSelected = b.checkbox), a.value && (delete x.index, x.indexInCurrentPage = h + 1), x;
   };
   return {
-    handleRowClick: (b, h, w) => {
-      if (!b.target.closest(".checkbox, .expand-button") && (o.value && d(w, h, b), i.value && !s(h) && l(h), e.value === "single")) {
-        const N = u(h, w);
-        r("clickRow", N, b);
+    handleRowClick: (b, h, x) => {
+      if (!b.target.closest(".checkbox, .expand-button") && (l.value && d(x, h, b), i.value && !n(h) && o(h), e.value === "single")) {
+        const B = u(h, x);
+        r("clickRow", B, b);
       }
     },
-    handleRowDoubleClick: (b, h, w) => {
+    handleRowDoubleClick: (b, h, x) => {
       if (e.value === "double") {
-        const N = u(h, w);
-        r("clickRow", N, b);
+        const B = u(h, x);
+        r("clickRow", B, b);
       }
     },
     handleRowContextMenu: (b, h) => {
-      const w = u(h, -1);
-      r("contextmenuRow", w, b);
+      const x = u(h, -1);
+      r("contextmenuRow", x, b);
     }
   };
 }
-function na(e, t, a) {
-  const s = _([]);
+function sa(e, t, a) {
+  const n = _([]);
   return {
-    expandingItemIndexList: s,
+    expandingItemIndexList: n,
     // 展開項的索引列表
-    updateExpandingItemIndexList: (d, l, r) => {
+    updateExpandingItemIndexList: (d, o, r) => {
       r.stopPropagation();
-      const u = s.value.indexOf(d);
+      const u = n.value.indexOf(d);
       if (u !== -1)
-        s.value.splice(u, 1);
+        n.value.splice(u, 1);
       else {
-        const n = e.value.findIndex((g) => JSON.stringify(g) === JSON.stringify(l));
-        a("expandRow", t.value + n, l), s.value.push(t.value + n);
+        const s = e.value.findIndex((g) => JSON.stringify(g) === JSON.stringify(o));
+        a("expandRow", t.value + s, o), n.value.push(t.value + s);
       }
     },
     // 更新展開狀態的方法
     clearExpandingItemIndexList: () => {
-      s.value = [];
+      n.value = [];
     }
     // 清空展開列表的方法
   };
 }
-function sa(e, t) {
-  const a = y(() => e.value.filter((l) => l.fixed)), s = y(() => a.value.length ? a.value[a.value.length - 1].value : ""), o = y(() => {
+function ra(e, t) {
+  const a = y(() => e.value.filter((o) => o.fixed)), n = y(() => a.value.length ? a.value[a.value.length - 1].value : ""), l = y(() => {
     if (!a.value.length) return [];
-    const l = a.value.map((r) => r.width ?? 100);
+    const o = a.value.map((r) => r.width ?? 100);
     return a.value.map((r, u) => ({
       value: r.value,
       // 列標籤
@@ -102,50 +102,50 @@ function sa(e, t) {
       width: r.width ?? 100,
       // 列寬度
       // 計算距離左側的距離
-      distance: u === 0 ? 0 : l.reduce((n, g, v) => v < u ? n + g : n, 0)
+      distance: u === 0 ? 0 : o.reduce((s, g, v) => v < u ? s + g : s, 0)
     }));
   }), i = _(!1);
   let d = null;
   return ht(() => {
-    const l = t.value;
-    if (l) {
+    const o = t.value;
+    if (o) {
       const r = () => {
-        i.value = l.scrollLeft > 0;
+        i.value = o.scrollLeft > 0;
       };
-      r(), l.addEventListener("scroll", r), d = () => {
-        l.removeEventListener("scroll", r);
+      r(), o.addEventListener("scroll", r), d = () => {
+        o.removeEventListener("scroll", r);
       };
     }
-  }), zt(() => {
+  }), Ut(() => {
     d && (d(), d = null);
   }), {
     fixedHeaders: a,
-    lastFixedColumn: s,
-    fixedColumnsInfos: o,
+    lastFixedColumn: n,
+    fixedColumnsInfos: l,
     showShadow: i
   };
 }
-function ra(e, t, a, s, o, i, d, l, r, u, n, g, v, b, h, w, N, $, O, M) {
+function oa(e, t, a, n, l, i, d, o, r, u, s, g, v, b, h, x, B, $, O, M) {
   const Z = y(() => d.value.length ? {
-    hasFixedColumns: d.value.some((B) => B.fixed),
-    fixedHeaders: d.value.filter((B) => B.fixed),
-    unFixedHeaders: d.value.filter((B) => !B.fixed)
+    hasFixedColumns: d.value.some((N) => N.fixed),
+    fixedHeaders: d.value.filter((N) => N.fixed),
+    unFixedHeaders: d.value.filter((N) => !N.fixed)
   } : { hasFixedColumns: !1, fixedHeaders: [], unFixedHeaders: [] }), H = _(
-    la(h.value, w.value, N.value)
-  ), { determineHeaderSortState: ue } = ua(n, v, N, H), ee = y(() => {
-    const { fixedHeaders: B, unFixedHeaders: j } = Z.value, L = [...B, ...j].map((E) => ({
+    la(h.value, x.value, B.value)
+  ), { determineHeaderSortState: ie } = da(s, v, B, H), ee = y(() => {
+    const { fixedHeaders: N, unFixedHeaders: j } = Z.value, L = [...N, ...j].map((E) => ({
       ...E,
-      sortType: E.sortable ? ue(E.value) : void 0
+      sortType: E.sortable ? ie(E.value) : void 0
     }));
     return [
-      ...Object.values(xe.value).filter(Boolean),
+      ...Object.values(we.value).filter(Boolean),
       ...L
     ];
-  }), xe = y(() => ({
+  }), we = y(() => ({
     checkbox: u.value && {
       text: "checkbox",
       value: "checkbox",
-      fixed: s.value || Z.value.hasFixedColumns,
+      fixed: n.value || Z.value.hasFixedColumns,
       width: t.value ?? 36
     },
     index: b.value && {
@@ -154,34 +154,34 @@ function ra(e, t, a, s, o, i, d, l, r, u, n, g, v, b, h, w, N, $, O, M) {
       fixed: i.value || Z.value.hasFixedColumns,
       width: r.value
     },
-    expand: l.value && !$.value && {
+    expand: o.value && !$.value && {
       text: "",
       value: "expand",
-      fixed: o.value || Z.value.hasFixedColumns,
+      fixed: l.value || Z.value.hasFixedColumns,
       width: a.value
     }
-  })), we = y(
-    () => ee.value.map((B) => B.value)
-  ), Pe = (B, j) => {
+  })), xe = y(
+    () => ee.value.map((N) => N.value)
+  ), Pe = (N, j) => {
     const L = j === "none" ? "asc" : j === "asc" ? "desc" : g.value ? "asc" : null;
-    if (n.value) {
-      O(B, L);
+    if (s.value) {
+      O(N, L);
       return;
     }
-    const E = N.value ? oa(B, L, H.value) : ia(B, L);
-    H.value = E, M("updateSort", { sortType: L, sortBy: B });
-  }, V = y(() => (B) => {
+    const E = B.value ? ia(N, L, H.value) : ua(N, L);
+    H.value = E, M("updateSort", { sortType: L, sortBy: N });
+  }, V = y(() => (N) => {
     var L, E;
-    const j = n.value ? (L = v.value) == null ? void 0 : L.sortBy : (E = H.value) == null ? void 0 : E.sortBy;
-    return Array.isArray(j) && j.includes(B);
-  }), Ce = y(() => (B) => {
+    const j = s.value ? (L = v.value) == null ? void 0 : L.sortBy : (E = H.value) == null ? void 0 : E.sortBy;
+    return Array.isArray(j) && j.includes(N);
+  }), Ce = y(() => (N) => {
     var L, E;
-    const j = n.value ? (L = v.value) == null ? void 0 : L.sortBy : (E = H.value) == null ? void 0 : E.sortBy;
-    return Array.isArray(j) ? j.indexOf(B) + 1 : !1;
+    const j = s.value ? (L = v.value) == null ? void 0 : L.sortBy : (E = H.value) == null ? void 0 : E.sortBy;
+    return Array.isArray(j) ? j.indexOf(N) + 1 : !1;
   });
   return {
     clientSortOptions: H,
-    headerColumns: we,
+    headerColumns: xe,
     headersForRender: ee,
     updateSortField: Pe,
     isMultiSorting: V,
@@ -191,46 +191,46 @@ function ra(e, t, a, s, o, i, d, l, r, u, n, g, v, b, h, w, N, $, O, M) {
 function la(e, t, a) {
   return a && Array.isArray(e) && Array.isArray(t) ? {
     sortBy: e,
-    sortDesc: t.map((s) => s === "desc")
+    sortDesc: t.map((n) => n === "desc")
   } : typeof e == "string" && e !== "" ? {
     sortBy: e,
     sortDesc: t === "desc"
   } : null;
 }
-const oa = (e, t, a) => {
+const ia = (e, t, a) => {
   if (!(a != null && a.sortBy) || !Array.isArray(a.sortBy) || !Array.isArray(a.sortDesc))
     return t === null ? null : {
       sortBy: [e],
       sortDesc: [t === "desc"]
     };
-  const s = a.sortBy.indexOf(e), o = [...a.sortBy], i = [...a.sortDesc];
-  return s === -1 && t !== null ? (o.push(e), i.push(t === "desc")) : t === null ? (o.splice(s, 1), i.splice(s, 1)) : i[s] = t === "desc", { sortBy: o, sortDesc: i };
-}, ia = (e, t) => t === null ? null : {
+  const n = a.sortBy.indexOf(e), l = [...a.sortBy], i = [...a.sortDesc];
+  return n === -1 && t !== null ? (l.push(e), i.push(t === "desc")) : t === null ? (l.splice(n, 1), i.splice(n, 1)) : i[n] = t === "desc", { sortBy: l, sortDesc: i };
+}, ua = (e, t) => t === null ? null : {
   sortBy: e,
   sortDesc: t === "desc"
 };
-function ua(e, t, a, s) {
-  const o = (l) => !e.value || !t.value ? i(l) : d(l), i = (l) => {
-    if (!s.value) return "none";
-    const { sortBy: r, sortDesc: u } = s.value;
+function da(e, t, a, n) {
+  const l = (o) => !e.value || !t.value ? i(o) : d(o), i = (o) => {
+    if (!n.value) return "none";
+    const { sortBy: r, sortDesc: u } = n.value;
     if (a.value && Array.isArray(r) && Array.isArray(u)) {
-      const n = r.indexOf(l);
-      return n !== -1 ? u[n] ? "desc" : "asc" : "none";
+      const s = r.indexOf(o);
+      return s !== -1 ? u[s] ? "desc" : "asc" : "none";
     }
-    return l === r ? u ? "desc" : "asc" : "none";
-  }, d = (l) => {
+    return o === r ? u ? "desc" : "asc" : "none";
+  }, d = (o) => {
     const { sortBy: r, sortType: u } = t.value;
     if (a.value && Array.isArray(r) && Array.isArray(u)) {
-      const n = r.indexOf(l);
-      return n !== -1 ? u[n] : "none";
+      const s = r.indexOf(o);
+      return s !== -1 ? u[s] : "none";
     }
-    return l === r && u ? u : "none";
+    return o === r && u ? u : "none";
   };
   return {
-    determineHeaderSortState: o
+    determineHeaderSortState: l
   };
 }
-class da {
+class ca {
   constructor() {
     He(this, "itemKeyCache", /* @__PURE__ */ new WeakMap());
     He(this, "pageCache", /* @__PURE__ */ new Map());
@@ -238,8 +238,8 @@ class da {
   getItemKey(t) {
     let a = this.itemKeyCache.get(t);
     if (!a) {
-      const { checkbox: s, index: o, ...i } = t;
-      a = Object.entries(i).sort(([d], [l]) => d.localeCompare(l)).map(([d, l]) => `${d}:${l}`).join("|"), this.itemKeyCache.set(t, a);
+      const { checkbox: n, index: l, ...i } = t;
+      a = Object.entries(i).sort(([d], [o]) => d.localeCompare(o)).map(([d, o]) => `${d}:${o}`).join("|"), this.itemKeyCache.set(t, a);
     }
     return a;
   }
@@ -247,34 +247,34 @@ class da {
     this.pageCache.clear();
   }
 }
-function ca(e, t, a, s, o, i, d, l, r, u) {
-  const n = new da(), g = y(
-    () => (e.value - 1) * o.value + 1
+function fa(e, t, a, n, l, i, d, o, r, u) {
+  const s = new ca(), g = y(
+    () => (e.value - 1) * l.value + 1
   ), v = y(() => a.value ? Math.min(
     r.value,
-    e.value * o.value
+    e.value * l.value
   ) : Math.min(
-    l.value.length,
-    e.value * o.value
-  )), b = y(() => a.value ? s.value : l.value.slice(
+    o.value.length,
+    e.value * l.value
+  )), b = y(() => a.value ? n.value : o.value.slice(
     g.value - 1,
     v.value
   )), h = y(() => d.value ? b.value.map(($, O) => ({
     index: g.value + O,
     ...$
-  })) : b.value), w = y(() => {
+  })) : b.value), x = y(() => {
     if (i.value.length === 0)
       return "noneSelected";
-    const $ = u ? l.value.filter((M) => !u(M)) : l.value;
+    const $ = u ? o.value.filter((M) => !u(M)) : o.value;
     return i.value.length === $.length && i.value.every(
       (Z) => $.some(
-        (H) => n.getItemKey(Z) === n.getItemKey(H)
+        (H) => s.getItemKey(Z) === s.getItemKey(H)
       )
     ) ? "allSelected" : "partSelected";
-  }), N = y(() => {
+  }), B = y(() => {
     if (!t.value)
       return h.value;
-    switch (w.value) {
+    switch (x.value) {
       case "allSelected":
         return h.value.map(($) => ({
           checkbox: !u || !u($),
@@ -289,7 +289,7 @@ function ca(e, t, a, s, o, i, d, l, r, u) {
       default:
         return h.value.map(($) => ({
           checkbox: i.value.some(
-            (M) => n.getItemKey($) === n.getItemKey(M)
+            (M) => s.getItemKey($) === s.getItemKey(M)
           ) && (!u || !u($)),
           ...$
         }));
@@ -298,46 +298,46 @@ function ca(e, t, a, s, o, i, d, l, r, u) {
   return {
     currentPageFirstIndex: g,
     currentPageLastIndex: v,
-    multipleSelectStatus: w,
-    pageItems: N
+    multipleSelectStatus: x,
+    pageItems: B
   };
 }
-function fa(e, t, a, s, o, i, d) {
-  const l = _(i.value ? i.value.page : e.value), r = y(() => Math.ceil(s.value / o.value)), u = y(() => r.value === 0 || l.value === r.value), n = y(() => l.value === 1);
+function ga(e, t, a, n, l, i, d) {
+  const o = _(i.value ? i.value.page : e.value), r = y(() => Math.ceil(n.value / l.value)), u = y(() => r.value === 0 || o.value === r.value), s = y(() => o.value === 1);
   return {
-    currentPaginationNumber: l,
+    currentPaginationNumber: o,
     maxPaginationNumber: r,
     isLastPage: u,
-    isFirstPage: n,
+    isFirstPage: s,
     nextPage: () => {
-      if (s.value !== 0 && !u.value && !a.value)
+      if (n.value !== 0 && !u.value && !a.value)
         if (t.value) {
-          const w = l.value + 1;
-          d(w);
+          const x = o.value + 1;
+          d(x);
         } else
-          l.value += 1;
+          o.value += 1;
     },
     prevPage: () => {
-      if (s.value !== 0 && !n.value && !a.value)
+      if (n.value !== 0 && !s.value && !a.value)
         if (t.value) {
-          const w = l.value - 1;
-          d(w);
+          const x = o.value - 1;
+          d(x);
         } else
-          l.value -= 1;
+          o.value -= 1;
     },
-    updatePage: (w) => {
-      a.value || (t.value ? d(w) : l.value = w);
+    updatePage: (x) => {
+      a.value || (t.value ? d(x) : o.value = x);
     },
-    updateCurrentPaginationNumber: (w) => {
-      l.value = w;
+    updateCurrentPaginationNumber: (x) => {
+      o.value = x;
     }
   };
 }
-function ga(e, t, a, s) {
-  var l;
-  const o = y(() => !e.value && t.value.findIndex((r) => r === s.value) === -1 ? [s.value, ...t.value] : t.value), i = _(((l = a.value) == null ? void 0 : l.rowsPerPage) ?? s.value);
+function pa(e, t, a, n) {
+  var o;
+  const l = y(() => !e.value && t.value.findIndex((r) => r === n.value) === -1 ? [n.value, ...t.value] : t.value), i = _(((o = a.value) == null ? void 0 : o.rowsPerPage) ?? n.value);
   return {
-    rowsItemsComputed: o,
+    rowsItemsComputed: l,
     // 計算後的每頁行數選項
     rowsPerPageRef: i,
     // 每頁行數
@@ -347,61 +347,61 @@ function ga(e, t, a, s) {
     // 更新每頁行數
   };
 }
-function pa(e, t, a) {
-  const s = y({
+function ma(e, t, a) {
+  const n = y({
     get: () => {
       if (e.value) {
-        const { page: l, rowsPerPage: r, sortBy: u, sortType: n } = e.value;
-        return { page: l, rowsPerPage: r, sortBy: u ?? null, sortType: n ?? null };
+        const { page: o, rowsPerPage: r, sortBy: u, sortType: s } = e.value;
+        return { page: o, rowsPerPage: r, sortBy: u ?? null, sortType: s ?? null };
       }
       return null;
     },
-    set: (l) => {
-      a("update:serverOptions", l);
+    set: (o) => {
+      a("update:serverOptions", o);
     }
   });
   return {
-    serverOptionsComputed: s,
-    updateServerOptionsPage: (l) => {
-      s.value && (s.value = {
-        ...s.value,
-        page: l
+    serverOptionsComputed: n,
+    updateServerOptionsPage: (o) => {
+      n.value && (n.value = {
+        ...n.value,
+        page: o
       });
     },
-    updateServerOptionsSort: (l, r) => {
-      if (s.value)
-        if (t.value && Array.isArray(s.value.sortBy) && Array.isArray(s.value.sortType)) {
-          const u = s.value.sortBy.findIndex((n) => n === l);
-          u === -1 && r !== null && (s.value.sortBy.push(l), s.value.sortType.push(r)), r === null ? (s.value.sortBy.splice(u, 1), s.value.sortType.splice(u, 1)) : s.value.sortType[u] = r;
+    updateServerOptionsSort: (o, r) => {
+      if (n.value)
+        if (t.value && Array.isArray(n.value.sortBy) && Array.isArray(n.value.sortType)) {
+          const u = n.value.sortBy.findIndex((s) => s === o);
+          u === -1 && r !== null && (n.value.sortBy.push(o), n.value.sortType.push(r)), r === null ? (n.value.sortBy.splice(u, 1), n.value.sortType.splice(u, 1)) : n.value.sortType[u] = r;
         } else
-          s.value = {
-            ...s.value,
-            sortBy: r !== null ? l : null,
+          n.value = {
+            ...n.value,
+            sortBy: r !== null ? o : null,
             sortType: r
           };
     },
-    updateServerOptionsRowsPerPage: (l) => {
-      s.value && (s.value = {
-        ...s.value,
+    updateServerOptionsRowsPerPage: (o) => {
+      n.value && (n.value = {
+        ...n.value,
         page: 1,
-        rowsPerPage: l
+        rowsPerPage: o
       });
     }
   };
 }
-function ma(e) {
+function va(e) {
   return [">", ">=", "<", "<=", "between"].includes(e.comparison);
 }
-function va(e) {
+function ha(e) {
   return e.comparison === "in";
 }
-function ha(e) {
+function ba(e) {
   return typeof e.comparison == "function";
 }
-function ba(e) {
+function ya(e) {
   return typeof e == "number" && !isNaN(e);
 }
-const qn = {
+const zn = {
   number(e, t, a) {
     return { field: e, comparison: t, criteria: a };
   },
@@ -418,30 +418,30 @@ const qn = {
 function X(e, t) {
   if (e.includes(".")) {
     const a = e.split(".");
-    let s = t;
-    for (const o of a)
-      if (s && typeof s == "object")
-        s = s[o];
+    let n = t;
+    for (const l of a)
+      if (n && typeof n == "object")
+        n = n[l];
       else
         return "";
-    return s ?? "";
+    return n ?? "";
   }
   return t[e] ?? "";
 }
-function ya(e, t) {
+function wa(e, t) {
   const a = X(e, t);
   return Array.isArray(a) ? a.join(",") : a;
 }
 const ut = 1e3, dt = /* @__PURE__ */ new WeakMap(), Te = (e) => {
   let t = dt.get(e);
   if (!t) {
-    const { checkbox: a, index: s, ...o } = e;
-    t = JSON.stringify(o), dt.set(e, t);
+    const { checkbox: a, index: n, ...l } = e;
+    t = JSON.stringify(l), dt.set(e, t);
   }
   return t;
 };
-function xa(e, t, a, s) {
-  const o = _({
+function xa(e, t, a, n) {
+  const l = _({
     selectedItems: /* @__PURE__ */ new Set(),
     itemsMap: /* @__PURE__ */ new Map(),
     selectionInProgress: !1,
@@ -449,73 +449,73 @@ function xa(e, t, a, s) {
     totalCount: 0,
     visualProgress: 0
   });
-  fe(t, (n) => {
-    if (n === null) {
-      o.value.selectedItems.clear(), o.value.itemsMap.clear();
+  fe(t, (s) => {
+    if (s === null) {
+      l.value.selectedItems.clear(), l.value.itemsMap.clear();
       return;
     }
     const g = /* @__PURE__ */ new Set(), v = /* @__PURE__ */ new Map();
-    for (const b of n) {
+    for (const b of s) {
       const h = Te(b);
       g.add(h), v.set(h, b);
     }
-    o.value.selectedItems = g, o.value.itemsMap = v;
+    l.value.selectedItems = g, l.value.itemsMap = v;
   }, { immediate: !0, deep: !0 });
-  const i = async (n, g, v) => new Promise((b) => {
+  const i = async (s, g, v) => new Promise((b) => {
     requestAnimationFrame(() => {
-      const h = new Set(o.value.selectedItems), w = new Map(o.value.itemsMap);
-      for (let N = 0; N < n.length; N++) {
-        const $ = n[N], O = Te($);
-        g ? (h.add(O), w.set(O, $)) : h.delete(O), o.value.processedCount = v + N + 1, o.value.visualProgress = o.value.processedCount / o.value.totalCount * 100;
+      const h = new Set(l.value.selectedItems), x = new Map(l.value.itemsMap);
+      for (let B = 0; B < s.length; B++) {
+        const $ = s[B], O = Te($);
+        g ? (h.add(O), x.set(O, $)) : h.delete(O), l.value.processedCount = v + B + 1, l.value.visualProgress = l.value.processedCount / l.value.totalCount * 100;
       }
-      o.value.selectedItems = h, o.value.itemsMap = w, b();
+      l.value.selectedItems = h, l.value.itemsMap = x, b();
     });
-  }), d = async (n) => {
-    if (!o.value.selectionInProgress)
+  }), d = async (s) => {
+    if (!l.value.selectionInProgress)
       try {
-        if (o.value.selectionInProgress = !0, o.value.processedCount = 0, o.value.totalCount = e.value.length, o.value.visualProgress = 0, !n) {
-          o.value.selectedItems.clear(), o.value.itemsMap.clear(), s("update:itemsSelected", []), o.value.visualProgress = 100;
+        if (l.value.selectionInProgress = !0, l.value.processedCount = 0, l.value.totalCount = e.value.length, l.value.visualProgress = 0, !s) {
+          l.value.selectedItems.clear(), l.value.itemsMap.clear(), n("update:itemsSelected", []), l.value.visualProgress = 100;
           return;
         }
         const g = e.value;
         for (let v = 0; v < g.length; v += ut) {
-          const h = g.slice(v, Math.min(v + ut, g.length)).filter((w) => !a(w));
-          await i(h, n, v), await new Promise((w) => setTimeout(w, 0));
+          const h = g.slice(v, Math.min(v + ut, g.length)).filter((x) => !a(x));
+          await i(h, s, v), await new Promise((x) => setTimeout(x, 0));
         }
-        s("update:itemsSelected", r.value), n && s("selectAll");
+        n("update:itemsSelected", r.value), s && n("selectAll");
       } finally {
-        o.value.selectionInProgress = !1;
+        l.value.selectionInProgress = !1;
       }
-  }, l = (n) => {
-    const g = Te(n), v = { ...n };
+  }, o = (s) => {
+    const g = Te(s), v = { ...s };
     delete v.checkbox, delete v.index;
-    const b = new Set(o.value.selectedItems), h = new Map(o.value.itemsMap);
-    b.has(g) ? (b.delete(g), s("deselectRow", v)) : (b.add(g), h.set(g, v), s("selectRow", v)), o.value.selectedItems = b, o.value.itemsMap = h, s("update:itemsSelected", Array.from(h.values()).filter((N) => b.has(Te(N))));
-  }, r = y(() => o.value.selectedItems.size === 0 ? [] : Array.from(o.value.itemsMap.entries()).filter(([n]) => o.value.selectedItems.has(n)).map(([, n]) => n)), u = y(() => o.value.visualProgress);
+    const b = new Set(l.value.selectedItems), h = new Map(l.value.itemsMap);
+    b.has(g) ? (b.delete(g), n("deselectRow", v)) : (b.add(g), h.set(g, v), n("selectRow", v)), l.value.selectedItems = b, l.value.itemsMap = h, n("update:itemsSelected", Array.from(h.values()).filter((B) => b.has(Te(B))));
+  }, r = y(() => l.value.selectedItems.size === 0 ? [] : Array.from(l.value.itemsMap.entries()).filter(([s]) => l.value.selectedItems.has(s)).map(([, s]) => s)), u = y(() => l.value.visualProgress);
   return {
     selectedItems: r,
     toggleSelectAll: d,
-    toggleSelectItem: l,
-    isProcessing: y(() => o.value.selectionInProgress),
+    toggleSelectItem: o,
+    isProcessing: y(() => l.value.selectionInProgress),
     selectionProgress: u
   };
 }
-function wa(e, t, a, s, o, i, d, l, r, u, n, g) {
+function Pa(e, t, a, n, l, i, d, o, r, u, s, g) {
   const v = /* @__PURE__ */ new WeakMap(), b = (p) => {
     let k = v.get(p);
     return k || (typeof i.value == "string" && i.value !== "" ? k = String(X(i.value, p)) : Array.isArray(i.value) ? k = i.value.map((P) => String(X(P, p))).join(" ") : k = Object.values(p).map(String).join(" "), v.set(p, k)), k;
   }, h = y(() => {
     if (!a.value && d.value !== "") {
       const p = new RegExp(d.value, "i");
-      return s.value.filter((k) => p.test(b(k)));
+      return n.value.filter((k) => p.test(b(k)));
     }
-    return s.value;
-  }), w = (p, k) => {
-    const P = ba(p) ? p : parseFloat(String(p));
+    return n.value;
+  }), x = (p, k) => {
+    const P = ya(p) ? p : parseFloat(String(p));
     if (isNaN(P)) return !1;
     if (k.comparison === "between" && Array.isArray(k.criteria)) {
-      const [te, ae] = k.criteria;
-      return P >= te && P <= ae;
+      const [ue, te] = k.criteria;
+      return P >= ue && P <= te;
     }
     const F = k.criteria;
     switch (k.comparison) {
@@ -530,38 +530,38 @@ function wa(e, t, a, s, o, i, d, l, r, u, n, g) {
       default:
         return !1;
     }
-  }, N = y(() => {
+  }, B = y(() => {
     var p;
     return (p = t.value) != null && p.length ? h.value.filter(
       (k) => t.value.every((P) => {
         const F = X(P.field, k);
-        return ha(P) ? P.comparison(F, P.criteria) : ma(P) ? w(F, P) : va(P) ? P.criteria.includes(F) : P.comparison === "=" ? F === P.criteria : F !== P.criteria;
+        return ba(P) ? P.comparison(F, P.criteria) : va(P) ? x(F, P) : ha(P) ? P.criteria.includes(F) : P.comparison === "=" ? F === P.criteria : F !== P.criteria;
       })
     ) : h.value;
-  }), $ = (p, k, P) => p === k ? 0 : p == null ? 1 : k == null ? -1 : p < k ? P ? 1 : -1 : P ? -1 : 1, O = (p, k, P, F) => F < 0 ? p : O(p, k, P, F - 1).sort((te, ae) => {
-    if (!k.slice(0, F).every((Ie) => X(Ie, te) === X(Ie, ae))) return 0;
-    const ve = k[F], ne = X(ve, te), ke = X(ve, ae);
-    return $(ne, ke, P[F]);
+  }), $ = (p, k, P) => p === k ? 0 : p == null ? 1 : k == null ? -1 : p < k ? P ? 1 : -1 : P ? -1 : 1, O = (p, k, P, F) => F < 0 ? p : O(p, k, P, F - 1).sort((ue, te) => {
+    if (!k.slice(0, F).every((ve) => X(ve, ue) === X(ve, te))) return 0;
+    const Q = k[F], Se = X(Q, ue), ae = X(Q, te);
+    return $(Se, ae, P[F]);
   }), M = y(() => {
-    if (a.value) return s.value;
-    if (!e.value) return N.value;
-    const { sortBy: p, sortDesc: k } = e.value, P = [...N.value];
-    return r.value && Array.isArray(p) && Array.isArray(k) ? p.length ? O(P, p, k, p.length - 1) : P : P.sort((F, te) => {
-      const ae = X(p, F), Q = X(p, te);
-      return $(ae, Q, k);
+    if (a.value) return n.value;
+    if (!e.value) return B.value;
+    const { sortBy: p, sortDesc: k } = e.value, P = [...B.value];
+    return r.value && Array.isArray(p) && Array.isArray(k) ? p.length ? O(P, p, k, p.length - 1) : P : P.sort((F, ue) => {
+      const te = X(p, F), ke = X(p, ue);
+      return $(te, ke, k);
     });
-  }), Z = y(() => a.value ? l.value : M.value.length), H = y(() => a.value ? !1 : (a.value ? l.value : s.value.length) >= u.value), {
-    selectedItems: ue,
+  }), Z = y(() => a.value ? o.value : M.value.length), H = y(() => a.value ? !1 : (a.value ? o.value : n.value.length) >= u.value), {
+    selectedItems: ie,
     toggleSelectAll: ee,
-    toggleSelectItem: xe,
-    isProcessing: we,
+    toggleSelectItem: we,
+    isProcessing: xe,
     selectionProgress: Pe
-  } = xa(M, o, n, g), V = y({
-    get: () => o.value ?? [],
+  } = xa(M, l, s, g), V = y({
+    get: () => l.value ?? [],
     set: (p) => {
       g("update:itemsSelected", p);
     }
-  }), Ce = (p) => p.filter((k) => !n(k)), B = (p) => {
+  }), Ce = (p) => p.filter((k) => !s(k)), N = (p) => {
     V.value = p ? Ce(M.value) : V.value = [], p && g("selectAll");
   }, j = (p) => {
     const k = p.checkbox;
@@ -579,29 +579,29 @@ function wa(e, t, a, s, o, i, d, l, r, u, n, g) {
     selectItemsComputed: V,
     totalItemsLength: Z,
     toggleSelectAll: (p) => {
-      if (!M.value.every((P) => n(P)))
+      if (!M.value.every((P) => s(P)))
         if (H.value) {
           g("updateSelectionStatus", !0);
           try {
-            ee(p), g("update:itemsSelected", p ? Array.from(ue.value) : []), p && g("selectAll");
+            ee(p), g("update:itemsSelected", p ? Array.from(ie.value) : []), p && g("selectAll");
           } finally {
             g("updateSelectionStatus", !1);
           }
         } else
-          B(p);
+          N(p);
     },
     toggleSelectItem: (p) => {
-      n(p) || (H.value ? xe(p) : j(p));
+      s(p) || (H.value ? we(p) : j(p));
     },
-    isProcessing: y(() => H.value && we.value),
+    isProcessing: y(() => H.value && xe.value),
     processProgress: Pe
   };
 }
-function Pa(e) {
+function Ca(e) {
   return e && e.__esModule && Object.prototype.hasOwnProperty.call(e, "default") ? e.default : e;
 }
 var je = {}, qe = {}, Le = { exports: {} }, ct;
-function Ca() {
+function ka() {
   if (ct) return Le.exports;
   ct = 1;
   var e = String, t = function() {
@@ -610,15 +610,15 @@ function Ca() {
   return Le.exports = t(), Le.exports.createColors = t, Le.exports;
 }
 var ft;
-function ka() {
+function Sa() {
   return ft || (ft = 1, function(e) {
     Object.defineProperty(e, "__esModule", {
       value: !0
     });
     function t(r, u) {
-      for (var n in u) Object.defineProperty(r, n, {
+      for (var s in u) Object.defineProperty(r, s, {
         enumerable: !0,
-        get: u[n]
+        get: u[s]
       });
     }
     t(e, {
@@ -626,23 +626,23 @@ function ka() {
         return d;
       },
       default: function() {
-        return l;
+        return o;
       }
     });
-    const a = /* @__PURE__ */ s(/* @__PURE__ */ Ca());
-    function s(r) {
+    const a = /* @__PURE__ */ n(/* @__PURE__ */ ka());
+    function n(r) {
       return r && r.__esModule ? r : {
         default: r
       };
     }
-    let o = /* @__PURE__ */ new Set();
-    function i(r, u, n) {
-      typeof process < "u" && process.env.JEST_WORKER_ID || n && o.has(n) || (n && o.add(n), console.warn(""), u.forEach((g) => console.warn(r, "-", g)));
+    let l = /* @__PURE__ */ new Set();
+    function i(r, u, s) {
+      typeof process < "u" && process.env.JEST_WORKER_ID || s && l.has(s) || (s && l.add(s), console.warn(""), u.forEach((g) => console.warn(r, "-", g)));
     }
     function d(r) {
       return a.default.dim(r);
     }
-    const l = {
+    const o = {
       info(r, u) {
         i(a.default.bold(a.default.cyan("info")), ...Array.isArray(r) ? [
           r
@@ -671,29 +671,29 @@ function ka() {
   }(qe)), qe;
 }
 var gt;
-function Sa() {
+function Ia() {
   return gt || (gt = 1, function(e) {
     Object.defineProperty(e, "__esModule", {
       value: !0
     }), Object.defineProperty(e, "default", {
       enumerable: !0,
       get: function() {
-        return o;
+        return l;
       }
     });
-    const t = /* @__PURE__ */ a(ka());
+    const t = /* @__PURE__ */ a(Sa());
     function a(i) {
       return i && i.__esModule ? i : {
         default: i
       };
     }
-    function s({ version: i, from: d, to: l }) {
+    function n({ version: i, from: d, to: o }) {
       t.default.warn(`${d}-color-renamed`, [
-        `As of Tailwind CSS ${i}, \`${d}\` has been renamed to \`${l}\`.`,
+        `As of Tailwind CSS ${i}, \`${d}\` has been renamed to \`${o}\`.`,
         "Update your configuration file to silence this warning."
       ]);
     }
-    const o = {
+    const l = {
       inherit: "inherit",
       current: "currentColor",
       transparent: "transparent",
@@ -986,35 +986,35 @@ function Sa() {
         950: "#4c0519"
       },
       get lightBlue() {
-        return s({
+        return n({
           version: "v2.2",
           from: "lightBlue",
           to: "sky"
         }), this.sky;
       },
       get warmGray() {
-        return s({
+        return n({
           version: "v3.0",
           from: "warmGray",
           to: "stone"
         }), this.stone;
       },
       get trueGray() {
-        return s({
+        return n({
           version: "v3.0",
           from: "trueGray",
           to: "neutral"
         }), this.neutral;
       },
       get coolGray() {
-        return s({
+        return n({
           version: "v3.0",
           from: "coolGray",
           to: "gray"
         }), this.gray;
       },
       get blueGray() {
-        return s({
+        return n({
           version: "v3.0",
           from: "blueGray",
           to: "slate"
@@ -1024,58 +1024,58 @@ function Sa() {
   }(je)), je;
 }
 var We, pt;
-function Ia() {
+function $a() {
   if (pt) return We;
   pt = 1;
-  let e = Sa();
+  let e = Ia();
   return We = (e.__esModule ? e : { default: e }).default, We;
 }
-var $a = Ia();
-const re = /* @__PURE__ */ Pa($a), Ke = {
+var Ba = $a();
+const se = /* @__PURE__ */ Ca(Ba), Ke = {
   light: "400",
   DEFAULT: "500",
   dark: "600"
 }, Na = (e) => {
   const t = mt(e);
   if (!t) return { color: "indigo", variant: "DEFAULT" };
-  let a = { color: "indigo", variant: "DEFAULT" }, s = 1 / 0;
-  const o = Object.entries(re).reduce((i, [d, l]) => {
-    if (typeof l == "object") {
+  let a = { color: "indigo", variant: "DEFAULT" }, n = 1 / 0;
+  const l = Object.entries(se).reduce((i, [d, o]) => {
+    if (typeof o == "object") {
       const r = d;
-      Object.entries(Ke).forEach(([u, n]) => {
-        l[n] && (i[l[n]] = { color: r, variant: u });
+      Object.entries(Ke).forEach(([u, s]) => {
+        o[s] && (i[o[s]] = { color: r, variant: u });
       });
     }
     return i;
   }, {});
-  return Object.entries(o).forEach(([i, d]) => {
-    const l = mt(i);
-    if (!l) return;
-    const r = Fa(t, l);
-    r < s && (s = r, a = d);
+  return Object.entries(l).forEach(([i, d]) => {
+    const o = mt(i);
+    if (!o) return;
+    const r = Ra(t, o);
+    r < n && (n = r, a = d);
   }), a;
-}, Ba = (e, t) => {
-  const a = Ke[t], s = t === "dark" ? "700" : t === "DEFAULT" ? "600" : "500";
+}, Aa = (e, t) => {
+  const a = Ke[t], n = t === "dark" ? "700" : t === "DEFAULT" ? "600" : "500";
   return {
-    "--theme-color": re[e][a],
-    "--theme-border": re[e][a],
-    "--theme-hover": re[e][s],
-    "--theme-active": re[e][t === "light" ? "500" : t === "DEFAULT" ? "600" : "700"],
-    "--theme-disabled": re.gray[300],
-    "--theme-light": re[e]["400"],
-    "--theme-focus": re[e][a] + "80"
+    "--theme-color": se[e][a],
+    "--theme-border": se[e][a],
+    "--theme-hover": se[e][n],
+    "--theme-active": se[e][t === "light" ? "500" : t === "DEFAULT" ? "600" : "700"],
+    "--theme-disabled": se.gray[300],
+    "--theme-light": se[e]["400"],
+    "--theme-focus": se[e][a] + "80"
     // 添加 50% 透明度
   };
-}, Aa = (e) => {
+}, Fa = (e) => {
   const { color: t, variant: a = "DEFAULT" } = typeof e == "string" && e.startsWith("#") ? Na(e) : typeof e == "object" ? e : { color: e, variant: "DEFAULT" };
   return {
     base: "bg-theme border-theme text-white",
     hover: "hover:bg-theme-hover",
     active: "active:bg-theme-active",
     disabled: "bg-gray-300 cursor-not-allowed",
-    hex: typeof e == "string" && e.startsWith("#") ? e : re[t][Ke[a]],
+    hex: typeof e == "string" && e.startsWith("#") ? e : se[t][Ke[a]],
     tailwindName: t,
-    style: Ba(t, a)
+    style: Aa(t, a)
   };
 };
 function mt(e) {
@@ -1086,20 +1086,20 @@ function mt(e) {
     b: parseInt(t[3], 16)
   } : null;
 }
-function Fa(e, t) {
+function Ra(e, t) {
   return Math.sqrt(
     Math.pow(t.r - e.r, 2) + Math.pow(t.g - e.g, 2) + Math.pow(t.b - e.b, 2)
   );
 }
-const Ra = {}, Ma = {
+const Ma = {}, Ta = {
   class: "h-[18px] w-[18px]",
   xmlns: "http://www.w3.org/2000/svg",
   viewBox: "0 0 24 24",
   fill: "none",
   stroke: "currentColor"
 };
-function Ta(e, t) {
-  return m(), x("svg", Ma, t[0] || (t[0] = [
+function La(e, t) {
+  return m(), w("svg", Ta, t[0] || (t[0] = [
     C("path", {
       "stroke-linecap": "round",
       "stroke-linejoin": "round",
@@ -1108,15 +1108,15 @@ function Ta(e, t) {
     }, null, -1)
   ]));
 }
-const La = /* @__PURE__ */ me(Ra, [["render", Ta]]), Ea = {}, Da = {
+const Ea = /* @__PURE__ */ me(Ma, [["render", La]]), Da = {}, Oa = {
   class: "h-[18px] w-[18px]",
   xmlns: "http://www.w3.org/2000/svg",
   viewBox: "0 0 24 24",
   fill: "none",
   stroke: "currentColor"
 };
-function Oa(e, t) {
-  return m(), x("svg", Da, t[0] || (t[0] = [
+function Ha(e, t) {
+  return m(), w("svg", Oa, t[0] || (t[0] = [
     C("path", {
       "stroke-linecap": "round",
       "stroke-linejoin": "round",
@@ -1125,9 +1125,9 @@ function Oa(e, t) {
     }, null, -1)
   ]));
 }
-const Ha = /* @__PURE__ */ me(Ea, [["render", Oa]]), ja = {}, qa = { class: "px-3 py-1.5" };
-function Wa(e, t) {
-  return m(), x("span", qa, t[0] || (t[0] = [
+const ja = /* @__PURE__ */ me(Da, [["render", Ha]]), qa = {}, Wa = { class: "px-3 py-1.5" };
+function za(e, t) {
+  return m(), w("span", Wa, t[0] || (t[0] = [
     C("svg", {
       class: "w-4 h-4",
       fill: "currentColor",
@@ -1137,30 +1137,30 @@ function Wa(e, t) {
     ], -1)
   ]));
 }
-const za = /* @__PURE__ */ me(ja, [["render", Wa]]), Ua = {}, Va = {
-  class: "w-4 h-4 transition-transform duration-200",
+const Ua = /* @__PURE__ */ me(qa, [["render", za]]), Va = {}, Ka = {
+  class: "w-4 h-4 transition-transform",
   fill: "none",
   stroke: "currentColor",
   viewBox: "0 0 24 24"
 };
-function Ka(e, t) {
-  return m(), x("svg", Va, t[0] || (t[0] = [
+function Ga(e, t) {
+  return m(), w("svg", Ka, t[0] || (t[0] = [
     C("path", {
       "stroke-linecap": "round",
       "stroke-linejoin": "round",
       "stroke-width": "2",
-      d: "M15 19l-7-7 7-7"
+      d: "M9 5l7 7-7 7"
     }, null, -1)
   ]));
 }
-const Ga = /* @__PURE__ */ me(Ua, [["render", Ka]]), Ja = {}, Ya = {
+const Ja = /* @__PURE__ */ me(Va, [["render", Ga]]), Ya = {}, Za = {
   class: "w-3 h-3 transition-transform",
   fill: "none",
   stroke: "currentColor",
   viewBox: "0 0 24 24"
 };
-function Za(e, t) {
-  return m(), x("svg", Ya, t[0] || (t[0] = [
+function Qa(e, t) {
+  return m(), w("svg", Za, t[0] || (t[0] = [
     C("path", {
       "stroke-linecap": "round",
       "stroke-linejoin": "round",
@@ -1169,35 +1169,35 @@ function Za(e, t) {
     }, null, -1)
   ]));
 }
-const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
+const Xa = /* @__PURE__ */ me(Ya, [["render", Qa]]), _a = /* @__PURE__ */ R({
   __name: "HeaderSortIcon",
   props: {
     sortType: {}
   },
   setup(e) {
-    return (t, a) => (m(), x("span", {
+    return (t, a) => (m(), w("span", {
       key: t.sortType,
       class: S(["inline-flex transition-opacity duration-200", [
         t.sortType === "none" ? "opacity-0" : "opacity-100",
         "group-hover:opacity-100"
       ]])
     }, [
-      W(Qa, {
+      W(Xa, {
         class: S({ "transform rotate-180": t.sortType === "desc" })
       }, null, 8, ["class"])
     ], 2));
   }
-}), _a = ["checked", "disabled", "aria-checked"], en = {
+}), en = ["checked", "disabled", "aria-checked"], tn = {
   class: "h-4 w-4 text-white stroke-[3]",
   fill: "none",
   viewBox: "1 1 24 24",
   stroke: "currentColor"
-}, tn = {
+}, an = {
   class: "h-4 w-4 text-white",
   fill: "none",
   viewBox: "1 1 24 24",
   stroke: "currentColor"
-}, an = /* @__PURE__ */ R({
+}, nn = /* @__PURE__ */ R({
   __name: "BaseCheckbox",
   props: {
     checked: { type: Boolean, default: !1 },
@@ -1206,13 +1206,13 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
   },
   emits: ["change"],
   setup(e) {
-    const t = e, a = y(() => t.checked), s = y(() => t.partial), o = ye("themeClasses");
-    return (i, d) => (m(), x("div", {
+    const t = e, a = y(() => t.checked), n = y(() => t.partial), l = ye("themeClasses");
+    return (i, d) => (m(), w("div", {
       class: S(["relative inline-flex items-center justify-center h-5 w-5", [
         !i.disabled && "cursor-pointer group",
         i.disabled && "cursor-not-allowed opacity-50"
       ]]),
-      onClick: d[0] || (d[0] = Ve((l) => !i.disabled && i.$emit("change"), ["stop", "prevent"]))
+      onClick: d[0] || (d[0] = Ve((o) => !i.disabled && i.$emit("change"), ["stop", "prevent"]))
     }, [
       C("input", {
         type: "checkbox",
@@ -1220,37 +1220,37 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
         checked: a.value,
         disabled: i.disabled,
         "aria-checked": a.value
-      }, null, 8, _a),
+      }, null, 8, en),
       C("div", {
         class: S(["h-4 w-4 rounded transition-all duration-200 border", [
           // Base states
-          a.value && !s.value && [
+          a.value && !n.value && [
             "bg-theme border-theme",
             !i.disabled && "group-hover:bg-theme-hover group-hover:border-theme-hover"
           ],
-          s.value && [
+          n.value && [
             "bg-theme border-theme",
             !i.disabled && "group-hover:bg-theme-hover group-hover:border-theme-hover"
           ],
-          !a.value && !s.value && [
+          !a.value && !n.value && [
             "border-gray-300 bg-white",
             !i.disabled && "group-hover:border-theme-light"
           ],
           // Focus states
           !i.disabled && "peer-focus:ring-2 peer-focus:ring-offset-1 peer-focus:ring-theme-focus"
         ]]),
-        style: ie(c(o).style)
+        style: le(c(l).style)
       }, [
-        ze((m(), x("svg", en, d[1] || (d[1] = [
+        ze((m(), w("svg", tn, d[1] || (d[1] = [
           C("path", {
             "stroke-linecap": "round",
             "stroke-linejoin": "round",
             d: "M5 13l4 4L19 7"
           }, null, -1)
         ]), 512)), [
-          [Ue, a.value && !s.value]
+          [Ue, a.value && !n.value]
         ]),
-        ze((m(), x("svg", tn, d[2] || (d[2] = [
+        ze((m(), w("svg", an, d[2] || (d[2] = [
           C("path", {
             "stroke-linecap": "round",
             "stroke-linejoin": "round",
@@ -1258,7 +1258,7 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
             d: "M20 12H4"
           }, null, -1)
         ]), 512)), [
-          [Ue, s.value]
+          [Ue, n.value]
         ])
       ], 6)
     ], 2));
@@ -1272,14 +1272,14 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
   emits: ["change"],
   setup(e, { emit: t }) {
     const a = t;
-    return (s, o) => (m(), U(an, {
-      checked: s.checked,
-      disabled: s.disabled,
+    return (n, l) => (m(), U(nn, {
+      checked: n.checked,
+      disabled: n.disabled,
       partial: !1,
-      onChange: o[0] || (o[0] = (i) => a("change"))
+      onChange: l[0] || (l[0] = (i) => a("change"))
     }, null, 8, ["checked", "disabled"]));
   }
-}), nn = /* @__PURE__ */ R({
+}), sn = /* @__PURE__ */ R({
   __name: "MultipleSelectCheckBox",
   props: {
     status: {
@@ -1293,18 +1293,18 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
   },
   emits: ["change"],
   setup(e, { emit: t }) {
-    const a = e, s = y(() => a.status === "allSelected"), o = y(() => a.status === "partSelected"), i = t;
-    return (d, l) => (m(), U(yt, {
-      checked: s.value,
-      partial: o.value,
+    const a = e, n = y(() => a.status === "allSelected"), l = y(() => a.status === "partSelected"), i = t;
+    return (d, o) => (m(), U(yt, {
+      checked: n.value,
+      partial: l.value,
       disabled: e.disabled,
-      onChange: l[0] || (l[0] = (r) => i("change", !s.value))
+      onChange: o[0] || (o[0] = (r) => i("change", !n.value))
     }, null, 8, ["checked", "partial", "disabled"]));
   }
-}), sn = {
+}), rn = {
   key: 1,
   class: "items-center gap-2"
-}, rn = {
+}, on = {
   key: 1,
   class: "ml-1 text-xs px-1.5 py-0.5 bg-gray-200 rounded-full"
 }, ln = /* @__PURE__ */ R({
@@ -1341,15 +1341,15 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
   },
   emits: ["headerClick", "toggleSelectAll"],
   setup(e, { emit: t }) {
-    const a = t, s = bt(), o = (d) => [
+    const a = t, n = bt(), l = (d) => [
       `header-${d.value}`,
       `header-${d.value.toLowerCase()}`,
       "header"
-    ].find((r) => s[r]) || "header", i = (d) => {
+    ].find((r) => n[r]) || "header", i = (d) => {
       d.sortable && d.sortType && a("headerClick", d);
     };
-    return (d, l) => (m(), x("th", {
-      style: ie(e.fixedDistance),
+    return (d, o) => (m(), w("th", {
+      style: le(e.fixedDistance),
       class: S(["vdt-thead-th px-4 py-3 font-semibold tracking-wider bg-gray-200 group", [
         "px-4 py-3 font-semibold tracking-wider group",
         {
@@ -1362,26 +1362,26 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
         },
         typeof e.headerItemClassName == "string" ? e.headerItemClassName : e.headerItemClassName(e.header, e.index + 1)
       ]]),
-      onClick: l[1] || (l[1] = Ve((r) => i(e.header), ["stop"]))
+      onClick: o[1] || (o[1] = Ve((r) => i(e.header), ["stop"]))
     }, [
-      e.header.text === "checkbox" ? (m(), U(nn, {
+      e.header.text === "checkbox" ? (m(), U(sn, {
         key: 0,
         disabled: e.areAllVisibleRowsDisabled,
         status: e.multipleSelectStatus,
-        onChange: l[0] || (l[0] = (r) => d.$emit("toggleSelectAll", r))
-      }, null, 8, ["disabled", "status"])) : (m(), x("div", sn, [
-        I(d.$slots, o(e.header), q(le({ header: e.header, index: e.index, sortable: e.header.sortable })), () => [
+        onChange: o[0] || (o[0] = (r) => d.$emit("toggleSelectAll", r))
+      }, null, 8, ["disabled", "status"])) : (m(), w("div", rn, [
+        I(d.$slots, l(e.header), q(re({ header: e.header, index: e.index, sortable: e.header.sortable })), () => [
           C("span", null, z(e.header.text), 1)
         ]),
-        e.header.sortable ? (m(), U(c(Xa), {
+        e.header.sortable ? (m(), U(c(_a), {
           key: 0,
           "sort-type": e.header.sortType || "none"
         }, null, 8, ["sort-type"])) : D("", !0),
-        e.multiSort && e.isMultiSorting(e.header.value) ? (m(), x("span", rn, z(e.getMultiSortNumber(e.header.value)), 1)) : D("", !0)
+        e.multiSort && e.isMultiSorting(e.header.value) ? (m(), w("span", on, z(e.getMultiSortNumber(e.header.value)), 1)) : D("", !0)
       ]))
     ], 6));
   }
-}), on = /* @__PURE__ */ R({
+}), un = /* @__PURE__ */ R({
   __name: "TableHeader",
   props: {
     headers: {
@@ -1415,12 +1415,12 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
   },
   emits: ["headerClick", "toggleSelectAll"],
   setup(e, { emit: t }) {
-    const a = t, s = (i) => {
+    const a = t, n = (i) => {
       a("headerClick", i);
-    }, o = (i) => {
+    }, l = (i) => {
       a("toggleSelectAll", i);
     };
-    return (i, d) => e.headers.length && !e.hideHeader ? (m(), x("thead", {
+    return (i, d) => e.headers.length && !e.hideHeader ? (m(), w("thead", {
       key: 0,
       class: S(["vdt-thead", [
         "text-sm text-slate-700 uppercase text-nowrap text-left",
@@ -1431,11 +1431,11 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
       C("tr", {
         class: S(["vdt-thead-tr", [{ "divide-x divide-gray-200": e.borderCell }]])
       }, [
-        (m(!0), x(oe, null, Y(e.headers, (l, r) => (m(), U(ln, {
+        (m(!0), w(oe, null, Y(e.headers, (o, r) => (m(), U(ln, {
           key: r,
-          header: l,
+          header: o,
           index: r,
-          "fixed-distance": e.getFixedDistance(l.value),
+          "fixed-distance": e.getFixedDistance(o.value),
           "last-fixed-column": e.lastFixedColumn,
           "header-item-class-name": e.headerItemClassName,
           "are-all-visible-rows-disabled": e.areAllVisibleRowsDisabled,
@@ -1443,20 +1443,20 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
           "multi-sort": e.multiSort,
           "is-multi-sorting": e.isMultiSorting,
           "get-multi-sort-number": e.getMultiSortNumber,
-          onHeaderClick: s,
-          onToggleSelectAll: o
+          onHeaderClick: n,
+          onToggleSelectAll: l
         }, pe({ _: 2 }, [
-          Y(i.$slots, (u, n) => ({
-            name: n,
+          Y(i.$slots, (u, s) => ({
+            name: s,
             fn: G((g) => [
-              I(i.$slots, n, J({ ref_for: !0 }, g))
+              I(i.$slots, s, J({ ref_for: !0 }, g))
             ])
           }))
         ]), 1032, ["header", "index", "fixed-distance", "last-fixed-column", "header-item-class-name", "are-all-visible-rows-disabled", "multiple-select-status", "multi-sort", "is-multi-sorting", "get-multi-sort-number"]))), 128))
       ], 2)
     ], 2)) : D("", !0);
   }
-}), un = /* @__PURE__ */ R({
+}), dn = /* @__PURE__ */ R({
   __name: "TableBodyCell",
   props: {
     column: {},
@@ -1470,50 +1470,50 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
   },
   emits: ["toggle-select", "toggle-expand"],
   setup(e, { emit: t }) {
-    const a = e, s = t, o = y(() => a.isDisabled ?? !1), i = y(() => typeof a.bodyItemClassName == "function" ? a.bodyItemClassName(a.column, a.index) : a.bodyItemClassName), d = y(
+    const a = e, n = t, l = y(() => a.isDisabled ?? !1), i = y(() => typeof a.bodyItemClassName == "function" ? a.bodyItemClassName(a.column, a.index) : a.bodyItemClassName), d = y(
       () => a.column === "expand" || a.column === a.expandColumn
-    ), l = () => {
-      d.value && a.expandColumn === "" && s("toggle-expand", event);
-    }, r = (n) => {
-      s("toggle-expand", n);
+    ), o = () => {
+      d.value && a.expandColumn === "" && n("toggle-expand", event);
+    }, r = (s) => {
+      n("toggle-expand", s);
     }, u = () => {
-      s("toggle-select");
+      n("toggle-select");
     };
-    return (n, g) => (m(), x("td", {
+    return (s, g) => (m(), w("td", {
       class: S(["vdt-tbody-td px-4 py-2", [
-        { "cursor-pointer": n.column === "expand" && n.expandColumn === "" },
+        { "cursor-pointer": s.column === "expand" && s.expandColumn === "" },
         i.value
       ]]),
-      style: ie(n.style),
-      onClick: l
+      style: le(s.style),
+      onClick: o
     }, [
-      n.column === "checkbox" ? (m(), x(oe, { key: 0 }, [
-        n.column === "checkbox" ? I(n.$slots, "selection-checkbox", q(J({ key: 0 }, { item: n.item, index: n.index, isDisabled: o.value, toggleSelectItem: u })), () => [
+      s.column === "checkbox" ? (m(), w(oe, { key: 0 }, [
+        s.column === "checkbox" ? I(s.$slots, "selection-checkbox", q(J({ key: 0 }, { item: s.item, index: s.index, isDisabled: l.value, toggleSelectItem: u })), () => [
           W(yt, {
-            checked: !!n.item.checkbox,
-            disabled: o.value,
+            checked: !!s.item.checkbox,
+            disabled: l.value,
             onChange: u
           }, null, 8, ["checked", "disabled"])
         ]) : D("", !0)
-      ], 64)) : d.value ? I(n.$slots, "expand-button", q(J({ key: 1 }, { item: n.item, expanded: n.isExpanded, toggle: r })), () => [
+      ], 64)) : d.value ? I(s.$slots, "expand-button", q(J({ key: 1 }, { item: s.item, expanded: s.isExpanded, toggle: r })), () => [
         C("button", {
           onClick: Ve(r, ["stop"]),
           class: "inline-flex items-center"
         }, [
-          W(c(Ga), {
-            class: S({ "transform -rotate-90": n.isExpanded })
+          W(c(Ja), {
+            class: S({ "transform rotate-90": s.isExpanded })
           }, null, 8, ["class"])
         ])
-      ]) : I(n.$slots, `item-${n.column}`, q(J({ key: 2 }, n.item)), () => [
-        I(n.$slots, `item-${n.column.toLowerCase()}`, q(le(n.item)), () => [
-          I(n.$slots, "item", q(le({ column: n.column, item: n.item })), () => [
-            Ee(z(c(ya)(n.column, n.item)), 1)
+      ]) : I(s.$slots, `item-${s.column}`, q(J({ key: 2 }, s.item)), () => [
+        I(s.$slots, `item-${s.column.toLowerCase()}`, q(re(s.item)), () => [
+          I(s.$slots, "item", q(re({ column: s.column, item: s.item })), () => [
+            Ee(z(c(wa)(s.column, s.item)), 1)
           ])
         ])
       ])
     ], 6));
   }
-}), dn = /* @__PURE__ */ R({
+}), cn = /* @__PURE__ */ R({
   __name: "TableBodyRow",
   props: {
     item: {},
@@ -1530,34 +1530,34 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
   },
   emits: ["click", "dblclick", "contextmenu", "toggle-expand", "toggle-select"],
   setup(e, { emit: t }) {
-    const a = e, s = t, o = y(() => typeof a.bodyRowClassName == "function" ? a.bodyRowClassName(a.item, a.index) : a.bodyRowClassName), i = (r) => {
-      s("click", r, a.item, a.index);
+    const a = e, n = t, l = y(() => typeof a.bodyRowClassName == "function" ? a.bodyRowClassName(a.item, a.index) : a.bodyRowClassName), i = (r) => {
+      n("click", r, a.item, a.index);
     }, d = (r) => {
-      s("dblclick", r, a.item, a.index);
-    }, l = (r) => {
-      s("contextmenu", r, a.item);
+      n("dblclick", r, a.item, a.index);
+    }, o = (r) => {
+      n("contextmenu", r, a.item);
     };
-    return (r, u) => (m(), x("tr", {
-      class: S(["vdt-tbody-tr transition-colors", [
+    return (r, u) => (m(), w("tr", {
+      class: S(["vdt-tbody-tr transition-colors border-t", [
         { "bg-white": r.alternating && r.index % 2 === 0 },
         { "bg-gray-50": !r.alternating || r.index % 2 === 1 },
         { "hover:bg-gray-100": !r.noHover },
         { "divide-x divide-gray-200": r.borderCell },
-        o.value
+        l.value
       ]]),
       onClick: i,
       onDblclick: d,
-      onContextmenu: l
+      onContextmenu: o
     }, [
       I(r.$slots, "prepend"),
-      (m(!0), x(oe, null, Y(r.columns, (n, g) => {
+      (m(!0), w(oe, null, Y(r.columns, (s, g) => {
         var v;
-        return m(), U(un, {
+        return m(), U(dn, {
           key: g,
-          column: n,
+          column: s,
           item: r.item,
           index: r.index,
-          style: ie((v = r.getFixedDistance) == null ? void 0 : v.call(r, n, "td")),
+          style: le((v = r.getFixedDistance) == null ? void 0 : v.call(r, s, "td")),
           "is-disabled": r.isDisabled,
           onToggleSelect: u[0] || (u[0] = () => r.$emit("toggle-select", r.item)),
           "expand-column": r.expandColumn,
@@ -1566,8 +1566,8 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
         }, pe({ _: 2 }, [
           Y(r.$slots, (b, h) => ({
             name: h,
-            fn: G((w) => [
-              I(r.$slots, h, J({ ref_for: !0 }, w))
+            fn: G((x) => [
+              I(r.$slots, h, J({ ref_for: !0 }, x))
             ])
           }))
         ]), 1032, ["column", "item", "index", "style", "is-disabled", "expand-column", "is-expanded"]);
@@ -1575,18 +1575,18 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
       I(r.$slots, "append")
     ], 34));
   }
-}), cn = { class: "w-full h-[3px] relative overflow-hidden bg-gray-300" }, fn = /* @__PURE__ */ R({
+}), fn = { class: "w-full h-[3px] relative overflow-hidden bg-gray-300" }, gn = /* @__PURE__ */ R({
   __name: "LoadingLine",
   setup(e) {
     const t = ye("themeClasses");
-    return (a, s) => (m(), x("div", cn, [
+    return (a, n) => (m(), w("div", fn, [
       C("div", {
         class: "absolute h-[3px] w-2/5 animate-loading-line",
-        style: ie({ backgroundColor: c(t).hex })
+        style: le({ backgroundColor: c(t).hex })
       }, null, 4)
     ]));
   }
-}), gn = /* @__PURE__ */ me(fn, [["__scopeId", "data-v-cbdc3562"]]), pn = ["colspan"], mn = /* @__PURE__ */ R({
+}), pn = /* @__PURE__ */ me(gn, [["__scopeId", "data-v-cbdc3562"]]), mn = ["colspan"], vn = { class: "overflow-hidden" }, hn = /* @__PURE__ */ R({
   __name: "TableExpandRow",
   props: {
     item: {},
@@ -1598,32 +1598,31 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
   },
   setup(e) {
     const t = e, a = y(() => typeof t.bodyExpandRowClassName == "function" ? t.bodyExpandRowClassName(t.item, t.index) : t.bodyExpandRowClassName);
-    return (s, o) => (m(), x("tr", {
-      class: S(["vdt-expand-row", [
-        { "bg-gray-50": (s.index + 1) % 2 === 0 },
-        a.value
-      ]])
+    return (n, l) => (m(), w("tr", {
+      class: S(["vdt-expand-row border-0", [a.value, { "bg-gray-50": (n.index + 1) % 2 === 0, "border-t": n.isExpanded }]])
     }, [
       C("td", {
-        colspan: s.columnsCount,
-        class: "px-4 py-2"
+        colspan: n.columnsCount,
+        class: "relative p-0"
       }, [
-        s.loading ? (m(), U(gn, {
+        n.loading ? (m(), U(pn, {
           key: 0,
           class: "mb-4"
         })) : D("", !0),
         C("div", {
-          class: S(["transition-all duration-300", { "opacity-0": !s.isExpanded }])
+          class: S(["grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-in-out", [{ "grid-rows-[1fr]": n.isExpanded }]])
         }, [
-          I(s.$slots, "default")
+          C("div", vn, [
+            I(n.$slots, "default")
+          ])
         ], 2)
-      ], 8, pn)
+      ], 8, mn)
     ], 2));
   }
-}), vn = { class: "flex items-center gap-2 text-sm text-gray-700" }, hn = { class: "relative inline-block min-w-[70px]" }, bn = ["aria-expanded"], yn = { class: "block truncate" }, xn = { class: "pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2" }, wn = ["aria-selected", "onClick"], Pn = {
+}), bn = { class: "flex items-center gap-2 text-sm text-gray-700" }, yn = { class: "relative inline-block min-w-[70px]" }, wn = ["aria-expanded"], xn = { class: "block truncate" }, Pn = { class: "pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2" }, Cn = ["aria-selected", "onClick"], kn = {
   key: 0,
   class: "absolute inset-y-0 right-0 flex items-center pr-4 text-primary-600"
-}, Cn = /* @__PURE__ */ R({
+}, Sn = /* @__PURE__ */ R({
   __name: "RowsPerPageSelector",
   props: {
     modelValue: {
@@ -1641,47 +1640,47 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
   },
   emits: ["update:modelValue"],
   setup(e, { emit: t }) {
-    const a = e, s = t, o = _(!1), i = _(!1), d = y({
+    const a = e, n = t, l = _(!1), i = _(!1), d = y({
       get: () => a.modelValue,
-      set: (v) => s("update:modelValue", v)
-    }), l = ye("dataTable");
-    fe(o, (v) => {
-      if (v && (l != null && l.value)) {
-        const b = window.innerHeight, h = l.value.getBoundingClientRect(), w = b - (h.height + h.top);
-        i.value = w <= 100;
+      set: (v) => n("update:modelValue", v)
+    }), o = ye("dataTable");
+    fe(l, (v) => {
+      if (v && (o != null && o.value)) {
+        const b = window.innerHeight, h = o.value.getBoundingClientRect(), x = b - (h.height + h.top);
+        i.value = x <= 100;
       }
     });
     const r = (v) => {
-      d.value = v, o.value = !1;
+      d.value = v, l.value = !1;
     }, u = () => {
-      o.value = !o.value;
-    }, n = (v) => {
-      v.target.closest(".relative") || (o.value = !1);
+      l.value = !l.value;
+    }, s = (v) => {
+      v.target.closest(".relative") || (l.value = !1);
     }, g = (v) => {
       const b = v.relatedTarget;
-      b != null && b.closest(".relative") || (o.value = !1);
+      b != null && b.closest(".relative") || (l.value = !1);
     };
     return ht(() => {
-      document.addEventListener("click", n);
-    }), Ut(() => {
-      document.removeEventListener("click", n);
-    }), (v, b) => (m(), x("div", vn, [
+      document.addEventListener("click", s);
+    }), Vt(() => {
+      document.removeEventListener("click", s);
+    }), (v, b) => (m(), w("div", bn, [
       Ee(z(e.message) + " ", 1),
-      C("div", hn, [
+      C("div", yn, [
         C("button", {
           type: "button",
           class: S(["relative w-full cursor-pointer rounded-md bg-white py-1.5 pl-3 pr-8 text-left text-sm shadow-sm border border-gray-300", [
             "focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500",
-            o.value ? "ring-1 ring-primary-500 border-primary-500" : "hover:border-gray-400"
+            l.value ? "ring-1 ring-primary-500 border-primary-500" : "hover:border-gray-400"
           ]]),
           onClick: u,
           "aria-haspopup": "listbox",
-          "aria-expanded": o.value
+          "aria-expanded": l.value
         }, [
-          C("span", yn, z(d.value), 1),
-          C("span", xn, [
-            (m(), x("svg", {
-              class: S(["h-4 w-4 text-gray-400 transition-transform duration-200", { "rotate-180": o.value }]),
+          C("span", xn, z(d.value), 1),
+          C("span", Pn, [
+            (m(), w("svg", {
+              class: S(["h-4 w-4 text-gray-400 transition-transform duration-200", { "rotate-180": l.value }]),
               xmlns: "http://www.w3.org/2000/svg",
               viewBox: "0 0 24 24",
               fill: "none",
@@ -1695,8 +1694,8 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
               }, null, -1)
             ]), 2))
           ])
-        ], 10, bn),
-        W(Vt, {
+        ], 10, wn),
+        W(Kt, {
           "enter-active-class": "transition duration-100 ease-out",
           "enter-from-class": "transform scale-95 opacity-0",
           "enter-to-class": "transform scale-100 opacity-100",
@@ -1705,26 +1704,26 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
           "leave-to-class": "transform scale-95 opacity-0"
         }, {
           default: G(() => [
-            o.value ? (m(), x("ul", {
+            l.value ? (m(), w("ul", {
               key: 0,
               class: S(["absolute right-0 z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none", { "bottom-full mb-1": i.value }]),
               tabindex: "-1",
               role: "listbox",
               onFocusout: g
             }, [
-              (m(!0), x(oe, null, Y(e.rowsItems, (h) => (m(), x("li", {
+              (m(!0), w(oe, null, Y(e.rowsItems, (h) => (m(), w("li", {
                 key: h,
                 class: S(["relative cursor-pointer select-none py-2 pl-3 pr-9 text-sm", [
                   h === d.value ? "bg-primary-100 text-primary-900" : "text-gray-900 hover:bg-gray-100"
                 ]]),
                 role: "option",
                 "aria-selected": h === d.value,
-                onClick: (w) => r(h)
+                onClick: (x) => r(h)
               }, [
                 C("span", {
                   class: S(["block", { "font-medium": h === d.value }])
                 }, z(h), 3),
-                h === d.value ? (m(), x("span", Pn, b[1] || (b[1] = [
+                h === d.value ? (m(), w("span", kn, b[1] || (b[1] = [
                   C("svg", {
                     class: "h-4 w-4",
                     viewBox: "0 0 24 24",
@@ -1739,7 +1738,7 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
                     })
                   ], -1)
                 ]))) : D("", !0)
-              ], 10, wn))), 128))
+              ], 10, Cn))), 128))
             ], 34)) : D("", !0)
           ]),
           _: 1
@@ -1747,7 +1746,7 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
       ])
     ]));
   }
-}), kn = { class: "text-sm text-gray-700" }, Sn = /* @__PURE__ */ R({
+}), In = { class: "text-sm text-gray-700" }, $n = /* @__PURE__ */ R({
   __name: "PaginationInfo",
   props: {
     currentPageFirstIndex: {},
@@ -1756,7 +1755,7 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
     rowsOfPageSeparatorMessage: {}
   },
   setup(e) {
-    return (t, a) => (m(), x("div", kn, [
+    return (t, a) => (m(), w("div", In, [
       I(t.$slots, "default", {
         firstIndex: t.currentPageFirstIndex,
         lastIndex: t.currentPageLastIndex,
@@ -1767,11 +1766,11 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
       ])
     ]));
   }
-}), In = {
+}), Bn = {
   class: "vdt-pagination flex items-center space-x-2",
   role: "navigation",
   "aria-label": "Pagination navigation"
-}, $n = ["disabled"], Nn = ["disabled"], vt = /* @__PURE__ */ R({
+}, Nn = ["disabled"], An = ["disabled"], vt = /* @__PURE__ */ R({
   __name: "PaginationArrows",
   props: {
     isFirstPage: {
@@ -1788,7 +1787,7 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
   emits: ["clickPrevPage", "clickNextPage"],
   setup(e, { emit: t }) {
     const a = t;
-    return (s, o) => (m(), x("div", In, [
+    return (n, l) => (m(), w("div", Bn, [
       C("button", {
         type: "button",
         class: S(["relative inline-flex items-center p-1.5 rounded-md border", [
@@ -1801,14 +1800,14 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
           ]
         ]]),
         disabled: e.isFirstPage,
-        onClick: o[0] || (o[0] = (i) => a("clickPrevPage")),
+        onClick: l[0] || (l[0] = (i) => a("clickPrevPage")),
         "aria-label": "Previous page"
       }, [
-        W(c(Ha), {
+        W(c(ja), {
           class: S({ "opacity-50": e.isFirstPage })
         }, null, 8, ["class"])
-      ], 10, $n),
-      I(s.$slots, "buttonsPagination"),
+      ], 10, Nn),
+      I(n.$slots, "buttonsPagination"),
       C("button", {
         type: "button",
         class: S(["relative inline-flex items-center p-1.5 rounded-md border", [
@@ -1821,20 +1820,20 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
           ]
         ]]),
         disabled: e.isLastPage,
-        onClick: o[1] || (o[1] = (i) => a("clickNextPage")),
+        onClick: l[1] || (l[1] = (i) => a("clickNextPage")),
         "aria-label": "Next page"
       }, [
-        W(c(La), {
+        W(c(Ea), {
           class: S({ "opacity-50": e.isLastPage })
         }, null, 8, ["class"])
-      ], 10, Nn)
+      ], 10, An)
     ]));
   }
-}), Bn = {
+}), Fn = {
   class: "vdt-pagination inline-flex rounded-md shadow-sm",
   role: "navigation",
   "aria-label": "Pagination"
-}, An = ["onClick"], ge = 7, Fn = /* @__PURE__ */ R({
+}, Rn = ["onClick"], ge = 7, Mn = /* @__PURE__ */ R({
   __name: "ButtonsPagination",
   props: {
     maxPaginationNumber: {
@@ -1848,34 +1847,34 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
   },
   emits: ["updatePage"],
   setup(e, { emit: t }) {
-    const a = e, s = t, o = ye("themeClasses"), i = (l) => {
-      l.type === "button" && !l.active && s("updatePage", l.page);
+    const a = e, n = t, l = ye("themeClasses"), i = (o) => {
+      o.type === "button" && !o.active && n("updatePage", o.page);
     }, d = y(() => {
-      const l = [], { maxPaginationNumber: r, currentPaginationNumber: u } = a;
+      const o = [], { maxPaginationNumber: r, currentPaginationNumber: u } = a;
       if (r <= ge) {
-        for (let n = 1; n <= r; n += 1)
-          l.push({
+        for (let s = 1; s <= r; s += 1)
+          o.push({
             type: "button",
-            page: n,
-            active: n === u,
-            activePrev: n + 1 === u
+            page: s,
+            active: s === u,
+            activePrev: s + 1 === u
           });
-        return l;
+        return o;
       }
       if ([1, 2, r, r - 1].includes(u))
-        for (let n = 1; n <= ge; n += 1)
-          if (n <= 3)
-            l.push({
+        for (let s = 1; s <= ge; s += 1)
+          if (s <= 3)
+            o.push({
               type: "button",
-              page: n,
-              active: n === u,
-              activePrev: n + 1 === u
+              page: s,
+              active: s === u,
+              activePrev: s + 1 === u
             });
-          else if (n === 4)
-            l.push({ type: "omission" });
+          else if (s === 4)
+            o.push({ type: "omission" });
           else {
-            const g = r - (ge - n);
-            l.push({
+            const g = r - (ge - s);
+            o.push({
               type: "button",
               page: g,
               active: g === u,
@@ -1883,32 +1882,32 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
             });
           }
       else if ([3, 4].includes(u))
-        for (let n = 1; n <= ge; n += 1)
-          n <= 5 ? l.push({
+        for (let s = 1; s <= ge; s += 1)
+          s <= 5 ? o.push({
             type: "button",
-            page: n,
-            active: n === u,
-            activePrev: n + 1 === u
-          }) : n === 6 ? l.push({ type: "omission" }) : l.push({
+            page: s,
+            active: s === u,
+            activePrev: s + 1 === u
+          }) : s === 6 ? o.push({ type: "omission" }) : o.push({
             type: "button",
             page: r,
             active: r === u,
             activePrev: !1
           });
       else if ([r - 2, r - 3].includes(u))
-        for (let n = 1; n <= ge; n += 1)
-          if (n === 1)
-            l.push({
+        for (let s = 1; s <= ge; s += 1)
+          if (s === 1)
+            o.push({
               type: "button",
               page: 1,
               active: u === 1,
               activePrev: !1
             });
-          else if (n === 2)
-            l.push({ type: "omission" });
+          else if (s === 2)
+            o.push({ type: "omission" });
           else {
-            const g = r - (ge - n);
-            l.push({
+            const g = r - (ge - s);
+            o.push({
               type: "button",
               page: g,
               active: g === u,
@@ -1916,82 +1915,82 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
             });
           }
       else
-        for (let n = 1; n <= ge; n += 1)
-          if (n === 1)
-            l.push({
+        for (let s = 1; s <= ge; s += 1)
+          if (s === 1)
+            o.push({
               type: "button",
               page: 1,
               active: u === 1,
               activePrev: !1
             });
-          else if (n === 2 || n === 6)
-            l.push({ type: "omission" });
-          else if (n === 7)
-            l.push({
+          else if (s === 2 || s === 6)
+            o.push({ type: "omission" });
+          else if (s === 7)
+            o.push({
               type: "button",
               page: r,
               active: r === u,
               activePrev: !1
             });
           else {
-            const g = 4 - n, v = u - g;
-            l.push({
+            const g = 4 - s, v = u - g;
+            o.push({
               type: "button",
               page: v,
               active: v === u,
               activePrev: v + 1 === u
             });
           }
-      return l;
+      return o;
     });
-    return (l, r) => (m(), x("div", Bn, [
-      (m(!0), x(oe, null, Y(d.value, (u, n) => (m(), x("div", {
-        key: n,
+    return (o, r) => (m(), w("div", Fn, [
+      (m(!0), w(oe, null, Y(d.value, (u, s) => (m(), w("div", {
+        key: s,
         class: S(["relative inline-flex items-center justify-center", [
           // Common styles for all items
           "min-w-[32px] h-8 text-sm",
           // First item styles
-          n === 0 && "rounded-l-md",
+          s === 0 && "rounded-l-md",
           // Last item styles
-          n === d.value.length - 1 && "rounded-r-md",
+          s === d.value.length - 1 && "rounded-r-md",
           // Button specific styles
           u.type === "button" && [
             "border border-gray-300",
             // Active state
             u.active ? [
               "z-10",
-              c(o).base,
+              c(l).base,
               "relative"
             ] : [
               "bg-white",
               "text-gray-700",
               "hover:bg-gray-50",
               "focus:z-10 focus:outline-none focus:ring-1",
-              `focus:ring-${c(o).tailwindName}-500`,
-              `focus:border-${c(o).tailwindName}-500`
+              `focus:ring-${c(l).tailwindName}-500`,
+              `focus:border-${c(l).tailwindName}-500`
             ],
             // Disable hover effect for active button
             !u.active && "cursor-pointer",
             // Connect borders for middle buttons
-            n !== 0 && "-ml-px"
+            s !== 0 && "-ml-px"
           ],
           // Omission (ellipsis) styles
           u.type === "omission" && [
             "bg-white border border-gray-300 text-gray-700",
-            n !== 0 && "-ml-px"
+            s !== 0 && "-ml-px"
           ]
         ]]),
-        style: ie(c(o).style),
+        style: le(c(l).style),
         onClick: (g) => i(u)
       }, [
-        u.type === "button" ? (m(), x("span", {
+        u.type === "button" ? (m(), w("span", {
           key: 0,
           class: S(["px-3 py-1.5", { "font-medium": u.active }])
-        }, z(u.page), 3)) : (m(), U(c(za), { key: 1 }))
-      ], 14, An))), 128))
+        }, z(u.page), 3)) : (m(), U(c(Ua), { key: 1 }))
+      ], 14, Rn))), 128))
     ]));
   }
-}), Rn = { class: "hidden sm:flex sm:flex-1 sm:items-center sm:justify-between" }, Mn = /* @__PURE__ */ R({
+}), Tn = { class: "hidden sm:flex sm:flex-1 sm:items-center sm:justify-between" }, Ln = /* @__PURE__ */ R({
   __name: "TableFooter",
   props: {
     hideFooter: { type: Boolean },
@@ -2014,24 +2013,24 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
   },
   emits: ["update:rowsPerPage", "nextPage", "prevPage", "updatePage"],
   setup(e, { emit: t }) {
-    const a = e, s = t, o = y(() => ({
+    const a = e, n = t, l = y(() => ({
       isFirstPage: a.isFirstPage,
       isLastPage: a.isLastPage,
       currentPaginationNumber: a.currentPaginationNumber,
       maxPaginationNumber: a.maxPaginationNumber,
-      nextPage: () => s("nextPage"),
-      prevPage: () => s("prevPage"),
-      updatePage: (i) => s("updatePage", i)
+      nextPage: () => n("nextPage"),
+      prevPage: () => n("prevPage"),
+      updatePage: (i) => n("updatePage", i)
     }));
-    return (i, d) => i.hideFooter ? D("", !0) : (m(), x("div", {
+    return (i, d) => i.hideFooter ? D("", !0) : (m(), w("div", {
       key: 0,
       class: S(["flex items-center justify-between px-4 py-3 bg-white border border-gray-200 border-t-0", [{ "shadow-sm": i.showShadow }, i.footerClassName]])
     }, [
       W(vt, {
         "is-first-page": i.isFirstPage,
         "is-last-page": i.isLastPage,
-        onClickNextPage: d[0] || (d[0] = () => s("nextPage")),
-        onClickPrevPage: d[1] || (d[1] = () => s("prevPage")),
+        onClickNextPage: d[0] || (d[0] = () => n("nextPage")),
+        onClickPrevPage: d[1] || (d[1] = () => n("prevPage")),
         class: "sm:hidden flex flex-1"
       }, {
         buttonsPagination: G(() => d[6] || (d[6] = [
@@ -2039,15 +2038,15 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
         ])),
         _: 1
       }, 8, ["is-first-page", "is-last-page"]),
-      C("div", Rn, [
-        i.hideRowsPerPage ? D("", !0) : (m(), U(Cn, {
+      C("div", Tn, [
+        i.hideRowsPerPage ? D("", !0) : (m(), U(Sn, {
           key: 0,
           "model-value": i.rowsPerPage,
           "rows-items": i.rowsItems,
           message: i.rowsPerPageMessage,
-          "onUpdate:modelValue": d[2] || (d[2] = (l) => s("update:rowsPerPage", l))
+          "onUpdate:modelValue": d[2] || (d[2] = (o) => n("update:rowsPerPage", o))
         }, null, 8, ["model-value", "rows-items", "message"])),
-        i.hidePaginationInfo ? D("", !0) : (m(), U(Sn, {
+        i.hidePaginationInfo ? D("", !0) : (m(), U($n, {
           key: 1,
           "current-page-first-index": i.currentPageFirstIndex,
           "current-page-last-index": i.currentPageLastIndex,
@@ -2056,26 +2055,26 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
         }, pe({ _: 2 }, [
           i.$slots["pagination-info"] ? {
             name: "default",
-            fn: G((l) => [
-              I(i.$slots, "pagination-info", q(le(l)))
+            fn: G((o) => [
+              I(i.$slots, "pagination-info", q(re(o)))
             ]),
             key: "0"
           } : void 0
         ]), 1032, ["current-page-first-index", "current-page-last-index", "total-items-length", "rows-of-page-separator-message"])),
-        i.$slots.pagination ? I(i.$slots, "pagination", q(J({ key: 2 }, o.value))) : (m(), U(vt, {
+        i.$slots.pagination ? I(i.$slots, "pagination", q(J({ key: 2 }, l.value))) : (m(), U(vt, {
           key: 3,
           "is-first-page": i.isFirstPage,
           "is-last-page": i.isLastPage,
-          onClickNextPage: d[4] || (d[4] = () => s("nextPage")),
-          onClickPrevPage: d[5] || (d[5] = () => s("prevPage"))
+          onClickNextPage: d[4] || (d[4] = () => n("nextPage")),
+          onClickPrevPage: d[5] || (d[5] = () => n("prevPage"))
         }, pe({ _: 2 }, [
           i.buttonsPagination ? {
             name: "buttonsPagination",
             fn: G(() => [
-              W(Fn, {
+              W(Mn, {
                 "current-pagination-number": i.currentPaginationNumber,
                 "max-pagination-number": i.maxPaginationNumber,
-                onUpdatePage: d[3] || (d[3] = (l) => s("updatePage", l))
+                onUpdatePage: d[3] || (d[3] = (o) => n("updatePage", o))
               }, null, 8, ["current-pagination-number", "max-pagination-number"])
             ]),
             key: "0"
@@ -2084,13 +2083,13 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
       ])
     ], 2));
   }
-}), Tn = ["id"], Ln = {
+}), En = ["id"], Dn = {
   key: 0,
   class: "absolute inset-0 flex items-center justify-center bg-white/50"
-}, En = { class: "relative z-10" }, Dn = {
+}, On = { class: "relative z-10" }, Hn = {
   key: 1,
   class: "absolute inset-0 flex items-center justify-center text-gray-500"
-}, xt = /* @__PURE__ */ R({
+}, wt = /* @__PURE__ */ R({
   __name: "DataTable",
   props: {
     items: { default: () => [] },
@@ -2147,6 +2146,7 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
     tableNodeId: { default: "" },
     preventContextMenuRow: { type: Boolean, default: !1 },
     expandColumn: { default: "" },
+    expandTransition: { type: Boolean, default: void 0 },
     batchSelectionThreshold: { default: 1e4 }
   },
   emits: [
@@ -2165,185 +2165,187 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
     "updateSelectionStatus"
   ],
   setup(e, { expose: t, emit: a }) {
-    const s = e, {
-      checkboxColumnWidth: o,
+    const n = e, {
+      checkboxColumnWidth: l,
       expandColumnWidth: i,
       indexColumnWidth: d,
-      rowsItems: l,
+      rowsItems: o,
       showIndexSymbol: r,
       currentPage: u,
-      filterOptions: n,
+      filterOptions: s,
       headers: g,
       itemsSelected: v,
       loading: b,
       items: h,
-      rowsPerPage: w,
-      searchField: N,
+      rowsPerPage: x,
+      searchField: B,
       searchValue: $,
       serverItemsLength: O,
       showIndex: M,
       sortBy: Z,
       sortType: H,
-      serverOptions: ue,
+      serverOptions: ie,
       multiSort: ee,
-      mustSort: xe,
-      clickEventType: we,
+      mustSort: we,
+      clickEventType: xe,
       clickRowToExpand: Pe,
       clickRowToSelect: V,
       fixedExpand: Ce,
-      fixedCheckbox: B,
+      fixedCheckbox: N,
       fixedIndex: j,
       batchSelectionThreshold: L,
       expandColumn: E
-    } = Kt(s), p = y(() => Aa(s.theme));
+    } = Gt(n), p = y(() => Fa(n.theme));
     it("themeClasses", p);
-    const k = bt(), P = y(() => !!k.expand), F = y(() => !!k.body), te = _(null), ae = _(null);
+    const k = bt(), P = y(() => !!k.expand), F = y(() => !!k.body), ue = y(
+      () => typeof n.expandTransition < "u" ? n.expandTransition : P.value
+    ), te = _(null), ke = _(null);
     it("dataTable", te);
-    const Q = a, ve = y(() => v.value !== null), ne = y(() => ue.value !== null), {
-      serverOptionsComputed: ke,
-      updateServerOptionsPage: Ie,
-      updateServerOptionsSort: wt,
-      updateServerOptionsRowsPerPage: Pt
-    } = pa(
-      ue,
+    const Q = a, Se = y(() => v.value !== null), ae = y(() => ie.value !== null), {
+      serverOptionsComputed: ve,
+      updateServerOptionsPage: xt,
+      updateServerOptionsSort: Pt,
+      updateServerOptionsRowsPerPage: Ct
+    } = ma(
+      ie,
       ee,
       Q
     ), {
       clientSortOptions: Ge,
       headerColumns: Je,
       headersForRender: he,
-      updateSortField: Ct,
-      isMultiSorting: kt,
-      getMultiSortNumber: St
-    } = ra(
+      updateSortField: kt,
+      isMultiSorting: St,
+      getMultiSortNumber: It
+    } = oa(
       r,
-      o,
+      l,
       i,
-      B,
+      N,
       Ce,
       j,
       g,
       P,
       d,
+      Se,
+      ae,
+      we,
       ve,
-      ne,
-      xe,
-      ke,
       M,
       Z,
       H,
       ee,
       E,
-      wt,
+      Pt,
       Q
     ), {
       rowsItemsComputed: Ye,
       rowsPerPageRef: be,
       updateRowsPerPage: Ze
-    } = ga(
-      ne,
-      l,
-      ue,
-      w
+    } = pa(
+      ae,
+      o,
+      ie,
+      x
     ), {
       totalItems: Qe,
-      selectItemsComputed: It,
+      selectItemsComputed: $t,
       totalItemsLength: $e,
-      toggleSelectAll: $t,
+      toggleSelectAll: Bt,
       toggleSelectItem: Xe,
       isProcessing: Nt,
-      processProgress: Bt
-    } = wa(
+      processProgress: At
+    } = Pa(
       Ge,
-      n,
-      ne,
+      s,
+      ae,
       h,
       v,
-      N,
+      B,
       $,
       O,
       ee,
       L,
-      s.disabledRows,
+      n.disabledRows,
       Q
     ), {
       currentPaginationNumber: de,
-      maxPaginationNumber: Ne,
-      isLastPage: Be,
+      maxPaginationNumber: Be,
+      isLastPage: Ne,
       isFirstPage: Ae,
       nextPage: Fe,
       prevPage: Re,
-      updatePage: Se,
-      updateCurrentPaginationNumber: At
-    } = fa(
+      updatePage: Ie,
+      updateCurrentPaginationNumber: Ft
+    } = ga(
       u,
-      ne,
+      ae,
       b,
       $e,
       be,
-      ue,
-      Ie
+      ie,
+      xt
     ), {
       currentPageFirstIndex: _e,
       currentPageLastIndex: et,
-      multipleSelectStatus: Ft,
+      multipleSelectStatus: Rt,
       pageItems: ce
-    } = ca(
+    } = fa(
       de,
-      ve,
-      ne,
+      Se,
+      ae,
       h,
       be,
-      It,
+      $t,
       M,
       Qe,
       $e,
-      s.disabledRows
+      n.disabledRows
     ), Me = y(() => de.value === 0 ? 0 : (de.value - 1) * be.value), {
       expandingItemIndexList: De,
       updateExpandingItemIndexList: tt,
       clearExpandingItemIndexList: at
-    } = na(
+    } = sa(
       ce,
       Me,
       Q
     ), {
       fixedHeaders: nt,
       lastFixedColumn: st,
-      fixedColumnsInfos: Rt,
+      fixedColumnsInfos: Mt,
       showShadow: rt
-    } = sa(
+    } = ra(
       he,
-      ae
-    ), Mt = (f) => {
-      const se = f.width ?? (nt.value.length ? 100 : null);
-      if (se) return `width: ${se}px; min-width: ${se}px;`;
-    }, lt = (f, se = "th") => {
+      ke
+    ), Tt = (f) => {
+      const ne = f.width ?? (nt.value.length ? 100 : null);
+      if (ne) return `width: ${ne}px; min-width: ${ne}px;`;
+    }, ot = (f, ne = "th") => {
       if (!nt.value.length) return;
-      const A = Rt.value.find((T) => T.value === f);
+      const A = Mt.value.find((T) => T.value === f);
       if (A)
         return `
             left: ${A.distance}px;
-            z-index: ${se === "th" ? 3 : 1};
+            z-index: ${ne === "th" ? 3 : 1};
             position: sticky;
-            background-color: ${se === "th" ? "none" : "inherit"};
+            background-color: ${ne === "th" ? "none" : "inherit"};
             ${A.value === st.value ? `
                 box-shadow: 4px 0 6px -2px rgba(0, 0, 0, 0.1);
                 clip-path: inset(0px -10px 0px 0px);
             ` : ""}
             isolation: isolate;
         `;
-    }, Tt = (f) => {
-      f.sortable && f.sortType && Ct(f.value, f.sortType);
-    }, Oe = (f) => typeof s.disabledRows == "function" ? s.disabledRows(f) : !1, Lt = y(() => ce.value.every((f) => s.disabledRows(f))), Et = (f) => {
+    }, Lt = (f) => {
+      f.sortable && f.sortType && kt(f.value, f.sortType);
+    }, Oe = (f) => typeof n.disabledRows == "function" ? n.disabledRows(f) : !1, Et = y(() => ce.value.every((f) => n.disabledRows(f))), Dt = (f) => {
       Oe(f) || Xe(f);
     }, {
-      handleRowClick: Dt,
-      handleRowDoubleClick: Ot,
-      handleRowContextMenu: Ht
-    } = aa(
-      we,
-      ve,
+      handleRowClick: Ot,
+      handleRowDoubleClick: Ht,
+      handleRowContextMenu: jt
+    } = na(
+      xe,
+      Se,
       M,
       Oe,
       Pe,
@@ -2352,13 +2354,13 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
       Xe,
       Q
     );
-    return fe(b, (f, se) => {
-      ke.value && f === !1 && se === !0 && (At(ke.value.page), at());
+    return fe(b, (f, ne) => {
+      ve.value && f === !1 && ne === !0 && (Ft(ve.value.page), at());
     }), fe(be, (f) => {
-      ne.value ? Pt(f) : Se(1);
-    }), fe([$, n], () => {
-      ne.value || Se(1);
-    }), fe([de, Ge, N, $, n], () => {
+      ae.value ? Ct(f) : Ie(1);
+    }), fe([$, s], () => {
+      ae.value || Ie(1);
+    }), fe([de, Ge, B, $, s], () => {
       at();
     }, { deep: !0 }), fe(ce, (f) => {
       Q("updatePageItems", f);
@@ -2368,24 +2370,24 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
       currentPageFirstIndex: _e,
       currentPageLastIndex: et,
       clientItemsLength: $e,
-      maxPaginationNumber: Ne,
+      maxPaginationNumber: Be,
       currentPaginationNumber: de,
-      isLastPage: Be,
+      isLastPage: Ne,
       isFirstPage: Ae,
       nextPage: Fe,
       prevPage: Re,
-      updatePage: Se,
+      updatePage: Ie,
       rowsPerPageOptions: Ye,
       rowsPerPageActiveOption: be,
       updateRowsPerPageActiveOption: Ze
-    }), (f, se) => (m(), x("div", {
+    }), (f, ne) => (m(), w("div", {
       ref_key: "tableWrapper",
       ref: te,
       class: S(["vdt-table-wrapper relative w-full", [f.wrapperClassName]])
     }, [
       C("div", {
         ref_key: "tableContainer",
-        ref: ae,
+        ref: ke,
         class: S(["vdt-table-container relative overflow-auto border scroll-smooth border-gray-200 min-h-[180px]", [{ "shadow-sm": c(rt) }, f.containerClassName]])
       }, [
         C("table", {
@@ -2393,13 +2395,13 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
           class: S(["vdt-table w-full border-collapse bg-white", [f.tableClassName]])
         }, [
           C("colgroup", null, [
-            (m(!0), x(oe, null, Y(c(he), (A, T) => (m(), x("col", {
+            (m(!0), w(oe, null, Y(c(he), (A, T) => (m(), w("col", {
               key: T,
-              style: ie(Mt(A))
+              style: le(Tt(A))
             }, null, 4))), 128))
           ]),
           c(k)["customize-headers"] ? I(f.$slots, "customize-headers", { key: 0 }) : D("", !0),
-          W(on, J({
+          W(un, J({
             headers: c(he),
             hideHeader: f.hideHeader,
             fixedHeader: f.fixedHeader,
@@ -2407,36 +2409,36 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
             borderCell: f.borderCell,
             lastFixedColumn: c(st),
             headerItemClassName: f.headerItemClassName,
-            areAllVisibleRowsDisabled: Lt.value,
-            multipleSelectStatus: c(Ft),
+            areAllVisibleRowsDisabled: Et.value,
+            multipleSelectStatus: c(Rt),
             multiSort: c(ee)
           }, {
-            "is-multi-sorting": c(kt),
-            "get-multi-sort-number": c(St),
-            "get-fixed-distance": lt,
-            onHeaderClick: Tt,
-            onToggleSelectAll: c($t)
+            "is-multi-sorting": c(St),
+            "get-multi-sort-number": c(It),
+            "get-fixed-distance": ot,
+            onHeaderClick: Lt,
+            onToggleSelectAll: c(Bt)
           }), pe({ _: 2 }, [
             Y(f.$slots, (A, T) => ({
               name: T,
               fn: G((K) => [
-                I(f.$slots, T, q(le(K)))
+                I(f.$slots, T, q(re(K)))
               ])
             }))
           ]), 1040, ["is-multi-sorting", "get-multi-sort-number", "onToggleSelectAll"]),
-          F.value ? I(f.$slots, "body", q(J({ key: 1 }, c(ce)))) : c(Je).length ? (m(), x("tbody", {
+          F.value ? I(f.$slots, "body", q(J({ key: 1 }, c(ce)))) : c(Je).length ? (m(), w("tbody", {
             key: 2,
-            class: S(["vdt-tbody text-sm divide-y divide-gray-200", [f.bodyClassName]])
+            class: S(["vdt-tbody text-sm", [f.bodyClassName]])
           }, [
-            I(f.$slots, "body-prepend", q(le({
+            I(f.$slots, "body-prepend", q(re({
               items: c(ce),
-              pagination: { isFirstPage: c(Ae), isLastPage: c(Be), currentPaginationNumber: c(de), maxPaginationNumber: c(Ne), nextPage: c(Fe), prevPage: c(Re) },
+              pagination: { isFirstPage: c(Ae), isLastPage: c(Ne), currentPaginationNumber: c(de), maxPaginationNumber: c(Be), nextPage: c(Fe), prevPage: c(Re) },
               headers: c(he)
             }))),
-            (m(!0), x(oe, null, Y(c(ce), (A, T) => (m(), x(oe, {
+            (m(!0), w(oe, null, Y(c(ce), (A, T) => (m(), w(oe, {
               key: A.key || T
             }, [
-              W(dn, {
+              W(cn, {
                 item: A,
                 index: T,
                 columns: c(Je),
@@ -2447,21 +2449,21 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
                 "is-expanded": c(De).includes(T + Me.value),
                 "is-disabled": Oe(A),
                 "expand-column": c(E),
-                "get-fixed-distance": lt,
-                onClick: (K) => c(Dt)(K, A, T),
-                onDblclick: (K) => c(Ot)(K, A, T),
-                onContextmenu: (K) => c(Ht)(K, A),
+                "get-fixed-distance": ot,
+                onClick: (K) => c(Ot)(K, A, T),
+                onDblclick: (K) => c(Ht)(K, A, T),
+                onContextmenu: (K) => c(jt)(K, A),
                 onToggleExpand: (K) => c(tt)(T, A, K),
-                onToggleSelect: (K) => Et(A)
+                onToggleSelect: (K) => Dt(A)
               }, pe({ _: 2 }, [
-                Y(f.$slots, (K, ot) => ({
-                  name: ot,
-                  fn: G((jt) => [
-                    I(f.$slots, ot, J({ ref_for: !0 }, jt))
+                Y(f.$slots, (K, lt) => ({
+                  name: lt,
+                  fn: G((qt) => [
+                    I(f.$slots, lt, J({ ref_for: !0 }, qt))
                   ])
                 }))
               ]), 1032, ["item", "index", "columns", "alternating", "no-hover", "border-cell", "body-row-className", "is-expanded", "is-disabled", "expand-column", "onClick", "onDblclick", "onContextmenu", "onToggleExpand", "onToggleSelect"]),
-              P.value && c(De).includes(T + Me.value) ? (m(), U(mn, {
+              ue.value || c(De).includes(T + Me.value) ? (m(), U(hn, {
                 key: 0,
                 item: A,
                 index: T,
@@ -2476,27 +2478,27 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
                 _: 2
               }, 1032, ["item", "index", "columns-count", "loading", "is-expanded", "body-expand-row-className"])) : D("", !0)
             ], 64))), 128)),
-            I(f.$slots, "body-append", q(le({
+            I(f.$slots, "body-append", q(re({
               items: c(ce),
-              pagination: { isFirstPage: c(Ae), isLastPage: c(Be), currentPaginationNumber: c(de), maxPaginationNumber: c(Ne), nextPage: c(Fe), prevPage: c(Re), updatePage: c(Se) },
+              pagination: { isFirstPage: c(Ae), isLastPage: c(Ne), currentPaginationNumber: c(de), maxPaginationNumber: c(Be), nextPage: c(Fe), prevPage: c(Re), updatePage: c(Ie) },
               headers: c(he)
             })))
           ], 2)) : D("", !0)
-        ], 10, Tn),
-        c(b) ? (m(), x("div", Ln, [
-          C("div", En, [
+        ], 10, En),
+        c(b) ? (m(), w("div", Dn, [
+          C("div", On, [
             I(f.$slots, "loading", {}, () => [
-              W(Yt)
+              W(Zt)
             ])
           ])
         ])) : D("", !0),
-        !c(ce).length && !c(b) ? (m(), x("div", Dn, [
+        !c(ce).length && !c(b) ? (m(), w("div", Hn, [
           I(f.$slots, "empty-message", {}, () => [
             Ee(z(f.emptyMessage), 1)
           ])
         ])) : D("", !0)
       ], 2),
-      W(Mn, J({
+      W(Ln, J({
         hideFooter: f.hideFooter,
         hideRowsPerPage: f.hideRowsPerPage,
         hidePaginationInfo: f.hidePaginationInfo,
@@ -2511,41 +2513,41 @@ const Qa = /* @__PURE__ */ me(Ja, [["render", Za]]), Xa = /* @__PURE__ */ R({
         currentPageLastIndex: c(et),
         totalItemsLength: c($e),
         currentPaginationNumber: c(de),
-        maxPaginationNumber: c(Ne),
+        maxPaginationNumber: c(Be),
         isFirstPage: c(Ae),
-        isLastPage: c(Be)
+        isLastPage: c(Ne)
       }, {
         "onUpdate:rowsPerPage": c(Ze),
         onNextPage: c(Fe),
         onPrevPage: c(Re),
-        onUpdatePage: c(Se)
+        onUpdatePage: c(Ie)
       }), pe({ _: 2 }, [
         f.$slots["pagination-info"] ? {
           name: "pagination-info",
           fn: G((A) => [
-            I(f.$slots, "pagination-info", q(le(A)))
+            I(f.$slots, "pagination-info", q(re(A)))
           ]),
           key: "0"
         } : void 0,
         f.$slots.pagination ? {
           name: "pagination",
           fn: G((A) => [
-            I(f.$slots, "pagination", q(le(A)))
+            I(f.$slots, "pagination", q(re(A)))
           ]),
           key: "1"
         } : void 0
       ]), 1040, ["onUpdate:rowsPerPage", "onNextPage", "onPrevPage", "onUpdatePage"]),
-      ze(W(ta, { progress: c(Bt) }, null, 8, ["progress"]), [
+      ze(W(aa, { progress: c(At) }, null, 8, ["progress"]), [
         [Ue, c(Nt)]
       ])
     ], 2));
   }
-}), On = (e) => {
-  e.component("DataTable", xt);
+}), jn = (e) => {
+  e.component("DataTable", wt);
 };
-xt.install = On;
+wt.install = jn;
 export {
-  qn as createFilter,
-  xt as default,
-  On as install
+  zn as createFilter,
+  wt as default,
+  jn as install
 };

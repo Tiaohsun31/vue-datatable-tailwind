@@ -31,6 +31,7 @@
 - 新增 `.vdt-table-wrapper`、`.vdt-table-container`、`.vdt-table`、`.vdt-thead`、`.vdt-thead-tr`、`.vdt-thead-th`、`.vdt-tbody`、`.vdt-tbody-tr`、`.vdt-tbody-td`、`.vdt-expand-row`、`.vdt-footer`、`.vdt-pagination`，CSS，預設無任何值。
 - 移除`headerTextDirection`，請改用`headerClassName`統一控制，預設為`text-left`
 - 移除`bodyTextDirection`，新增`bodyClassName`、`footerClassName`。
+- 新增`expandTransition`，用來啟用擴展列過渡效果。
 
 ## Usage suggestions
 
@@ -92,6 +93,7 @@ const bodyRowClassNameFunction: BodyRowClassNameFunction = (
 | batchSelectionThreshold | false        | number                                                                | 10,000                                  | 超過預設值，啟用批次選擇，具有Loading樣式                      |
 | clickRowToSelect        | false        | boolean                                                               | false                                   | 點擊列，是否選擇項目                                           |
 | disabledRows            | false        | BodyRowDisabledFunction = (item: Item, rowNumber?: number) => boolean | false                                   | 禁止特定行被選取                                               |
+| expandTransition        | false        | boolean                                                               | true                                    | 如果有設置擴展列，預設啟用擴展列過渡效果                       |
 
 ## Slot
 

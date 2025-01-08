@@ -1,13 +1,14 @@
 <!-- components/table/ExpandRow.vue -->
 <template>
-    <tr class="vdt-expand-row" :class="[
-        { 'bg-gray-50': (index + 1) % 2 === 0 },
-        expandRowClassName
-    ]">
-        <td :colspan="columnsCount" class="px-4 py-2">
+    <tr class="vdt-expand-row border-0"
+        :class="[expandRowClassName, { 'bg-gray-50': (index + 1) % 2 === 0, 'border-t': isExpanded }]">
+        <td :colspan="columnsCount" class="relative p-0">
             <LoadingLine v-if="loading" class="mb-4" />
-            <div class="transition-all duration-300" :class="{ 'opacity-0': !isExpanded }">
-                <slot></slot>
+            <div class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-in-out"
+                :class="[{ 'grid-rows-[1fr]': isExpanded }]">
+                <div class="overflow-hidden">
+                    <slot></slot>
+                </div>
             </div>
         </td>
     </tr>

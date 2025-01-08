@@ -29,6 +29,7 @@ The project is only a customized version. Please read the document below for rel
 - Added `.vdt-table-wrapper`, `.vdt-table-container`, `.vdt-table`, `.vdt-thead`, `.vdt-thead-tr`, `.vdt-thead-th`, `.vdt-tbody`, `.vdt-tbody-tr`, `.vdt-tbody-td`, `.vdt-expand-row`, `.vdt-footer`, `.vdt-pagination` , CSS, defaults to no value.
 - Remove `headerTextDirection`, please use `headerClassName` unified control instead, the default is `text-left`
 - Removed `bodyTextDirection`, added `bodyClassName`, `footerClassName`。
+- Added `expandTransition` to enable expanded column transition effects.
 
 ## Usage Suggestions
 
@@ -83,13 +84,14 @@ const bodyRowClassNameFunction: BodyRowClassNameFunction = (
 
 In addition to the original [Props](https://hc200ok.github.io/vue3-easy-data-table-doc/props/common-props.html), the following new props have been added:
 
-| **Name**                | **Required** | **Type**                                                              | **Default**                             | **Description**                                                                      |
-| ----------------------- | ------------ | --------------------------------------------------------------------- | --------------------------------------- | ------------------------------------------------------------------------------------ |
-| expand-column           | false        | string                                                                | ‘’                                      | Specifies which column can be expanded.                                              |
-| theme                   | false        | string or ThemeConfig({ color: 'indigo', variant: 'DEFAULT' })        | { color: 'indigo', variant: 'DEFAULT' } | Replaces `theme-color`. Accepts HEX values like `#42b883` or Tailwind color names.   |
-| batchSelectionThreshold | false        | number                                                                | 10,000                                  | Enables batch selection for datasets exceeding this threshold, with a loading style. |
-| clickRowToSelect        | false        | boolean                                                               | false                                   | Click on the column to select the item or not                                        |
-| disabledRows            | false        | BodyRowDisabledFunction = (item: Item, rowNumber?: number) => boolean | false                                   | Disable specific rows from being selected                                            |
+| **Name**                | **Required** | **Type**                                                              | **Default**                             | **Description**                                                                            |
+| ----------------------- | ------------ | --------------------------------------------------------------------- | --------------------------------------- | ------------------------------------------------------------------------------------------ |
+| expand-column           | false        | string                                                                | ‘’                                      | Specifies which column can be expanded.                                                    |
+| theme                   | false        | string or ThemeConfig({ color: 'indigo', variant: 'DEFAULT' })        | { color: 'indigo', variant: 'DEFAULT' } | Replaces `theme-color`. Accepts HEX values like `#42b883` or Tailwind color names.         |
+| batchSelectionThreshold | false        | number                                                                | 10,000                                  | Enables batch selection for datasets exceeding this threshold, with a loading style.       |
+| clickRowToSelect        | false        | boolean                                                               | false                                   | Click on the column to select the item or not                                              |
+| disabledRows            | false        | BodyRowDisabledFunction = (item: Item, rowNumber?: number) => boolean | false                                   | Disable specific rows from being selected                                                  |
+| expandTransition        | false        | boolean                                                               | true                                    | If an extended column is set, the extended column transition effect is enabled by default. |
 
 ## Slots
 
