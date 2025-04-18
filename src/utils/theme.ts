@@ -1,6 +1,12 @@
-import colors from 'tailwindcss/colors';
+import { slate, gray, zinc, neutral, stone, red, orange, amber, yellow, lime, green, emerald, teal, cyan, sky, blue, indigo, violet, purple, fuchsia, pink, rose } from 'tailwindcss/colors';
 import type { TailwindColor, ThemeVariant, ThemeConfig, TailwindShade } from '../types/main';
 import type { ThemeStateClasses } from '@/types/internal';
+
+const safeColors = {
+    slate, gray, zinc, neutral, stone, red, orange, amber, yellow,
+    lime, green, emerald, teal, cyan, sky, blue, indigo, violet,
+    purple, fuchsia, pink, rose
+};
 
 // 映射 variant 到對應的色階
 const variantToShade: Record<ThemeVariant, TailwindShade> = {
@@ -18,7 +24,7 @@ export const findClosestTailwindColor = (hex: string): ThemeConfig => {
     let minDistance = Infinity;
 
     // 構建要比對的顏色映射
-    const colorMap = Object.entries(colors).reduce((acc, [colorName, colorValue]) => {
+    const colorMap = Object.entries(safeColors).reduce((acc, [colorName, colorValue]) => {
         if (typeof colorValue === 'object') {
             const color = colorName as TailwindColor;
             Object.entries(variantToShade).forEach(([variant, shade]) => {
@@ -49,13 +55,13 @@ const generateThemeStyles = (color: TailwindColor, variant: ThemeVariant) => {
     const hoverShade = variant === 'dark' ? '700' : variant === 'DEFAULT' ? '600' : '500';
     const lightShade = '400';
     return {
-        '--theme-color': colors[color][shade],
-        '--theme-border': colors[color][shade],
-        '--theme-hover': colors[color][hoverShade],
-        '--theme-active': colors[color][variant === 'light' ? '500' : variant === 'DEFAULT' ? '600' : '700'],
-        '--theme-disabled': colors.gray[300],
-        '--theme-light': colors[color][lightShade],
-        '--theme-focus': colors[color][shade] + '80' // 添加 50% 透明度
+        '--theme-color': safeColors[color][shade],
+        '--theme-border': safeColors[color][shade],
+        '--theme-hover': safeColors[color][hoverShade],
+        '--theme-active': safeColors[color][variant === 'light' ? '500' : variant === 'DEFAULT' ? '600' : '700'],
+        '--theme-disabled': safeColors.gray[300],
+        '--theme-light': safeColors[color][lightShade],
+        '--theme-focus': safeColors[color][shade] + '80' // 添加 50% 透明度
     };
 };
 
@@ -73,7 +79,7 @@ export const getThemeStateClasses = (theme: ThemeConfig | string): ThemeStateCla
         disabled: 'bg-gray-300 cursor-not-allowed',
         hex: typeof theme === 'string' && theme.startsWith('#')
             ? theme
-            : colors[tailwindColor][variantToShade[variant]],
+            : safeColors[tailwindColor][variantToShade[variant]],
         tailwindName: tailwindColor,
         style: generateThemeStyles(tailwindColor, variant)
     };
@@ -108,7 +114,7 @@ function getColorDistance(color1: { r: number; g: number; b: number }, color2: {
 
 export const getTailwindColorValue = (color: TailwindColor, variant: ThemeVariant = 'DEFAULT'): string => {
     const shade = variantToShade[variant];
-    return colors[color][shade];
+    return safeColors[color][shade];
 };
 
 export const getThemeVars = (theme: ThemeConfig | string): Record<string, string> => {
