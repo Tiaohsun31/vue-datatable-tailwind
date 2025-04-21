@@ -49,6 +49,7 @@
 
                         <TableBodyRow :item="item" :index="index" :columns="headerColumns" :alternating="alternating"
                             :no-hover="noHover" :border-cell="borderCell" :body-row-className="bodyRowClassName"
+                            :body-item-class-name="bodyItemClassName"
                             :is-expanded="expandingItemIndexList.includes(index + prevPageEndIndex)"
                             :is-disabled="isItemDisabled(item)" :expand-column="expandColumn"
                             :get-fixed-distance="getFixedDistance" @click="handleRowClick($event, item, index)"
@@ -56,7 +57,6 @@
                             @contextmenu="handleRowContextMenu($event, item)"
                             @toggle-expand="handleExpandToggle(index, item, $event)"
                             @toggle-select="handleToggleSelect(item)">
-
                             <template v-for="(_, name) in $slots" #[name]="slotData">
                                 <slot :name="name" v-bind="slotData"></slot>
                             </template>

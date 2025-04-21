@@ -10,9 +10,10 @@
         <slot name="prepend"></slot>
         <template v-for="(column, columnIndex) in columns" :key="columnIndex">
             <TableBodyCell :column="column" :item="item" :index="index" :style="getFixedDistance?.(column, 'td')"
-                :is-disabled="isDisabled" @toggle-select="() => $emit('toggle-select', item)"
-                :expand-column="expandColumn" :is-expanded="isExpanded"
-                @toggle-expand="(event) => $emit('toggle-expand', event, index, item)">
+                :is-disabled="isDisabled" :expand-column="expandColumn" :is-expanded="isExpanded"
+                :body-item-class-name="bodyItemClassName"
+                @toggle-expand="(event) => $emit('toggle-expand', event, index, item)"
+                @toggle-select="() => $emit('toggle-select', item)">
 
                 <template v-for="(_, name) in $slots" #[name]="slotData">
                     <slot :name="name" v-bind="slotData"></slot>
@@ -40,7 +41,8 @@ const props = defineProps<{
     isExpanded?: boolean
     isDisabled?: boolean
     expandColumn?: string
-    getFixedDistance?: (column: string, type: 'td' | 'th') => string | undefined
+    getFixedDistance?: (column: string, type: 'td' | 'th') => string | undefined,
+    bodyItemClassName?: string | ((column: string, index: number) => string)
 }>()
 
 const emit = defineEmits<{

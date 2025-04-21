@@ -1,7 +1,7 @@
 {
   "name": "@tiaohsun/vue-datatable-tailwind",
   "author": "tiaohsun",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A Vue 3 data table component restructured and styled with TailwindCSS",
   "license": "MIT",
   "type": "module",

@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.5] - 2025-04-21
+
+### Bug Fixes
+
+- 修復 bodyItemClassName 未正確執行。
+
+## [1.0.4] - 2025-04-18
+
+### Styles
+
+- 更新theme.ts檔，import的時候不在使用已棄用的Tailwind顏色命名
+
 ## [1.0.3] - 2024-01-08
 
 ### Refactor
