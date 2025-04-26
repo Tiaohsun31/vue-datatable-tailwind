@@ -35,19 +35,19 @@ declare const __VLS_component: DefineComponent<DataTableProps, {
     updateSelectionStatus: (...args: any[]) => void;
     contextmenuRow: (...args: any[]) => void;
 }, string, PublicProps, Readonly<DataTableProps> & Readonly<{
-    onClickRow?: ((...args: any[]) => any) | undefined;
-    onSelectRow?: ((...args: any[]) => any) | undefined;
-    onDeselectRow?: ((...args: any[]) => any) | undefined;
-    onExpandRow?: ((...args: any[]) => any) | undefined;
-    onUpdateSort?: ((...args: any[]) => any) | undefined;
-    "onUpdate:itemsSelected"?: ((...args: any[]) => any) | undefined;
-    "onUpdate:serverOptions"?: ((...args: any[]) => any) | undefined;
-    onUpdateFilter?: ((...args: any[]) => any) | undefined;
-    onUpdatePageItems?: ((...args: any[]) => any) | undefined;
-    onUpdateTotalItems?: ((...args: any[]) => any) | undefined;
-    onSelectAll?: ((...args: any[]) => any) | undefined;
-    onUpdateSelectionStatus?: ((...args: any[]) => any) | undefined;
-    onContextmenuRow?: ((...args: any[]) => any) | undefined;
+    onClickRow?: (...args: any[]) => any;
+    onSelectRow?: (...args: any[]) => any;
+    onDeselectRow?: (...args: any[]) => any;
+    onExpandRow?: (...args: any[]) => any;
+    onUpdateSort?: (...args: any[]) => any;
+    "onUpdate:itemsSelected"?: (...args: any[]) => any;
+    "onUpdate:serverOptions"?: (...args: any[]) => any;
+    onUpdateFilter?: (...args: any[]) => any;
+    onUpdatePageItems?: (...args: any[]) => any;
+    onUpdateTotalItems?: (...args: any[]) => any;
+    onSelectAll?: (...args: any[]) => any;
+    onUpdateSelectionStatus?: (...args: any[]) => any;
+    onContextmenuRow?: (...args: any[]) => any;
 }>, {
     sortBy: string | string[];
     sortType: SortType | SortType[];
@@ -104,30 +104,31 @@ declare const __VLS_component: DefineComponent<DataTableProps, {
     preventContextMenuRow: boolean;
     expandTransition: boolean;
     batchSelectionThreshold: number;
-}, {}, {}, {}, string, ComponentProvideOptions, false, {
-    tableWrapper: HTMLDivElement;
-    tableContainer: HTMLDivElement;
-}, HTMLDivElement>;
+}, {}, {}, {}, string, ComponentProvideOptions, false, {}, HTMLDivElement>;
 
 declare function __VLS_template(): {
     attrs: Partial<{}>;
-    slots: Partial<Record<number, (_: any) => any>> & Partial<Record<number, (_: any) => any>> & {
-        'customize-headers'?(_: {}): any;
+    slots: Partial<Record<NonNullable<string | number>, (_: {
+        header: HeaderForRender;
+        index: number;
+        sortable: boolean;
+    }) => any>> & Partial<Record<NonNullable<string | number>, (_: any) => any>> & {
+        "customize-headers"?(_: {}): any;
         body?(_: {
-            [n: number]: Item;
+            [x: number]: Item;
             length: number;
             toString(): string;
             toLocaleString(): string;
             toLocaleString(locales: string | string[], options?: Intl.NumberFormatOptions & Intl.DateTimeFormatOptions): string;
-            pop(): Item | undefined;
+            pop(): Item;
             push(...items: Item[]): number;
             concat(...items: ConcatArray<Item>[]): Item[];
             concat(...items: (Item | ConcatArray<Item>)[]): Item[];
             join(separator?: string): string;
             reverse(): Item[];
-            shift(): Item | undefined;
+            shift(): Item;
             slice(start?: number, end?: number): Item[];
-            sort(compareFn?: ((a: Item, b: Item) => number) | undefined): Item[];
+            sort(compareFn?: (a: Item, b: Item) => number): Item[];
             splice(start: number, deleteCount?: number): Item[];
             splice(start: number, deleteCount: number, ...items: Item[]): Item[];
             unshift(...items: Item[]): number;
@@ -146,8 +147,8 @@ declare function __VLS_template(): {
             reduceRight(callbackfn: (previousValue: Item, currentValue: Item, currentIndex: number, array: Item[]) => Item): Item;
             reduceRight(callbackfn: (previousValue: Item, currentValue: Item, currentIndex: number, array: Item[]) => Item, initialValue: Item): Item;
             reduceRight<U>(callbackfn: (previousValue: U, currentValue: Item, currentIndex: number, array: Item[]) => U, initialValue: U): U;
-            find<S extends Item>(predicate: (value: Item, index: number, obj: Item[]) => value is S, thisArg?: any): S | undefined;
-            find(predicate: (value: Item, index: number, obj: Item[]) => unknown, thisArg?: any): Item | undefined;
+            find<S extends Item>(predicate: (value: Item, index: number, obj: Item[]) => value is S, thisArg?: any): S;
+            find(predicate: (value: Item, index: number, obj: Item[]) => unknown, thisArg?: any): Item;
             findIndex(predicate: (value: Item, index: number, obj: Item[]) => unknown, thisArg?: any): number;
             fill(value: Item, start?: number, end?: number): Item[];
             copyWithin(target: number, start: number, end?: number): Item[];
@@ -155,50 +156,50 @@ declare function __VLS_template(): {
             keys(): ArrayIterator<number>;
             values(): ArrayIterator<Item>;
             includes(searchElement: Item, fromIndex?: number): boolean;
-            flatMap<U, This = undefined>(callback: (this: This, value: Item, index: number, array: Item[]) => U | readonly U[], thisArg?: This | undefined): U[];
-            flat<A, D extends number = 1>(this: A, depth?: D | undefined): FlatArray<A, D>[];
+            flatMap<U, This = undefined>(callback: (this: This, value: Item, index: number, array: Item[]) => U | readonly U[], thisArg?: This): U[];
+            flat<A, D extends number = 1>(this: A, depth?: D): FlatArray<A, D>[];
             [Symbol.iterator](): ArrayIterator<Item>;
             [Symbol.unscopables]: {
-                [x: number]: boolean | undefined;
-                length?: boolean | undefined;
-                toString?: boolean | undefined;
-                toLocaleString?: boolean | undefined;
-                pop?: boolean | undefined;
-                push?: boolean | undefined;
-                concat?: boolean | undefined;
-                join?: boolean | undefined;
-                reverse?: boolean | undefined;
-                shift?: boolean | undefined;
-                slice?: boolean | undefined;
-                sort?: boolean | undefined;
-                splice?: boolean | undefined;
-                unshift?: boolean | undefined;
-                indexOf?: boolean | undefined;
-                lastIndexOf?: boolean | undefined;
-                every?: boolean | undefined;
-                some?: boolean | undefined;
-                forEach?: boolean | undefined;
-                map?: boolean | undefined;
-                filter?: boolean | undefined;
-                reduce?: boolean | undefined;
-                reduceRight?: boolean | undefined;
-                find?: boolean | undefined;
-                findIndex?: boolean | undefined;
-                fill?: boolean | undefined;
-                copyWithin?: boolean | undefined;
-                entries?: boolean | undefined;
-                keys?: boolean | undefined;
-                values?: boolean | undefined;
-                includes?: boolean | undefined;
-                flatMap?: boolean | undefined;
-                flat?: boolean | undefined;
-                [Symbol.iterator]?: boolean | undefined;
-                readonly [Symbol.unscopables]?: boolean | undefined;
-                at?: boolean | undefined;
+                [x: number]: boolean;
+                length?: boolean;
+                toString?: boolean;
+                toLocaleString?: boolean;
+                pop?: boolean;
+                push?: boolean;
+                concat?: boolean;
+                join?: boolean;
+                reverse?: boolean;
+                shift?: boolean;
+                slice?: boolean;
+                sort?: boolean;
+                splice?: boolean;
+                unshift?: boolean;
+                indexOf?: boolean;
+                lastIndexOf?: boolean;
+                every?: boolean;
+                some?: boolean;
+                forEach?: boolean;
+                map?: boolean;
+                filter?: boolean;
+                reduce?: boolean;
+                reduceRight?: boolean;
+                find?: boolean;
+                findIndex?: boolean;
+                fill?: boolean;
+                copyWithin?: boolean;
+                entries?: boolean;
+                keys?: boolean;
+                values?: boolean;
+                includes?: boolean;
+                flatMap?: boolean;
+                flat?: boolean;
+                [Symbol.iterator]?: boolean;
+                readonly [Symbol.unscopables]?: boolean;
+                at?: boolean;
             };
-            at(index: number): Item | undefined;
+            at(index: number): Item;
         }): any;
-        'body-prepend'?(_: {
+        "body-prepend"?(_: {
             items: Item[];
             pagination: {
                 isFirstPage: boolean;
@@ -211,10 +212,10 @@ declare function __VLS_template(): {
             headers: HeaderForRender[];
         }): any;
         expand?(_: {
-            [key: string]: any;
+            [x: string]: any;
             key?: string | number;
         }): any;
-        'body-append'?(_: {
+        "body-append"?(_: {
             items: Item[];
             pagination: {
                 isFirstPage: boolean;
@@ -228,8 +229,8 @@ declare function __VLS_template(): {
             headers: HeaderForRender[];
         }): any;
         loading?(_: {}): any;
-        'empty-message'?(_: {}): any;
-        'pagination-info'?(_: {
+        "empty-message"?(_: {}): any;
+        "pagination-info"?(_: {
             firstIndex: number;
             lastIndex: number;
             total: number;
@@ -434,6 +435,7 @@ export declare interface Header {
     value: string;
     sortable?: boolean;
     fixed?: boolean;
+    fixedPosition?: 'left' | 'right';
     width?: number;
     sortType?: SortType | 'none';
 }
@@ -444,6 +446,7 @@ declare type HeaderForRender = {
     sortable?: boolean,
     sortType?: SortType | 'none',
     fixed?: boolean,
+    fixedPosition?: 'left' | 'right',
     width?: number,
 }
 

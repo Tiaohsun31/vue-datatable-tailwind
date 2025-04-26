@@ -73,16 +73,24 @@ export default function useHeaders(
 
     // 生成表頭渲染數據
     const headersForRender = computed((): HeaderForRender[] => {
-        const { fixedHeaders: userFixedHeaders, unFixedHeaders } = computeFixedColumns.value;
-        const baseHeaders = [...userFixedHeaders, ...unFixedHeaders].map(header => ({
-            ...header,
-            sortType: header.sortable ? determineHeaderSortState(header.value) : undefined
-        }));
+        // 將列分為三類
+        const leftFixedHeaders = headers.value.filter(
+            h => h.fixed && (!h.fixedPosition || h.fixedPosition === 'left')
+        );
+        const normalHeaders = headers.value.filter(h => !h.fixed);
+        const rightFixedHeaders = headers.value.filter(
+            h => h.fixed && h.fixedPosition === 'right'
+        );
 
-        // 添加特殊列
+        // 特殊列處理（如複選框列等）
+        const specialColumns = Object.values(specialColumnsConfig.value).filter(Boolean);
+
+        // 按正確順序返回所有列
         return [
-            ...Object.values(specialColumnsConfig.value).filter(Boolean),
-            ...baseHeaders
+            ...specialColumns,
+            ...leftFixedHeaders,
+            ...normalHeaders,
+            ...rightFixedHeaders
         ] as HeaderForRender[];
     });
 
@@ -92,18 +100,21 @@ export default function useHeaders(
             text: 'checkbox',
             value: 'checkbox',
             fixed: fixedCheckbox.value || computeFixedColumns.value.hasFixedColumns,
+            fixedPosition: 'left' as 'left',
             width: checkboxColumnWidth.value ?? 36
         },
         index: showIndex.value && {
             text: showIndexSymbol.value,
             value: 'index',
             fixed: fixedIndex.value || computeFixedColumns.value.hasFixedColumns,
+            fixedPosition: 'left' as 'left',
             width: indexColumnWidth.value
         },
         expand: ifHasExpandSlot.value && !expandColumn.value && {
             text: '',
             value: 'expand',
             fixed: fixedExpand.value || computeFixedColumns.value.hasFixedColumns,
+            fixedPosition: 'left' as 'left',
             width: expandColumnWidth.value
         }
     }));

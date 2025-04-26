@@ -7,8 +7,9 @@
     ]">
         <tr class="vdt-thead-tr" :class="[{ 'divide-x divide-gray-200': borderCell }]">
             <TableHeaderCell v-for="(header, index) in headers" :key="index" :header="header" :index="index"
-                :fixed-distance="getFixedDistance(header.value)" :last-fixed-column="lastFixedColumn"
-                :header-item-class-name="headerItemClassName" :are-all-visible-rows-disabled="areAllVisibleRowsDisabled"
+                :fixed-distance="getFixedDistance(header.value)" :last-left-fixed-column="lastLeftFixedColumn"
+                :first-right-fixed-column="firstRightFixedColumn" :header-item-class-name="headerItemClassName"
+                :are-all-visible-rows-disabled="areAllVisibleRowsDisabled"
                 :multiple-select-status="multipleSelectStatus" :multi-sort="multiSort"
                 :is-multi-sorting="isMultiSorting" :get-multi-sort-number="getMultiSortNumber"
                 @header-click="handleHeaderClick" @toggle-select-all="toggleSelectAll">
@@ -35,7 +36,9 @@ defineProps({
     fixedHeader: Boolean,
     headerClassName: String,
     borderCell: Boolean,
-    lastFixedColumn: String,
+    lastLeftFixedColumn: String,
+    firstRightFixedColumn: String,
+
     headerItemClassName: {
         type: [String, Function] as PropType<string | ((header: Header, columnNumber: number) => string)>,
         default: ''

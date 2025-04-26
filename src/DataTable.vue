@@ -18,7 +18,8 @@
                     fixedHeader,
                     headerClassName,
                     borderCell,
-                    lastFixedColumn,
+                    lastLeftFixedColumn,
+                    firstRightFixedColumn,
                     headerItemClassName,
                     areAllVisibleRowsDisabled,
                     multipleSelectStatus,
@@ -427,7 +428,10 @@ const {
 
 const {
     fixedHeaders,
-    lastFixedColumn,
+    leftFixedHeaders,
+    rightFixedHeaders,
+    lastLeftFixedColumn,
+    firstRightFixedColumn,
     fixedColumnsInfos,
     showShadow
 } = useFixedColumn(
@@ -447,15 +451,19 @@ const getFixedDistance = (column: string, type: 'td' | 'th' = 'th') => {
     if (!fixedHeaders.value.length) return undefined;
     const columnInfo = fixedColumnsInfos.value.find((info) => info.value === column);
     if (columnInfo) {
+        const isLeft = columnInfo.position === 'left';
         return `
-            left: ${columnInfo.distance}px;
+            ${isLeft ? `left: ${columnInfo.distance}px;` : `right: ${columnInfo.distance}px;`}
             z-index: ${type === 'th' ? 3 : 1};
             position: sticky;
             background-color: ${type === 'th' ? 'none' : 'inherit'};
-            ${columnInfo.value === lastFixedColumn.value ? `
-                box-shadow: 4px 0 6px -2px rgba(0, 0, 0, 0.1);
-                clip-path: inset(0px -10px 0px 0px);
-            ` : ''}
+            ${(isLeft && columnInfo.value === lastLeftFixedColumn.value) ||
+                (!isLeft && columnInfo.value === firstRightFixedColumn.value)
+                ? `
+                    box-shadow: ${isLeft ? '4px 0 6px -2px' : '-4px 0 6px -2px'} rgba(0, 0, 0, 0.1);
+                    clip-path: inset(0px ${isLeft ? '-10px 0px 0px' : '0px 0px -10px'});
+                ` : ''
+            }
             isolation: isolate;
         `;
     }

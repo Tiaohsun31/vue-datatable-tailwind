@@ -15,6 +15,7 @@ export type HeaderForRender = {
     sortable?: boolean,
     sortType?: SortType | 'none',
     fixed?: boolean,
+    fixedPosition?: 'left' | 'right',
     width?: number,
 }
 

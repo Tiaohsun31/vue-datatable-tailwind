@@ -11,6 +11,7 @@ import type { HeaderForRender } from '../types/internal';
 type FixedColumnsInfo = {
     value: string,
     fixed: boolean,
+    position: 'left' | 'right',
     distance: number,
     width: number,
 };
@@ -22,27 +23,62 @@ export default function useFixedColumn(
     // 篩選出設置了 fixed: true 的列
     const fixedHeaders = computed((): HeaderForRender[] => headersForRender.value.filter((header) => header.fixed));
 
-    // 返回最後一個固定列的值，用於添加陰影效果
-    const lastFixedColumn = computed((): string => {
-        if (!fixedHeaders.value.length) return '';
-        return fixedHeaders.value[fixedHeaders.value.length - 1].value;
+    // 分別篩選左側和右側固定列
+    const leftFixedHeaders = computed((): HeaderForRender[] =>
+        fixedHeaders.value.filter(header => !header.fixedPosition || header.fixedPosition === 'left'));
+
+    const rightFixedHeaders = computed((): HeaderForRender[] =>
+        fixedHeaders.value.filter(header => header.fixedPosition === 'right'));
+
+    // 返回最後一個左側固定列和第一個右側固定列的值，用於添加陰影效果
+    const lastLeftFixedColumn = computed((): string => {
+        if (!leftFixedHeaders.value.length) return '';
+        return leftFixedHeaders.value[leftFixedHeaders.value.length - 1].value;
+    });
+
+    const firstRightFixedColumn = computed((): string => {
+        if (!rightFixedHeaders.value.length) return '';
+        return rightFixedHeaders.value[0].value;
     });
 
     const fixedColumnsInfos = computed((): FixedColumnsInfo[] => {
         if (!fixedHeaders.value.length) return [];
-        // 獲取所有固定列的寬度數組
-        const fixedHeadersWidthArr = fixedHeaders.value.map((header) => header.width ?? 100);
-        // 計算每個固定列的位置信息
-        return fixedHeaders.value.map((header: HeaderForRender, index: number): FixedColumnsInfo => ({
-            value: header.value,    // 列標籤
-            fixed: header.fixed ?? true,   // 是否固定
-            width: header.width ?? 100,  // 列寬度
-            // 計算距離左側的距離
-            distance: index === 0 ? 0 : fixedHeadersWidthArr.reduce((previous: number, current: number, i: number): number => {
-                return i < index ? previous + current : previous;
-            }, 0),
-        }));
+        const result: FixedColumnsInfo[] = [];
+        // 處理左側固定列
+        if (leftFixedHeaders.value.length) {
+            // 獲取所有固定列的寬度數組
+            const leftWidthArr = leftFixedHeaders.value.map(header => header.width ?? 100);
+            // 計算每個固定列的位置信息
+            leftFixedHeaders.value.forEach((header, index) => {
+                result.push({
+                    value: header.value,   // 列標籤
+                    fixed: true, // 是否固定
+                    position: 'left', // 固定位置
+                    width: header.width ?? 100, // 列寬度
+                    // 計算距離左側的距離
+                    distance: index === 0 ? 0 : leftWidthArr.reduce((sum, width, i) =>
+                        i < index ? sum + width : sum, 0),
+                });
+            });
+        }
+        // 處理右側固定列
+        if (rightFixedHeaders.value.length) {
+            const rightWidthArr = rightFixedHeaders.value.map(header => header.width ?? 100);
+            rightFixedHeaders.value.forEach((header, index) => {
+                result.push({
+                    value: header.value,
+                    fixed: true,
+                    position: 'right',
+                    width: header.width ?? 100,
+                    distance: index === rightFixedHeaders.value.length - 1 ? 0 :
+                        rightWidthArr.reduce((sum, width, i) =>
+                            i > index ? sum + width : sum, 0),
+                });
+            });
+        }
+        return result;
     });
+
 
     const showShadow = ref(false);
     let cleanup: (() => void) | null = null;
@@ -77,7 +113,12 @@ export default function useFixedColumn(
 
     return {
         fixedHeaders,
-        lastFixedColumn,
+
+        leftFixedHeaders,
+        rightFixedHeaders,
+        lastLeftFixedColumn,
+        firstRightFixedColumn,
+
         fixedColumnsInfos,
         showShadow,
     };

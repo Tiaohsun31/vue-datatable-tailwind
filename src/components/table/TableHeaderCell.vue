@@ -4,7 +4,8 @@
         'px-4 py-3 font-semibold tracking-wider group',
         {
             'cursor-pointer hover:bg-gray-300': header.sortable,
-            'shadow-[1px_0_0_0_rgba(0,0,0,0.1)]': header.value === lastFixedColumn,
+            'shadow-[1px_0_0_0_rgba(0,0,0,0.1)]': header.value === lastLeftFixedColumn,
+            'shadow-[-1px_0_0_0_rgba(0,0,0,0.1)]': header.value === firstRightFixedColumn,
         },
         header.sortable && {
             'bg-gray-200': header.sortType === 'none',
@@ -54,7 +55,9 @@ const props = defineProps({
         required: true
     },
     fixedDistance: String,
-    lastFixedColumn: String,
+    // lastFixedColumn: String,
+    lastLeftFixedColumn: String,
+    firstRightFixedColumn: String,
     headerItemClassName: {
         type: [String, Function] as PropType<string | ((header: Header, columnNumber: number) => string)>,
         default: ''

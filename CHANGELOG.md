@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.0] - 2025-04-26
+
+### Features
+
+- Header 增加 fixedPosition 屬性，設置固定行置左或是置右(未設置則為left)
+
 ## [1.0.5] - 2025-04-21
 
 ### Bug Fixes

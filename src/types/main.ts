@@ -37,11 +37,12 @@ export type SortType = 'asc' | 'desc'
 
 // 表頭欄位定義
 export interface Header {
-    text: string                  // 顯示的標題文字
-    value: string                 // 對應數據的鍵值
-    sortable?: boolean            // 是否可排序
-    fixed?: boolean               // 是否固定列
-    width?: number               // 列寬度
+    text: string  // 顯示的標題文字
+    value: string   // 對應數據的鍵值
+    sortable?: boolean  // 是否可排序
+    fixed?: boolean  // 是否固定列
+    fixedPosition?: 'left' | 'right' // 固定列的位置
+    width?: number   // 列寬度
     sortType?: SortType | 'none' // 排序類型
 }
 
@@ -104,46 +105,6 @@ export type FilterOption =
     | ArrayFilterOption
     | CustomFilterOption
     | SimpleFilterOption;
-
-// 輔助型別檢查函數
-// export function isNumberFilterOption(option: FilterOption): option is NumberFilterOption {
-//     return ['>', '>=', '<', '<=', 'between'].includes(option.comparison as string)
-// }
-
-// export function isArrayFilterOption(option: FilterOption): option is ArrayFilterOption {
-//     return option.comparison === 'in'
-// }
-
-// export function isCustomFilterOption(option: FilterOption): option is CustomFilterOption {
-//     return typeof option.comparison === 'function'
-// }
-
-// export function isNumeric(value: any): value is number {
-//     return typeof value === 'number' && !isNaN(value)
-// }
-
-// // 輔助函數 - 幫助創建過濾器 - 使代碼更易讀
-// export const createFilter = {
-//     number(field: string, comparison: NumberFilterOption['comparison'], criteria: number | [number, number]): NumberFilterOption {
-//         return { field, comparison, criteria };
-//     },
-
-//     string(field: string, comparison: StringFilterOption['comparison'], criteria: string): StringFilterOption {
-//         return { field, comparison, criteria };
-//     },
-
-//     array(field: string, criteria: (string | number)[]): ArrayFilterOption {
-//         return { field, comparison: 'in', criteria };
-//     },
-
-//     custom<T = any>(
-//         field: string,
-//         comparison: (value: any, criteria: T) => boolean,
-//         criteria: T
-//     ): CustomFilterOption {
-//         return { field, comparison, criteria };
-//     }
-// };
 
 // 樣式回調函數類型
 export type HeaderItemClassNameFunction = (header: Header, columnNumber: number) => string
@@ -393,3 +354,44 @@ export interface PaginationInfo {
 //     sortBy?: string | string[]
 //     sortType?: SortType | SortType[]
 // }
+
+// #region 輔助型別檢查函數
+// export function isNumberFilterOption(option: FilterOption): option is NumberFilterOption {
+//     return ['>', '>=', '<', '<=', 'between'].includes(option.comparison as string)
+// }
+
+// export function isArrayFilterOption(option: FilterOption): option is ArrayFilterOption {
+//     return option.comparison === 'in'
+// }
+
+// export function isCustomFilterOption(option: FilterOption): option is CustomFilterOption {
+//     return typeof option.comparison === 'function'
+// }
+
+// export function isNumeric(value: any): value is number {
+//     return typeof value === 'number' && !isNaN(value)
+// }
+
+//  輔助函數 - 幫助創建過濾器 - 使代碼更易讀
+// export const createFilter = {
+//     number(field: string, comparison: NumberFilterOption['comparison'], criteria: number | [number, number]): NumberFilterOption {
+//         return { field, comparison, criteria };
+//     },
+
+//     string(field: string, comparison: StringFilterOption['comparison'], criteria: string): StringFilterOption {
+//         return { field, comparison, criteria };
+//     },
+
+//     array(field: string, criteria: (string | number)[]): ArrayFilterOption {
+//         return { field, comparison: 'in', criteria };
+//     },
+
+//     custom<T = any>(
+//         field: string,
+//         comparison: (value: any, criteria: T) => boolean,
+//         criteria: T
+//     ): CustomFilterOption {
+//         return { field, comparison, criteria };
+//     }
+// };
+// #endregion
