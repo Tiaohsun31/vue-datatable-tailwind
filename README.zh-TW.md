@@ -8,6 +8,8 @@
 
 專案僅為客製化版本，相關修改請詳閱下方文件，重構時並未充分測試原有功能，若出現BUG，請透過 Discussions 留言給我。
 
+版本2(v2)以後將使用Tailwind4，若使用Tailwind3請用v1
+
 ### README
 
 - en [English](README.md)
@@ -105,7 +107,14 @@ const bodyRowClassNameFunction: BodyRowClassNameFunction = (
 2. 在 tailwind.config.js 添加 DataTable 套件，以套用 Tailwind 樣式：
 
 ```TypeScript
-// tailwind.config.ts
+// tailwind 4
+@import "tailwindcss";
+/* DataTable */
+@import "./node_modules/@tiaohsun/vue-datatable-tailwind/style.css";
+```
+
+```TypeScript
+// tailwind 3 tailwind.config.ts
 export default {
     content: [
         "./index.html",
@@ -114,4 +123,8 @@ export default {
         "./node_modules/@tiaohsun/vue-datatable-tailwind/dist/**/*.{js,vue}"
     ]
 }
+
+// Global or Component
+import DataTable from '@tiaohsun/vue-datatable-tailwind'
+import '@tiaohsun/vue-datatable-tailwind/style.css'
 ```

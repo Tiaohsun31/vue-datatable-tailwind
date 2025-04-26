@@ -5,8 +5,8 @@
                 Processing data selection...
             </div>
             <div class="w-64">
-                <div class="h-2 bg-gray-200 rounded">
-                    <div class="h-2 rounded transition-all duration-300 ease-out"
+                <div class="h-2 bg-gray-200 rounded-sm">
+                    <div class="h-2 rounded-sm transition-all duration-300 ease-out"
                         :style="{ width: `${progress}%`, backgroundColor: themeClasses.hex }">
                     </div>
                 </div>

@@ -3,6 +3,7 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
+import tailwindcss from '@tailwindcss/vite'
 
 import dts from 'vite-plugin-dts'
 
@@ -11,6 +12,7 @@ export default defineConfig({
     plugins: [
         vue(),
         vueDevTools(),
+        tailwindcss(),
         dts({
             include: ['src/**/*.ts', 'src/**/*.vue'],
             rollupTypes: true,

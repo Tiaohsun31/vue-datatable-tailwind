@@ -6,6 +6,8 @@ The new features and modifications were developed by tiaohsun, and all rights ar
 
 The project is only a customized version. Please read the document below for relevant modifications. The original functions were not fully tested during reconstruction. If there are bugs, please leave a message to me through Discussions.
 
+Version 2 (v2) and later will use Tailwind4. If you use Tailwind3, please use v1.
+
 ### README
 
 - en [English](README.md)
@@ -103,13 +105,24 @@ In addition to the original [Props](https://hc200ok.github.io/vue3-easy-data-tab
 2. Additionally to your own content data you should add Vue-DataTable-Tailwind to apply the classes from the interactive elements in the tailwind.config.js file:
 
 ```TypeScript
-// tailwind.config.ts
+// tailwind 4
+@import "tailwindcss";
+/* DataTable */
+@import "./node_modules/@tiaohsun/vue-datatable-tailwind/style.css";
+```
+
+```TypeScript
+// tailwind 3 tailwind.config.ts
 export default {
     content: [
         "./index.html",
         "./src/**/*.{vue,js,ts,jsx,tsx}",
-        // Add the contents of DataTable in node_modules
+        // 添加 node_modules 中 DataTable 的內容
         "./node_modules/@tiaohsun/vue-datatable-tailwind/dist/**/*.{js,vue}"
     ]
 }
+
+// Global or Component
+import DataTable from '@tiaohsun/vue-datatable-tailwind'
+import '@tiaohsun/vue-datatable-tailwind/style.css'
 ```

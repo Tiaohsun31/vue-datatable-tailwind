@@ -1,6 +1,6 @@
 <template>
     <div v-if="!hideFooter" class="flex items-center justify-between px-4 py-3 bg-white border border-gray-200 border-t-0"
-    :class="[{'shadow-sm': showShadow}, footerClassName]">
+    :class="[{'shadow-xs': showShadow}, footerClassName]">
         <!-- Mobile View -->
         <PaginationArrows :is-first-page="isFirstPage" :is-last-page="isLastPage"
             @click-next-page="() => emit('nextPage')" @click-prev-page="() => emit('prevPage')"

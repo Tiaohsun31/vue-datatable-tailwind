@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.0.0] - 2025-04-27
+
+### Style
+
+- Tailwind3更新至Tailwind4，版本2後將全面採用Tailwind4。
+
 ## [1.1.0] - 2025-04-26
 
 ### Features

@@ -1,6 +1,6 @@
 <!-- components/table/BodyRow.vue -->
 <template>
-    <tr class="vdt-tbody-tr transition-colors border-t" :class="[
+    <tr class="vdt-tbody-tr transition-colors border-t border-gray-200" :class="[
         { 'bg-white': alternating && index % 2 === 0 },
         { 'bg-gray-50': !alternating || index % 2 === 1 },
         { 'hover:bg-gray-100': !noHover },

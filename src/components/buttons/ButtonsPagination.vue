@@ -1,5 +1,5 @@
 <template>
-    <div class="vdt-pagination inline-flex rounded-md shadow-sm" role="navigation" aria-label="Pagination">
+    <div class="vdt-pagination inline-flex rounded-md shadow-xs" role="navigation" aria-label="Pagination">
         <div v-for="(item, i) in paginationItemsForRender" :key="i"
             class="relative inline-flex items-center justify-center" :style="themeClasses.style" :class="[
                 // Common styles for all items
@@ -20,7 +20,7 @@
                         'bg-white',
                         'text-gray-700',
                         'hover:bg-gray-50',
-                        'focus:z-10 focus:outline-none focus:ring-1',
+                        'focus:z-10 focus:outline-hidden focus:ring-1',
                         `focus:ring-${themeClasses.tailwindName}-500`,
                         `focus:border-${themeClasses.tailwindName}-500`
                     ],
@@ -105,7 +105,7 @@ function getButtonClasses(item: PaginationItem, index: number) {
                 'text-gray-700',
                 'hover:bg-gray-50',
                 'focus:z-10',
-                'focus:outline-none',
+                'focus:outline-hidden',
                 `focus:ring-${themeClasses.value.tailwindName}-500`,
                 `focus:border-${themeClasses.value.tailwindName}-500`,
                 'cursor-pointer'

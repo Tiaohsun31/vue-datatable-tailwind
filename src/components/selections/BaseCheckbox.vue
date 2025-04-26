@@ -5,7 +5,7 @@
     ]" @click.stop.prevent="!disabled && $emit('change')">
         <input type="checkbox" class="sr-only peer" :checked="isChecked" :disabled="disabled"
             :aria-checked="isChecked" />
-        <div class="h-4 w-4 rounded transition-all duration-200 border" :class="[
+        <div class="h-4 w-4 rounded-sm transition-all duration-200 border" :class="[
             // Base states
             isChecked && !isPartial && [
                 'bg-theme border-theme',
@@ -24,7 +24,7 @@
             !disabled && 'peer-focus:ring-2 peer-focus:ring-offset-1 peer-focus:ring-theme-focus'
         ]" :style="themeClasses.style">
             <!-- Checkmark for checked state -->
-            <svg v-show="isChecked && !isPartial" class="h-4 w-4 text-white stroke-[3]" fill="none" viewBox="1 1 24 24"
+            <svg v-show="isChecked && !isPartial" class="h-4 w-4 text-white stroke-3" fill="none" viewBox="1 1 24 24"
                 stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
             </svg>

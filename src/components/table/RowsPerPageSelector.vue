@@ -5,9 +5,9 @@
         <div class="relative inline-block min-w-[70px]">
             <!-- Custom Select Button -->
             <button type="button"
-                class="relative w-full cursor-pointer rounded-md bg-white py-1.5 pl-3 pr-8 text-left text-sm shadow-sm border border-gray-300"
+                class="relative w-full cursor-pointer rounded-md bg-white py-1.5 pl-3 pr-8 text-left text-sm shadow-xs border border-gray-300"
                 :class="[
-                    'focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500',
+                    'focus:border-primary-500 focus:outline-hidden focus:ring-1 focus:ring-primary-500',
                     showList ? 'ring-1 ring-primary-500 border-primary-500' : 'hover:border-gray-400'
                 ]" @click="toggleDropdown" aria-haspopup="listbox" :aria-expanded="showList">
                 <!-- Selected Value -->
@@ -29,7 +29,7 @@
                 leave-active-class="transition duration-75 ease-in" leave-from-class="transform scale-100 opacity-100"
                 leave-to-class="transform scale-95 opacity-0">
                 <ul v-if="showList"
-                    class="absolute right-0 z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    class="absolute right-0 z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-hidden"
                     :class="{ 'bottom-full mb-1': showInsideOfTable }" tabindex="-1" role="listbox"
                     @focusout="handleFocusOut">
                     <li v-for="item in rowsItems" :key="item"

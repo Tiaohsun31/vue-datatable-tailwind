@@ -1,9 +1,9 @@
 <template>
-    <div ref="tableWrapper" class="vdt-table-wrapper relative w-full" :class="[wrapperClassName]">
+    <div ref="tableWrapper" class="vdt-table-wrapper relative w-full " :class="[wrapperClassName]">
         <!-- Main Table Container -->
         <div ref="tableContainer"
-            class="vdt-table-container relative overflow-auto border scroll-smooth border-gray-200 min-h-[180px]"
-            :class="[{ 'shadow-sm': showShadow }, containerClassName]">
+            class="vdt-table-container relative overflow-auto border scroll-smooth border-gray-200 min-h-[180px] "
+            :class="[{ 'shadow-xs': showShadow }, containerClassName]">
             <table :id="tableNodeId" class="vdt-table w-full border-collapse bg-white" :class="[tableClassName]">
                 <colgroup>
                     <col v-for="(header, index) in headersForRender" :key="index" :style="getColStyle(header)" />
