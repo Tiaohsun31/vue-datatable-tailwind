@@ -1,3 +1,5 @@
+@import "./tailwind.utilities.css";
+
 :root {
   --vdt-theme-50: oklch(96.2% 0.018 272.314);
   --vdt-theme-100: oklch(93% 0.034 272.788);
@@ -10,9 +12,21 @@
   --vdt-theme-800: oklch(39.8% 0.195 277.366);
   --vdt-theme-900: oklch(35.9% 0.144 278.697);
   --vdt-theme-950: oklch(25.7% 0.09 281.288);
+
+  --color-vdt-primary-50: var(--vdt-theme-50);
+  --color-vdt-primary-100: var(--vdt-theme-100);
+  --color-vdt-primary-200: var(--vdt-theme-200);
+  --color-vdt-primary-300: var(--vdt-theme-300);
+  --color-vdt-primary-400: var(--vdt-theme-400);
+  --color-vdt-primary-500: var(--vdt-theme-500);
+  --color-vdt-primary-600: var(--vdt-theme-600);
+  --color-vdt-primary-700: var(--vdt-theme-700);
+  --color-vdt-primary-800: var(--vdt-theme-800);
+  --color-vdt-primary-900: var(--vdt-theme-900);
+  --color-vdt-primary-950: var(--vdt-theme-950);
 }
 
-@theme {
+@theme vdt-theme {
   --color-vdt-primary-50: var(--vdt-theme-50);
   --color-vdt-primary-100: var(--vdt-theme-100);
   --color-vdt-primary-200: var(--vdt-theme-200);
