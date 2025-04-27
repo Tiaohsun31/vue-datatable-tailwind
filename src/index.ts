@@ -18,7 +18,7 @@ export type {
     DataTableInstance,
 
     // 主題相關
-    ThemeConfig,
+    TailwindColor,
 
     // 資料相關類型
     Item,

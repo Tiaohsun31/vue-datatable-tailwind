@@ -1,7 +1,7 @@
 <template>
     <div class="vdt-pagination inline-flex rounded-md shadow-xs" role="navigation" aria-label="Pagination">
         <div v-for="(item, i) in paginationItemsForRender" :key="i"
-            class="relative inline-flex items-center justify-center" :style="themeClasses.style" :class="[
+            class="relative inline-flex items-center justify-center" :class="[
                 // Common styles for all items
                 'min-w-[32px] h-8 text-sm',
                 // First item styles
@@ -14,15 +14,15 @@
                     // Active state
                     item.active ? [
                         'z-10',
-                        themeClasses.base,
+                        'bg-vdt-primary-500 border-vdt-primary-500 text-white',
                         'relative'
                     ] : [
                         'bg-white',
                         'text-gray-700',
                         'hover:bg-gray-50',
                         'focus:z-10 focus:outline-hidden focus:ring-1',
-                        `focus:ring-${themeClasses.tailwindName}-500`,
-                        `focus:border-${themeClasses.tailwindName}-500`
+                        `focus:ring-vdt-primary-500`,
+                        `focus:border-vdt-primary-500`
                     ],
                     // Disable hover effect for active button
                     !item.active && 'cursor-pointer',
@@ -51,8 +51,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { ThemeStateClasses } from '@/types/internal';
-import { computed, inject, type ComputedRef } from 'vue';
+import { computed } from 'vue';
 import { IconEllipsis } from '../icons';
 
 const props = defineProps({
@@ -67,7 +66,6 @@ const props = defineProps({
 });
 
 const emits = defineEmits(['updatePage']);
-const themeClasses = inject<ComputedRef<ThemeStateClasses>>('themeClasses')!;
 
 // Total number of visible pagination items (including ellipsis)
 const totalVisible = 7;
@@ -97,7 +95,7 @@ function getButtonClasses(item: PaginationItem, index: number) {
             baseClasses.push(
                 'z-10',
                 'relative',
-                themeClasses.value.base,
+                'bg-vdt-primary-500 border-vdt-primary-500 text-white',
             );
         } else {
             baseClasses.push(
@@ -106,8 +104,8 @@ function getButtonClasses(item: PaginationItem, index: number) {
                 'hover:bg-gray-50',
                 'focus:z-10',
                 'focus:outline-hidden',
-                `focus:ring-${themeClasses.value.tailwindName}-500`,
-                `focus:border-${themeClasses.value.tailwindName}-500`,
+                `focus:ring-vdt-primary-500`,
+                `focus:border-vdt-primary-500`,
                 'cursor-pointer'
             );
         }

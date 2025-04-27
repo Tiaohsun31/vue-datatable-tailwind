@@ -6,8 +6,8 @@
             </div>
             <div class="w-64">
                 <div class="h-2 bg-gray-200 rounded-sm">
-                    <div class="h-2 rounded-sm transition-all duration-300 ease-out"
-                        :style="{ width: `${progress}%`, backgroundColor: themeClasses.hex }">
+                    <div class="h-2 rounded-sm transition-all duration-300 ease-out bg-vdt-primary-500"
+                        :style="{ width: `${progress}%` }">
                     </div>
                 </div>
             </div>
@@ -19,12 +19,8 @@
 </template>
 
 <script setup lang="ts">
-import { inject, type ComputedRef } from 'vue';
-import type { ThemeStateClasses } from '@/types/internal';
-
 defineProps<{
     progress: number
 }>();
 
-const themeClasses = inject<ComputedRef<ThemeStateClasses>>('themeClasses')!;
 </script>

@@ -156,10 +156,10 @@ import useRows from './composables/useRows';
 import useServerOptions from './composables/useServerOptions';
 import useTotalItems from './composables/useTotalItems';
 
-import type { Header, Item, DataTableProps, ThemeConfig } from './types/main';
+import type { Header, Item, DataTableProps } from './types/main';
 import type { HeaderForRender, ClickEventType } from './types/internal';
 
-import { getThemeStateClasses } from './utils/theme';
+import { setTheme } from './utils/tailwind4Theme';
 
 import TableHeader from './components/table/TableHeader.vue';
 import TableBodyRow from './components/table/TableBodyRow.vue';
@@ -222,7 +222,7 @@ const props = withDefaults(defineProps<DataTableProps>(), {
     expandColumn: '',
     expandTransition: undefined,
     batchSelectionThreshold: 10000,
-    theme: () => ({ color: 'indigo', variant: 'DEFAULT' }) as ThemeConfig,
+    theme: () => 'indigo',
     items: () => [],
     headers: () => [],
 });
@@ -261,8 +261,7 @@ const {
 } = toRefs(props);
 
 // global style related variable
-const themeClasses = computed(() => getThemeStateClasses(props.theme));
-provide('themeClasses', themeClasses);
+const theme = setTheme(props.theme);
 
 // slot
 const slots = useSlots();

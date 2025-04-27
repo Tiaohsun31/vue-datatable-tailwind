@@ -46,13 +46,3 @@ export type EmitsEventName =
     | 'selectAll'
     | 'updateSelectionStatus'
     | 'contextmenuRow'
-
-export interface ThemeStateClasses {
-    base: string;
-    hover: string;
-    active: string;
-    disabled: string;
-    hex: string;
-    tailwindName: TailwindColor;
-    style: Record<string, string>;
-}

@@ -81,7 +81,7 @@ declare const __VLS_component: DefineComponent<DataTableProps, {
     searchValue: string;
     serverOptions: ServerOptions | null;
     serverItemsLength: number;
-    theme: ThemeConfig | string;
+    theme: TailwindColor | string;
     checkboxColumnWidth: number | null;
     expandColumnWidth: number;
     indexColumnWidth: number;
@@ -351,7 +351,7 @@ export declare interface DataTableProps {
     /** 服務端數據總長度 */
     serverItemsLength?: number;
     /** 主題顏色 */
-    theme?: ThemeConfig | string;
+    theme?: TailwindColor | string;
     /** 是否使用交替行顏色 */
     alternating?: boolean;
     /** 禁用懸停效果 */
@@ -485,16 +485,9 @@ export declare interface StringFilterOption {
     criteria: string;
 }
 
-declare type TailwindColor = 'slate' | 'gray' | 'zinc' | 'neutral' | 'stone' | 'red' | 'orange' | 'amber' | 'yellow' | 'lime' | 'green' | 'emerald' | 'teal' | 'cyan' | 'sky' | 'blue' | 'indigo' | 'violet' | 'purple' | 'fuchsia' | 'pink' | 'rose';
+export declare type TailwindColor = 'slate' | 'gray' | 'zinc' | 'neutral' | 'stone' | 'red' | 'orange' | 'amber' | 'yellow' | 'lime' | 'green' | 'emerald' | 'teal' | 'cyan' | 'sky' | 'blue' | 'indigo' | 'violet' | 'purple' | 'fuchsia' | 'pink' | 'rose';
 
 export declare type TextDirection = 'center' | 'left' | 'right';
-
-export declare interface ThemeConfig {
-    color: TailwindColor;
-    variant?: ThemeVariant;
-}
-
-declare type ThemeVariant = 'light' | 'DEFAULT' | 'dark';
 
 export declare type UpdateSortArgument = {
     sortType: SortType | null;

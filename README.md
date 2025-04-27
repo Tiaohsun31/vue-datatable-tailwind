@@ -35,7 +35,7 @@ Version 2 (v2) and later will use Tailwind4. If you use Tailwind3, please use v1
 
 ## Usage Suggestions
 
-1. It is recommended to use Vue 3 and TailwindCSS 3.4.0 or later.
+1. It is recommended to use Vue 3 and TailwindCSS 4 or later.
 2. For older versions, please note the following:
    - Check spacing and alignment for potential issues.
    - Some new features may not be available.
@@ -45,7 +45,70 @@ Version 2 (v2) and later will use Tailwind4. If you use Tailwind3, please use v1
    - Use custom styles for overrides.
    - Refer to compatibility guidelines for adjustments.
 
+## Install
+
+1. Make sure that you have Node.js and Tailwind CSS installed.
+2. Additionally to your own content data you should add Vue-DataTable-Tailwind to apply the classes from the interactive elements in the tailwind.config.js file:
+
+```bash
+// npm install
+npm install @tiaohsun/vue-datatable-tailwind
+// pnpm add
+pnpm add @tiaohsun/vue-datatable-tailwind
+```
+
+```Typescript
+// Global use registered in main.ts or used in components
+import DataTable from '@tiaohsun/vue-datatable-tailwind'
+import '@tiaohsun/vue-datatable-tailwind/style.css'
+
+app.component('DataTable', DataTable)
+```
+
+```TypeScript
+// tailwind 4
+@import "tailwindcss";
+/* DataTable */
+@source './node_modules/@tiaohsun/vue-datatable-tailwind/dist/**/*.{js,vue}';
+```
+
+```TypeScript
+// tailwind 3 tailwind.config.ts
+export default {
+    content: [
+        "./index.html",
+        "./src/**/*.{vue,js,ts,jsx,tsx}",
+        // 添加 node_modules 中 DataTable 的內容
+        "./node_modules/@tiaohsun/vue-datatable-tailwind/dist/**/*.{js,vue}"
+    ]
+}
+```
+
 ## Theme
+
+### version 2.x.x
+
+- `theme:'indigo'`
+- `theme:'#6366f1'`
+- `theme:oklch(64.5% 0.246 16.439)`
+- Directly modify the base variable
+  ```css
+  :root {
+    --vdt-theme-500: oklch(0.65 0.25 130); /* Modify to green */
+    /* Other colors...(50-950) */
+  }
+  ```
+- Configuration via Tailwind
+  ```css
+  @theme {
+    /* Directly specify the value */
+    --color-vdt-primary-500: oklch(0.65 0.25 130);
+    /* Or reference other variables */
+    --color-vdt-primary-500: var(--my-brand-color);
+  }
+  ```
+
+### version 1.x.x
 
 - `theme:'indigo'`
 - `theme:'#6366f1'`
@@ -86,43 +149,15 @@ const bodyRowClassNameFunction: BodyRowClassNameFunction = (
 
 In addition to the original [Props](https://hc200ok.github.io/vue3-easy-data-table-doc/props/common-props.html), the following new props have been added:
 
-| **Name**                | **Required** | **Type**                                                              | **Default**                             | **Description**                                                                            |
-| ----------------------- | ------------ | --------------------------------------------------------------------- | --------------------------------------- | ------------------------------------------------------------------------------------------ |
-| expand-column           | false        | string                                                                | ‘’                                      | Specifies which column can be expanded.                                                    |
-| theme                   | false        | string or ThemeConfig({ color: 'indigo', variant: 'DEFAULT' })        | { color: 'indigo', variant: 'DEFAULT' } | Replaces `theme-color`. Accepts HEX values like `#42b883` or Tailwind color names.         |
-| batchSelectionThreshold | false        | number                                                                | 10,000                                  | Enables batch selection for datasets exceeding this threshold, with a loading style.       |
-| clickRowToSelect        | false        | boolean                                                               | false                                   | Click on the column to select the item or not                                              |
-| disabledRows            | false        | BodyRowDisabledFunction = (item: Item, rowNumber?: number) => boolean | false                                   | Disable specific rows from being selected                                                  |
-| expandTransition        | false        | boolean                                                               | true                                    | If an extended column is set, the extended column transition effect is enabled by default. |
+| **Name**                | **Required** | **Type**                                                              | **Default** | **Description**                                                                                            |
+| ----------------------- | ------------ | --------------------------------------------------------------------- | ----------- | ---------------------------------------------------------------------------------------------------------- |
+| expand-column           | false        | string                                                                | ‘’          | Specifies which column can be expanded.                                                                    |
+| theme                   | false        | string or TailwindColor(ex:'indigo'、'rose')                          | 'indigo'    | Replaces `theme-color`. Accepts HEX values like `#42b883`、oklch(After version 2) or Tailwind color names. |
+| batchSelectionThreshold | false        | number                                                                | 10,000      | Enables batch selection for datasets exceeding this threshold, with a loading style.                       |
+| clickRowToSelect        | false        | boolean                                                               | false       | Click on the column to select the item or not                                                              |
+| disabledRows            | false        | BodyRowDisabledFunction = (item: Item, rowNumber?: number) => boolean | false       | Disable specific rows from being selected                                                                  |
+| expandTransition        | false        | boolean                                                               | true        | If an extended column is set, the extended column transition effect is enabled by default.                 |
 
 ## Slots
 
 [Slot](./docs/api/slot.md)
-
-## Require
-
-1. Make sure that you have Node.js and Tailwind CSS installed.
-2. Additionally to your own content data you should add Vue-DataTable-Tailwind to apply the classes from the interactive elements in the tailwind.config.js file:
-
-```TypeScript
-// tailwind 4
-@import "tailwindcss";
-/* DataTable */
-@import "./node_modules/@tiaohsun/vue-datatable-tailwind/style.css";
-```
-
-```TypeScript
-// tailwind 3 tailwind.config.ts
-export default {
-    content: [
-        "./index.html",
-        "./src/**/*.{vue,js,ts,jsx,tsx}",
-        // 添加 node_modules 中 DataTable 的內容
-        "./node_modules/@tiaohsun/vue-datatable-tailwind/dist/**/*.{js,vue}"
-    ]
-}
-
-// Global or Component
-import DataTable from '@tiaohsun/vue-datatable-tailwind'
-import '@tiaohsun/vue-datatable-tailwind/style.css'
-```

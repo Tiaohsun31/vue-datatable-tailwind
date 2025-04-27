@@ -1,46 +1,27 @@
 :root {
-  /* 基礎變數 */
-  --theme-color: #4f46e5;
-  --theme-hover: #4338ca;
-  --theme-active: #3730a3;
-  --theme-light: #818cf8;
-  --theme-focus: rgba(79, 70, 229, 0.5);
+  --vdt-theme-50: oklch(96.2% 0.018 272.314);
+  --vdt-theme-100: oklch(93% 0.034 272.788);
+  --vdt-theme-200: oklch(87% 0.065 274.039);
+  --vdt-theme-300: oklch(78.5% 0.115 274.713);
+  --vdt-theme-400: oklch(67.3% 0.182 276.935);
+  --vdt-theme-500: oklch(58.5% 0.233 277.117);
+  --vdt-theme-600: oklch(51.1% 0.262 276.966);
+  --vdt-theme-700: oklch(45.7% 0.24 277.023);
+  --vdt-theme-800: oklch(39.8% 0.195 277.366);
+  --vdt-theme-900: oklch(35.9% 0.144 278.697);
+  --vdt-theme-950: oklch(25.7% 0.09 281.288);
 }
 
-/* 主題類名 */
-
-.bg-theme {
-  background-color: var(--theme-color);
-}
-
-.border-theme {
-  border-color: var(--theme-border);
-}
-
-.hover\:bg-theme-hover:hover {
-  background-color: var(--theme-hover);
-}
-
-.active\:bg-theme-active:active {
-  background-color: var(--theme-active);
-}
-
-.focus\:bg-theme-focus:focus {
-  background-color: var(--theme-focus);
-}
-
-.group-hover\:bg-theme-hover:hover {
-  background-color: var(--theme-hover);
-}
-
-.group-hover\:border-theme-hover:hover {
-  border-color: var(--theme-hover);
-}
-
-.group-hover\:border-theme-light:hover {
-  border-color: var(--theme-light);
-}
-
-.peer-focus\:ring-theme-focus:focus {
-  --tw-ring-color: var(--theme-focus);
+@theme {
+  --color-vdt-primary-50: var(--vdt-theme-50);
+  --color-vdt-primary-100: var(--vdt-theme-100);
+  --color-vdt-primary-200: var(--vdt-theme-200);
+  --color-vdt-primary-300: var(--vdt-theme-300);
+  --color-vdt-primary-400: var(--vdt-theme-400);
+  --color-vdt-primary-500: var(--vdt-theme-500);
+  --color-vdt-primary-600: var(--vdt-theme-600);
+  --color-vdt-primary-700: var(--vdt-theme-700);
+  --color-vdt-primary-800: var(--vdt-theme-800);
+  --color-vdt-primary-900: var(--vdt-theme-900);
+  --color-vdt-primary-950: var(--vdt-theme-950);
 }

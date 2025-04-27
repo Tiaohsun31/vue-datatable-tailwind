@@ -1,8 +1,33 @@
 # Changelog
 
+## [2.1.0] - 2025-04-28
+
+### Features
+
+- 主題配置重新設定，現在可支援OKLCH設置，同時用root或Tailwind @theme設置
+- `theme:'indigo'`
+- `theme:'#6366f1'`
+- `theme:oklch(64.5% 0.246 16.439)`
+- 直接修改基礎變數
+  ```css
+  :root {
+    --vdt-theme-500: oklch(0.65 0.25 130); /* Modify to green */
+    /* Other colors...(50-950) */
+  }
+  ```
+- 通過Tailwind配置
+  ```css
+  @theme {
+    /* Directly specify the value */
+    --color-vdt-primary-500: oklch(0.65 0.25 130);
+    /* Or reference other variables */
+    --color-vdt-primary-500: var(--my-brand-color);
+  }
+  ```
+
 ## [2.0.0] - 2025-04-27
 
-### Style
+### Styles
 
 - Tailwind3更新至Tailwind4，版本2後將全面採用Tailwind4。
 

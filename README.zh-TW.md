@@ -37,7 +37,7 @@
 
 ## Usage suggestions
 
-1. 建議使用 Vue 3、Tailwind CSS 3.4.0 或以上版本
+1. 建議使用 Vue 3、Tailwind CSS 4 或以上版本
 2. 如果使用較舊版本，請注意以下幾點：
    - 檢查間距和對齊是否正確
    - 某些新特性可能不可用
@@ -47,7 +47,70 @@
    - 使用自定義樣式覆蓋
    - 參考相容性指南進行調整
 
+## Install
+
+1. 請確定您已安裝 Node.js 和 Tailwind CSS。
+2. 在 tailwind.config.js 添加 DataTable 套件，以套用 Tailwind 樣式：
+
+```bash
+// npm install
+npm install @tiaohsun/vue-datatable-tailwind
+// pnpm add
+pnpm add @tiaohsun/vue-datatable-tailwind
+```
+
+```Typescript
+// 全域使用main.ts中註冊 or 組件中使用
+import DataTable from '@tiaohsun/vue-datatable-tailwind'
+import '@tiaohsun/vue-datatable-tailwind/style.css'
+
+app.component('DataTable', DataTable)
+```
+
+```TypeScript
+// tailwind 4
+@import "tailwindcss";
+/* DataTable */
+@source './node_modules/@tiaohsun/vue-datatable-tailwind/dist/**/*.{js,vue}';
+```
+
+```TypeScript
+// tailwind 3 tailwind.config.ts
+export default {
+    content: [
+        "./index.html",
+        "./src/**/*.{vue,js,ts,jsx,tsx}",
+        // 添加 node_modules 中 DataTable 的內容
+        "./node_modules/@tiaohsun/vue-datatable-tailwind/dist/**/*.{js,vue}"
+    ]
+}
+```
+
 ## Theme
+
+### version 2.x.x
+
+- `theme:'indigo'`
+- `theme:'#6366f1'`
+- `theme:oklch(64.5% 0.246 16.439)`
+- 直接修改基礎變數
+  ```css
+  :root {
+    --vdt-theme-500: oklch(0.65 0.25 130); /* 修改成綠色系 */
+    /* 其他顏色...(50-950) */
+  }
+  ```
+- 通過Tailwind配置
+  ```css
+  @theme {
+    /* 直接指定值 */
+    --color-vdt-primary-500: oklch(0.65 0.25 130);
+    /* 或引用其他變數 */
+    --color-vdt-primary-500: var(--my-brand-color);
+  }
+  ```
+
+### version 1.x.x
 
 - `theme:'indigo'`
 - `theme:'#6366f1'`
@@ -88,43 +151,15 @@ const bodyRowClassNameFunction: BodyRowClassNameFunction = (
 
 除了原本的[Props](https://hc200ok.github.io/vue3-easy-data-table-doc/props/common-props.html)外，新增下面Props
 
-| **Name**                | **Required** | **Type**                                                              | **Default**                             | **Description**                                                |
-| ----------------------- | ------------ | --------------------------------------------------------------------- | --------------------------------------- | -------------------------------------------------------------- |
-| expand-column           | false        | string                                                                | ‘’                                      | 指定某Column欄位可以擴展 　                                    |
-| theme                   | false        | string or ThemeConfig({ color: 'indigo', variant: 'DEFAULT' })        | { color: 'indigo', variant: 'DEFAULT' } | 取代theme-color，可填入 HEX ‘#42b883’，或者Tailwind Color Name |
-| batchSelectionThreshold | false        | number                                                                | 10,000                                  | 超過預設值，啟用批次選擇，具有Loading樣式                      |
-| clickRowToSelect        | false        | boolean                                                               | false                                   | 點擊列，是否選擇項目                                           |
-| disabledRows            | false        | BodyRowDisabledFunction = (item: Item, rowNumber?: number) => boolean | false                                   | 禁止特定行被選取                                               |
-| expandTransition        | false        | boolean                                                               | true                                    | 如果有設置擴展列，預設啟用擴展列過渡效果                       |
+| **Name**                | **Required** | **Type**                                                              | **Default** | **Description**                                                              |
+| ----------------------- | ------------ | --------------------------------------------------------------------- | ----------- | ---------------------------------------------------------------------------- |
+| expand-column           | false        | string                                                                | ‘’          | 指定某Column欄位可以擴展 　                                                  |
+| theme                   | false        | string or TailwindColor(ex:'indigo'、'rose')                          | 'indigo'    | 取代theme-color，可填入 HEX ‘#42b883’、oklch(版本2之後)、Tailwind Color Name |
+| batchSelectionThreshold | false        | number                                                                | 10,000      | 超過預設值，啟用批次選擇，具有Loading樣式                                    |
+| clickRowToSelect        | false        | boolean                                                               | false       | 點擊列，是否選擇項目                                                         |
+| disabledRows            | false        | BodyRowDisabledFunction = (item: Item, rowNumber?: number) => boolean | false       | 禁止特定行被選取                                                             |
+| expandTransition        | false        | boolean                                                               | true        | 如果有設置擴展列，預設啟用擴展列過渡效果                                     |
 
 ## Slot
 
 參考 [Slot](./docs/api/slot.md)
-
-## Require
-
-1. 請確定您已安裝 Node.js 和 Tailwind CSS。
-2. 在 tailwind.config.js 添加 DataTable 套件，以套用 Tailwind 樣式：
-
-```TypeScript
-// tailwind 4
-@import "tailwindcss";
-/* DataTable */
-@import "./node_modules/@tiaohsun/vue-datatable-tailwind/style.css";
-```
-
-```TypeScript
-// tailwind 3 tailwind.config.ts
-export default {
-    content: [
-        "./index.html",
-        "./src/**/*.{vue,js,ts,jsx,tsx}",
-        // 添加 node_modules 中 DataTable 的內容
-        "./node_modules/@tiaohsun/vue-datatable-tailwind/dist/**/*.{js,vue}"
-    ]
-}
-
-// Global or Component
-import DataTable from '@tiaohsun/vue-datatable-tailwind'
-import '@tiaohsun/vue-datatable-tailwind/style.css'
-```

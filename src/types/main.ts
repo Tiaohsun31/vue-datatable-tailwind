@@ -24,14 +24,6 @@ export type TailwindColor =
     | 'pink'
     | 'rose';
 
-export type ThemeVariant = 'light' | 'DEFAULT' | 'dark';
-export type TailwindShade = '400' | '500' | '600';
-
-export interface ThemeConfig {
-    color: TailwindColor;
-    variant?: ThemeVariant;
-}
-
 export type TextDirection = 'center' | 'left' | 'right'
 export type SortType = 'asc' | 'desc'
 
@@ -197,7 +189,7 @@ export interface DataTableProps {
 
     // 表格外觀配置
     /** 主題顏色 */
-    theme?: ThemeConfig | string;
+    theme?: TailwindColor | string;
     /** 是否使用交替行顏色 */
     alternating?: boolean
     /** 禁用懸停效果 */

@@ -1,14 +1,13 @@
 <template>
     <div class="flex items-center gap-2 text-sm text-gray-700">
         {{ message }}
-
         <div class="relative inline-block min-w-[70px]">
             <!-- Custom Select Button -->
             <button type="button"
                 class="relative w-full cursor-pointer rounded-md bg-white py-1.5 pl-3 pr-8 text-left text-sm shadow-xs border border-gray-300"
                 :class="[
-                    'focus:border-primary-500 focus:outline-hidden focus:ring-1 focus:ring-primary-500',
-                    showList ? 'ring-1 ring-primary-500 border-primary-500' : 'hover:border-gray-400'
+                    'focus:border-vdt-primary-500 focus:outline-hidden focus:ring-1 focus:ring-vdt-primary-500',
+                    showList ? 'ring-1 ring-vdt-primary-500 border-vdt-primary-500' : 'hover:border-gray-400'
                 ]" @click="toggleDropdown" aria-haspopup="listbox" :aria-expanded="showList">
                 <!-- Selected Value -->
                 <span class="block truncate">{{ rowsComputed }}</span>
@@ -29,13 +28,13 @@
                 leave-active-class="transition duration-75 ease-in" leave-from-class="transform scale-100 opacity-100"
                 leave-to-class="transform scale-95 opacity-0">
                 <ul v-if="showList"
-                    class="absolute right-0 z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-hidden"
+                    class="absolute right-0 z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 shadow-lg ring-1 ring-gray-200 ring-opacity-5 focus:outline-hidden"
                     :class="{ 'bottom-full mb-1': showInsideOfTable }" tabindex="-1" role="listbox"
                     @focusout="handleFocusOut">
                     <li v-for="item in rowsItems" :key="item"
                         class="relative cursor-pointer select-none py-2 pl-3 pr-9 text-sm" :class="[
                             item === rowsComputed
-                                ? 'bg-primary-100 text-primary-900'
+                                ? 'text-vdt-primary-800 bg-vdt-primary-100 font-semibold'
                                 : 'text-gray-900 hover:bg-gray-100'
                         ]" role="option" :aria-selected="item === rowsComputed" @click="changeSelectedRows(item)">
                         <!-- Option Text -->
@@ -45,7 +44,7 @@
 
                         <!-- Selected Indicator -->
                         <span v-if="item === rowsComputed"
-                            class="absolute inset-y-0 right-0 flex items-center pr-4 text-primary-600">
+                            class="absolute inset-y-0 right-0 flex items-center pr-4 text-vdt-primary-600">
                             <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5 13l4 4L19 7" />
@@ -59,12 +58,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onBeforeUnmount, inject, watch, type Ref } from 'vue';
-
+import { ref, computed, onMounted, onBeforeUnmount, inject, watch, type Ref, type ComputedRef } from 'vue';
 const props = defineProps({
     modelValue: {
         type: Number,
-        required: true
+        requilime: true
     },
     rowsItems: {
         type: Array as () => number[],
@@ -77,7 +75,7 @@ const props = defineProps({
 });
 
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: number): void
+    (e: 'update:modelValue', value: number): void
 }>()
 
 // State
@@ -92,6 +90,7 @@ const rowsComputed = computed({
 
 // Inject data table ref from parent
 const dataTable = inject('dataTable') as Ref<HTMLDivElement>;
+
 
 // Watch dropdown state to determine position
 watch(showList, (val) => {
