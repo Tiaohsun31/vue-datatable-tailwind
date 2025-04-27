@@ -920,7 +920,7 @@ function wa(e) {
   };
 }
 function ze(e) {
-  return /^oklch\(/.test(e);
+  return e.startsWith("oklch(");
 }
 function qe(e) {
   return /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(e);
