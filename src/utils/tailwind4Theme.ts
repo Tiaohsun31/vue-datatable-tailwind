@@ -102,7 +102,7 @@ function hexToOklch(hex: string): { lightness: number, chroma: number, hue: numb
  * 判斷是否為有效的OKLCH顏色格式
  */
 function isOklch(color: string): boolean {
-    return /^oklch\(/.test(color);
+    return color.startsWith('oklch(');
 }
 
 /**
