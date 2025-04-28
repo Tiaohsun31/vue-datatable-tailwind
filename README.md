@@ -68,7 +68,7 @@ app.component('DataTable', DataTable)
 ```TypeScript
 // tailwind 4
 @import "tailwindcss";
-/* DataTable */
+/* DataTable (Please pay attention to the node_modules path) */
 @source './node_modules/@tiaohsun/vue-datatable-tailwind/dist/**/*.{js,vue}';
 ```
 
@@ -86,7 +86,7 @@ export default {
 
 ## Theme
 
-### version 2.x.x
+### After Version 2
 
 - `theme:'indigo'`
 - `theme:'#6366f1'`
@@ -94,17 +94,8 @@ export default {
 - Directly modify the base variable
   ```css
   :root {
-    --vdt-theme-500: oklch(0.65 0.25 130); /* Modify to green */
+    --vdt-theme-500: oklch(0.65 0.25 130) !important; /* Modify to green */
     /* Other colors...(50-950) */
-  }
-  ```
-- Configuration via Tailwind
-  ```css
-  @theme {
-    /* Directly specify the value */
-    --color-vdt-primary-500: oklch(0.65 0.25 130);
-    /* Or reference other variables */
-    --color-vdt-primary-500: var(--my-brand-color);
   }
   ```
 

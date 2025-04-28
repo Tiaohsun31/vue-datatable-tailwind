@@ -70,7 +70,7 @@ app.component('DataTable', DataTable)
 ```TypeScript
 // tailwind 4
 @import "tailwindcss";
-/* DataTable */
+/* DataTable (請留意node_modules路徑) */
 @source './node_modules/@tiaohsun/vue-datatable-tailwind/dist/**/*.{js,vue}';
 ```
 
@@ -88,25 +88,16 @@ export default {
 
 ## Theme
 
-### version 2.x.x
+### After Version 2
 
 - `theme:'indigo'`
 - `theme:'#6366f1'`
 - `theme:oklch(64.5% 0.246 16.439)`
-- 直接修改基礎變數
+- 直接修改基礎變數(全域設定)
   ```css
   :root {
-    --vdt-theme-500: oklch(0.65 0.25 130); /* 修改成綠色系 */
+    --vdt-theme-500: oklch(0.65 0.25 130) !important; /* 修改成綠色系 */
     /* 其他顏色...(50-950) */
-  }
-  ```
-- 通過Tailwind配置
-  ```css
-  @theme {
-    /* 直接指定值 */
-    --color-vdt-primary-500: oklch(0.65 0.25 130);
-    /* 或引用其他變數 */
-    --color-vdt-primary-500: var(--my-brand-color);
   }
   ```
 
