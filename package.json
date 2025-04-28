@@ -1,7 +1,7 @@
 {
   "name": "@tiaohsun/vue-datatable-tailwind",
   "author": "tiaohsun",
-  "version": "2.0.0",
+  "version": "2.1.2",
   "description": "A Vue 3 data table component restructured and styled with TailwindCSS",
   "license": "MIT",
   "type": "module",
@@ -66,9 +66,7 @@
     "eslint-plugin-vue": "^10.0.0",
     "jsdom": "^26.1.0",
     "npm-run-all2": "^7.0.2",
-    "postcss": "^8.5.3",
     "prettier": "^3.5.3",
-    "rollup-plugin-postcss": "^4.0.2",
     "tailwindcss": "^4.1.4",
     "typescript": "~5.8.3",
     "vite": "^6.3.3",

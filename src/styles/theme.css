@@ -1,4 +1,4 @@
-@import "./tailwind.utilities.css";
+@import './tailwind.utilities.css';
 
 :root {
   --vdt-theme-50: oklch(96.2% 0.018 272.314);
@@ -12,30 +12,23 @@
   --vdt-theme-800: oklch(39.8% 0.195 277.366);
   --vdt-theme-900: oklch(35.9% 0.144 278.697);
   --vdt-theme-950: oklch(25.7% 0.09 281.288);
-
-  --color-vdt-primary-50: var(--vdt-theme-50);
-  --color-vdt-primary-100: var(--vdt-theme-100);
-  --color-vdt-primary-200: var(--vdt-theme-200);
-  --color-vdt-primary-300: var(--vdt-theme-300);
-  --color-vdt-primary-400: var(--vdt-theme-400);
-  --color-vdt-primary-500: var(--vdt-theme-500);
-  --color-vdt-primary-600: var(--vdt-theme-600);
-  --color-vdt-primary-700: var(--vdt-theme-700);
-  --color-vdt-primary-800: var(--vdt-theme-800);
-  --color-vdt-primary-900: var(--vdt-theme-900);
-  --color-vdt-primary-950: var(--vdt-theme-950);
 }
 
-@theme vdt-theme {
-  --color-vdt-primary-50: var(--vdt-theme-50);
-  --color-vdt-primary-100: var(--vdt-theme-100);
-  --color-vdt-primary-200: var(--vdt-theme-200);
-  --color-vdt-primary-300: var(--vdt-theme-300);
-  --color-vdt-primary-400: var(--vdt-theme-400);
-  --color-vdt-primary-500: var(--vdt-theme-500);
-  --color-vdt-primary-600: var(--vdt-theme-600);
-  --color-vdt-primary-700: var(--vdt-theme-700);
-  --color-vdt-primary-800: var(--vdt-theme-800);
-  --color-vdt-primary-900: var(--vdt-theme-900);
-  --color-vdt-primary-950: var(--vdt-theme-950);
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
 }

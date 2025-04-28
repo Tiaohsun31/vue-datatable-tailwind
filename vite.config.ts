@@ -1,5 +1,4 @@
 import { fileURLToPath, URL } from 'node:url'
-import postcss from 'rollup-plugin-postcss'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
@@ -37,19 +36,7 @@ export default defineConfig({
                     vue: 'Vue'
                 },
                 exports: 'named',
-            },
-            plugins: [
-                postcss({
-                    extract: true,
-                    minimize: true,
-                    modules: false,
-                    inject: false,
-                    config: {
-                        path: './postcss.config.mjs',
-                        ctx: {}
-                    }
-                })
-            ]
+            }
         }
     },
     resolve: {
