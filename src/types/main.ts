@@ -195,7 +195,9 @@ export interface DataTableProps {
     /** 禁用懸停效果 */
     noHover?: boolean
     /** 單元格邊框 */
-    borderCell?: boolean
+    borderCell?: boolean,
+    /** 行邊框 */
+    borderRow?: boolean
 
     // 列配置
     /** 複選框列寬度 */

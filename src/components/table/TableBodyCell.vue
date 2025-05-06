@@ -54,8 +54,8 @@ const props = defineProps<{
     expandColumn?: string
     isExpanded?: boolean
     bodyItemClassName?: string | ((column: string, index: number) => string),
-    getFixedDistance?: (column: string, type: string) => string | undefined
-    getFixedColumnClasses?: (column: string) => string[]
+    getFixedDistance?: (column: string, type: 'td' | 'th') => string | undefined,
+    getFixedColumnClasses?: (column: string) => string[] | undefined
 }>()
 
 const emit = defineEmits<{
@@ -85,7 +85,7 @@ const fixedStyle = computed(() => {
 
 const fixedColumnClasses = computed(() => {
     if (props.getFixedColumnClasses) {
-        return props.getFixedColumnClasses(props.column);
+        return props.getFixedColumnClasses(props.column) || [];
     }
     return [];
 })

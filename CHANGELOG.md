@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.1.3] - 2025-05-06
+
+### Features
+
+- 新設置borderRow控制是否顯示行邊框。
+
+### Bug Fixes
+
+- 修復設置fixed欄位，移動時缺乏陰影及邊框。
+
 ## [2.1.2] - 2025-04-28
 
 ### Features

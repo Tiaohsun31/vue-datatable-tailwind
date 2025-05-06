@@ -1,47 +1,47 @@
-// {
-//   "files": [],
-//   "references": [
-//     {
-//       "path": "./tsconfig.node.json"
-//     },
-//     {
-//       "path": "./tsconfig.app.json"
-//     },
-//     {
-//       "path": "./tsconfig.vitest.json"
-//     }
-//   ]
-// }
 {
-  "extends": "@vue/tsconfig/tsconfig.dom.json",
-  "include": [
-    "env.d.ts",
-    "src/**/*",
-    "src/**/*.vue",
-    "src/**/*.ts",
-    "types/**/*.ts",
-    "types/**/*.d.ts",
-    "playground"
-  ],
-  "exclude": ["src/**/__tests__/*", "node_modules", "dist"],
-  "compilerOptions": {
-    "composite": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
     },
-    "declaration": true,
-    "declarationDir": "./dist",
-    "declarationMap": true,
-    "moduleResolution": "bundler",
-    "allowJs": true,
-    "outDir": "./dist",
-    "target": "ES2020",
-    "module": "ESNext",
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "strict": false,
-    "isolatedModules": true,
-    "types": ["node", "vite/client"]
-  }
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.vitest.json"
+    }
+  ]
 }
+// {
+//   "extends": "@vue/tsconfig/tsconfig.dom.json",
+//   "include": [
+//     "env.d.ts",
+//     "src/**/*",
+//     "src/**/*.vue",
+//     "src/**/*.ts",
+//     "types/**/*.ts",
+//     "types/**/*.d.ts",
+//     "playground"
+//   ],
+//   "exclude": ["src/**/__tests__/*", "node_modules", "dist"],
+//   "compilerOptions": {
+//     "composite": true,
+//     "baseUrl": ".",
+//     "paths": {
+//       "@/*": ["./src/*"]
+//     },
+//     "declaration": true,
+//     "declarationDir": "./dist",
+//     "declarationMap": true,
+//     "moduleResolution": "bundler",
+//     "allowJs": true,
+//     "outDir": "./dist",
+//     "target": "ES2020",
+//     "module": "ESNext",
+//     "skipLibCheck": true,
+//     "esModuleInterop": true,
+//     "strict": false,
+//     "isolatedModules": true,
+//     "types": ["node", "vite/client"]
+//   }
+// }

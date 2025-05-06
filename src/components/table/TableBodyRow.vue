@@ -1,10 +1,11 @@
 <!-- components/table/BodyRow.vue -->
 <template>
-    <tr class="vdt-tbody-tr transition-colors divide-y divide-gray-200" :class="[
+    <tr class="vdt-tbody-tr transition-colors" :class="[
         { 'bg-white': alternating && index % 2 === 0 },
         { 'bg-gray-50': !alternating || index % 2 === 1 },
         { 'hover:bg-gray-100': !noHover },
         { 'divide-x divide-gray-200': borderCell },
+        { 'border-b border-gray-200': borderRow },
         rowClassName
     ]" @click="handleRowClick" @dblclick="handleRowDoubleClick" @contextmenu="handleContextMenu">
         <slot name="prepend"></slot>
@@ -36,7 +37,8 @@ const props = defineProps<{
     columns: string[]
     alternating?: boolean
     noHover?: boolean
-    borderCell?: boolean,
+    borderRow?: boolean
+    borderCell?: boolean
     bodyRowClassName?: string | ((item: Item, index: number) => string)
     isExpanded?: boolean
     isDisabled?: boolean

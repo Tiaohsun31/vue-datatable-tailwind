@@ -49,8 +49,8 @@
                     <template v-for="(item, index) in pageItems" :key="item.key || index">
 
                         <TableBodyRow :item="item" :index="index" :columns="headerColumns" :alternating="alternating"
-                            :no-hover="noHover" :border-cell="borderCell" :body-row-className="bodyRowClassName"
-                            :body-item-class-name="bodyItemClassName"
+                            :no-hover="noHover" :border-cell="borderCell" :border-row="borderRow"
+                            :body-row-className="bodyRowClassName" :body-item-class-name="bodyItemClassName"
                             :is-expanded="expandingItemIndexList.includes(index + prevPageEndIndex)"
                             :is-disabled="isItemDisabled(item)" :expand-column="expandColumn"
                             :get-fixed-distance="getFixedDistance" :get-fixed-column-classes="getFixedColumnClasses"
@@ -212,6 +212,7 @@ const props = withDefaults(defineProps<DataTableProps>(), {
     disabledRows: () => false,
     noHover: false,
     borderCell: false,
+    borderRow: true,
     mustSort: true,
     rowsOfPageSeparatorMessage: 'of',
     clickEventType: 'single',
