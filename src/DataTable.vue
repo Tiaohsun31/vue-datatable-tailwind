@@ -3,7 +3,7 @@
         <!-- Main Table Container -->
         <div ref="tableContainer"
             class="vdt-table-container relative overflow-auto border scroll-smooth border-gray-200 min-h-[180px] "
-            :class="[{ 'shadow-xs': showShadow }, containerClassName]">
+            :class="[{ 'shadow-xs show-shadow': showShadow }, containerClassName]">
             <table :id="tableNodeId" class="vdt-table w-full border-collapse bg-white" :class="[tableClassName]">
                 <colgroup>
                     <col v-for="(header, index) in headersForRender" :key="index" :style="getColStyle(header)" />
@@ -53,7 +53,8 @@
                             :body-item-class-name="bodyItemClassName"
                             :is-expanded="expandingItemIndexList.includes(index + prevPageEndIndex)"
                             :is-disabled="isItemDisabled(item)" :expand-column="expandColumn"
-                            :get-fixed-distance="getFixedDistance" @click="handleRowClick($event, item, index)"
+                            :get-fixed-distance="getFixedDistance" :get-fixed-column-classes="getFixedColumnClasses"
+                            @click="handleRowClick($event, item, index)"
                             @dblclick="handleRowDoubleClick($event, item, index)"
                             @contextmenu="handleRowContextMenu($event, item)"
                             @toggle-expand="handleExpandToggle(index, item, $event)"
@@ -140,7 +141,7 @@
 
 <script setup lang="ts">
 import {
-    useSlots, computed, toRefs, ref, watch, provide
+    useSlots, computed, toRefs, ref, watch, provide, onMounted
 } from 'vue';
 
 import Loading from './components/loadings/Loading.vue';
@@ -445,28 +446,41 @@ const getColStyle = (header: HeaderForRender): string | undefined => {
     return undefined;
 };
 
-// 固定列的樣式
+// 當有固定列時，給定一個距離，然後根據這個距離來設置樣式
 const getFixedDistance = (column: string, type: 'td' | 'th' = 'th') => {
     if (!fixedHeaders.value.length) return undefined;
     const columnInfo = fixedColumnsInfos.value.find((info) => info.value === column);
     if (columnInfo) {
         const isLeft = columnInfo.position === 'left';
         return `
+            position: sticky;
             ${isLeft ? `left: ${columnInfo.distance}px;` : `right: ${columnInfo.distance}px;`}
             z-index: ${type === 'th' ? 3 : 1};
-            position: sticky;
-            background-color: ${type === 'th' ? 'none' : 'inherit'};
-            ${(isLeft && columnInfo.value === lastLeftFixedColumn.value) ||
-                (!isLeft && columnInfo.value === firstRightFixedColumn.value)
-                ? `
-                    box-shadow: ${isLeft ? '4px 0 6px -2px' : '-4px 0 6px -2px'} rgba(0, 0, 0, 0.1);
-                    clip-path: inset(0px ${isLeft ? '-10px 0px 0px' : '0px 0px -10px'});
-                ` : ''
-            }
-            isolation: isolate;
         `;
     }
     return undefined;
+};
+
+// 處理固定列樣式
+const getFixedColumnClasses = (column: string) => {
+    if (!fixedHeaders.value.length) return [];
+
+    const classes = [];
+
+    // 添加基本類
+    const columnInfo = fixedColumnsInfos.value.find((info) => info.value === column);
+    if (columnInfo) {
+        classes.push('fixed-column');
+
+        // 添加陰影類
+        if (column === lastLeftFixedColumn.value) {
+            classes.push('fixed-left-shadow');
+        } else if (column === firstRightFixedColumn.value) {
+            classes.push('fixed-right-shadow');
+        }
+    }
+
+    return classes;
 };
 
 const handleHeaderClick = (header: Header) => {
