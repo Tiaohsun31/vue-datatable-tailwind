@@ -18,7 +18,7 @@ type FixedColumnsInfo = {
 
 export default function useFixedColumn(
     headersForRender: Ref<HeaderForRender[]>,
-    tableBodyRef: Ref<HTMLElement | null>,
+    tableContainerRef: Ref<HTMLElement | null>,
 ) {
     // 篩選出設置了 fixed: true 的列
     const fixedHeaders = computed((): HeaderForRender[] => headersForRender.value.filter((header) => header.fixed));
@@ -84,7 +84,7 @@ export default function useFixedColumn(
     let cleanup: (() => void) | null = null;
 
     onMounted(() => {
-        const element = tableBodyRef.value;
+        const element = tableContainerRef.value;
         if (element) {
             const handleScroll = () => {
                 showShadow.value = element.scrollLeft > 0;

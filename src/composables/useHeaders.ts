@@ -73,16 +73,22 @@ export default function useHeaders(
 
     // 生成表頭渲染數據
     const headersForRender = computed((): HeaderForRender[] => {
-        // 將列分為三類
-        const leftFixedHeaders = headers.value.filter(
+        // 先將所有 header 添加 sortType
+        const processedHeaders = headers.value.map(header => ({
+            ...header,
+            sortType: header.sortable ? determineHeaderSortState(header.value) : undefined
+        }));
+
+        // 再分類
+        const leftFixedHeaders = processedHeaders.filter(
             h => h.fixed && (!h.fixedPosition || h.fixedPosition === 'left')
         );
-        const normalHeaders = headers.value.filter(h => !h.fixed);
-        const rightFixedHeaders = headers.value.filter(
+        const normalHeaders = processedHeaders.filter(h => !h.fixed);
+        const rightFixedHeaders = processedHeaders.filter(
             h => h.fixed && h.fixedPosition === 'right'
         );
 
-        // 特殊列處理（如複選框列等）
+        // 特殊列處理
         const specialColumns = Object.values(specialColumnsConfig.value).filter(Boolean);
 
         // 按正確順序返回所有列
@@ -101,21 +107,21 @@ export default function useHeaders(
             value: 'checkbox',
             fixed: fixedCheckbox.value || computeFixedColumns.value.hasFixedColumns,
             fixedPosition: 'left' as 'left',
-            width: checkboxColumnWidth.value ?? 36
+            width: checkboxColumnWidth.value ?? 36,
         },
         index: showIndex.value && {
             text: showIndexSymbol.value,
             value: 'index',
             fixed: fixedIndex.value || computeFixedColumns.value.hasFixedColumns,
             fixedPosition: 'left' as 'left',
-            width: indexColumnWidth.value
+            width: indexColumnWidth.value,
         },
         expand: ifHasExpandSlot.value && !expandColumn.value && {
             text: '',
             value: 'expand',
             fixed: fixedExpand.value || computeFixedColumns.value.hasFixedColumns,
             fixedPosition: 'left' as 'left',
-            width: expandColumnWidth.value
+            width: expandColumnWidth.value,
         }
     }));
 

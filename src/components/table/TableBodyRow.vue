@@ -1,21 +1,22 @@
 <!-- components/table/BodyRow.vue -->
 <template>
-    <tr class="vdt-tbody-tr transition-colors border-t" :class="[
+    <tr class="vdt-tbody-tr transition-colors divide-y divide-gray-200" :class="[
         { 'bg-white': alternating && index % 2 === 0 },
         { 'bg-gray-50': !alternating || index % 2 === 1 },
         { 'hover:bg-gray-100': !noHover },
         { 'divide-x divide-gray-200': borderCell },
+        { 'border-b border-gray-200 last:border-b-0': borderRow },
         rowClassName
     ]" @click="handleRowClick" @dblclick="handleRowDoubleClick" @contextmenu="handleContextMenu">
         <slot name="prepend"></slot>
         <template v-for="(column, columnIndex) in columns" :key="columnIndex">
-            <TableBodyCell :column="column" :item="item" :index="index" :style="getFixedDistance?.(column, 'td')"
-                :is-disabled="isDisabled" :expand-column="expandColumn" :is-expanded="isExpanded"
-                :body-item-class-name="bodyItemClassName"
+            <TableBodyCell :column="column" :item="item" :index="index" :get-fixed-distance="getFixedDistance"
+                :get-fixed-column-classes="getFixedColumnClasses" :is-disabled="isDisabled"
+                :expand-column="expandColumn" :is-expanded="isExpanded" :body-item-class-name="bodyItemClassName"
                 @toggle-expand="(event) => $emit('toggle-expand', event, index, item)"
                 @toggle-select="() => $emit('toggle-select', item)">
 
-                <template v-for="(_, name) in $slots" #[name]="slotData">
+                <template v-for="(_, name) in $slots" #[name]="slotData" :key="name">
                     <slot :name="name" v-bind="slotData"></slot>
                 </template>
 
@@ -36,12 +37,14 @@ const props = defineProps<{
     columns: string[]
     alternating?: boolean
     noHover?: boolean
+    borderRow?: boolean
     borderCell?: boolean
     bodyRowClassName?: string | ((item: Item, index: number) => string)
     isExpanded?: boolean
     isDisabled?: boolean
     expandColumn?: string
     getFixedDistance?: (column: string, type: 'td' | 'th') => string | undefined,
+    getFixedColumnClasses?: (column: string) => string[] | undefined,
     bodyItemClassName?: string | ((column: string, index: number) => string)
 }>()
 

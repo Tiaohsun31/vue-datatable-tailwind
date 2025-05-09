@@ -2,8 +2,9 @@
 <template>
     <td class="vdt-tbody-td px-4 py-2" :class="[
         { 'cursor-pointer': column === 'expand' && expandColumn === '' },
+        ...fixedColumnClasses,
         cellClassName
-    ]" :style="style" @click="handleCellClick">
+    ]" :style="cellStyle" @click="handleCellClick">
         <!-- Selection Checkbox -->
         <template v-if="column === 'checkbox'">
             <template v-if="column === 'checkbox'">
@@ -53,6 +54,8 @@ const props = defineProps<{
     expandColumn?: string
     isExpanded?: boolean
     bodyItemClassName?: string | ((column: string, index: number) => string)
+    getFixedDistance?: (column: string, type: 'td' | 'th') => string | undefined,
+    getFixedColumnClasses?: (column: string) => string[] | undefined
 }>()
 
 const emit = defineEmits<{
@@ -72,6 +75,39 @@ const cellClassName = computed(() => {
 const isExpandColumn = computed(() =>
     props.column === 'expand' || props.column === props.expandColumn
 )
+
+const fixedStyle = computed(() => {
+    if (props.getFixedDistance) {
+        return props.getFixedDistance(props.column, 'td');
+    }
+    return undefined;
+})
+
+const fixedColumnClasses = computed(() => {
+    if (props.getFixedColumnClasses) {
+        return props.getFixedColumnClasses(props.column) || [];
+    }
+    return [];
+})
+
+const cellStyle = computed(() => {
+    // 基本樣式
+    let baseStyle = props.style || '';
+
+    // 固定位置樣式
+    if (fixedStyle.value) {
+        baseStyle += fixedStyle.value;
+    }
+
+    // 確保背景色與父元素一致
+    if (fixedColumnClasses.value.length > 0) {
+        // 只有在是固定列時才需要添加此樣式
+        baseStyle += ' background-color: inherit;';
+    }
+
+    return baseStyle;
+})
+
 
 const handleCellClick = () => {
     if (isExpandColumn.value && props.expandColumn === '') {

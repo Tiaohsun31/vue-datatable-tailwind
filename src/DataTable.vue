@@ -1,10 +1,12 @@
 <template>
+
     <div ref="tableWrapper" class="vdt-table-wrapper relative w-full" :class="[wrapperClassName]">
         <!-- Main Table Container -->
         <div ref="tableContainer"
-            class="vdt-table-container relative overflow-auto border scroll-smooth border-gray-200 min-h-[180px]"
-            :class="[{ 'shadow-sm': showShadow }, containerClassName]">
-            <table :id="tableNodeId" class="vdt-table w-full border-collapse bg-white" :class="[tableClassName]">
+            class="vdt-table-container relative  overflow-auto border scroll-smooth border-gray-200 min-h-[180px]"
+            :class="[{ 'show-shadow': showShadow }, containerClassName]">
+            <table :id="tableNodeId" class="vdt-table w-full border-collapse bg-white " :class="[
+                tableClassName]">
                 <colgroup>
                     <col v-for="(header, index) in headersForRender" :key="index" :style="getColStyle(header)" />
                 </colgroup>
@@ -49,11 +51,12 @@
                     <template v-for="(item, index) in pageItems" :key="item.key || index">
 
                         <TableBodyRow :item="item" :index="index" :columns="headerColumns" :alternating="alternating"
-                            :no-hover="noHover" :border-cell="borderCell" :body-row-className="bodyRowClassName"
-                            :body-item-class-name="bodyItemClassName"
+                            :no-hover="noHover" :border-cell="borderCell" :border-row="borderRow"
+                            :body-row-className="bodyRowClassName" :body-item-class-name="bodyItemClassName"
                             :is-expanded="expandingItemIndexList.includes(index + prevPageEndIndex)"
                             :is-disabled="isItemDisabled(item)" :expand-column="expandColumn"
-                            :get-fixed-distance="getFixedDistance" @click="handleRowClick($event, item, index)"
+                            :get-fixed-distance="getFixedDistance" :get-fixed-column-classes="getFixedColumnClasses"
+                            @click="handleRowClick($event, item, index)"
                             @dblclick="handleRowDoubleClick($event, item, index)"
                             @contextmenu="handleRowContextMenu($event, item)"
                             @toggle-expand="handleExpandToggle(index, item, $event)"
@@ -211,6 +214,7 @@ const props = withDefaults(defineProps<DataTableProps>(), {
     disabledRows: () => false,
     noHover: false,
     borderCell: false,
+    borderRow: true,
     mustSort: true,
     rowsOfPageSeparatorMessage: 'of',
     clickEventType: 'single',
@@ -446,28 +450,64 @@ const getColStyle = (header: HeaderForRender): string | undefined => {
     return undefined;
 };
 
-// 固定列的樣式
+// // 固定列的樣式
+// const getFixedDistance = (column: string, type: 'td' | 'th' = 'th') => {
+//     if (!fixedHeaders.value.length) return undefined;
+//     const columnInfo = fixedColumnsInfos.value.find((info) => info.value === column);
+//     if (columnInfo) {
+//         const isLeft = columnInfo.position === 'left';
+//         return `
+//             ${isLeft ? `left: ${columnInfo.distance}px;` : `right: ${columnInfo.distance}px;`}
+//             z-index: ${type === 'th' ? 3 : 1};
+//             position: sticky;
+//             background-color: ${type === 'th' ? 'none' : 'inherit'};
+//             ${(isLeft && columnInfo.value === lastLeftFixedColumn.value) ||
+//                 (!isLeft && columnInfo.value === firstRightFixedColumn.value)
+//                 ? `
+//                     box-shadow: ${isLeft ? '4px 0 6px -2px' : '-4px 0 6px -2px'} rgba(0, 0, 0, 0.1);
+//                     clip-path: inset(0px ${isLeft ? '-10px 0px 0px' : '0px 0px -10px'});
+//                 ` : ''
+//             }
+//             isolation: isolate;
+//         `;
+//     }
+//     return undefined;
+// };
+// 當有固定列時，給定一個距離，然後根據這個距離來設置樣式
 const getFixedDistance = (column: string, type: 'td' | 'th' = 'th') => {
     if (!fixedHeaders.value.length) return undefined;
     const columnInfo = fixedColumnsInfos.value.find((info) => info.value === column);
     if (columnInfo) {
         const isLeft = columnInfo.position === 'left';
         return `
+            position: sticky;
             ${isLeft ? `left: ${columnInfo.distance}px;` : `right: ${columnInfo.distance}px;`}
             z-index: ${type === 'th' ? 3 : 1};
-            position: sticky;
-            background-color: ${type === 'th' ? 'none' : 'inherit'};
-            ${(isLeft && columnInfo.value === lastLeftFixedColumn.value) ||
-                (!isLeft && columnInfo.value === firstRightFixedColumn.value)
-                ? `
-                    box-shadow: ${isLeft ? '4px 0 6px -2px' : '-4px 0 6px -2px'} rgba(0, 0, 0, 0.1);
-                    clip-path: inset(0px ${isLeft ? '-10px 0px 0px' : '0px 0px -10px'});
-                ` : ''
-            }
-            isolation: isolate;
         `;
     }
     return undefined;
+};
+
+// 處理固定列樣式
+const getFixedColumnClasses = (column: string) => {
+    if (!fixedHeaders.value.length) return [];
+
+    const classes = [];
+
+    // 添加基本類
+    const columnInfo = fixedColumnsInfos.value.find((info) => info.value === column);
+    if (columnInfo) {
+        classes.push('fixed-column');
+
+        // 添加陰影類
+        if (column === lastLeftFixedColumn.value) {
+            classes.push('fixed-left-shadow');
+        } else if (column === firstRightFixedColumn.value) {
+            classes.push('fixed-right-shadow');
+        }
+    }
+
+    return classes;
 };
 
 const handleHeaderClick = (header: Header) => {

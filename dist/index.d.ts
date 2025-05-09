@@ -63,6 +63,7 @@ declare const __VLS_component: DefineComponent<DataTableProps, {
     bodyItemClassName: BodyItemClassNameFunction | string;
     alternating: boolean;
     noHover: boolean;
+    borderRow: boolean;
     bodyRowClassName: BodyRowClassNameFunction | string;
     loading: boolean;
     bodyExpandRowClassName: BodyRowClassNameFunction | string;
@@ -104,18 +105,17 @@ declare const __VLS_component: DefineComponent<DataTableProps, {
     preventContextMenuRow: boolean;
     expandTransition: boolean;
     batchSelectionThreshold: number;
-}, {}, {}, {}, string, ComponentProvideOptions, false, {}, HTMLDivElement>;
+}, {}, {}, {}, string, ComponentProvideOptions, false, {
+    tableWrapper: HTMLDivElement;
+    tableContainer: HTMLDivElement;
+}, HTMLDivElement>;
 
 declare function __VLS_template(): {
     attrs: Partial<{}>;
-    slots: Partial<Record<NonNullable<string | number>, (_: {
-        header: HeaderForRender;
-        index: number;
-        sortable: boolean;
-    }) => any>> & Partial<Record<NonNullable<string | number>, (_: any) => any>> & {
-        "customize-headers"?(_: {}): any;
+    slots: Partial<Record<number, (_: any) => any>> & Partial<Record<number, (_: any) => any>> & {
+        'customize-headers'?(_: {}): any;
         body?(_: {
-            [x: number]: Item;
+            [n: number]: Item;
             length: number;
             toString(): string;
             toLocaleString(): string;
@@ -199,7 +199,7 @@ declare function __VLS_template(): {
             };
             at(index: number): Item;
         }): any;
-        "body-prepend"?(_: {
+        'body-prepend'?(_: {
             items: Item[];
             pagination: {
                 isFirstPage: boolean;
@@ -212,10 +212,10 @@ declare function __VLS_template(): {
             headers: HeaderForRender[];
         }): any;
         expand?(_: {
-            [x: string]: any;
+            [key: string]: any;
             key?: string | number;
         }): any;
-        "body-append"?(_: {
+        'body-append'?(_: {
             items: Item[];
             pagination: {
                 isFirstPage: boolean;
@@ -229,8 +229,8 @@ declare function __VLS_template(): {
             headers: HeaderForRender[];
         }): any;
         loading?(_: {}): any;
-        "empty-message"?(_: {}): any;
-        "pagination-info"?(_: {
+        'empty-message'?(_: {}): any;
+        'pagination-info'?(_: {
             firstIndex: number;
             lastIndex: number;
             total: number;
@@ -359,6 +359,8 @@ export declare interface DataTableProps {
     noHover?: boolean;
     /** 單元格邊框 */
     borderCell?: boolean;
+    /** 行邊框 */
+    borderRow?: boolean;
     /** 複選框列寬度 */
     checkboxColumnWidth?: number | null;
     /** 展開列寬度 */

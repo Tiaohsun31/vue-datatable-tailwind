@@ -44,3 +44,41 @@
 .peer-focus\:ring-theme-focus:focus {
   --tw-ring-color: var(--theme-focus);
 }
+
+.fixed-column {
+  z-index: 1;
+  background-color: inherit !important;
+}
+
+/* 最後一個固定列的陰影 */
+.fixed-left-shadow::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -36px;
+  width: 36px;
+  height: 100%;
+  pointer-events: none;
+  box-shadow: none;
+}
+
+/* 當表格滾動時顯示陰影 */
+.vdt-table-container.show-shadow .fixed-left-shadow::after {
+  box-shadow: inset 6px 0 5px -3px rgba(0, 0, 0, 0.2);
+}
+
+/* 右側固定列陰影效果 */
+.fixed-right-shadow::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -36px;
+  width: 36px;
+  height: 100%;
+  pointer-events: none;
+  box-shadow: none;
+}
+
+.vdt-table-container.show-shadow .fixed-right-shadow::after {
+  box-shadow: inset -6px 0 5px -3px rgba(0, 0, 0, 0.2);
+}

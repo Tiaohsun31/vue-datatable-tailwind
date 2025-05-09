@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.1] - 2025-05-10
+
+### Bug Fixes
+
+- 修正 Header 無法點擊及 fixed 陰影效果。
+
 ## [1.1.0] - 2025-04-26
 
 ### Features
