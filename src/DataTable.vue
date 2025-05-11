@@ -466,7 +466,7 @@ const getFixedDistance = (column: string, type: 'td' | 'th' = 'th') => {
 const getFixedColumnClasses = (column: string) => {
     if (!fixedHeaders.value.length) return [];
 
-    const classes = [];
+    const classes: string[] = [];
 
     // 添加基本類
     const columnInfo = fixedColumnsInfos.value.find((info) => info.value === column);

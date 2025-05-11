@@ -1,47 +1,34 @@
 {
-  "files": [],
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "include": [
+    "env.d.ts",
+    "src/**/*",
+    "src/**/*.vue",
+    "src/**/*.ts",
+    "types/**/*.ts",
+    "types/**/*.d.ts"
+  ],
+  "exclude": ["src/**/__tests__/*", "node_modules", "dist"],
+  "compilerOptions": {
+    "composite": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
     },
-    {
-      "path": "./tsconfig.app.json"
-    },
-    {
-      "path": "./tsconfig.vitest.json"
-    }
-  ]
+    "declaration": true,
+    "declarationDir": "./dist",
+    "declarationMap": true,
+    "moduleResolution": "bundler",
+    "allowJs": true,
+    "outDir": "./dist",
+    "target": "ES2020",
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "strict": true, // 建議開啟嚴格模式
+    "noImplicitAny": false, // 可以先關閉部分嚴格檢查
+    "strictNullChecks": true, // 推薦至少開啟這項
+    "isolatedModules": true,
+    "types": ["node", "vite/client"]
+  }
 }
-// {
-//   "extends": "@vue/tsconfig/tsconfig.dom.json",
-//   "include": [
-//     "env.d.ts",
-//     "src/**/*",
-//     "src/**/*.vue",
-//     "src/**/*.ts",
-//     "types/**/*.ts",
-//     "types/**/*.d.ts",
-//     "playground"
-//   ],
-//   "exclude": ["src/**/__tests__/*", "node_modules", "dist"],
-//   "compilerOptions": {
-//     "composite": true,
-//     "baseUrl": ".",
-//     "paths": {
-//       "@/*": ["./src/*"]
-//     },
-//     "declaration": true,
-//     "declarationDir": "./dist",
-//     "declarationMap": true,
-//     "moduleResolution": "bundler",
-//     "allowJs": true,
-//     "outDir": "./dist",
-//     "target": "ES2020",
-//     "module": "ESNext",
-//     "skipLibCheck": true,
-//     "esModuleInterop": true,
-//     "strict": false,
-//     "isolatedModules": true,
-//     "types": ["node", "vite/client"]
-//   }
-// }
