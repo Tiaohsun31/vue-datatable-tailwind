@@ -5,7 +5,7 @@
         { 'bg-gray-50': !alternating || index % 2 === 1 },
         { 'hover:bg-gray-100': !noHover },
         { 'divide-x divide-gray-200': borderCell },
-        { 'border-b border-gray-200': borderRow },
+        { 'border-b border-gray-200 last:border-b-0 first:border-t': borderRow },
         rowClassName
     ]" @click="handleRowClick" @dblclick="handleRowDoubleClick" @contextmenu="handleContextMenu">
         <slot name="prepend"></slot>

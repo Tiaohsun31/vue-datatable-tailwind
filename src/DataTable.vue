@@ -472,7 +472,9 @@ const getFixedColumnClasses = (column: string) => {
     const columnInfo = fixedColumnsInfos.value.find((info) => info.value === column);
     if (columnInfo) {
         classes.push('fixed-column');
-
+        if (props.borderRow) {
+            classes.push('shadow-[inset_0_1px_0_#e5e7eb]');
+        }
         // 添加陰影類
         if (column === lastLeftFixedColumn.value) {
             classes.push('fixed-left-shadow');

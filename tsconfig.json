@@ -25,9 +25,9 @@
     "module": "ESNext",
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "strict": true, // 建議開啟嚴格模式
-    "noImplicitAny": false, // 可以先關閉部分嚴格檢查
-    "strictNullChecks": true, // 推薦至少開啟這項
+    "strict": true,
+    "noImplicitAny": false,
+    "strictNullChecks": true,
     "isolatedModules": true,
     "types": ["node", "vite/client"]
   }
