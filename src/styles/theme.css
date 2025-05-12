@@ -47,7 +47,6 @@
 
 .fixed-column {
   z-index: 1;
-  background-color: inherit !important;
 }
 
 /* 最後一個固定列的陰影 */

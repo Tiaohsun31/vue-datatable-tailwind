@@ -1,7 +1,7 @@
 var Vt = Object.defineProperty;
 var Kt = (e, t, a) => t in e ? Vt(e, t, { enumerable: !0, configurable: !0, writable: !0, value: a }) : e[t] = a;
 var qe = (e, t, a) => Kt(e, typeof t != "symbol" ? t + "" : t, a);
-import { defineComponent as M, inject as xe, createElementBlock as P, openBlock as b, Fragment as oe, renderList as Q, createElementVNode as k, normalizeStyle as ge, normalizeClass as S, unref as f, toDisplayString as V, ref as ee, computed as y, onMounted as xt, onUnmounted as Gt, watch as fe, createVNode as U, withModifiers as Ge, withDirectives as Ve, vShow as Ke, createBlock as K, useSlots as wt, renderSlot as $, createCommentVNode as D, normalizeProps as q, guardReactiveProps as le, createSlots as me, withCtx as Y, mergeProps as Z, createTextVNode as De, onBeforeUnmount as Jt, Transition as Yt, toRefs as Zt, provide as ct } from "vue";
+import { defineComponent as M, inject as xe, createElementBlock as P, openBlock as b, Fragment as oe, renderList as Q, createElementVNode as k, normalizeStyle as ge, normalizeClass as S, unref as f, toDisplayString as V, ref as ee, computed as y, onMounted as xt, onUnmounted as Gt, watch as fe, createVNode as U, withModifiers as Ge, withDirectives as Ve, vShow as Ke, createBlock as K, useSlots as wt, renderSlot as $, createCommentVNode as D, normalizeProps as z, guardReactiveProps as le, createSlots as me, withCtx as Y, mergeProps as Z, createTextVNode as De, onBeforeUnmount as Jt, Transition as Yt, toRefs as Zt, provide as ct } from "vue";
 const Qt = { class: "inline-flex relative w-[60px] h-[60px]" }, Xt = /* @__PURE__ */ M({
   __name: "Loading",
   setup(e) {
@@ -161,14 +161,14 @@ function ua(e, t, a, n, l, i, d, o, s, u, r, p, m, c, v, w, I, N, H, T) {
       sortType: x.sortable ? ie(x.value) : void 0
     })), j = B.filter(
       (x) => x.fixed && (!x.fixedPosition || x.fixedPosition === "left")
-    ), E = B.filter((x) => !x.fixed), z = B.filter(
+    ), E = B.filter((x) => !x.fixed), W = B.filter(
       (x) => x.fixed && x.fixedPosition === "right"
     );
     return [
       ...Object.values(we.value).filter(Boolean),
       ...j,
       ...E,
-      ...z
+      ...W
     ];
   }), we = y(() => ({
     checkbox: u.value && {
@@ -200,15 +200,15 @@ function ua(e, t, a, n, l, i, d, o, s, u, r, p, m, c, v, w, I, N, H, T) {
       H(B, E);
       return;
     }
-    const z = I.value ? ca(B, E, O.value) : fa(B, E);
-    O.value = z, T("updateSort", { sortType: E, sortBy: B });
+    const W = I.value ? ca(B, E, O.value) : fa(B, E);
+    O.value = W, T("updateSort", { sortType: E, sortBy: B });
   }, G = y(() => (B) => {
-    var E, z;
-    const j = r.value ? (E = m.value) == null ? void 0 : E.sortBy : (z = O.value) == null ? void 0 : z.sortBy;
+    var E, W;
+    const j = r.value ? (E = m.value) == null ? void 0 : E.sortBy : (W = O.value) == null ? void 0 : W.sortBy;
     return Array.isArray(j) && j.includes(B);
   }), ke = y(() => (B) => {
-    var E, z;
-    const j = r.value ? (E = m.value) == null ? void 0 : E.sortBy : (z = O.value) == null ? void 0 : z.sortBy;
+    var E, W;
+    const j = r.value ? (E = m.value) == null ? void 0 : E.sortBy : (W = O.value) == null ? void 0 : W.sortBy;
     return Array.isArray(j) ? j.indexOf(B) + 1 : !1;
   });
   return {
@@ -1425,7 +1425,7 @@ const _a = /* @__PURE__ */ ve(Za, [["render", Xa]]), en = /* @__PURE__ */ M({
         status: e.multipleSelectStatus,
         onChange: o[0] || (o[0] = (s) => d.$emit("toggleSelectAll", s))
       }, null, 8, ["disabled", "status"])) : (b(), P("div", ln, [
-        $(d.$slots, l(e.header), q(le({ header: e.header, index: e.index, sortable: e.header.sortable })), () => [
+        $(d.$slots, l(e.header), z(le({ header: e.header, index: e.index, sortable: e.header.sortable })), () => [
           k("span", null, V(e.header.text), 1)
         ]),
         e.header.sortable ? (b(), K(f(en), {
@@ -1554,14 +1554,14 @@ const _a = /* @__PURE__ */ ve(Za, [["render", Xa]]), en = /* @__PURE__ */ M({
       onClick: r
     }, [
       c.column === "checkbox" ? (b(), P(oe, { key: 0 }, [
-        c.column === "checkbox" ? $(c.$slots, "selection-checkbox", q(Z({ key: 0 }, { item: c.item, index: c.index, isDisabled: l.value, toggleSelectItem: m })), () => [
+        c.column === "checkbox" ? $(c.$slots, "selection-checkbox", z(Z({ key: 0 }, { item: c.item, index: c.index, isDisabled: l.value, toggleSelectItem: m })), () => [
           U(Pt, {
             checked: !!c.item.checkbox,
             disabled: l.value,
             onChange: m
           }, null, 8, ["checked", "disabled"])
         ]) : D("", !0)
-      ], 64)) : d.value ? $(c.$slots, "expand-button", q(Z({ key: 1 }, { item: c.item, expanded: c.isExpanded, toggle: p })), () => [
+      ], 64)) : d.value ? $(c.$slots, "expand-button", z(Z({ key: 1 }, { item: c.item, expanded: c.isExpanded, toggle: p })), () => [
         k("button", {
           onClick: Ge(p, ["stop"]),
           class: "inline-flex items-center"
@@ -1570,9 +1570,9 @@ const _a = /* @__PURE__ */ ve(Za, [["render", Xa]]), en = /* @__PURE__ */ M({
             class: S({ "transform rotate-90": c.isExpanded })
           }, null, 8, ["class"])
         ])
-      ]) : $(c.$slots, `item-${c.column}`, q(Z({ key: 2 }, c.item)), () => [
-        $(c.$slots, `item-${c.column.toLowerCase()}`, q(le(c.item)), () => [
-          $(c.$slots, "item", q(le({ column: c.column, item: c.item })), () => [
+      ]) : $(c.$slots, `item-${c.column}`, z(Z({ key: 2 }, c.item)), () => [
+        $(c.$slots, `item-${c.column.toLowerCase()}`, z(le(c.item)), () => [
+          $(c.$slots, "item", z(le({ column: c.column, item: c.item })), () => [
             De(V(f(Ca)(c.column, c.item)), 1)
           ])
         ])
@@ -1607,12 +1607,12 @@ const _a = /* @__PURE__ */ ve(Za, [["render", Xa]]), en = /* @__PURE__ */ M({
       n("contextmenu", s, a.item);
     };
     return (s, u) => (b(), P("tr", {
-      class: S(["vdt-tbody-tr transition-colors divide-y divide-gray-200", [
+      class: S(["vdt-tbody-tr transition-colors", [
         { "bg-white": s.alternating && s.index % 2 === 0 },
         { "bg-gray-50": !s.alternating || s.index % 2 === 1 },
         { "hover:bg-gray-100": !s.noHover },
         { "divide-x divide-gray-200": s.borderCell },
-        { "border-b border-gray-200 last:border-b-0": s.borderRow },
+        { "border-b border-gray-200 last:border-b-0 first:border-t": s.borderRow },
         l.value
       ]]),
       onClick: i,
@@ -2125,12 +2125,12 @@ const _a = /* @__PURE__ */ ve(Za, [["render", Xa]]), en = /* @__PURE__ */ M({
           i.$slots["pagination-info"] ? {
             name: "default",
             fn: Y((o) => [
-              $(i.$slots, "pagination-info", q(le(o)))
+              $(i.$slots, "pagination-info", z(le(o)))
             ]),
             key: "0"
           } : void 0
         ]), 1032, ["current-page-first-index", "current-page-last-index", "total-items-length", "rows-of-page-separator-message"])),
-        i.$slots.pagination ? $(i.$slots, "pagination", q(Z({ key: 2 }, l.value))) : (b(), K(yt, {
+        i.$slots.pagination ? $(i.$slots, "pagination", z(Z({ key: 2 }, l.value))) : (b(), K(yt, {
           key: 3,
           "is-first-page": i.isFirstPage,
           "is-last-page": i.isLastPage,
@@ -2264,7 +2264,7 @@ const _a = /* @__PURE__ */ ve(Za, [["render", Xa]]), en = /* @__PURE__ */ M({
       fixedCheckbox: B,
       fixedIndex: j,
       batchSelectionThreshold: E,
-      expandColumn: z
+      expandColumn: W
     } = Zt(n), h = y(() => Aa(n.theme));
     ct("themeClasses", h);
     const x = wt(), C = y(() => !!x.expand), A = y(() => !!x.body), ue = y(
@@ -2305,7 +2305,7 @@ const _a = /* @__PURE__ */ ve(Za, [["render", Xa]]), en = /* @__PURE__ */ M({
       te,
       O,
       ae,
-      z,
+      W,
       St,
       X
     ), {
@@ -2389,21 +2389,21 @@ const _a = /* @__PURE__ */ ve(Za, [["render", Xa]]), en = /* @__PURE__ */ M({
       be,
       Se
     ), Et = (g) => {
-      const W = g.width ?? (Oe.value.length ? 100 : null);
-      if (W) return `width: ${W}px; min-width: ${W}px;`;
-    }, ut = (g, W = "th") => {
+      const q = g.width ?? (Oe.value.length ? 100 : null);
+      if (q) return `width: ${q}px; min-width: ${q}px;`;
+    }, ut = (g, q = "th") => {
       if (!Oe.value.length) return;
       const F = ot.value.find((L) => L.value === g);
       if (F)
         return `
             position: sticky;
             ${F.position === "left" ? `left: ${F.distance}px;` : `right: ${F.distance}px;`}
-            z-index: ${W === "th" ? 3 : 1};
+            z-index: ${q === "th" ? 3 : 1};
         `;
     }, Dt = (g) => {
       if (!Oe.value.length) return [];
-      const W = [];
-      return ot.value.find((L) => L.value === g) && (W.push("fixed-column"), g === rt.value ? W.push("fixed-left-shadow") : g === lt.value && W.push("fixed-right-shadow")), W;
+      const q = [];
+      return ot.value.find((L) => L.value === g) && (q.push("fixed-column"), n.borderRow && q.push("shadow-[inset_0_1px_0_#e5e7eb]"), g === rt.value ? q.push("fixed-left-shadow") : g === lt.value && q.push("fixed-right-shadow")), q;
     }, Ht = (g) => {
       g.sortable && g.sortType && $t(g.value, g.sortType);
     }, je = (g) => typeof n.disabledRows == "function" ? n.disabledRows(g) : !1, Ot = y(() => ce.value.every((g) => n.disabledRows(g))), jt = (g) => {
@@ -2423,8 +2423,8 @@ const _a = /* @__PURE__ */ ve(Za, [["render", Xa]]), en = /* @__PURE__ */ M({
       et,
       X
     );
-    return fe(c, (g, W) => {
-      he.value && g === !1 && W === !0 && (Mt(he.value.page), st());
+    return fe(c, (g, q) => {
+      he.value && g === !1 && q === !0 && (Mt(he.value.page), st());
     }), fe(ye, (g) => {
       se.value ? It(g) : $e(1);
     }), fe([N, r], () => {
@@ -2449,7 +2449,7 @@ const _a = /* @__PURE__ */ ve(Za, [["render", Xa]]), en = /* @__PURE__ */ M({
       rowsPerPageOptions: Qe,
       rowsPerPageActiveOption: ye,
       updateRowsPerPageActiveOption: Xe
-    }), (g, W) => (b(), P("div", {
+    }), (g, q) => (b(), P("div", {
       ref_key: "tableWrapper",
       ref: ne,
       class: S(["vdt-table-wrapper relative w-full", [g.wrapperClassName]])
@@ -2494,15 +2494,15 @@ const _a = /* @__PURE__ */ ve(Za, [["render", Xa]]), en = /* @__PURE__ */ M({
             Q(g.$slots, (F, L) => ({
               name: L,
               fn: Y((J) => [
-                $(g.$slots, L, q(le(J)))
+                $(g.$slots, L, z(le(J)))
               ])
             }))
           ]), 1040, ["is-multi-sorting", "get-multi-sort-number", "onToggleSelectAll"]),
-          A.value ? $(g.$slots, "body", q(Z({ key: 1 }, f(ce)))) : f(Ze).length ? (b(), P("tbody", {
+          A.value ? $(g.$slots, "body", z(Z({ key: 1 }, f(ce)))) : f(Ze).length ? (b(), P("tbody", {
             key: 2,
             class: S(["vdt-tbody text-sm", [g.bodyClassName]])
           }, [
-            $(g.$slots, "body-prepend", q(le({
+            $(g.$slots, "body-prepend", z(le({
               items: f(ce),
               pagination: { isFirstPage: f(Re), isLastPage: f(Fe), currentPaginationNumber: f(de), maxPaginationNumber: f(Be), nextPage: f(Ae), prevPage: f(Le) },
               headers: f(be)
@@ -2522,7 +2522,7 @@ const _a = /* @__PURE__ */ ve(Za, [["render", Xa]]), en = /* @__PURE__ */ M({
                 "body-item-class-name": g.bodyItemClassName,
                 "is-expanded": f(He).includes(L + Me.value),
                 "is-disabled": je(F),
-                "expand-column": f(z),
+                "expand-column": f(W),
                 "get-fixed-distance": ut,
                 "get-fixed-column-classes": Dt,
                 onClick: (J) => f(qt)(J, F, L),
@@ -2553,7 +2553,7 @@ const _a = /* @__PURE__ */ ve(Za, [["render", Xa]]), en = /* @__PURE__ */ M({
                 _: 2
               }, 1032, ["item", "index", "columns-count", "loading", "is-expanded", "body-expand-row-className"])) : D("", !0)
             ], 64))), 128)),
-            $(g.$slots, "body-append", q(le({
+            $(g.$slots, "body-append", z(le({
               items: f(ce),
               pagination: { isFirstPage: f(Re), isLastPage: f(Fe), currentPaginationNumber: f(de), maxPaginationNumber: f(Be), nextPage: f(Ae), prevPage: f(Le), updatePage: f($e) },
               headers: f(be)
@@ -2600,14 +2600,14 @@ const _a = /* @__PURE__ */ ve(Za, [["render", Xa]]), en = /* @__PURE__ */ M({
         g.$slots["pagination-info"] ? {
           name: "pagination-info",
           fn: Y((F) => [
-            $(g.$slots, "pagination-info", q(le(F)))
+            $(g.$slots, "pagination-info", z(le(F)))
           ]),
           key: "0"
         } : void 0,
         g.$slots.pagination ? {
           name: "pagination",
           fn: Y((F) => [
-            $(g.$slots, "pagination", q(le(F)))
+            $(g.$slots, "pagination", z(le(F)))
           ]),
           key: "1"
         } : void 0

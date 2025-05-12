@@ -20,8 +20,7 @@
     "src/**/*.vue",
     "src/**/*.ts",
     "types/**/*.ts",
-    "types/**/*.d.ts",
-    "playground"
+    "types/**/*.d.ts"
   ],
   "exclude": ["src/**/__tests__/*", "node_modules", "dist"],
   "compilerOptions": {
@@ -40,7 +39,9 @@
     "module": "ESNext",
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "strict": false,
+    "strict": true,
+    "noImplicitAny": false,
+    "strictNullChecks": true,
     "isolatedModules": true,
     "types": ["node", "vite/client"]
   }
