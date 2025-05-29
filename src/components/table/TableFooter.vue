@@ -3,70 +3,65 @@
     <div class="vdt-footer" :class="[
         'bg-white border border-gray-200 border-t-0',
         { 'shadow-sm': showShadow },
-        baseFooterClasses,
         footerClassName
     ]">
         <!-- Mobile View -->
-        <div class="vdt-footer-mobile sm:hidden flex flex-1 w-full" :class="mobileFooterClasses">
-            <slot name="footer-mobile" v-bind="footerSlotProps" v-bind:paginationInfo="paginationInfoSlotProps"
-                v-bind:pagination="paginationSlotProps">
+        <slot name="footer-mobile" v-bind="slotProps">
+            <div class="vdt-footer-mobile sm:hidden px-4 py-3 w-full" :class="mobileFooterClasses">
                 <PaginationArrows :is-first-page="isFirstPage" :is-last-page="isLastPage"
-                    @click-next-page="() => emit('nextPage')" @click-prev-page="() => emit('prevPage')">
+                    @click-next-page="() => emit('nextPage')" @click-prev-page="() => emit('prevPage')"
+                    class="sm:hidden flex items-center justify-between w-full">
                     <template #buttonsPagination>
-                        <div class="grow"></div>
+                        <div class="flex-1 flex justify-center">
+                            <span class="text-sm text-gray-600 px-3">
+                                {{ currentPaginationNumber }} / {{ maxPaginationNumber }}
+                            </span>
+                        </div>
                     </template>
                 </PaginationArrows>
-            </slot>
-        </div>
+            </div>
+        </slot>
 
         <!-- Desktop View -->
-        <div class="vdt-footer-desktop hidden sm:flex sm:items-center sm:justify-between px-4 py-3"
-            :class="desktopFooterClasses">
-            <slot name="footer-desktop" v-bind="footerSlotProps" v-bind:paginationInfo="paginationInfoSlotProps"
-                v-bind:pagination="paginationSlotProps">
-                <!-- Left Section -->
-                <div class="flex items-center space-x-4">
-                    <slot name="footer-desktop-left" v-bind="footerSlotProps"
-                        v-bind:paginationInfo="paginationInfoSlotProps" v-bind:pagination="paginationSlotProps">
-                        <!-- Rows Per Page -->
-                        <slot v-if="!hideRowsPerPage" name="rows-per-page" v-bind="rowsPerPageSlotProps">
+        <slot name="footer-desktop" v-bind="slotProps">
+            <div class="vdt-footer-desktop hidden sm:flex items-center justify-between px-4 py-3 w-full"
+                :class="desktopFooterClasses">
+                <!-- Rows Per Page -->
+                <div class="flex-1 flex items-center justify-start">
+                    <slot name="rows-per-page" v-bind="slotProps.rowsPerPage" v-bind:raw-props="slotProps">
+                        <div v-if="!hideRowsPerPage" class="text-sm text-gray-600">
                             <RowsPerPageSelector :model-value="rowsPerPage" :rows-items="rowsItems"
                                 :message="rowsPerPageMessage"
                                 @update:model-value="emit('update:rowsPerPage', $event)" />
-                        </slot>
+                        </div>
                     </slot>
                 </div>
-                <!-- Center Section -->
-                <div class="flex items-center">
-                    <slot name="footer-desktop-center" v-bind="footerSlotProps"
-                        v-bind:paginationInfo="paginationInfoSlotProps" v-bind:pagination="paginationSlotProps">
-                        <!-- Pagination Info -->
-                        <slot v-if="!hidePaginationInfo" name="pagination-info" v-bind="paginationInfoSlotProps">
+                <!-- Pagination Info -->
+                <div class="flex-1 flex items-center justify-center">
+                    <slot name="pagination-info" v-bind="slotProps.paginationInfo" v-bind:raw-props="slotProps">
+                        <div v-if="!hidePaginationInfo" class="text-sm text-gray-600">
                             <PaginationInfo :current-page-first-index="currentPageFirstIndex"
                                 :current-page-last-index="currentPageLastIndex" :total-items-length="totalItemsLength"
                                 :rows-of-page-separator-message="rowsOfPageSeparatorMessage" />
-                        </slot>
+                        </div>
                     </slot>
                 </div>
-                <!-- Right Section -->
-                <div class="flex items-center space-x-4">
-                    <slot name="footer-desktop-right" v-bind="footerSlotProps"
-                        v-bind:paginationInfo="paginationInfoSlotProps" v-bind:pagination="paginationSlotProps">
-                        <!-- Pagination -->
-                        <slot name="pagination" v-bind="paginationSlotProps">
-                            <PaginationArrows :is-first-page="isFirstPage" :is-last-page="isLastPage"
-                                @click-next-page="() => emit('nextPage')" @click-prev-page="() => emit('prevPage')">
-                                <template v-if="buttonsPagination" #buttonsPagination>
-                                    <ButtonsPagination :current-pagination-number="currentPaginationNumber"
-                                        :max-pagination-number="maxPaginationNumber"
-                                        @update-page="(page) => emit('updatePage', page)" />
-                                </template>
-                            </PaginationArrows>
-                        </slot>
+                <!-- Pagination -->
+                <div class="flex-1 flex items-center justify-end">
+                    <slot name="pagination" v-bind="slotProps.pagination" v-bind:raw-props="slotProps">
+                        <PaginationArrows :is-first-page="isFirstPage" :is-last-page="isLastPage"
+                            @click-next-page="() => emit('nextPage')" @click-prev-page="() => emit('prevPage')">
+                            <template v-if="buttonsPagination" #buttonsPagination>
+                                <ButtonsPagination :current-pagination-number="currentPaginationNumber"
+                                    :max-pagination-number="maxPaginationNumber"
+                                    @update-page="(page) => emit('updatePage', page)" />
+                            </template>
+                        </PaginationArrows>
                     </slot>
                 </div>
-            </slot>
-        </div>
+            </div>
+        </slot>
+
     </div>
 </template>
 
@@ -83,15 +78,9 @@ const props = withDefaults(defineProps<{
     buttonsPagination?: boolean
     showShadow?: boolean
 
-    // 新增的 className 配置
     footerClassName?: string
-    baseFooterClasses?: string
     mobileFooterClasses?: string
     desktopFooterClasses?: string
-
-    // 手機版控制選項
-    showRowsPerPageOnMobile?: boolean
-    showButtonsPaginationOnMobile?: boolean
 
     rowsPerPage: number
     rowsItems: number[]
@@ -108,11 +97,8 @@ const props = withDefaults(defineProps<{
     isLastPage: boolean
 }>(), {
     footerClassName: '',
-    baseFooterClasses: '',
     mobileFooterClasses: '',
     desktopFooterClasses: '',
-    showRowsPerPageOnMobile: false,
-    showButtonsPaginationOnMobile: false
 })
 
 const emit = defineEmits<{
@@ -121,9 +107,6 @@ const emit = defineEmits<{
     (e: 'prevPage'): void
     (e: 'updatePage', page: number): void
 }>()
-
-// 各個插槽的 props
-const footerSlotProps = computed(() => props)
 
 const rowsPerPageSlotProps = computed(() => ({
     rowsPerPage: props.rowsPerPage,
@@ -145,6 +128,45 @@ const paginationSlotProps = computed(() => ({
     currentPaginationNumber: props.currentPaginationNumber,
     maxPaginationNumber: props.maxPaginationNumber,
     buttonsPagination: props.buttonsPagination,
+    nextPage: () => emit('nextPage'),
+    prevPage: () => emit('prevPage'),
+    updatePage: (page: number) => emit('updatePage', page)
+}))
+
+const slotProps = computed(() => ({
+    // 原始 props (扁平化，方便直接使用)
+    ...props,
+
+    // 分頁資訊 (結構化)
+    paginationInfo: {
+        currentPageFirstIndex: props.currentPageFirstIndex,
+        currentPageLastIndex: props.currentPageLastIndex,
+        totalItemsLength: props.totalItemsLength,
+        rowsOfPageSeparatorMessage: props.rowsOfPageSeparatorMessage
+    },
+
+    // 分頁操作 (結構化)
+    pagination: {
+        isFirstPage: props.isFirstPage,
+        isLastPage: props.isLastPage,
+        currentPaginationNumber: props.currentPaginationNumber,
+        maxPaginationNumber: props.maxPaginationNumber,
+        buttonsPagination: props.buttonsPagination,
+        nextPage: () => emit('nextPage'),
+        prevPage: () => emit('prevPage'),
+        updatePage: (page: number) => emit('updatePage', page)
+    },
+
+    // 每頁行數 (結構化)
+    rowsPerPage: {
+        current: props.rowsPerPage,
+        options: props.rowsItems,
+        message: props.rowsPerPageMessage,
+        update: (value: number) => emit('update:rowsPerPage', value)
+    },
+
+    // 便利方法 (扁平化，向後相容)
+    updateRowsPerPage: (value: number) => emit('update:rowsPerPage', value),
     nextPage: () => emit('nextPage'),
     prevPage: () => emit('prevPage'),
     updatePage: (page: number) => emit('updatePage', page)
