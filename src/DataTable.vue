@@ -106,36 +106,21 @@
         </div>
 
         <!-- Table Footer -->
-        <TableFooter v-bind="{
-            hideFooter,
-            hideRowsPerPage,
-            hidePaginationInfo,
-            buttonsPagination,
-            showShadow,
-            footerClassName,
+        <div v-if="!hideFooter" class="vdt-footer-section">
+            <!-- 完全自定義 footer 的最高優先權 -->
+            <slot v-if="$slots['footer-content']" name="footer-content" v-bind="footerSlotProps" />
 
-            rowsPerPage: rowsPerPageRef,
-            rowsItems: rowsItemsComputed,
-            rowsPerPageMessage,
-            rowsOfPageSeparatorMessage,
+            <!-- 使用自定義 footer 元件 -->
+            <component v-else-if="customFooterComponent" :is="customFooterComponent" v-bind="footerSlotProps" />
 
-            currentPageFirstIndex,
-            currentPageLastIndex,
-            totalItemsLength,
-
-            currentPaginationNumber,
-            maxPaginationNumber,
-            isFirstPage,
-            isLastPage
-        }" @update:rows-per-page="updateRowsPerPage" @next-page="nextPage" @prev-page="prevPage"
-            @update-page="updatePage">
-            <template v-if="$slots['pagination-info']" #pagination-info="slotProps">
-                <slot name="pagination-info" v-bind="slotProps" />
-            </template>
-            <template v-if="$slots.pagination" #pagination="slotProps">
-                <slot name="pagination" v-bind="slotProps" />
-            </template>
-        </TableFooter>
+            <!-- 預設的 TableFooter，但支援部分自定義 -->
+            <TableFooter v-else v-bind="tableFooterProps">
+                <!-- 傳遞所有 footer 相關的插槽 -->
+                <template v-for="(_, name) in footerSlotNames" #[name]="slotData">
+                    <slot :name="name" v-bind="slotData" />
+                </template>
+            </TableFooter>
+        </div>
 
         <SelectionLoadingOverlay v-show="isProcessing" :progress="processProgress" />
     </div>
@@ -272,6 +257,15 @@ provide('themeClasses', themeClasses);
 const slots = useSlots();
 const ifHasExpandSlot = computed(() => !!slots.expand);
 const ifHasBodySlot = computed(() => !!slots.body);
+const footerSlotNames = computed(() => {
+    const allSlotNames = Object.keys(slots)
+    return allSlotNames.filter(name =>
+        name.startsWith('footer-') ||
+        name === 'pagination' ||
+        name === 'pagination-info' ||
+        name === 'rows-per-page'
+    )
+})
 
 const shouldEnableTransition = computed(() =>
     typeof props.expandTransition !== 'undefined'
@@ -302,6 +296,72 @@ const emits = defineEmits([
 
 const isMultipleSelectable = computed((): boolean => itemsSelected.value !== null);
 const isServerSideMode = computed((): boolean => serverOptions.value !== null);
+
+// 傳遞給完全自定義 footer 的所有屬性
+const footerSlotProps = computed(() => ({
+    // 分頁相關
+    currentPaginationNumber: currentPaginationNumber.value,
+    maxPaginationNumber: maxPaginationNumber.value,
+    isFirstPage: isFirstPage.value,
+    isLastPage: isLastPage.value,
+
+    // 資料相關
+    currentPageFirstIndex: currentPageFirstIndex.value,
+    currentPageLastIndex: currentPageLastIndex.value,
+    totalItemsLength: totalItemsLength.value,
+
+    // 每頁行數相關
+    rowsPerPage: rowsPerPageRef.value,
+    rowsItems: rowsItemsComputed.value,
+    rowsPerPageMessage: props.rowsPerPageMessage,
+    rowsOfPageSeparatorMessage: props.rowsOfPageSeparatorMessage,
+
+    // 配置相關
+    hideRowsPerPage: props.hideRowsPerPage,
+    hidePaginationInfo: props.hidePaginationInfo,
+    buttonsPagination: props.buttonsPagination,
+
+    // 方法
+    nextPage,
+    prevPage,
+    updatePage,
+    updateRowsPerPage,
+
+    // 原始資料（如果需要的話）
+    items: pageItems.value,
+    headers: headersForRender.value,
+
+    // 選擇相關
+    selectedItems: selectItemsComputed.value,
+    multipleSelectStatus: multipleSelectStatus.value,
+
+    // 主題
+    theme: props.theme
+}))
+
+// 傳遞給 TableFooter 的屬性
+const tableFooterProps = computed(() => ({
+    hideFooter: false, // 已在外層處理
+    hideRowsPerPage: props.hideRowsPerPage,
+    hidePaginationInfo: props.hidePaginationInfo,
+    buttonsPagination: props.buttonsPagination,
+    showShadow: showShadow.value,
+    footerClassName: props.footerClassName,
+
+    rowsPerPage: rowsPerPageRef.value,
+    rowsItems: rowsItemsComputed.value,
+    rowsPerPageMessage: props.rowsPerPageMessage,
+    rowsOfPageSeparatorMessage: props.rowsOfPageSeparatorMessage,
+
+    currentPageFirstIndex: currentPageFirstIndex.value,
+    currentPageLastIndex: currentPageLastIndex.value,
+    totalItemsLength: totalItemsLength.value,
+
+    currentPaginationNumber: currentPaginationNumber.value,
+    maxPaginationNumber: maxPaginationNumber.value,
+    isFirstPage: isFirstPage.value,
+    isLastPage: isLastPage.value
+}))
 
 const {
     serverOptionsComputed,

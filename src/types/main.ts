@@ -276,7 +276,9 @@ export interface DataTableProps {
     /** 是否啟用展開過渡效果 */
     expandTransition?: boolean
     /** 批量選擇閾值 */
-    batchSelectionThreshold?: number
+    batchSelectionThreshold?: number,
+    /** 自定義表尾組件 */
+    customFooterComponent?: any
 }
 
 export type ClickRowArgument = Item & {
