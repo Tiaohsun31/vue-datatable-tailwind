@@ -248,7 +248,11 @@ export interface DataTableProps {
     /** 表體項目 CSS 類名 */
     bodyItemClassName?: BodyItemClassNameFunction | string
     /** 表尾 CSS 類名 */
-    footerClassName?: string
+    footerClassName?: string,
+    /** 手機表尾 CSS */
+    mobileFooterClasses?: string,
+    /** 網頁表尾 CSS */
+    desktopFooterClasses?: string,
 
     // 其他配置
     /** 隱藏表頭 */
@@ -277,8 +281,6 @@ export interface DataTableProps {
     expandTransition?: boolean
     /** 批量選擇閾值 */
     batchSelectionThreshold?: number,
-    /** 自定義表尾組件 */
-    customFooterComponent?: any
 }
 
 export type ClickRowArgument = Item & {

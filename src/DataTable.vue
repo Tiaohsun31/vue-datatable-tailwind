@@ -104,17 +104,14 @@
                 </slot>
             </div>
         </div>
-
         <!-- Table Footer -->
         <div v-if="!hideFooter" class="vdt-footer-section">
-            <!-- 完全自定義 footer 的最高優先權 -->
+            <!-- 完全自定義  -->
             <slot v-if="$slots['footer-content']" name="footer-content" v-bind="footerSlotProps" />
 
-            <!-- 使用自定義 footer 元件 -->
-            <component v-else-if="customFooterComponent" :is="customFooterComponent" v-bind="footerSlotProps" />
-
             <!-- 預設的 TableFooter，但支援部分自定義 -->
-            <TableFooter v-else v-bind="tableFooterProps">
+            <TableFooter v-else v-bind="tableFooterProps" @update:rows-per-page="updateRowsPerPage"
+                @next-page="nextPage" @prev-page="prevPage" @update-page="updatePage">
                 <!-- 傳遞所有 footer 相關的插槽 -->
                 <template v-for="(_, name) in footerSlotNames" #[name]="slotData">
                     <slot :name="name" v-bind="slotData" />
@@ -195,6 +192,8 @@ const props = withDefaults(defineProps<DataTableProps>(), {
     bodyExpandRowClassName: '',
     bodyItemClassName: '',
     footerClassName: '',
+    mobileFooterClasses: '',
+    desktopFooterClasses: '',
 
     disabledRows: () => false,
     noHover: false,
@@ -258,14 +257,19 @@ const slots = useSlots();
 const ifHasExpandSlot = computed(() => !!slots.expand);
 const ifHasBodySlot = computed(() => !!slots.body);
 const footerSlotNames = computed(() => {
-    const allSlotNames = Object.keys(slots)
-    return allSlotNames.filter(name =>
-        name.startsWith('footer-') ||
-        name === 'pagination' ||
-        name === 'pagination-info' ||
-        name === 'rows-per-page'
-    )
-})
+    const footerSlots: Record<string, any> = {};
+    ['rows-per-page', 'pagination-info', 'pagination'].forEach(name => {
+        if (slots[name]) {
+            footerSlots[name] = slots[name];
+        }
+    });
+    Object.keys(slots).forEach(name => {
+        if (name.startsWith('footer-') && name !== 'footer-content') {
+            footerSlots[name] = slots[name];
+        }
+    });
+    return footerSlots;
+});
 
 const shouldEnableTransition = computed(() =>
     typeof props.expandTransition !== 'undefined'
@@ -347,6 +351,8 @@ const tableFooterProps = computed(() => ({
     buttonsPagination: props.buttonsPagination,
     showShadow: showShadow.value,
     footerClassName: props.footerClassName,
+    mobileFooterClasses: props.mobileFooterClasses,
+    desktopFooterClasses: props.desktopFooterClasses,
 
     rowsPerPage: rowsPerPageRef.value,
     rowsItems: rowsItemsComputed.value,
@@ -510,29 +516,6 @@ const getColStyle = (header: HeaderForRender): string | undefined => {
     return undefined;
 };
 
-// // 固定列的樣式
-// const getFixedDistance = (column: string, type: 'td' | 'th' = 'th') => {
-//     if (!fixedHeaders.value.length) return undefined;
-//     const columnInfo = fixedColumnsInfos.value.find((info) => info.value === column);
-//     if (columnInfo) {
-//         const isLeft = columnInfo.position === 'left';
-//         return `
-//             ${isLeft ? `left: ${columnInfo.distance}px;` : `right: ${columnInfo.distance}px;`}
-//             z-index: ${type === 'th' ? 3 : 1};
-//             position: sticky;
-//             background-color: ${type === 'th' ? 'none' : 'inherit'};
-//             ${(isLeft && columnInfo.value === lastLeftFixedColumn.value) ||
-//                 (!isLeft && columnInfo.value === firstRightFixedColumn.value)
-//                 ? `
-//                     box-shadow: ${isLeft ? '4px 0 6px -2px' : '-4px 0 6px -2px'} rgba(0, 0, 0, 0.1);
-//                     clip-path: inset(0px ${isLeft ? '-10px 0px 0px' : '0px 0px -10px'});
-//                 ` : ''
-//             }
-//             isolation: isolate;
-//         `;
-//     }
-//     return undefined;
-// };
 // 當有固定列時，給定一個距離，然後根據這個距離來設置樣式
 const getFixedDistance = (column: string, type: 'td' | 'th' = 'th') => {
     if (!fixedHeaders.value.length) return undefined;
@@ -558,7 +541,8 @@ const getFixedColumnClasses = (column: string) => {
     const columnInfo = fixedColumnsInfos.value.find((info) => info.value === column);
     if (columnInfo) {
         classes.push('fixed-column');
-        if (props.borderRow) {
+        // 如果有設置borderRow，並且有滾輪的情況下
+        if (props.borderRow && tableContainer.value && tableContainer.value?.scrollWidth > tableContainer.value?.clientWidth) {
             classes.push('shadow-[inset_0_1px_0_#e5e7eb]');
         }
 
@@ -607,6 +591,7 @@ const {
     toggleSelectItem,
     emits
 );
+
 
 watch(loading, (newVal, oldVal) => {
     if (serverOptionsComputed.value) {
