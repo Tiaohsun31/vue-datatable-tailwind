@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.2.0] - 2025-05-29
+
+### Features
+
+- 修改 TableFooter 組件，匯出更多的屬性與新增數種slot提升對footer的自定義能力。
+- 新增 Props `mobileFooterClasses`、`desktopFooterClasses`。
+- 新增 className `vdt-footer`、`vdt-footer-mobile`、`vdt-footer-desktop`。
+- 監聽表格滾輪事件，為fixed欄位新增陰影。
+
 ## [2.1.6] - 2025-05-12
 
 ### Bug Fixes

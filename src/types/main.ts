@@ -240,7 +240,11 @@ export interface DataTableProps {
     /** 表體項目 CSS 類名 */
     bodyItemClassName?: BodyItemClassNameFunction | string
     /** 表尾 CSS 類名 */
-    footerClassName?: string
+    footerClassName?: string,
+    /** 手機表尾 CSS */
+    mobileFooterClasses?: string,
+    /** 網頁表尾 CSS */
+    desktopFooterClasses?: string,
 
     // 其他配置
     /** 隱藏表頭 */

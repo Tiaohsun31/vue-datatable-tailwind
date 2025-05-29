@@ -104,36 +104,20 @@
         </div>
 
         <!-- Table Footer -->
-        <TableFooter v-bind="{
-            hideFooter,
-            hideRowsPerPage,
-            hidePaginationInfo,
-            buttonsPagination,
-            showShadow,
-            footerClassName,
+        <!-- Table Footer -->
+        <div v-if="!hideFooter" class="vdt-footer-section">
+            <!-- 完全自定義  -->
+            <slot v-if="$slots['footer-content']" name="footer-content" v-bind="footerSlotProps" />
 
-            rowsPerPage: rowsPerPageRef,
-            rowsItems: rowsItemsComputed,
-            rowsPerPageMessage,
-            rowsOfPageSeparatorMessage,
-
-            currentPageFirstIndex,
-            currentPageLastIndex,
-            totalItemsLength,
-
-            currentPaginationNumber,
-            maxPaginationNumber,
-            isFirstPage,
-            isLastPage
-        }" @update:rows-per-page="updateRowsPerPage" @next-page="nextPage" @prev-page="prevPage"
-            @update-page="updatePage">
-            <template v-if="$slots['pagination-info']" #pagination-info="slotProps">
-                <slot name="pagination-info" v-bind="slotProps" />
-            </template>
-            <template v-if="$slots.pagination" #pagination="slotProps">
-                <slot name="pagination" v-bind="slotProps" />
-            </template>
-        </TableFooter>
+            <!-- 預設的 TableFooter，但支援部分自定義 -->
+            <TableFooter v-else v-bind="tableFooterProps" @update:rows-per-page="updateRowsPerPage"
+                @next-page="nextPage" @prev-page="prevPage" @update-page="updatePage">
+                <!-- 傳遞所有 footer 相關的插槽 -->
+                <template v-for="(_, name) in footerSlotNames" #[name]="slotData">
+                    <slot :name="name" v-bind="slotData" />
+                </template>
+            </TableFooter>
+        </div>
 
         <SelectionLoadingOverlay v-show="isProcessing" :progress="processProgress" />
     </div>
@@ -141,7 +125,8 @@
 
 <script setup lang="ts">
 import {
-    useSlots, computed, toRefs, ref, watch, provide, onMounted
+    useSlots, computed, toRefs, ref, watch, provide, onMounted,
+    onUnmounted, watchEffect
 } from 'vue';
 
 import Loading from './components/loadings/Loading.vue';
@@ -208,6 +193,8 @@ const props = withDefaults(defineProps<DataTableProps>(), {
     bodyExpandRowClassName: '',
     bodyItemClassName: '',
     footerClassName: '',
+    mobileFooterClasses: '',
+    desktopFooterClasses: '',
 
     disabledRows: () => false,
     noHover: false,
@@ -269,6 +256,20 @@ const theme = setTheme(props.theme);
 const slots = useSlots();
 const ifHasExpandSlot = computed(() => !!slots.expand);
 const ifHasBodySlot = computed(() => !!slots.body);
+const footerSlotNames = computed(() => {
+    const footerSlots: Record<string, any> = {};
+    ['rows-per-page', 'pagination-info', 'pagination'].forEach(name => {
+        if (slots[name]) {
+            footerSlots[name] = slots[name];
+        }
+    });
+    Object.keys(slots).forEach(name => {
+        if (name.startsWith('footer-') && name !== 'footer-content') {
+            footerSlots[name] = slots[name];
+        }
+    });
+    return footerSlots;
+});
 
 const shouldEnableTransition = computed(() =>
     typeof props.expandTransition !== 'undefined'
@@ -299,6 +300,74 @@ const emits = defineEmits([
 
 const isMultipleSelectable = computed((): boolean => itemsSelected.value !== null);
 const isServerSideMode = computed((): boolean => serverOptions.value !== null);
+
+// 傳遞給完全自定義 footer 的所有屬性
+const footerSlotProps = computed(() => ({
+    // 分頁相關
+    currentPaginationNumber: currentPaginationNumber.value,
+    maxPaginationNumber: maxPaginationNumber.value,
+    isFirstPage: isFirstPage.value,
+    isLastPage: isLastPage.value,
+
+    // 資料相關
+    currentPageFirstIndex: currentPageFirstIndex.value,
+    currentPageLastIndex: currentPageLastIndex.value,
+    totalItemsLength: totalItemsLength.value,
+
+    // 每頁行數相關
+    rowsPerPage: rowsPerPageRef.value,
+    rowsItems: rowsItemsComputed.value,
+    rowsPerPageMessage: props.rowsPerPageMessage,
+    rowsOfPageSeparatorMessage: props.rowsOfPageSeparatorMessage,
+
+    // 配置相關
+    hideRowsPerPage: props.hideRowsPerPage,
+    hidePaginationInfo: props.hidePaginationInfo,
+    buttonsPagination: props.buttonsPagination,
+
+    // 方法
+    nextPage,
+    prevPage,
+    updatePage,
+    updateRowsPerPage,
+
+    // 原始資料（如果需要的話）
+    items: pageItems.value,
+    headers: headersForRender.value,
+
+    // 選擇相關
+    selectedItems: selectItemsComputed.value,
+    multipleSelectStatus: multipleSelectStatus.value,
+
+    // 主題
+    theme: props.theme
+}))
+
+// 傳遞給 TableFooter 的屬性
+const tableFooterProps = computed(() => ({
+    hideFooter: false, // 已在外層處理
+    hideRowsPerPage: props.hideRowsPerPage,
+    hidePaginationInfo: props.hidePaginationInfo,
+    buttonsPagination: props.buttonsPagination,
+    showShadow: showShadow.value,
+    footerClassName: props.footerClassName,
+    mobileFooterClasses: props.mobileFooterClasses,
+    desktopFooterClasses: props.desktopFooterClasses,
+
+    rowsPerPage: rowsPerPageRef.value,
+    rowsItems: rowsItemsComputed.value,
+    rowsPerPageMessage: props.rowsPerPageMessage,
+    rowsOfPageSeparatorMessage: props.rowsOfPageSeparatorMessage,
+
+    currentPageFirstIndex: currentPageFirstIndex.value,
+    currentPageLastIndex: currentPageLastIndex.value,
+    totalItemsLength: totalItemsLength.value,
+
+    currentPaginationNumber: currentPaginationNumber.value,
+    maxPaginationNumber: maxPaginationNumber.value,
+    isFirstPage: isFirstPage.value,
+    isLastPage: isLastPage.value
+}))
 
 const {
     serverOptionsComputed,
@@ -462,29 +531,41 @@ const getFixedDistance = (column: string, type: 'td' | 'th' = 'th') => {
     return undefined;
 };
 
-// 處理固定列樣式
-const getFixedColumnClasses = (column: string) => {
-    if (!fixedHeaders.value.length) return [];
-
-    const classes: string[] = [];
-
-    // 添加基本類
-    const columnInfo = fixedColumnsInfos.value.find((info) => info.value === column);
-    if (columnInfo) {
-        classes.push('fixed-column');
-        if (props.borderRow) {
-            classes.push('shadow-[inset_0_1px_0_#e5e7eb]');
-        }
-        // 添加陰影類
-        if (column === lastLeftFixedColumn.value) {
-            classes.push('fixed-left-shadow');
-        } else if (column === firstRightFixedColumn.value) {
-            classes.push('fixed-right-shadow');
-        }
+const hasHorizontalScroll = ref(false);
+watchEffect(() => {
+    if (tableContainer.value) {
+        hasHorizontalScroll.value = tableContainer.value.scrollWidth > tableContainer.value.clientWidth;
     }
+});
 
-    return classes;
-};
+// 處理固定列樣式
+const getFixedColumnClasses = computed(() => {
+    return (column: string) => {
+        if (!fixedHeaders.value.length) return [];
+
+        const classes: string[] = [];
+
+        // 添加基本類
+        const columnInfo = fixedColumnsInfos.value.find((info) => info.value === column);
+        if (columnInfo) {
+            classes.push('fixed-column');
+
+            // 響應式檢查是否需要添加陰影
+            if (props.borderRow && hasHorizontalScroll.value) {
+                classes.push('shadow-[inset_0_1px_0_#e5e7eb]');
+            }
+
+            // 添加陰影類
+            if (column === lastLeftFixedColumn.value) {
+                classes.push('fixed-left-shadow');
+            } else if (column === firstRightFixedColumn.value) {
+                classes.push('fixed-right-shadow');
+            }
+        }
+
+        return classes;
+    };
+});
 
 const handleHeaderClick = (header: Header) => {
     if (header.sortable && header.sortType) {
@@ -557,6 +638,36 @@ watch(totalItems, (value) => {
     emits('updateTotalItems', value);
 }, { deep: true });
 
+onMounted(() => {
+    if (tableContainer.value) {
+        const container = tableContainer.value;
+
+        const updateScrollState = () => {
+            hasHorizontalScroll.value = container.scrollWidth > container.clientWidth;
+        };
+
+        // 初始檢查
+        updateScrollState();
+
+        // 監聽事件
+        container.addEventListener('scroll', updateScrollState);
+        window.addEventListener('resize', updateScrollState);
+
+        // 使用 MutationObserver 監聽 DOM 變化
+        const mutationObserver = new MutationObserver(updateScrollState);
+        mutationObserver.observe(container, {
+            childList: true,
+            subtree: true,
+            attributes: true
+        });
+
+        onUnmounted(() => {
+            container.removeEventListener('scroll', updateScrollState);
+            window.addEventListener('resize', updateScrollState);
+            mutationObserver.disconnect();
+        });
+    }
+});
 
 defineExpose({
     currentPageFirstIndex,
