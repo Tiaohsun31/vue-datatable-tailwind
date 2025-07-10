@@ -551,9 +551,9 @@ const getFixedColumnClasses = computed(() => {
             classes.push('fixed-column');
 
             // 響應式檢查是否需要添加陰影
-            if (props.borderRow && hasHorizontalScroll.value) {
-                classes.push('shadow-[inset_0_1px_0_#e5e7eb]');
-            }
+            // if (props.borderRow && hasHorizontalScroll.value) {
+            //     // classes.push('shadow-[inset_0_1px_0_#e5e7eb]');
+            // }
 
             // 添加陰影類
             if (column === lastLeftFixedColumn.value) {
