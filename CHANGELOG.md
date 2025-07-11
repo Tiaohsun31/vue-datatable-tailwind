@@ -5,7 +5,7 @@
 ### Features
 
 - 新增 `mode` 屬性，可設置為 `dark` 或 `light`，預設為 `light`。
-- `--vdt-theme-500` 更改為 `--color-vdt-theme-500`。
+- `--vdt-theme-500` 更改為 `--color-vdt-500`。
 - 新增dark mode的風格與light mode的風格。
 - scrollbar的樣式調整。
 

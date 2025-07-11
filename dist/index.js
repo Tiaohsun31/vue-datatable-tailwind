@@ -2179,9 +2179,9 @@ class Ks {
     }
     const o = Us(e.color);
     this.checkForUserOverride(t, o) ? Object.keys(o).forEach((r) => {
-      t.style.removeProperty(`--color-vdt-theme-${r}`);
+      t.style.removeProperty(`--color-vdt-${r}`);
     }) : Object.entries(o).forEach(([r, i]) => {
-      t.style.setProperty(`--color-vdt-theme-${r}`, i);
+      t.style.setProperty(`--color-vdt-${r}`, i);
     });
   }
   /**
@@ -2190,10 +2190,10 @@ class Ks {
   checkForUserOverride(a, e) {
     const t = {};
     Object.keys(e).forEach((m) => {
-      const g = `--color-vdt-theme-${m}`;
+      const g = `--color-vdt-${m}`;
       t[g] = a.style.getPropertyValue(g), a.style.removeProperty(g);
     });
-    const n = getComputedStyle(a).getPropertyValue("--color-vdt-theme-500").trim();
+    const n = getComputedStyle(a).getPropertyValue("--color-vdt-500").trim();
     if (Object.entries(t).forEach(([m, g]) => {
       g && a.style.setProperty(m, g);
     }), !n) return !1;

@@ -95,7 +95,7 @@ export default {
 - Directly modify the base variable
   ```css
   :root {
-    --color-vdt-theme-500: oklch(0.65 0.25 130) !important; /* Modify to green */
+    --color-vdt-500: oklch(0.65 0.25 130) !important; /* Modify to green */
     /* Other colors...(50-950) */
   }
   ```

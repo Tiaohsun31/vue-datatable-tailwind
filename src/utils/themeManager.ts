@@ -196,19 +196,19 @@ class ThemeManager {
         if (hasUserOverride) {
             // 用戶有 CSS 覆蓋，清除內聯樣式讓 CSS 生效
             Object.keys(colorShades).forEach(shade => {
-                container.style.removeProperty(`--color-vdt-theme-${shade}`);
+                container.style.removeProperty(`--color-vdt-${shade}`);
             });
         } else {
             // 沒有用戶覆蓋，設置內聯樣式
             Object.entries(colorShades).forEach(([shade, value]) => {
-                container.style.setProperty(`--color-vdt-theme-${shade}`, value);
+                container.style.setProperty(`--color-vdt-${shade}`, value);
             });
         }
 
         // 動態更新主題色變數（僅在該容器內）
         // const colorShades = getColorShades(state.color);
         // Object.entries(colorShades).forEach(([shade, value]) => {
-        //     container.style.setProperty(`--color-vdt-theme-${shade}`, value);
+        //     container.style.setProperty(`--color-vdt-${shade}`, value);
         // });
     }
 
@@ -221,14 +221,14 @@ class ThemeManager {
 
         // 備份並清除現有內聯樣式
         Object.keys(expectedShades).forEach(shade => {
-            const property = `--color-vdt-theme-${shade}`;
+            const property = `--color-vdt-${shade}`;
             inlineBackup[property] = container.style.getPropertyValue(property);
             container.style.removeProperty(property);
         });
 
         // 檢查計算樣式
         const computedStyle = getComputedStyle(container);
-        const theme500FromCSS = computedStyle.getPropertyValue('--color-vdt-theme-500').trim();
+        const theme500FromCSS = computedStyle.getPropertyValue('--color-vdt-500').trim();
 
         // 恢復內聯樣式
         Object.entries(inlineBackup).forEach(([property, value]) => {

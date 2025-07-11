@@ -97,7 +97,7 @@ export default {
 - 直接修改基礎變數(全域設定)
   ```css
   :root {
-    --color-vdt-theme-500: oklch(0.65 0.25 130) !important; /* 修改成綠色系 */
+    --color-vdt-500: oklch(0.65 0.25 130) !important; /* 修改成綠色系 */
     /* 其他顏色...(50-950) */
   }
   ```

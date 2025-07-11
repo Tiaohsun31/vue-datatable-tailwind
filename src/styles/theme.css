@@ -2,17 +2,17 @@
 
 :root {
     /* 主題色變數 - 預設 violet（這些會被 JavaScript 動態更新） */
-    --color-vdt-theme-50: oklch(96.9% 0.016 293.756);
-    --color-vdt-theme-100: oklch(94.3% 0.029 294.588);
-    --color-vdt-theme-200: oklch(89.4% 0.057 293.283);
-    --color-vdt-theme-300: oklch(81.1% 0.111 293.571);
-    --color-vdt-theme-400: oklch(70.2% 0.183 293.541);
-    --color-vdt-theme-500: oklch(60.6% 0.25 292.717);
-    --color-vdt-theme-600: oklch(54.1% 0.281 293.009);
-    --color-vdt-theme-700: oklch(49.1% 0.27 292.581);
-    --color-vdt-theme-800: oklch(43.2% 0.232 292.759);
-    --color-vdt-theme-900: oklch(38% 0.189 293.745);
-    --color-vdt-theme-950: oklch(28.3% 0.141 291.089);
+    --color-vdt-50: oklch(96.9% 0.016 293.756);
+    --color-vdt-100: oklch(94.3% 0.029 294.588);
+    --color-vdt-200: oklch(89.4% 0.057 293.283);
+    --color-vdt-300: oklch(81.1% 0.111 293.571);
+    --color-vdt-400: oklch(70.2% 0.183 293.541);
+    --color-vdt-500: oklch(60.6% 0.25 292.717);
+    --color-vdt-600: oklch(54.1% 0.281 293.009);
+    --color-vdt-700: oklch(49.1% 0.27 292.581);
+    --color-vdt-800: oklch(43.2% 0.232 292.759);
+    --color-vdt-900: oklch(38% 0.189 293.745);
+    --color-vdt-950: oklch(28.3% 0.141 291.089);
 
     /* 語義化顏色 - 淺色模式 */
     --color-vdt-light-surface: white;
