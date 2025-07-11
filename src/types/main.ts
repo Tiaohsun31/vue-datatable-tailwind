@@ -190,6 +190,8 @@ export interface DataTableProps {
     // 表格外觀配置
     /** 主題顏色 */
     theme?: TailwindColor | string;
+    /** 主題模式 */
+    mode?: 'light' | 'dark';
     /** 是否使用交替行顏色 */
     alternating?: boolean
     /** 禁用懸停效果 */

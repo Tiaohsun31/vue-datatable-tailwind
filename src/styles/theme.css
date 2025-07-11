@@ -1,18 +1,95 @@
 @import './tailwind.utilities.css';
 
 :root {
-  --vdt-theme-50: oklch(96.2% 0.018 272.314);
-  --vdt-theme-100: oklch(93% 0.034 272.788);
-  --vdt-theme-200: oklch(87% 0.065 274.039);
-  --vdt-theme-300: oklch(78.5% 0.115 274.713);
-  --vdt-theme-400: oklch(67.3% 0.182 276.935);
-  --vdt-theme-500: oklch(58.5% 0.233 277.117);
-  --vdt-theme-600: oklch(51.1% 0.262 276.966);
-  --vdt-theme-700: oklch(45.7% 0.24 277.023);
-  --vdt-theme-800: oklch(39.8% 0.195 277.366);
-  --vdt-theme-900: oklch(35.9% 0.144 278.697);
-  --vdt-theme-950: oklch(25.7% 0.09 281.288);
+    /* 主題色變數 - 預設 violet（這些會被 JavaScript 動態更新） */
+    --color-vdt-theme-50: oklch(96.9% 0.016 293.756);
+    --color-vdt-theme-100: oklch(94.3% 0.029 294.588);
+    --color-vdt-theme-200: oklch(89.4% 0.057 293.283);
+    --color-vdt-theme-300: oklch(81.1% 0.111 293.571);
+    --color-vdt-theme-400: oklch(70.2% 0.183 293.541);
+    --color-vdt-theme-500: oklch(60.6% 0.25 292.717);
+    --color-vdt-theme-600: oklch(54.1% 0.281 293.009);
+    --color-vdt-theme-700: oklch(49.1% 0.27 292.581);
+    --color-vdt-theme-800: oklch(43.2% 0.232 292.759);
+    --color-vdt-theme-900: oklch(38% 0.189 293.745);
+    --color-vdt-theme-950: oklch(28.3% 0.141 291.089);
+
+    /* 語義化顏色 - 淺色模式 */
+    --color-vdt-light-surface: white;
+    --color-vdt-light-surface-secondary: oklch(98.5% 0.002 247.839);
+    --color-vdt-light-surface-elevated: white;
+    --color-vdt-light-content: oklch(21% 0.034 264.665);
+    --color-vdt-light-content-secondary: oklch(44.6% 0.03 256.802);
+    --color-vdt-light-content-muted: oklch(70.7% 0.022 261.325);
+    --color-vdt-light-outline: oklch(92.8% 0.006 264.531);
+    --color-vdt-light-outline-strong: oklch(75.2% 0.01 258.338);
+    --color-vdt-light-outline-stronger: oklch(65.7% 0.022 261.325);
+    --color-vdt-light-interactive-hover: oklch(92.8% 0.006 264.531);
+    --color-vdt-light-interactive-active: oklch(87.2% 0.01 258.338);
+
+    /* 語義化顏色 - 深色模式 */
+    --color-vdt-dark-surface: oklch(20% 0.034 264.665);
+    --color-vdt-dark-surface-secondary: oklch(25% 0.033 256.848);
+    --color-vdt-dark-surface-elevated: oklch(32% 0.033 256.848);
+    --color-vdt-dark-content: oklch(96.7% 0.003 264.542);
+    --color-vdt-dark-content-secondary: oklch(87.2% 0.01 258.338);
+    --color-vdt-dark-content-muted: oklch(70.7% 0.022 261.325);
+    --color-vdt-dark-outline: oklch(40.3% 0.034 259.733);
+    --color-vdt-dark-outline-strong: oklch(52.6% 0.03 256.802);
+    --color-vdt-dark-outline-stronger: oklch(66.1% 0.027 264.364);
+    --color-vdt-dark-interactive-hover: oklch(39.3% 0.034 259.733);
+    --color-vdt-dark-interactive-active: oklch(44.6% 0.03 256.802);
+
+    /* 語義化顏色 - 淺色模式（預設） */
+    --color-vdt-surface: var(--color-vdt-light-surface);
+    --color-vdt-surface-secondary: var(--color-vdt-light-surface-secondary);
+    --color-vdt-surface-elevated: var(--color-vdt-light-surface-elevated);
+    --color-vdt-content: var(--color-vdt-light-content);
+    --color-vdt-content-secondary: var(--color-vdt-light-content-secondary);
+    --color-vdt-content-muted: var(--color-vdt-light-content-muted);
+    --color-vdt-outline: var(--color-vdt-light-outline);
+    --color-vdt-outline-strong: var(--color-vdt-light-outline-strong);
+    --color-vdt-outline-stronger: var(--color-vdt-light-outline-stronger);
+    --color-vdt-interactive-hover: var(--color-vdt-light-interactive-hover);
+    --color-vdt-interactive-active: var(--color-vdt-light-interactive-active);
+
+    /* 狀態顏色 */
+    --color-vdt-error: oklch(63.7% 0.237 25.331);
 }
+
+
+/* 強制深色模式 - 當 data-vdt-mode="dark" 時 */
+.dark,
+[data-vdt-mode="dark"] {
+    --color-vdt-surface: var(--color-vdt-dark-surface);
+    --color-vdt-surface-secondary: var(--color-vdt-dark-surface-secondary);
+    --color-vdt-surface-elevated: var(--color-vdt-dark-surface-elevated);
+    --color-vdt-content: var(--color-vdt-dark-content);
+    --color-vdt-content-secondary: var(--color-vdt-dark-content-secondary);
+    --color-vdt-content-muted: var(--color-vdt-dark-content-muted);
+    --color-vdt-outline: var(--color-vdt-dark-outline);
+    --color-vdt-outline-strong: var(--color-vdt-dark-outline-strong);
+    --color-vdt-outline-stronger: var(--color-vdt-dark-outline-stronger);
+    --color-vdt-interactive-hover: var(--color-vdt-dark-interactive-hover);
+    --color-vdt-interactive-active: var(--color-vdt-dark-interactive-active);
+}
+
+/* 強制淺色模式 - 當 data-vdt-mode="light" 時 */
+.light,
+[data-vdt-mode="light"] {
+    --color-vdt-surface: var(--color-vdt-light-surface);
+    --color-vdt-surface-secondary: var(--color-vdt-light-surface-secondary);
+    --color-vdt-surface-elevated: var(--color-vdt-light-surface-elevated);
+    --color-vdt-content: var(--color-vdt-light-content);
+    --color-vdt-content-secondary: var(--color-vdt-light-content-secondary);
+    --color-vdt-content-muted: var(--color-vdt-light-content-muted);
+    --color-vdt-outline: var(--color-vdt-light-outline);
+    --color-vdt-outline-strong: var(--color-vdt-light-outline-strong);
+    --color-vdt-outline-stronger: var(--color-vdt-light-outline-stronger);
+    --color-vdt-interactive-hover: var(--color-vdt-light-interactive-hover);
+    --color-vdt-interactive-active: var(--color-vdt-light-interactive-active);
+}
+
 
 /*
   The default border color has changed to `currentcolor` in Tailwind CSS v4,
@@ -24,11 +101,11 @@
 */
 @layer base {
 
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
-  }
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentcolor);
+    }
 }

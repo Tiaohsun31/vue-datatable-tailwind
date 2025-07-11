@@ -1,5 +1,6 @@
 <template>
-    <div ref="tableWrapper" class="vdt-table-wrapper relative w-full " :class="[wrapperClassName]">
+    <div ref="tableWrapper" class="vdt-table-wrapper relative w-full " :class="[wrapperClassName]"
+        v-bind="containerAttributes">
         <!-- Main Table Container -->
         <div ref="tableContainer"
             class="vdt-table-container relative overflow-auto border scroll-smooth border-gray-200 min-h-[180px] "
@@ -104,7 +105,6 @@
         </div>
 
         <!-- Table Footer -->
-        <!-- Table Footer -->
         <div v-if="!hideFooter" class="vdt-footer-section">
             <!-- 完全自定義  -->
             <slot v-if="$slots['footer-content']" name="footer-content" v-bind="footerSlotProps" />
@@ -145,12 +145,12 @@ import useTotalItems from './composables/useTotalItems';
 import type { Header, Item, DataTableProps } from './types/main';
 import type { HeaderForRender, ClickEventType } from './types/internal';
 
-import { setTheme } from './utils/tailwind4Theme';
-
 import TableHeader from './components/table/TableHeader.vue';
 import TableBodyRow from './components/table/TableBodyRow.vue';
 import TableExpandRow from './components/table/TableExpandRow.vue';
 import TableFooter from './components/table/TableFooter.vue';
+
+import { useTheme } from './composables/useTheme';
 
 const props = withDefaults(defineProps<DataTableProps>(), {
     alternating: true,
@@ -211,7 +211,9 @@ const props = withDefaults(defineProps<DataTableProps>(), {
     expandColumn: '',
     expandTransition: undefined,
     batchSelectionThreshold: 10000,
+
     theme: () => 'indigo',
+    instanceTheme: false,
     items: () => [],
     headers: () => [],
 });
@@ -249,8 +251,31 @@ const {
     expandColumn,
 } = toRefs(props);
 
-// global style related variable
-const theme = setTheme(props.theme);
+//  style related variable
+const {
+    containerAttributes,
+    setColor,
+    setMode,
+    setAuto,
+    currentMode
+} = useTheme({
+    defaultColor: props.theme,
+    defaultMode: props.mode,
+});
+
+watch(() => props.theme, (newTheme) => {
+    if (newTheme) {
+        setColor(newTheme);
+    }
+});
+
+watch(() => props.mode, (newMode) => {
+    if (newMode) {
+        setMode(newMode);
+    } else {
+        setAuto();
+    }
+});
 
 // slot
 const slots = useSlots();
