@@ -32,6 +32,7 @@ Version 2 (v2) and later will use Tailwind4. If you use Tailwind3, please use v1
 - Remove `headerTextDirection`, please use `headerClassName` unified control instead, the default is `text-left`
 - Removed `bodyTextDirection`, added `bodyClassName`, `footerClassName`。
 - Added `expandTransition` to enable expanded column transition effects.
+- Added `mode` to set dark or light, the default is `light`.
 
 ## Usage Suggestions
 
@@ -94,7 +95,7 @@ export default {
 - Directly modify the base variable
   ```css
   :root {
-    --vdt-theme-500: oklch(0.65 0.25 130) !important; /* Modify to green */
+    --color-vdt-theme-500: oklch(0.65 0.25 130) !important; /* Modify to green */
     /* Other colors...(50-950) */
   }
   ```

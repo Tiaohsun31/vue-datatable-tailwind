@@ -34,6 +34,7 @@
 - 移除`headerTextDirection`，請改用`headerClassName`統一控制，預設為`text-left`
 - 移除`bodyTextDirection`，新增`bodyClassName`、`footerClassName`。
 - 新增`expandTransition`，用來啟用擴展列過渡效果。
+- 新增`mode`，可設置dark或light，預設為`light`。
 
 ## Usage suggestions
 
@@ -96,7 +97,7 @@ export default {
 - 直接修改基礎變數(全域設定)
   ```css
   :root {
-    --vdt-theme-500: oklch(0.65 0.25 130) !important; /* 修改成綠色系 */
+    --color-vdt-theme-500: oklch(0.65 0.25 130) !important; /* 修改成綠色系 */
     /* 其他顏色...(50-950) */
   }
   ```
