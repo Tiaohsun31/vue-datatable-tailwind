@@ -3,9 +3,9 @@
         v-bind="containerAttributes">
         <!-- Main Table Container -->
         <div ref="tableContainer"
-            class="vdt-table-container relative overflow-auto border scroll-smooth border-gray-200 min-h-[180px] "
+            class="vdt-table-container relative overflow-auto border border-vdt-outline scroll-smooth min-h-[180px] "
             :class="[{ 'shadow-xs show-shadow': showShadow }, containerClassName]">
-            <table :id="tableNodeId" class="vdt-table w-full border-collapse bg-white" :class="[tableClassName]">
+            <table :id="tableNodeId" class="vdt-table w-full border-collapse bg-vdt-surface" :class="[tableClassName]">
                 <colgroup>
                     <col v-for="(header, index) in headersForRender" :key="index" :style="getColStyle(header)" />
                 </colgroup>
@@ -87,7 +87,7 @@
             </table>
 
             <!-- Loading Overlay -->
-            <div v-if="loading" class="absolute inset-0 flex items-center justify-center bg-white/50">
+            <div v-if="loading" class="absolute inset-0 flex items-center justify-center bg-white/50 dark:bg-black/50">
                 <div class="relative z-10">
                     <slot name="loading">
                         <Loading />
@@ -97,7 +97,7 @@
 
             <!-- Empty Message -->
             <div v-if="!pageItems.length && !loading"
-                class="absolute inset-0 flex items-center justify-center text-gray-500">
+                class="absolute inset-0 flex items-center justify-center text-vdt-content-muted bg-vdt-surface-elevated">
                 <slot name="empty-message">
                     {{ emptyMessage }}
                 </slot>

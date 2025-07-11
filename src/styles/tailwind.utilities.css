@@ -39,6 +39,9 @@
         border-color: var(--color-vdt-outline-stronger);
     }
 
+    .divide-vdt-outline {
+        border-right-color: var(--color-vdt-outline);
+    }
 
     /* 主題背景色 */
     .bg-vdt-primary-50 {
@@ -270,6 +273,14 @@
     }
 
     /* 懸停狀態 */
+    .hover\:bg-vdt-interactive-hover:hover {
+        background-color: var(--color-vdt-interactive-hover);
+    }
+
+    .hover\:bg-vdt-interactive-active:hover {
+        background-color: var(--color-vdt-interactive-active);
+    }
+
     .hover\:bg-vdt-primary-500:hover {
         background-color: var(--color-vdt-theme-500);
     }
@@ -364,4 +375,54 @@
 
 .vdt-table-container.show-shadow .fixed-right-shadow::after {
     box-shadow: inset -6px 0 5px -3px rgba(0, 0, 0, 0.2);
+}
+
+
+
+/* Scrollbar 樣式 - 淺色模式 */
+.vdt-table-container {
+    /* WebKit 瀏覽器 (Chrome, Safari, Edge) */
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-vdt-outline) var(--color-vdt-surface);
+}
+
+.vdt-table-container::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.vdt-table-container::-webkit-scrollbar-track {
+    background: var(--color-vdt-surface);
+    border-radius: 4px;
+}
+
+.vdt-table-container::-webkit-scrollbar-thumb {
+    background: var(--color-vdt-outline);
+    border-radius: 4px;
+    border: 1px solid var(--color-vdt-surface);
+}
+
+.vdt-table-container::-webkit-scrollbar-thumb:hover {
+    background: var(--color-vdt-outline-strong);
+}
+
+.vdt-table-container::-webkit-scrollbar-corner {
+    background: var(--color-vdt-surface);
+}
+
+/* 深色模式 scrollbar 樣式 */
+.dark .vdt-table-container,
+[data-vdt-mode="dark"] .vdt-table-container {
+    scrollbar-color: var(--color-vdt-outline-strong) var(--color-vdt-surface);
+}
+
+.dark .vdt-table-container::-webkit-scrollbar-thumb,
+[data-vdt-mode="dark"] .vdt-table-container::-webkit-scrollbar-thumb {
+    background: var(--color-vdt-outline-strong);
+    border: 1px solid var(--color-vdt-surface);
+}
+
+.dark .vdt-table-container::-webkit-scrollbar-thumb:hover,
+[data-vdt-mode="dark"] .vdt-table-container::-webkit-scrollbar-thumb:hover {
+    background: var(--color-vdt-outline-stronger);
 }

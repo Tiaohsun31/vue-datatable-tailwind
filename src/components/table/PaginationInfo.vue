@@ -1,5 +1,5 @@
 <template>
-    <div class="text-sm text-gray-700">
+    <div class="text-sm text-vdt-content-secondary">
         <slot :first-index="currentPageFirstIndex" :last-index="currentPageLastIndex" :total="totalItemsLength"
             :separator="rowsOfPageSeparatorMessage">
             {{ `${currentPageFirstIndex}–${currentPageLastIndex}` }}

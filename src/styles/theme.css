@@ -16,15 +16,15 @@
 
     /* 語義化顏色 - 淺色模式 */
     --color-vdt-light-surface: white;
-    --color-vdt-light-surface-secondary: oklch(98.5% 0.002 247.839);
+    --color-vdt-light-surface-secondary: var(--color-gray-50);
     --color-vdt-light-surface-elevated: white;
-    --color-vdt-light-content: oklch(21% 0.034 264.665);
-    --color-vdt-light-content-secondary: oklch(44.6% 0.03 256.802);
-    --color-vdt-light-content-muted: oklch(70.7% 0.022 261.325);
-    --color-vdt-light-outline: oklch(92.8% 0.006 264.531);
+    --color-vdt-light-content: var(--color-gray-900);
+    --color-vdt-light-content-secondary: var(--color-slate-800);
+    --color-vdt-light-content-muted: var(--color-slate-700);
+    --color-vdt-light-outline: var(--color-gray-200);
     --color-vdt-light-outline-strong: oklch(75.2% 0.01 258.338);
     --color-vdt-light-outline-stronger: oklch(65.7% 0.022 261.325);
-    --color-vdt-light-interactive-hover: oklch(92.8% 0.006 264.531);
+    --color-vdt-light-interactive-hover: var(--color-gray-100);
     --color-vdt-light-interactive-active: oklch(87.2% 0.01 258.338);
 
     /* 語義化顏色 - 深色模式 */
@@ -33,11 +33,11 @@
     --color-vdt-dark-surface-elevated: oklch(32% 0.033 256.848);
     --color-vdt-dark-content: oklch(96.7% 0.003 264.542);
     --color-vdt-dark-content-secondary: oklch(87.2% 0.01 258.338);
-    --color-vdt-dark-content-muted: oklch(70.7% 0.022 261.325);
-    --color-vdt-dark-outline: oklch(40.3% 0.034 259.733);
+    --color-vdt-dark-content-muted: var(--color-gray-300);
+    --color-vdt-dark-outline: oklch(45.3% 0.034 259.733);
     --color-vdt-dark-outline-strong: oklch(52.6% 0.03 256.802);
     --color-vdt-dark-outline-stronger: oklch(66.1% 0.027 264.364);
-    --color-vdt-dark-interactive-hover: oklch(39.3% 0.034 259.733);
+    --color-vdt-dark-interactive-hover: oklch(35.3% 0.034 259.733);
     --color-vdt-dark-interactive-active: oklch(44.6% 0.03 256.802);
 
     /* 語義化顏色 - 淺色模式（預設） */
@@ -106,6 +106,6 @@
     ::before,
     ::backdrop,
     ::file-selector-button {
-        border-color: var(--color-gray-200, currentcolor);
+        border-color: var(--color-vdt-outline, currentcolor);
     }
 }

@@ -1,7 +1,7 @@
 <!-- TableFooter.vue - 優化的響應式設計 -->
 <template>
     <div class="vdt-footer" :class="[
-        'bg-white border border-gray-200 border-t-0',
+        'bg-vdt-surface border border-vdt-outline border-t-0',
         { 'shadow-sm': showShadow },
         footerClassName
     ]">
@@ -13,7 +13,7 @@
                     class="sm:hidden flex items-center justify-between w-full">
                     <template #buttonsPagination>
                         <div class="flex-1 flex justify-center">
-                            <span class="text-sm text-gray-600 px-3">
+                            <span class="text-sm text-vdt-content px-3">
                                 {{ currentPaginationNumber }} / {{ maxPaginationNumber }}
                             </span>
                         </div>
@@ -29,7 +29,7 @@
                 <!-- Rows Per Page -->
                 <div class="flex-1 flex items-center justify-start">
                     <slot name="rows-per-page" v-bind="slotProps.rowsPerPage" v-bind:raw-props="slotProps">
-                        <div v-if="!hideRowsPerPage" class="text-sm text-gray-600">
+                        <div v-if="!hideRowsPerPage" class="text-sm">
                             <RowsPerPageSelector :model-value="rowsPerPage" :rows-items="rowsItems"
                                 :message="rowsPerPageMessage"
                                 @update:model-value="emit('update:rowsPerPage', $event)" />
@@ -39,7 +39,7 @@
                 <!-- Pagination Info -->
                 <div class="flex-1 flex items-center justify-center">
                     <slot name="pagination-info" v-bind="slotProps.paginationInfo" v-bind:raw-props="slotProps">
-                        <div v-if="!hidePaginationInfo" class="text-sm text-gray-600">
+                        <div v-if="!hidePaginationInfo" class="text-sm">
                             <PaginationInfo :current-page-first-index="currentPageFirstIndex"
                                 :current-page-last-index="currentPageLastIndex" :total-items-length="totalItemsLength"
                                 :rows-of-page-separator-message="rowsOfPageSeparatorMessage" />

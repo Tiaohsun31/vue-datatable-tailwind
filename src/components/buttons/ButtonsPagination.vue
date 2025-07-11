@@ -3,26 +3,26 @@
         <div v-for="(item, i) in paginationItemsForRender" :key="i"
             class="relative inline-flex items-center justify-center" :class="[
                 // Common styles for all items
-                'min-w-[32px] h-8 text-sm',
+                'min-w-[32px] h-8 text-sm transition-colors',
                 // First item styles
                 i === 0 && 'rounded-l-md',
                 // Last item styles
                 i === paginationItemsForRender.length - 1 && 'rounded-r-md',
                 // Button specific styles
                 item.type === 'button' && [
-                    'border border-gray-300',
+                    'border border-vdt-outline',
                     // Active state
                     item.active ? [
                         'z-10',
                         'bg-vdt-primary-500 border-vdt-primary-500 text-white',
                         'relative'
                     ] : [
-                        'bg-white',
-                        'text-gray-700',
-                        'hover:bg-gray-50',
+                        'bg-vdt-surface',
+                        'text-vdt-content',
+                        'hover:bg-vdt-interactive-hover',
                         'focus:z-10 focus:outline-hidden focus:ring-1',
-                        `focus:ring-vdt-primary-500`,
-                        `focus:border-vdt-primary-500`
+                        'focus:ring-vdt-primary-500',
+                        'focus:border-vdt-primary-500'
                     ],
                     // Disable hover effect for active button
                     !item.active && 'cursor-pointer',
@@ -31,7 +31,7 @@
                 ],
                 // Omission (ellipsis) styles
                 item.type === 'omission' && [
-                    'bg-white border border-gray-300 text-gray-700',
+                    'bg-vdt-surface border border-vdt-outline text-vdt-content-muted',
                     i !== 0 && '-ml-px'
                 ]
             ]" @click="changePage(item)">

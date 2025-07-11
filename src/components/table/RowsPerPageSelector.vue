@@ -1,10 +1,10 @@
 <template>
-    <div class="flex items-center gap-2 text-sm text-gray-700">
+    <div class="flex items-center gap-2 text-sm text-vdt-content-secondary">
         {{ message }}
         <div class="relative inline-block min-w-[70px]">
             <!-- Custom Select Button -->
             <button type="button"
-                class="relative w-full cursor-pointer rounded-md bg-white py-1.5 pl-3 pr-8 text-left text-sm shadow-xs border border-gray-300"
+                class="relative w-full cursor-pointer rounded-md bg-vdt-surface py-1.5 pl-3 pr-8 text-left text-sm shadow-xs border border-vdt-outline"
                 :class="[
                     'focus:border-vdt-primary-500 focus:outline-hidden focus:ring-1 focus:ring-vdt-primary-500',
                     showList ? 'ring-1 ring-vdt-primary-500 border-vdt-primary-500' : 'hover:border-gray-400'
@@ -28,14 +28,14 @@
                 leave-active-class="transition duration-75 ease-in" leave-from-class="transform scale-100 opacity-100"
                 leave-to-class="transform scale-95 opacity-0">
                 <ul v-if="showList"
-                    class="absolute right-0 z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 shadow-lg ring-1 ring-gray-200 ring-opacity-5 focus:outline-hidden"
+                    class="absolute right-0 z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-vdt-surface  py-1 shadow-lg ring-1 ring-gray-200 dark:ring-gray-700 ring-opacity-5 focus:outline-hidden"
                     :class="{ 'bottom-full mb-1': showInsideOfTable }" tabindex="-1" role="listbox"
                     @focusout="handleFocusOut">
                     <li v-for="item in rowsItems" :key="item"
                         class="relative cursor-pointer select-none py-2 pl-3 pr-9 text-sm" :class="[
                             item === rowsComputed
                                 ? 'text-vdt-primary-800 bg-vdt-primary-100 font-semibold'
-                                : 'text-gray-900 hover:bg-gray-100'
+                                : 'text-vdt-content hover:bg-vdt-interactive-hover'
                         ]" role="option" :aria-selected="item === rowsComputed" @click="changeSelectedRows(item)">
                         <!-- Option Text -->
                         <span class="block " :class="{ 'font-medium': item === rowsComputed }">

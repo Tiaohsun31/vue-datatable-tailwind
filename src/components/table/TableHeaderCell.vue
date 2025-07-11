@@ -1,20 +1,21 @@
 <!-- components/table/TableHeaderCell.vue -->
 <template>
-    <th :style="fixedDistance" class="vdt-thead-th px-4 py-3 font-semibold tracking-wider bg-gray-200 group" :class="[
-        'px-4 py-3 font-semibold tracking-wider group',
-        {
-            'cursor-pointer hover:bg-gray-300': header.sortable,
-            'shadow-[1px_0_0_0_rgba(0,0,0,0.1)]': header.value === lastLeftFixedColumn,
-            'shadow-[-1px_0_0_0_rgba(0,0,0,0.1)]': header.value === firstRightFixedColumn,
-        },
-        header.sortable && {
-            'bg-gray-200': header.sortType === 'none',
-            'bg-gray-300': header.sortType && ['desc', 'asc'].includes(header.sortType)
-        },
-        typeof headerItemClassName === 'string'
-            ? headerItemClassName
-            : headerItemClassName(header as Header, index + 1),
-    ]" @click.stop="handleHeaderClick(header)">
+    <th :style="fixedDistance"
+        class="vdt-thead-th px-4 py-3 font-semibold tracking-wider bg-gray-200 dark:bg-gray-700 group" :class="[
+            'px-4 py-3 font-semibold tracking-wider group',
+            {
+                'cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-600': header.sortable,
+                'shadow-[1px_0_0_0_rgba(0,0,0,0.1)]': header.value === lastLeftFixedColumn,
+                'shadow-[-1px_0_0_0_rgba(0,0,0,0.1)]': header.value === firstRightFixedColumn,
+            },
+            header.sortable && {
+                'bg-gray-200': header.sortType === 'none',
+                'bg-gray-300': header.sortType && ['desc', 'asc'].includes(header.sortType)
+            },
+            typeof headerItemClassName === 'string'
+                ? headerItemClassName
+                : headerItemClassName(header as Header, index + 1),
+        ]" @click.stop="handleHeaderClick(header)">
         <!-- Checkbox Header -->
         <MultipleSelectCheckBox v-if="header.text === 'checkbox'" :disabled="areAllVisibleRowsDisabled"
             :status="multipleSelectStatus" @change="$emit('toggleSelectAll', $event)" />
