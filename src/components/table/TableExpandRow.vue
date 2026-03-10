@@ -7,7 +7,9 @@
             <div class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-in-out"
                 :class="[{ 'grid-rows-[1fr]': isExpanded }]">
                 <div class="overflow-hidden">
-                    <slot></slot>
+                    <slot :isExpanded="isExpanded" :item="item" :index="index">
+
+                    </slot>
                 </div>
             </div>
         </td>
@@ -15,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, watch } from 'vue'
 import type { Item } from '../../types/main'
 import LoadingLine from '../loadings/LoadingLine.vue'
 

@@ -45,7 +45,6 @@
                         pagination: { isFirstPage, isLastPage, currentPaginationNumber, maxPaginationNumber, nextPage, prevPage },
                         headers: headersForRender
                     }"></slot>
-
                     <!-- Table Rows -->
                     <template v-for="(item, index) in pageItems" :key="item.key || index">
 
@@ -97,7 +96,7 @@
 
             <!-- Empty Message -->
             <div v-if="!pageItems.length && !loading"
-                class="absolute inset-0 flex items-center justify-center text-vdt-content-muted bg-vdt-surface-elevated">
+                class="flex items-center py-12 justify-center text-vdt-content-secondary bg-vdt-surface-elevated">
                 <slot name="empty-message">
                     {{ emptyMessage }}
                 </slot>

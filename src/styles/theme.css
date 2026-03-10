@@ -19,8 +19,8 @@
     --color-vdt-light-surface-secondary: var(--color-gray-50);
     --color-vdt-light-surface-elevated: white;
     --color-vdt-light-content: var(--color-gray-900);
-    --color-vdt-light-content-secondary: var(--color-slate-800);
-    --color-vdt-light-content-muted: var(--color-slate-700);
+    --color-vdt-light-content-secondary: var(--color-slate-700);
+    --color-vdt-light-content-muted: var(--color-slate-500);
     --color-vdt-light-outline: var(--color-gray-200);
     --color-vdt-light-outline-strong: oklch(75.2% 0.01 258.338);
     --color-vdt-light-outline-stronger: oklch(65.7% 0.022 261.325);
@@ -89,7 +89,6 @@
     --color-vdt-interactive-hover: var(--color-vdt-light-interactive-hover);
     --color-vdt-interactive-active: var(--color-vdt-light-interactive-active);
 }
-
 
 /*
   The default border color has changed to `currentcolor` in Tailwind CSS v4,

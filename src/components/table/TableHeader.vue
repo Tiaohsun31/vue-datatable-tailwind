@@ -1,7 +1,7 @@
 <!-- components/table/TableHeader.vue -->
 <template>
     <thead v-if="headers.length && !hideHeader" class="vdt-thead" :class="[
-        'text-sm  text-vdt-content-muted uppercase text-nowrap text-left',
+        'text-sm  text-vdt-content-secondary uppercase text-nowrap text-left',
         { 'sticky top-0 z-10': fixedHeader },
         headerClassName,
     ]">

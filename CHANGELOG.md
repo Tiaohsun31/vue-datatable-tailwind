@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.2] - 2026-03-10
+
+### Bug Fixes
+
+- 修復無資料時 header 列被 empty message 覆蓋而消失的問題。
+- 加深 `color-vdt-light-content-secondary`
+
 ## [2.3.1] - 2025-07-11
 
 ### Features
