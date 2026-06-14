@@ -178,10 +178,12 @@
 - [ ] `PaginationInfo.vue` / `RowsPerPageSelector.vue` / `DataTable.vue` 空資料區改 `inject` 讀 `messages`，取代硬編碼字串與 prop-drilling。
 - [ ] 保留 `emptyMessage` / `rowsPerPageMessage` / `rowsOfPageSeparatorMessage` props 為最高優先（向後相容）。
 
-### Phase 2 — 項目識別與選取解耦
+### Phase 2 — 項目識別與選取解耦 ✅ 完成（playground 全功能驗證）
 
-- [ ] **先移除批次選取**（決策 7）：刪 `src/composables/useBatchSelection.ts`、`src/components/loadings/SelectionLoadingOverlay.vue`；`useTotalItems.ts` 移除雙路徑、`isProcessing`/`processProgress`；`DataTable.vue` 移除 `SelectionLoadingOverlay` 引用、`batchSelectionThreshold` prop/default、`updateSelectionStatus` 事件。
-- [ ] `DataTableProps` 新增 `itemKey?: string`。
+> 驗證：itemKey 快速路徑（`item-key="email"`）+ 內容 fallback、單選/全選/跨頁持久/取消選取→indeterminate 表頭、展開，皆正確。build clean、JS 51 kB。批次移除也清掉 1b 唯一殘留（SelectionLoadingOverlay 硬寫灰階）→ 1b 100% 無殘留。
+
+- [x] **先移除批次選取**（決策 7）：刪 `useBatchSelection.ts`、`SelectionLoadingOverlay.vue`；`useTotalItems` 移除雙路徑/`isProcessing`/`processProgress`；`DataTable` 移除引用、`batchSelectionThreshold` prop、`updateSelectionStatus` 事件；`internal.d.ts` 移除該事件型別。
+- [x] `DataTableProps` 新增 `itemKey?: string`。
 - [ ] 新增 `src/utils/itemKey.ts`：`getItemKey(item, itemKey?, index?)` — 優先 `item[itemKey]` → `item.key` → 穩定 index。
 - [ ] `useTotalItems.ts` 選取邏輯：改 `Set<key>` + 查表；移除 `delete item.checkbox/index`、移除 `JSON.stringify` 過濾。
 - [ ] `usePageItems.ts`：移除 `PageCacheManager` 的 `JSON.stringify` key，改用 `getItemKey`；選取狀態用查表而非把 `checkbox` 灌進 item 複本（或至少集中於一處）。
@@ -247,7 +249,7 @@
 | 1a 主題引擎 | ✅ 完成 | token 模型 + useTheme + 移除 themeManager/colorUtils + 移除 peer；build 通過、CSS 自包含 |
 | 1b 語義 class + 深色校正 | ✅ 完成 | 深色校正 + 全元件 .vdt-* 結構化；無-Tailwind 截圖驗證自包含；CSS 17.3kB/JS 54kB。僅 SelectionLoadingOverlay 留待 Phase 2 刪除 |
 | 1.5 i18n | ✅ 完成 | en/zh-TW/zh-CN；locale + localeOverrides + 既有 message props(最高優先)；三語系驗證 |
-| 2 項目識別與選取解耦 | ⬜ 未開始 | 先刪批次選取（決策7） |
+| 2 項目識別與選取解耦 | ✅ 完成 | itemKey + Set<key>；批次移除；無 JSON.stringify/無污染；playground 驗證 |
 | 3 composable 接線 | ⬜ 未開始 | |
 | 4 型別與 DX | ⬜ 未開始 | 泛型延後 |
 | 5 測試與發佈 | ⬜ 未開始 | |

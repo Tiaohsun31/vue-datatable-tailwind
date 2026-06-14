@@ -43,5 +43,4 @@ export type EmitsEventName =
     | 'updatePageItems'
     | 'updateTotalItems'
     | 'selectAll'
-    | 'updateSelectionStatus'
     | 'contextmenuRow'

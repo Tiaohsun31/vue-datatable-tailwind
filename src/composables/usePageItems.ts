@@ -3,29 +3,7 @@ import {
 } from 'vue';
 import type { Item } from '../types/main';
 import type { MultipleSelectStatus } from '../types/internal';
-
-// 緩存管理器
-class PageCacheManager {
-    private itemKeyCache = new WeakMap<Item, string>();
-    private pageCache = new Map<string, Item[]>();
-
-    getItemKey(item: Item): string {
-        let key = this.itemKeyCache.get(item);
-        if (!key) {
-            const { checkbox, index, ...rest } = item;
-            key = Object.entries(rest)
-                .sort(([a], [b]) => a.localeCompare(b))
-                .map(([k, v]) => `${k}:${v}`)
-                .join('|');
-            this.itemKeyCache.set(item, key);
-        }
-        return key;
-    }
-
-    clearPageCache(): void {
-        this.pageCache.clear();
-    }
-}
+import { getItemKey } from '../utils/itemKey';
 
 export default function usePageItems(
     currentPaginationNumber: Ref<number>,
@@ -37,109 +15,65 @@ export default function usePageItems(
     showIndex: Ref<boolean>,
     totalItems: ComputedRef<Item[]>,
     totalItemsLength: ComputedRef<number>,
-    disabledRows: (item: Item) => boolean
+    disabledRows: (item: Item) => boolean,
+    itemKey: Ref<string | undefined>,
 ) {
-    const cacheManager = new PageCacheManager();
-
-    // 計算當前頁的第一個索引
+    // 當前頁第一筆 / 最後一筆的索引
     const currentPageFirstIndex = computed((): number =>
         (currentPaginationNumber.value - 1) * rowsPerPageRef.value + 1
     );
 
-    // 計算當前頁的最後一個索引
     const currentPageLastIndex = computed((): number => {
-        if (isServerSideMode.value) {
-            return Math.min(
-                totalItemsLength.value,
-                currentPaginationNumber.value * rowsPerPageRef.value
-            );
-        }
-        return Math.min(
-            totalItems.value.length,
-            currentPaginationNumber.value * rowsPerPageRef.value
-        );
+        const length = isServerSideMode.value ? totalItemsLength.value : totalItems.value.length;
+        return Math.min(length, currentPaginationNumber.value * rowsPerPageRef.value);
     });
 
-    // 獲取當前頁的數據
+    // 當前頁的資料
     const itemsInPage = computed((): Item[] => {
-        if (isServerSideMode.value) {
-            return items.value;
-        }
-        return totalItems.value.slice(
-            currentPageFirstIndex.value - 1,
-            currentPageLastIndex.value
-        );
+        if (isServerSideMode.value) return items.value;
+        return totalItems.value.slice(currentPageFirstIndex.value - 1, currentPageLastIndex.value);
     });
 
-    // 添加索引
+    // 加上序號（showIndex）
     const itemsWithIndex = computed((): Item[] => {
-        if (!showIndex.value) {
-            return itemsInPage.value;
-        }
-        return itemsInPage.value.map((item, index) => ({
-            index: currentPageFirstIndex.value + index,
-            ...item
+        if (!showIndex.value) return itemsInPage.value;
+        return itemsInPage.value.map((item, idx) => ({
+            index: currentPageFirstIndex.value + idx,
+            ...item,
         }));
     });
 
-    // 計算多選狀態
-    const multipleSelectStatus = computed((): MultipleSelectStatus => {
-        if (selectItemsComputed.value.length === 0) {
-            return 'noneSelected';
-        }
-
-        const selectableItems = disabledRows
-            ? totalItems.value.filter(item => !disabledRows(item))
-            : totalItems.value;
-
-        const selectedCount = selectItemsComputed.value.length;
-
-        if (selectedCount === selectableItems.length) {
-            const allSelected = selectItemsComputed.value.every(selected =>
-                selectableItems.some(item =>
-                    cacheManager.getItemKey(selected) === cacheManager.getItemKey(item)
-                )
-            );
-            return allSelected ? 'allSelected' : 'partSelected';
-        }
-
-        return 'partSelected';
+    // 已選取項目的 key 集合
+    const selectedKeys = computed((): Set<string> => {
+        const set = new Set<string>();
+        for (const item of selectItemsComputed.value) set.add(getItemKey(item, itemKey.value));
+        return set;
     });
 
-    // 生成最終頁面數據
-    const pageItems = computed((): Item[] => {
-        if (!isMultipleSelectable.value) {
-            return itemsWithIndex.value;
-        }
+    // 表頭全選的三態
+    const multipleSelectStatus = computed((): MultipleSelectStatus => {
+        if (selectItemsComputed.value.length === 0) return 'noneSelected';
+        const selectable = totalItems.value.filter(item => !disabledRows(item));
+        if (selectable.length === 0) return 'noneSelected';
+        const keys = selectedKeys.value;
+        const allSelected = selectable.every(item => keys.has(getItemKey(item, itemKey.value)));
+        return allSelected ? 'allSelected' : 'partSelected';
+    });
 
-        switch (multipleSelectStatus.value) {
-            case 'allSelected':
-                return itemsWithIndex.value.map(item => ({
-                    checkbox: !disabledRows || !disabledRows(item), // 考慮禁用狀態
-                    ...item
-                }));
-            case 'noneSelected':
-                return itemsWithIndex.value.map(item => ({
-                    checkbox: false,
-                    ...item
-                }));
-            default:
-                return itemsWithIndex.value.map(item => {
-                    const isSelected = selectItemsComputed.value.some(
-                        selected => cacheManager.getItemKey(item) === cacheManager.getItemKey(selected)
-                    );
-                    return {
-                        checkbox: isSelected && (!disabledRows || !disabledRows(item)),
-                        ...item
-                    };
-                });
-        }
+    // 最終頁面資料（多選時依 key 注入 checkbox 顯示狀態）
+    const pageItems = computed((): Item[] => {
+        if (!isMultipleSelectable.value) return itemsWithIndex.value;
+        const keys = selectedKeys.value;
+        return itemsWithIndex.value.map(item => ({
+            ...item,
+            checkbox: keys.has(getItemKey(item, itemKey.value)) && !disabledRows(item),
+        }));
     });
 
     return {
         currentPageFirstIndex,
         currentPageLastIndex,
         multipleSelectStatus,
-        pageItems
+        pageItems,
     };
 }

@@ -116,7 +116,6 @@
             </TableFooter>
         </div>
 
-        <SelectionLoadingOverlay v-show="isProcessing" :progress="processProgress" />
     </div>
 </template>
 
@@ -126,7 +125,6 @@ import {
 } from 'vue';
 
 import Loading from './components/loadings/Loading.vue';
-import SelectionLoadingOverlay from './components/loadings/SelectionLoadingOverlay.vue';
 
 import useClickRow from './composables/useClickRow';
 import useExpandableRow from './composables/useExpandableRow';
@@ -205,7 +203,6 @@ const props = withDefaults(defineProps<DataTableProps>(), {
     preventContextMenuRow: false,
     expandColumn: '',
     expandTransition: undefined,
-    batchSelectionThreshold: 10000,
 
     theme: () => 'indigo',
     searchType: 'contains',
@@ -243,7 +240,7 @@ const {
     fixedExpand,
     fixedCheckbox,
     fixedIndex,
-    batchSelectionThreshold,
+    itemKey,
     expandColumn,
 } = toRefs(props);
 
@@ -291,8 +288,7 @@ const emits = defineEmits([
     'update:serverOptions',
     'updatePageItems',
     'updateTotalItems',
-    'selectAll',
-    'updateSelectionStatus'
+    'selectAll'
 ]);
 
 const isMultipleSelectable = computed((): boolean => itemsSelected.value !== null);
@@ -434,8 +430,6 @@ const {
     totalItemsLength,
     toggleSelectAll,
     toggleSelectItem,
-    isProcessing,
-    processProgress
 } = useTotalItems(
     clientSortOptions,
     filterOptions,
@@ -447,7 +441,7 @@ const {
     searchType,
     serverItemsLength,
     multiSort,
-    batchSelectionThreshold,
+    itemKey,
     props.disabledRows,
     emits,
 );
@@ -486,7 +480,8 @@ const {
     showIndex,
     totalItems,
     totalItemsLength,
-    props.disabledRows
+    props.disabledRows,
+    itemKey
 );
 
 const prevPageEndIndex = computed(() => {
@@ -501,6 +496,7 @@ const {
 } = useExpandableRow(
     pageItems,
     prevPageEndIndex,
+    itemKey,
     emits,
 );
 

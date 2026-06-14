@@ -153,6 +153,8 @@ export interface DataTableProps {
     items: Item[]
     /** 表格標題配置 */
     headers: Header[]
+    /** 項目唯一識別欄位（用於選取/展開/比對；未指定則用 item.key，再退回內容比對） */
+    itemKey?: string
 
     // 分頁相關配置
     /** 當前頁碼 */
@@ -290,8 +292,6 @@ export interface DataTableProps {
     expandColumn?: string;
     /** 是否啟用展開過渡效果 */
     expandTransition?: boolean
-    /** 批量選擇閾值 */
-    batchSelectionThreshold?: number
 }
 
 export type ClickRowArgument = Item & {

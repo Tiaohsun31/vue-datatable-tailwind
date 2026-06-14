@@ -5,7 +5,7 @@ import type { Item, FilterOption, NumberFilterOption } from '../types/main';
 import { isNumeric, isArrayFilterOption, isNumberFilterOption, isCustomFilterOption } from '../utils/filter';
 import type { ClientSortOptions, EmitsEventName } from '../types/internal';
 import { getItemValue } from '../utils/utils';
-import { useBatchSelection } from './useBatchSelection';
+import { getItemKey, omitUiFields } from '../utils/itemKey';
 
 export default function useTotalItems(
     clientSortOptions: Ref<ClientSortOptions | null>,
@@ -18,7 +18,7 @@ export default function useTotalItems(
     searchType: Ref<'contains' | 'regex'>,
     serverItemsLength: Ref<number>,
     multiSort: Ref<boolean>,
-    batchSelectionThreshold: Ref<number>,
+    itemKey: Ref<string | undefined>,
     disabledRows: (item: Item) => boolean,
     emits: (event: EmitsEventName, ...args: any[]) => void,
 ) {
@@ -169,80 +169,44 @@ export default function useTotalItems(
         isServerSideMode.value ? serverItemsLength.value : totalItems.value.length
     ));
 
-    // 判斷是否需要使用批次處理
-    const shouldUseBatchSelection = computed(() => {
-        if (isServerSideMode.value) return false;
-        const dataLength = isServerSideMode.value ? serverItemsLength.value : items.value.length;
-        return dataLength >= batchSelectionThreshold.value;
-    });
-
-    // 初始化批次處理邏輯
-    const {
-        selectedItems: batchSelectedItems,
-        toggleSelectAll: batchToggleSelectAll,
-        toggleSelectItem: batchToggleSelectItem,
-        isProcessing,
-        selectionProgress
-    } = useBatchSelection(totalItems, itemsSelected, disabledRows, emits);
-
     const selectItemsComputed = computed({
         get: () => itemsSelected.value ?? [],
         set: (value) => {
             emits('update:itemsSelected', value);
         },
     });
-    // 過濾出未被禁用的項目
-    const getSelectableItems = (items: Item[]) => {
-        return items.filter(item => !disabledRows(item));
-    };
-    const regularToggleSelectAll = (isChecked: boolean): void => {
-        selectItemsComputed.value = isChecked ? getSelectableItems(totalItems.value) : selectItemsComputed.value = [];
-        if (isChecked) emits('selectAll');
-    };
 
-    const regularToggleSelectItem = (item: Item): void => {
-        const isAlreadyChecked = item.checkbox;
-        delete item.checkbox;
-        delete item.index;
-        if (!isAlreadyChecked) {
-            const selectItemsArr: Item[] = selectItemsComputed.value;
-            selectItemsArr.unshift(item);
-            selectItemsComputed.value = selectItemsArr;
-            emits('selectRow', item);
-        } else {
-            selectItemsComputed.value = selectItemsComputed.value.filter(
-                (selectedItem) => JSON.stringify(selectedItem) !== JSON.stringify(item)
-            );
-            emits('deselectRow', item);
-        }
-    };
+    // 已選取項目的 key 集合，取代 JSON.stringify 比對
+    const selectedKeys = computed((): Set<string> => {
+        const set = new Set<string>();
+        for (const item of selectItemsComputed.value) set.add(getItemKey(item, itemKey.value));
+        return set;
+    });
+
+    const getSelectableItems = (list: Item[]): Item[] => list.filter(item => !disabledRows(item));
 
     const toggleSelectAll = (isChecked: boolean): void => {
-        // 檢查是否所有項目都被禁用
-        const allItemsDisabled = totalItems.value.every(item => disabledRows(item));
-        if (allItemsDisabled) return;
-
-        if (shouldUseBatchSelection.value) {
-            emits('updateSelectionStatus', true);
-            try {
-                batchToggleSelectAll(isChecked);
-                emits('update:itemsSelected', isChecked ? Array.from(batchSelectedItems.value) : []);
-                if (isChecked) emits('selectAll');
-            } finally {
-                emits('updateSelectionStatus', false);
-            }
-        } else {
-            regularToggleSelectAll(isChecked);
-        }
+        // 全部都被禁用時不動作
+        if (totalItems.value.every(item => disabledRows(item))) return;
+        selectItemsComputed.value = isChecked ? getSelectableItems(totalItems.value) : [];
+        if (isChecked) emits('selectAll');
     };
 
     const toggleSelectItem = (item: Item): void => {
         if (disabledRows(item)) return;
 
-        if (shouldUseBatchSelection.value) {
-            batchToggleSelectItem(item);
+        const key = getItemKey(item, itemKey.value);
+        // 移除 UI 注入欄位後存入，避免污染使用者資料（不改動原物件）
+        const cleanItem = omitUiFields(item);
+
+        if (selectedKeys.value.has(key)) {
+            selectItemsComputed.value = selectItemsComputed.value.filter(
+                (selected) => getItemKey(selected, itemKey.value) !== key
+            );
+            emits('deselectRow', cleanItem);
         } else {
-            regularToggleSelectItem(item);
+            selectItemsComputed.value = [cleanItem, ...selectItemsComputed.value];
+            emits('selectRow', cleanItem);
         }
     };
 
@@ -252,8 +216,6 @@ export default function useTotalItems(
         totalItemsLength,
         toggleSelectAll,
         toggleSelectItem,
-        isProcessing: computed(() => shouldUseBatchSelection.value && isProcessing.value),
-        processProgress: selectionProgress,
     };
 }
 

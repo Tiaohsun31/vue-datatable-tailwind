@@ -2,10 +2,12 @@
 import { ref, type Ref, type ComputedRef } from 'vue';
 import type { Item } from '../types/main';
 import type { EmitsEventName } from '../types/internal';
+import { getItemKey } from '../utils/itemKey';
 
 export default function useExpandableRow(
     items: Ref<Item[]>,
     prevPageEndIndex: ComputedRef<number>,
+    itemKey: Ref<string | undefined>,
     emits: (event: EmitsEventName, ...args: any[]) => void,
 ) {
     // 存儲展開項的索引列表
@@ -20,8 +22,9 @@ export default function useExpandableRow(
         if (index !== -1) {
             expandingItemIndexList.value.splice(index, 1);
         } else {
-            // 計算在當前頁面中的索引
-            const currentPageExpandIndex = items.value.findIndex((item) => JSON.stringify(item) === JSON.stringify(expandingItem));
+            // 計算在當前頁面中的索引（以 key 比對，取代 JSON.stringify）
+            const expandKey = getItemKey(expandingItem, itemKey.value);
+            const currentPageExpandIndex = items.value.findIndex((item) => getItemKey(item, itemKey.value) === expandKey);
             // 發送展開事件
             emits('expandRow', prevPageEndIndex.value + currentPageExpandIndex, expandingItem);
             // 將展開的索引加入列表
