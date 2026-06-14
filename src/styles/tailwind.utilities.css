@@ -1,9 +1,7 @@
-/* 手動定義的 vdt 語義工具類（因 vdt 色票非原生 Tailwind 顏色，需手動橋接 CSS 變數）
-   注意：Phase 1b 會將這些 utility 收斂為 .vdt-* 語義 component class。 */
+/* 仍由模板以條件 class 綁定使用的少數 vdt 橋接 utility
+   （交替列底色 + 列 hover；其餘樣式已收斂為 components.css 的 .vdt-* component class）。 */
 
 @layer components {
-
-    /* ===== 中性語義色：表面 / 文字 / 邊框 / 互動 ===== */
     .bg-vdt-surface {
         background-color: var(--color-vdt-surface);
     }
@@ -12,126 +10,12 @@
         background-color: var(--color-vdt-surface-secondary);
     }
 
-    .bg-vdt-surface-elevated {
-        background-color: var(--color-vdt-surface-elevated);
-    }
-
-    .text-vdt-content {
-        color: var(--color-vdt-content);
-    }
-
-    .text-vdt-content-secondary {
-        color: var(--color-vdt-content-secondary);
-    }
-
-    .text-vdt-content-muted {
-        color: var(--color-vdt-content-muted);
-    }
-
-    .border-vdt-outline {
-        border-color: var(--color-vdt-outline);
-    }
-
-    .border-vdt-outline-strong {
-        border-color: var(--color-vdt-outline-strong);
-    }
-
-    .border-vdt-outline-stronger {
-        border-color: var(--color-vdt-outline-stronger);
-    }
-
-    .divide-vdt-outline> :not([hidden])~ :not([hidden]) {
-        border-color: var(--color-vdt-outline);
-    }
-
-    .bg-vdt-interactive-active {
-        background-color: var(--color-vdt-interactive-active);
-    }
-
-    .bg-vdt-overlay {
-        background-color: color-mix(in srgb, var(--color-vdt-surface) 65%, transparent);
-    }
-
-    .ring-vdt-outline {
-        --tw-ring-color: var(--color-vdt-outline);
-    }
-
-    .hover\:border-vdt-outline-strong:hover {
-        border-color: var(--color-vdt-outline-strong);
-    }
-
-    .hover\:bg-vdt-surface:hover {
-        background-color: var(--color-vdt-surface);
-    }
-
     .hover\:bg-vdt-interactive-hover:hover {
         background-color: var(--color-vdt-interactive-hover);
     }
-
-    .hover\:bg-vdt-interactive-active:hover {
-        background-color: var(--color-vdt-interactive-active);
-    }
-
-    .hover\:text-vdt-content:hover {
-        color: var(--color-vdt-content);
-    }
-
-    /* ===== 主色（單一主色 + 衍生狀態色） ===== */
-    .bg-vdt-primary-500 {
-        background-color: var(--color-vdt-primary);
-    }
-
-    .bg-vdt-primary-100 {
-        background-color: var(--color-vdt-primary-subtle);
-    }
-
-    .text-vdt-primary-600 {
-        color: var(--color-vdt-primary-hover);
-    }
-
-    .text-vdt-primary-800 {
-        color: var(--color-vdt-primary-strong);
-    }
-
-    .border-vdt-primary-500 {
-        border-color: var(--color-vdt-primary);
-    }
-
-    .border-t-vdt-primary-500 {
-        border-top-color: var(--color-vdt-primary);
-    }
-
-    .ring-vdt-primary-500 {
-        --tw-ring-color: var(--color-vdt-primary);
-    }
-
-    .ring-vdt-primary-500\/50 {
-        --tw-ring-color: var(--color-vdt-primary-ring);
-    }
-
-    /* focus 狀態 */
-    .focus\:ring-vdt-primary-500:focus {
-        --tw-ring-color: var(--color-vdt-primary);
-    }
-
-    .focus\:border-vdt-primary-500:focus {
-        border-color: var(--color-vdt-primary);
-    }
-
-    /* group-hover 狀態 */
-    .group:hover .group-hover\:bg-vdt-primary-600 {
-        background-color: var(--color-vdt-primary-hover);
-    }
-
-    .group:hover .group-hover\:border-vdt-primary-600 {
-        border-color: var(--color-vdt-primary-hover);
-    }
-
-    .group:hover .group-hover\:border-vdt-primary-300 {
-        border-color: var(--color-vdt-primary-border);
-    }
 }
 
+/* ===== 固定列 ===== */
 .fixed-column {
     background-color: inherit !important;
 }
@@ -169,7 +53,7 @@
     box-shadow: inset -6px 0 5px -3px rgba(0, 0, 0, 0.2);
 }
 
-/* Scrollbar 樣式 - 淺色模式 */
+/* ===== Scrollbar 樣式 ===== */
 .vdt-table-container {
     scrollbar-width: thin;
     scrollbar-color: var(--color-vdt-outline) var(--color-vdt-surface);
@@ -199,7 +83,7 @@
     background: var(--color-vdt-surface);
 }
 
-/* 深色模式 scrollbar 樣式 */
+/* 深色模式 scrollbar */
 .dark .vdt-table-container,
 [data-vdt-mode="dark"] .vdt-table-container {
     scrollbar-color: var(--color-vdt-outline-strong) var(--color-vdt-surface);

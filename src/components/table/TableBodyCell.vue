@@ -1,7 +1,7 @@
 <!-- components/table/TableBodyCell.vue -->
 <template>
     <td class="vdt-tbody-td" :class="[
-        { 'cursor-pointer': column === 'expand' && expandColumn === '' },
+        { 'vdt-tbody-td--clickable': column === 'expand' && expandColumn === '' },
         ...fixedColumnClasses,
         cellClassName
     ]" :style="cellStyle" @click="handleCellClick">
@@ -18,7 +18,7 @@
         <template v-else-if="isExpandColumn">
             <slot name="expand-button" v-bind="{ item, expanded: isExpanded, toggle: handleExpandToggle }">
                 <button @click.stop="handleExpandToggle" class="vdt-expand-btn">
-                    <IconExpand :class="{ 'transform rotate-90': isExpanded }" />
+                    <IconExpand :class="{ 'vdt-rotate-90': isExpanded }" />
                 </button>
             </slot>
         </template>

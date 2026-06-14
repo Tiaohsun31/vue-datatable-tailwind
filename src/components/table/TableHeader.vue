@@ -4,7 +4,7 @@
         { 'vdt-thead--sticky': fixedHeader },
         headerClassName,
     ]">
-        <tr class="vdt-thead-tr" :class="[{ 'divide-x divide-vdt-outline': borderCell }]">
+        <tr class="vdt-thead-tr" :class="[{ 'vdt-thead-tr--border-cell': borderCell }]">
             <TableHeaderCell v-for="(header, index) in headers" :key="index" :header="header" :index="index"
                 :fixed-distance="getFixedDistance(header.value)" :last-left-fixed-column="lastLeftFixedColumn"
                 :first-right-fixed-column="firstRightFixedColumn" :header-item-class-name="headerItemClassName"

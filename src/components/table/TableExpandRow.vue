@@ -1,7 +1,7 @@
 <!-- components/table/ExpandRow.vue -->
 <template>
     <tr class="vdt-expand-row"
-        :class="[expandRowClassName, { 'bg-vdt-surface-secondary': (index + 1) % 2 === 0, 'border-t': isExpanded }]">
+        :class="[expandRowClassName, { 'bg-vdt-surface-secondary': (index + 1) % 2 === 0, 'vdt-expand-row--bordered': isExpanded }]">
         <td :colspan="columnsCount" class="vdt-expand-row__cell">
             <LoadingLine v-if="loading" class="vdt-expand-row__loading" />
             <div class="vdt-expand-row__grid" :class="{ 'vdt-expand-row__grid--open': isExpanded }">

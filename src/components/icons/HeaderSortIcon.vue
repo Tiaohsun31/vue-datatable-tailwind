@@ -1,9 +1,6 @@
 <template>
-    <span :key="sortType" class="inline-flex transition-opacity duration-200" :class="[
-        sortType === 'none' ? 'opacity-0' : 'opacity-100',
-        'group-hover:opacity-100'
-    ]">
-        <IconSort :class="{ 'transform rotate-180': sortType === 'desc' }" />
+    <span :key="sortType" class="vdt-sort-icon" :class="{ 'vdt-sort-icon--inactive': sortType === 'none' }">
+        <IconSort :class="{ 'vdt-rotate-180': sortType === 'desc' }" />
     </span>
 </template>
 

@@ -27,7 +27,7 @@
                 <!-- Rows Per Page -->
                 <div class="vdt-footer-col vdt-footer-col--start">
                     <slot name="rows-per-page" v-bind="slotProps.rowsPerPage" v-bind:raw-props="slotProps">
-                        <div v-if="!hideRowsPerPage" class="text-sm">
+                        <div v-if="!hideRowsPerPage">
                             <RowsPerPageSelector :model-value="rowsPerPage" :rows-items="rowsItems"
                                 :message="rowsPerPageMessage"
                                 @update:model-value="emit('update:rowsPerPage', $event)" />
@@ -37,7 +37,7 @@
                 <!-- Pagination Info -->
                 <div class="vdt-footer-col vdt-footer-col--center">
                     <slot name="pagination-info" v-bind="slotProps.paginationInfo" v-bind:raw-props="slotProps">
-                        <div v-if="!hidePaginationInfo" class="text-sm">
+                        <div v-if="!hidePaginationInfo">
                             <PaginationInfo :current-page-first-index="currentPageFirstIndex"
                                 :current-page-last-index="currentPageLastIndex" :total-items-length="totalItemsLength"
                                 :rows-of-page-separator-message="rowsOfPageSeparatorMessage" />

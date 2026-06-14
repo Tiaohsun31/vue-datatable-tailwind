@@ -111,8 +111,10 @@
 >     - ✅ 已建 `src/styles/components.css`（自包含字面 CSS + token），theme.css 已 import。
 >     - ✅ **核心表格結構 hook 已遷移並驗證**（computed-style light+dark 皆正確、build 自包含）：`.vdt-table-wrapper/-container/-table/-thead(+--sticky)/-thead-th(+--sortable/--sorted)/-tbody/-tbody-tr/-tbody-td/-expand-row/-loading-overlay/-empty`。對應模板靜態 utility 已移除。
 >     - ✅ **主要子元件已遷移並驗證**（computed-style + 截圖）：TableFooter(響應式 mobile/desktop)、PaginationArrows、PaginationInfo、ButtonsPagination、RowsPerPageSelector(含下拉，順修 click-outside 依賴 `.relative` 的 bug→改 `.vdt-rows-select-wrap`)、BaseCheckbox(`.vdt-checkbox*`)、Loading/LoadingLine(scoped style)、TableHeaderCell 排序徽章、TableBodyCell expand 按鈕、TableExpandRow grid 過渡。全部 `.vdt-*` 自包含字面 CSS，build 通過。
->     - ⬜ **剩餘「長尾」版面 utility**（仍需 Tailwind，阻礙 100% 自包含）：TableBodyRow 的 `divide-x`/`border-b`/`last:`/`first:`/`border-t`（borderCell/borderRow，建議改 `.vdt-tbody-tr--border-cell/--border-row`）、TableBodyCell `cursor-pointer`、DataTable 容器 `shadow-xs`+loading inner `relative z-10`、TableHeaderCell fixed-column `shadow-[...]`、TableHeaderCell 內層 `items-center gap-2`(no-op)、RowsPerPageSelector `<Transition>` 動畫 class。
->     - ⬜ **最終驗證**：把 dist CSS 在「無 Tailwind」環境測一次（playground 目前自帶 Tailwind 會遮蔽長尾缺漏），確認真正自包含後，1a 的 peer 移除才正式成立。
+>     - ✅ **長尾版面 utility 已全部收斂**：TableBodyRow 邊框→`.vdt-tbody-tr--border-cell/--border-row`、TableBodyCell `cursor-pointer`→`--clickable`、容器 shadow→`--shadow`、loading inner→`__inner`、fixed-column shadow→`--fixed-left/right`、Transition→`name="vdt-fade"`、**全部 icon**（sort/expand/ellipsis/prev/next）→`.vdt-icon*`、expand-row `border-t`→`--bordered`、`.vdt-expand-btn` 加 button reset（無 preflight 時的原生按鈕框）。
+>     - ✅ **trim**：`tailwind.utilities.css` 移除約 150 行已無人使用的橋接 class，只留 `bg-vdt-surface`/`bg-vdt-surface-secondary`/`hover:bg-vdt-interactive-hover`（TableBodyRow 條件綁定）+ fixed-column + scrollbar。
+>     - ✅ **最終驗證（決定性）**：playground 暫時停用 `@import "tailwindcss"` 後截圖 → DataTable（含表頭/列/checkbox/footer/分頁/**展開列+旋轉箭頭+邊框**）完全正常渲染，僅 playground 自身 chrome 失去樣式。**證明 dist CSS 真正自包含、1a 的 tailwindcss peer 移除正式成立**。
+>     - ⬜ 唯一殘留 `SelectionLoadingOverlay.vue` 仍有硬寫 utility/灰階 → 由 **Phase 2** 刪除該檔時一併解決。
 >   - ⬜ **on-primary 白色**（checkbox 勾、主色按鈕文字）維持 `text-white`，可選擇改 `--color-vdt-on-primary`。
 >   - ⬜ **checkbox focus ring**（`peer-focus:ring-vdt-primary-500/50`）variant 未定義，hook 化時一併處理。
 
@@ -241,7 +243,7 @@
 |-------|------|------|
 | 0 清理與 Bug | ✅ 完成 | 含搜尋改 contains（決策6）；type-check + build 通過 |
 | 1a 主題引擎 | ✅ 完成 | token 模型 + useTheme + 移除 themeManager/colorUtils + 移除 peer；build 通過、CSS 自包含 |
-| 1b 語義 class + 深色校正 | 🟡 進行中 | ✅深色模式校正完成；⬜.vdt-* hook 結構化(需視覺QA) |
+| 1b 語義 class + 深色校正 | ✅ 完成 | 深色校正 + 全元件 .vdt-* 結構化；無-Tailwind 截圖驗證自包含；CSS 17.3kB/JS 54kB。僅 SelectionLoadingOverlay 留待 Phase 2 刪除 |
 | 1.5 i18n | ⬜ 未開始 | 與 Phase 1b template 同步 |
 | 2 項目識別與選取解耦 | ⬜ 未開始 | 先刪批次選取（決策7） |
 | 3 composable 接線 | ⬜ 未開始 | |

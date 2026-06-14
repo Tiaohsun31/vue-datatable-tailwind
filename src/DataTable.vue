@@ -3,7 +3,7 @@
         :style="themeStyle" v-bind="themeAttrs">
         <!-- Main Table Container -->
         <div ref="tableContainer" class="vdt-table-container"
-            :class="[{ 'shadow-xs show-shadow': showShadow }, containerClassName]">
+            :class="[{ 'vdt-table-container--shadow show-shadow': showShadow }, containerClassName]">
             <table :id="tableNodeId" class="vdt-table" :class="[tableClassName]">
                 <colgroup>
                     <col v-for="(header, index) in headersForRender" :key="index" :style="getColStyle(header)" />
@@ -86,7 +86,7 @@
 
             <!-- Loading Overlay -->
             <div v-if="loading" class="vdt-loading-overlay">
-                <div class="relative z-10">
+                <div class="vdt-loading-overlay__inner">
                     <slot name="loading">
                         <Loading />
                     </slot>

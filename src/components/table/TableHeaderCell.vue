@@ -4,8 +4,8 @@
         class="vdt-thead-th group" :class="[
             {
                 'vdt-thead-th--sortable': header.sortable,
-                'shadow-[1px_0_0_0_rgba(0,0,0,0.1)]': header.value === lastLeftFixedColumn,
-                'shadow-[-1px_0_0_0_rgba(0,0,0,0.1)]': header.value === firstRightFixedColumn,
+                'vdt-thead-th--fixed-left': header.value === lastLeftFixedColumn,
+                'vdt-thead-th--fixed-right': header.value === firstRightFixedColumn,
             },
             header.sortable && {
                 'vdt-thead-th--sorted': header.sortType && ['desc', 'asc'].includes(header.sortType)
@@ -19,7 +19,7 @@
             :status="multipleSelectStatus" @change="$emit('toggleSelectAll', $event)" />
 
         <!-- Regular Header Content -->
-        <div v-else class="items-center gap-2">
+        <div v-else class="vdt-thead-th__content">
             <!-- Header Slots -->
             <slot :name="getHeaderSlotName(header)" v-bind="{ header, index, sortable: header.sortable }">
                 <span>{{ header.text }}</span>

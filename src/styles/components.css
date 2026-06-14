@@ -472,6 +472,11 @@
 .vdt-expand-btn {
     display: inline-flex;
     align-items: center;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
 }
 
 .vdt-expand-row__cell {
@@ -495,4 +500,116 @@
 
 .vdt-expand-row__inner {
     overflow: hidden;
+}
+
+.vdt-expand-row--bordered {
+    border-top: 1px solid var(--color-vdt-outline);
+}
+
+/* ===== 邊框 / 狀態修飾（長尾版面 utility 收斂） ===== */
+.vdt-thead-tr--border-cell> :not([hidden])~ :not([hidden]) {
+    border-left: 1px solid var(--color-vdt-outline);
+}
+
+.vdt-thead-th--fixed-left {
+    box-shadow: 1px 0 0 0 rgba(0, 0, 0, 0.1);
+}
+
+.vdt-thead-th--fixed-right {
+    box-shadow: -1px 0 0 0 rgba(0, 0, 0, 0.1);
+}
+
+.vdt-tbody-tr--border-cell> :not([hidden])~ :not([hidden]) {
+    border-left: 1px solid var(--color-vdt-outline);
+}
+
+.vdt-tbody-tr--border-row {
+    border-bottom: 1px solid var(--color-vdt-outline);
+}
+
+.vdt-tbody-tr--border-row:first-child {
+    border-top: 1px solid var(--color-vdt-outline);
+}
+
+.vdt-tbody-tr--border-row:last-child {
+    border-bottom: 0;
+}
+
+.vdt-tbody-td--clickable {
+    cursor: pointer;
+}
+
+.vdt-table-container--shadow {
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+.vdt-loading-overlay__inner {
+    position: relative;
+    z-index: 10;
+}
+
+/* dropdown 淡入動畫（取代 Transition 的 Tailwind class） */
+.vdt-fade-enter-active {
+    transition: transform 0.1s ease-out, opacity 0.1s ease-out;
+}
+
+.vdt-fade-leave-active {
+    transition: transform 0.075s ease-in, opacity 0.075s ease-in;
+}
+
+.vdt-fade-enter-from,
+.vdt-fade-leave-to {
+    transform: scale(0.95);
+    opacity: 0;
+}
+
+.vdt-fade-enter-to,
+.vdt-fade-leave-from {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* ===== Icons ===== */
+.vdt-icon {
+    width: 1rem;
+    height: 1rem;
+    transition: transform 0.2s ease;
+}
+
+.vdt-icon-sm {
+    width: 0.75rem;
+    height: 0.75rem;
+    transition: transform 0.2s ease;
+}
+
+.vdt-icon-lg {
+    width: 18px;
+    height: 18px;
+}
+
+.vdt-rotate-90 {
+    transform: rotate(90deg);
+}
+
+.vdt-rotate-180 {
+    transform: rotate(180deg);
+}
+
+.vdt-ellipsis {
+    padding: 0.375rem 0.75rem;
+}
+
+.vdt-sort-icon {
+    display: inline-flex;
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
+
+.vdt-sort-icon--inactive {
+    opacity: 0;
+}
+
+/* 滑過表頭時顯示未啟用的排序圖示（.group 標記在 .vdt-thead-th 上） */
+.group:hover .vdt-sort-icon--inactive {
+    opacity: 1;
 }
