@@ -3,7 +3,7 @@ import {
 } from 'vue';
 import type { Header, SortType } from '../types/main';
 import type {
-    ServerOptionsComputed, HeaderForRender, ClientSortOptions, EmitsEventName,
+    ServerOptionsComputed, HeaderForRender, ClientSortOptions, DataTableEmitFn,
 } from '../types/internal';
 
 export interface UseHeadersOptions {
@@ -26,7 +26,7 @@ export interface UseHeadersOptions {
     multiSort: Ref<boolean>;
     expandColumn: Ref<string>;
     updateServerOptionsSort: (newSortBy: string, newSortType: SortType | null) => void;
-    emits: (event: EmitsEventName, ...args: any[]) => void;
+    emits: DataTableEmitFn;
 }
 
 export default function useHeaders(options: UseHeadersOptions) {

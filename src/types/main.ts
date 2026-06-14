@@ -52,7 +52,8 @@ export interface Header {
 // 表格數據
 export interface Item {
     [key: string]: any           // 允許任意鍵值對
-    key?: string | number        // 可選的唯一標識符
+    /** 可選的唯一識別；未設定 itemKey prop 時，內部 getItemKey 會優先採用此欄位 */
+    key?: string | number
 }
 
 // Server選項

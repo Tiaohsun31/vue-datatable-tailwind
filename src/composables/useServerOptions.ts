@@ -1,12 +1,12 @@
 // src/composables/useServerOptions.ts
 import { type Ref, computed } from 'vue';
 import type { SortType, ServerOptions } from '../types/main';
-import type { ServerOptionsComputed, EmitsEventName } from '../types/internal';
+import type { ServerOptionsComputed, DataTableEmitFn } from '../types/internal';
 
 export interface UseServerOptionsOptions {
     serverOptions: Ref<ServerOptions | null>;
     multiSort: Ref<boolean>;
-    emits: (event: EmitsEventName, ...args: any[]) => void;
+    emits: DataTableEmitFn;
 }
 
 export default function useServerOptions(options: UseServerOptionsOptions) {

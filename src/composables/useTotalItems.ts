@@ -3,7 +3,7 @@ import {
 } from 'vue';
 import type { Item, FilterOption, NumberFilterOption } from '../types/main';
 import { isNumeric, isArrayFilterOption, isNumberFilterOption, isCustomFilterOption } from '../utils/filter';
-import type { ClientSortOptions, EmitsEventName } from '../types/internal';
+import type { ClientSortOptions, DataTableEmitFn } from '../types/internal';
 import { getItemValue } from '../utils/utils';
 import { getItemKey, omitUiFields } from '../utils/itemKey';
 
@@ -20,7 +20,7 @@ export interface UseTotalItemsOptions {
     multiSort: Ref<boolean>;
     itemKey: Ref<string | undefined>;
     disabledRows: (item: Item) => boolean;
-    emits: (event: EmitsEventName, ...args: any[]) => void;
+    emits: DataTableEmitFn;
 }
 
 export default function useTotalItems(options: UseTotalItemsOptions) {

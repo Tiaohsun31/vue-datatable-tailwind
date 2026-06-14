@@ -201,12 +201,14 @@
 - [x] **`provide('dataTable')` → 具型別 `InjectionKey`**（新增 `src/keys.ts` 的 `dataTableKey`）。順手把 `useServerOptions` 的 `Ref<Boolean>` 修為 `Ref<boolean>`。
 - [~] ~~useDataTable 聚合器 / 移動檔案位置~~：依決策略過。
 
-### Phase 4 — 型別與 DX（不含泛型）
+### Phase 4 — 型別與 DX（不含泛型）✅ 完成（build + v-model 驗證）
 
-- [ ] `defineEmits` 改 typed 形式（payload 型別），對齊 `EmitsEventName`。
-- [ ] `DataTable.vue` 加 `defineSlots<DataTableSlots>()`（`src/types/slot.ts` 已定義卻沒接），讓使用者拿到 slot 型別。
-- [ ] 收斂重複型別：`HeaderForRender` vs `Header`、`ServerOptionsComputed` vs `ServerOptions` 改用 `Omit/Required` 衍生。
-- [ ] 清理 `Item.key`／新 `itemKey` 的型別文件。
+> 泛型 `DataTable<T>` 仍依決策延後。
+
+- [x] **typed `defineEmits<DataTableEmits>()`**：在 internal.d.ts 新增 `DataTableEmits`（payload 映射）+ `DataTableEmitFn`；`EmitsEventName = keyof DataTableEmits`（避免漂移）；5 個 composable 的 emit 參數改 `DataTableEmitFn`（emit 呼叫現受 payload 型別檢查）。v-model:items-selected 驗證正常（type-only defineEmits 編譯期生成 runtime emits）。
+- [x] **`defineSlots<DataTableSlots>()`** 接上 `src/types/slot.ts`。
+- [x] **型別收斂**：`HeaderForRender = Header`（結構一致，移除重複定義）；`ServerOptionsComputed = Omit<ServerOptions,'sortBy'|'sortType'> & {...}`（由 ServerOptions 衍生）。
+- [x] **`Item.key` 文件**：註明與 `itemKey` prop 的關係（getItemKey 優先序）。
 
 ### Phase 5 — 測試、文件、發佈
 
@@ -252,7 +254,7 @@
 | 1.5 i18n | ✅ 完成 | en/zh-TW/zh-CN；locale + localeOverrides + 既有 message props(最高優先)；三語系驗證 |
 | 2 項目識別與選取解耦 | ✅ 完成 | itemKey + Set<key>；批次移除；無 JSON.stringify/無污染；playground 驗證 |
 | 3 composable 接線 | ✅ 完成 | 9 composable options 物件化 + 多鍵排序修正 + InjectionKey；聚合器依決策略過 |
-| 4 型別與 DX | ⬜ 未開始 | 泛型延後 |
+| 4 型別與 DX | ✅ 完成 | typed emits + defineSlots + 型別收斂；泛型延後 |
 | 5 測試與發佈 | ⬜ 未開始 | |
 
 > 接手 session：完成項目請勾選對應 checkbox，並更新本表狀態（⬜未開始 / 🟡進行中 / ✅完成）。

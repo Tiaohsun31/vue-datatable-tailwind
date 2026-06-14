@@ -1,14 +1,14 @@
 // src/composables/useExpandableRow.ts
 import { ref, type Ref, type ComputedRef } from 'vue';
 import type { Item } from '../types/main';
-import type { EmitsEventName } from '../types/internal';
+import type { DataTableEmitFn } from '../types/internal';
 import { getItemKey } from '../utils/itemKey';
 
 export interface UseExpandableRowOptions {
     items: Ref<Item[]>;
     prevPageEndIndex: ComputedRef<number>;
     itemKey: Ref<string | undefined>;
-    emits: (event: EmitsEventName, ...args: any[]) => void;
+    emits: DataTableEmitFn;
 }
 
 export default function useExpandableRow(options: UseExpandableRowOptions) {

@@ -1,7 +1,7 @@
 // useClickRow.ts
 import { type Ref, type ComputedRef } from 'vue';
 import type { Item } from '../types/main';
-import type { EmitsEventName, ClickEventType } from '../types/internal';
+import type { ClickEventType, DataTableEmitFn } from '../types/internal';
 
 export interface UseClickRowOptions {
     clickEventType: Ref<ClickEventType>;
@@ -12,7 +12,7 @@ export interface UseClickRowOptions {
     clickRowToSelect: Ref<boolean>;
     handleExpandToggle: (expandingItemIndex: number, expandingItem: Item, event: Event) => void;
     toggleSelectItem: (item: Item) => void;
-    emits: (event: EmitsEventName, ...args: any[]) => void;
+    emits: DataTableEmitFn;
 }
 
 export default function useClickRow(options: UseClickRowOptions) {

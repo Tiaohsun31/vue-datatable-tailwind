@@ -137,7 +137,8 @@ import useServerOptions from './composables/useServerOptions';
 import useTotalItems from './composables/useTotalItems';
 
 import type { Header, Item, DataTableProps, DataTableLocale } from './types/main';
-import type { HeaderForRender, ClickEventType } from './types/internal';
+import type { HeaderForRender, ClickEventType, DataTableEmits } from './types/internal';
+import type { DataTableSlots } from './types/slot';
 import { locales, defaultLocale } from './i18n';
 import { dataTableKey } from './keys';
 
@@ -278,19 +279,8 @@ const tableWrapper = ref<HTMLDivElement | null>(null);
 const tableContainer = ref<HTMLDivElement | null>(null);
 provide(dataTableKey, tableWrapper);
 
-const emits = defineEmits([
-    'clickRow',
-    'contextmenuRow',
-    'selectRow',
-    'deselectRow',
-    'expandRow',
-    'updateSort',
-    'update:itemsSelected',
-    'update:serverOptions',
-    'updatePageItems',
-    'updateTotalItems',
-    'selectAll'
-]);
+const emits = defineEmits<DataTableEmits>();
+defineSlots<DataTableSlots>();
 
 const isMultipleSelectable = computed((): boolean => itemsSelected.value !== null);
 const isServerSideMode = computed((): boolean => serverOptions.value !== null);
