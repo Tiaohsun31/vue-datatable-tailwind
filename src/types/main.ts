@@ -180,6 +180,8 @@ export interface DataTableProps {
     searchField?: string | string[]
     /** 搜索值 */
     searchValue?: string
+    /** 搜索比對方式（預設 contains） */
+    searchType?: 'contains' | 'regex'
 
     // 服務端配置
     /** 服務端選項 */
@@ -295,103 +297,3 @@ export interface PaginationInfo {
     nextPage: () => void;
     prevPage: () => void;
 }
-
-// export interface UseHeadersOptions {
-//     headers: Ref<Header[]>
-//     sortBy: Ref<string | string[]>
-//     sortType: Ref<SortType | SortType[]>
-//     multiSort: ComputedRef<boolean>
-//     mustSort: ComputedRef<boolean>
-// }
-
-// export interface UseRowsOptions {
-//     rowsPerPage: Ref<number>
-//     rowsItems: ComputedRef<number[]>
-//     serverOptions: Ref<ServerOptions | null>
-// }
-
-// export interface UsePaginationOptions {
-//     currentPage: Ref<number>
-//     rowsPerPage: Ref<number>
-//     totalItems: ComputedRef<number>
-//     serverOptions: Ref<ServerOptions | null>
-// }
-
-// export interface UseTotalItemsOptions {
-//     items: Ref<Item[]>
-//     currentPaginationNumber: Ref<number>
-//     rowsPerPage: Ref<number>
-//     sortBy: Ref<string | string[]>
-//     sortType: Ref<SortType | SortType[]>
-//     filterOptions: Ref<FilterOption[]>
-//     searchField: Ref<string | string[]>
-//     searchValue: Ref<string>
-//     serverItemsLength: ComputedRef<number>
-//     isServerMode: ComputedRef<boolean>
-// }
-
-// export interface UseSortOptions {
-//     sortBy: Ref<string | string[]>
-//     sortType: Ref<SortType | SortType[]>
-//     multiSort: ComputedRef<boolean>
-//     emit: (event: string, ...args: any[]) => void
-// }
-
-
-// export type Item = Record<string, any>
-
-// export type Header = {
-//     text: string
-//     value: string
-//     sortable?: boolean
-//     fixed?: boolean
-//     width?: number
-// }
-
-// export type ServerOptions = {
-//     page: number
-//     rowsPerPage: number
-//     sortBy?: string | string[]
-//     sortType?: SortType | SortType[]
-// }
-
-// #region 輔助型別檢查函數
-// export function isNumberFilterOption(option: FilterOption): option is NumberFilterOption {
-//     return ['>', '>=', '<', '<=', 'between'].includes(option.comparison as string)
-// }
-
-// export function isArrayFilterOption(option: FilterOption): option is ArrayFilterOption {
-//     return option.comparison === 'in'
-// }
-
-// export function isCustomFilterOption(option: FilterOption): option is CustomFilterOption {
-//     return typeof option.comparison === 'function'
-// }
-
-// export function isNumeric(value: any): value is number {
-//     return typeof value === 'number' && !isNaN(value)
-// }
-
-//  輔助函數 - 幫助創建過濾器 - 使代碼更易讀
-// export const createFilter = {
-//     number(field: string, comparison: NumberFilterOption['comparison'], criteria: number | [number, number]): NumberFilterOption {
-//         return { field, comparison, criteria };
-//     },
-
-//     string(field: string, comparison: StringFilterOption['comparison'], criteria: string): StringFilterOption {
-//         return { field, comparison, criteria };
-//     },
-
-//     array(field: string, criteria: (string | number)[]): ArrayFilterOption {
-//         return { field, comparison: 'in', criteria };
-//     },
-
-//     custom<T = any>(
-//         field: string,
-//         comparison: (value: any, criteria: T) => boolean,
-//         criteria: T
-//     ): CustomFilterOption {
-//         return { field, comparison, criteria };
-//     }
-// };
-// #endregion

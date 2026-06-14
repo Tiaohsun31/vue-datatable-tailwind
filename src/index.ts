@@ -1,4 +1,4 @@
-import '../src/styles/theme.css'
+import './styles/theme.css'
 import type { App } from 'vue'
 import DataTable from './DataTable.vue'
 export { createFilter } from './utils/filter'

@@ -40,7 +40,6 @@ export type EmitsEventName =
     | 'updateSort'
     | 'update:itemsSelected'
     | 'update:serverOptions'
-    | 'updateFilter'
     | 'updatePageItems'
     | 'updateTotalItems'
     | 'selectAll'

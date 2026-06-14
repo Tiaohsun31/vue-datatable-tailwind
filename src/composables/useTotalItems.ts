@@ -7,8 +7,6 @@ import type { ClientSortOptions, EmitsEventName } from '../types/internal';
 import { getItemValue } from '../utils/utils';
 import { useBatchSelection } from './useBatchSelection';
 
-const BATCH_SELECTION_THRESHOLD = 10000; // 設定閾值
-
 export default function useTotalItems(
     clientSortOptions: Ref<ClientSortOptions | null>,
     filterOptions: Ref<FilterOption[] | null>,
@@ -17,6 +15,7 @@ export default function useTotalItems(
     itemsSelected: Ref<Item[] | null>,
     searchField: Ref<string | string[]>,
     searchValue: Ref<string>,
+    searchType: Ref<'contains' | 'regex'>,
     serverItemsLength: Ref<number>,
     multiSort: Ref<boolean>,
     batchSelectionThreshold: Ref<number>,
@@ -44,11 +43,22 @@ export default function useTotalItems(
     };
 
     const itemsSearching = computed((): Item[] => {
-        if (!isServerSideMode.value && searchValue.value !== '') {
-            const regex = new RegExp(searchValue.value, 'i')
+        if (isServerSideMode.value || searchValue.value === '') return items.value
+
+        if (searchType.value === 'regex') {
+            let regex: RegExp
+            try {
+                regex = new RegExp(searchValue.value, 'i')
+            } catch {
+                // 無效的正則表達式時退回不過濾，避免整個搜尋崩潰
+                return items.value
+            }
             return items.value.filter((item) => regex.test(getSearchTarget(item)))
         }
-        return items.value
+
+        // 預設：不分大小寫的子字串包含比對
+        const keyword = searchValue.value.toLowerCase()
+        return items.value.filter((item) => getSearchTarget(item).toLowerCase().includes(keyword))
     })
 
     // 過濾邏輯
@@ -134,28 +144,6 @@ export default function useTotalItems(
             });
     };
 
-    // function recursionMuiltSort(sortByArr: string[], sortDescArr: boolean[], itemsToSort: Item[], index: number): Item[] {
-    //     const sortBy = sortByArr[index];
-    //     const sortDesc = sortDescArr[index];
-    //     const sorted = (index === 0 ? itemsToSort
-    //         : recursionMuiltSort(sortByArr, sortDescArr, itemsToSort, index - 1)).sort((a: Item, b: Item) => {
-    //             let isAllSame = true;
-    //             for (let i = 0; i < index; i += 1) {
-    //                 if (getItemValue(sortByArr[i], a) !== getItemValue(sortByArr[i], b)) {
-    //                     isAllSame = false;
-    //                     break;
-    //                 }
-    //             }
-    //             if (isAllSame) {
-    //                 if (getItemValue(sortBy as string, a) < getItemValue(sortBy as string, b)) return sortDesc ? 1 : -1;
-    //                 if (getItemValue(sortBy as string, a) > getItemValue(sortBy as string, b)) return sortDesc ? -1 : 1;
-    //                 return 0;
-    //             }
-    //             return 0;
-    //         });
-    //     return sorted;
-    // }
-
     // flow: searching => filtering => sorting
     const totalItems = computed((): Item[] => {
         if (isServerSideMode.value) return items.value;
@@ -176,13 +164,6 @@ export default function useTotalItems(
             return compareValues(valueA, valueB, sortDesc as boolean);
         });
     });
-
-    // 監聽過濾器變化
-    // watch(itemsFiltering, (newVal) => {
-    //     if (filterOptions.value?.length) {
-    //         emits('updateFilter', newVal);
-    //     }
-    // }, { immediate: true, deep: true });
 
     const totalItemsLength = computed((): number => (
         isServerSideMode.value ? serverItemsLength.value : totalItems.value.length
@@ -264,39 +245,6 @@ export default function useTotalItems(
             regularToggleSelectItem(item);
         }
     };
-
-    //multiple selecting(原始程式碼)
-    // const selectItemsComputed = computed({
-    //     get: () => itemsSelected.value ?? [],
-    //     set: (value) => {
-    //         emits('update:itemsSelected', value);
-    //     },
-    // });
-
-    // const toggleSelectAll = (isChecked: boolean): void => {
-    //     console.time('toggleSelectAll');
-    //     selectItemsComputed.value = isChecked ? totalItems.value : [];
-    //     if (isChecked) emits('selectAll');
-    //     console.timeEnd('toggleSelectAll');
-    // };
-
-    // const toggleSelectItem = (item: Item): void => {
-    //     const isAlreadyChecked = item.checkbox;
-    //     // eslint-disable-next-line no-param-reassign
-    //     delete item.checkbox;
-    //     // eslint-disable-next-line no-param-reassign
-    //     delete item.index;
-    //     if (!isAlreadyChecked) {
-    //         const selectItemsArr: Item[] = selectItemsComputed.value;
-    //         selectItemsArr.unshift(item);
-    //         selectItemsComputed.value = selectItemsArr;
-    //         emits('selectRow', item);
-    //     } else {
-    //         selectItemsComputed.value = selectItemsComputed.value.filter((selectedItem) => JSON.stringify(selectedItem)
-    //             !== JSON.stringify(item));
-    //         emits('deselectRow', item);
-    //     }
-    // };
 
     return {
         totalItems,

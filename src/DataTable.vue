@@ -1,6 +1,6 @@
 <template>
     <div ref="tableWrapper" class="vdt-table-wrapper relative w-full " :class="[wrapperClassName]"
-        v-bind="containerAttributes">
+        :style="themeStyle" v-bind="themeAttrs">
         <!-- Main Table Container -->
         <div ref="tableContainer"
             class="vdt-table-container relative overflow-auto border border-vdt-outline scroll-smooth min-h-[180px] "
@@ -124,8 +124,7 @@
 
 <script setup lang="ts">
 import {
-    useSlots, computed, toRefs, ref, watch, provide, onMounted,
-    onUnmounted, watchEffect
+    useSlots, computed, toRef, toRefs, ref, watch, provide
 } from 'vue';
 
 import Loading from './components/loadings/Loading.vue';
@@ -212,7 +211,7 @@ const props = withDefaults(defineProps<DataTableProps>(), {
     batchSelectionThreshold: 10000,
 
     theme: () => 'indigo',
-    instanceTheme: false,
+    searchType: 'contains',
     items: () => [],
     headers: () => [],
 });
@@ -233,6 +232,7 @@ const {
     rowsPerPage,
     searchField,
     searchValue,
+    searchType,
     serverItemsLength,
     showIndex,
     sortBy,
@@ -250,31 +250,8 @@ const {
     expandColumn,
 } = toRefs(props);
 
-//  style related variable
-const {
-    containerAttributes,
-    setColor,
-    setMode,
-    setAuto,
-    currentMode
-} = useTheme({
-    defaultColor: props.theme,
-    defaultMode: props.mode,
-});
-
-watch(() => props.theme, (newTheme) => {
-    if (newTheme) {
-        setColor(newTheme);
-    }
-});
-
-watch(() => props.mode, (newMode) => {
-    if (newMode) {
-        setMode(newMode);
-    } else {
-        setAuto();
-    }
-});
+//  主題：解析主色為 CSS 變數，並輸出深淺模式屬性
+const { themeStyle, themeAttrs } = useTheme(toRef(props, 'theme'), toRef(props, 'mode'));
 
 // slot
 const slots = useSlots();
@@ -313,7 +290,6 @@ const emits = defineEmits([
     'deselectRow',
     'expandRow',
     'updateSort',
-    'updateFilter',
     'update:itemsSelected',
     'update:serverOptions',
     'updatePageItems',
@@ -461,6 +437,7 @@ const {
     itemsSelected,
     searchField,
     searchValue,
+    searchType,
     serverItemsLength,
     multiSort,
     batchSelectionThreshold,
@@ -555,13 +532,6 @@ const getFixedDistance = (column: string, type: 'td' | 'th' = 'th') => {
     return undefined;
 };
 
-const hasHorizontalScroll = ref(false);
-watchEffect(() => {
-    if (tableContainer.value) {
-        hasHorizontalScroll.value = tableContainer.value.scrollWidth > tableContainer.value.clientWidth;
-    }
-});
-
 // 處理固定列樣式
 const getFixedColumnClasses = computed(() => {
     return (column: string) => {
@@ -573,11 +543,6 @@ const getFixedColumnClasses = computed(() => {
         const columnInfo = fixedColumnsInfos.value.find((info) => info.value === column);
         if (columnInfo) {
             classes.push('fixed-column');
-
-            // 響應式檢查是否需要添加陰影
-            // if (props.borderRow && hasHorizontalScroll.value) {
-            //     // classes.push('shadow-[inset_0_1px_0_#e5e7eb]');
-            // }
 
             // 添加陰影類
             if (column === lastLeftFixedColumn.value) {
@@ -661,37 +626,6 @@ watch(pageItems, (value) => {
 watch(totalItems, (value) => {
     emits('updateTotalItems', value);
 }, { deep: true });
-
-onMounted(() => {
-    if (tableContainer.value) {
-        const container = tableContainer.value;
-
-        const updateScrollState = () => {
-            hasHorizontalScroll.value = container.scrollWidth > container.clientWidth;
-        };
-
-        // 初始檢查
-        updateScrollState();
-
-        // 監聽事件
-        container.addEventListener('scroll', updateScrollState);
-        window.addEventListener('resize', updateScrollState);
-
-        // 使用 MutationObserver 監聽 DOM 變化
-        const mutationObserver = new MutationObserver(updateScrollState);
-        mutationObserver.observe(container, {
-            childList: true,
-            subtree: true,
-            attributes: true
-        });
-
-        onUnmounted(() => {
-            container.removeEventListener('scroll', updateScrollState);
-            window.addEventListener('resize', updateScrollState);
-            mutationObserver.disconnect();
-        });
-    }
-});
 
 defineExpose({
     currentPageFirstIndex,

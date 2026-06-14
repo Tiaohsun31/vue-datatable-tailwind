@@ -44,27 +44,34 @@ export default function useServerOptions(
 
     // 更新伺服器選項的排序方式
     const updateServerOptionsSort = (newSortBy: string, newSortType: SortType | null) => {
-        if (serverOptionsComputed.value) {
-            if (multiSort.value && Array.isArray(serverOptionsComputed.value.sortBy)
-                && Array.isArray(serverOptionsComputed.value.sortType)) {
-                const index = serverOptionsComputed.value.sortBy.findIndex((val: string) => val === newSortBy);
-                if (index === -1 && newSortType !== null) {
-                    serverOptionsComputed.value.sortBy.push(newSortBy);
-                    serverOptionsComputed.value.sortType.push(newSortType);
+        const current = serverOptionsComputed.value;
+        if (!current) return;
+
+        if (multiSort.value && Array.isArray(current.sortBy) && Array.isArray(current.sortType)) {
+            // 以新陣列更新，避免就地改動 props 物件
+            const sortBy = [...current.sortBy];
+            const sortType = [...current.sortType] as SortType[];
+            const index = sortBy.findIndex((val) => val === newSortBy);
+
+            if (index === -1) {
+                if (newSortType !== null) {
+                    sortBy.push(newSortBy);
+                    sortType.push(newSortType);
                 }
-                if (newSortType === null) {
-                    serverOptionsComputed.value.sortBy.splice(index, 1);
-                    serverOptionsComputed.value.sortType.splice(index, 1);
-                } else {
-                    serverOptionsComputed.value.sortType[index] = newSortType;
-                }
+            } else if (newSortType === null) {
+                sortBy.splice(index, 1);
+                sortType.splice(index, 1);
             } else {
-                serverOptionsComputed.value = {
-                    ...serverOptionsComputed.value,
-                    sortBy: newSortType !== null ? newSortBy : null,
-                    sortType: newSortType,
-                };
+                sortType[index] = newSortType;
             }
+
+            serverOptionsComputed.value = { ...current, sortBy, sortType };
+        } else {
+            serverOptionsComputed.value = {
+                ...current,
+                sortBy: newSortType !== null ? newSortBy : null,
+                sortType: newSortType,
+            };
         }
     };
 

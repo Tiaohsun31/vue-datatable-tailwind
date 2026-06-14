@@ -108,31 +108,6 @@ const emit = defineEmits<{
     (e: 'updatePage', page: number): void
 }>()
 
-const rowsPerPageSlotProps = computed(() => ({
-    rowsPerPage: props.rowsPerPage,
-    rowsItems: props.rowsItems,
-    rowsPerPageMessage: props.rowsPerPageMessage,
-    updateRowsPerPage: (value: number) => emit('update:rowsPerPage', value)
-}))
-
-const paginationInfoSlotProps = computed(() => ({
-    currentPageFirstIndex: props.currentPageFirstIndex,
-    currentPageLastIndex: props.currentPageLastIndex,
-    totalItemsLength: props.totalItemsLength,
-    rowsOfPageSeparatorMessage: props.rowsOfPageSeparatorMessage
-}))
-
-const paginationSlotProps = computed(() => ({
-    isFirstPage: props.isFirstPage,
-    isLastPage: props.isLastPage,
-    currentPaginationNumber: props.currentPaginationNumber,
-    maxPaginationNumber: props.maxPaginationNumber,
-    buttonsPagination: props.buttonsPagination,
-    nextPage: () => emit('nextPage'),
-    prevPage: () => emit('prevPage'),
-    updatePage: (page: number) => emit('updatePage', page)
-}))
-
 const slotProps = computed(() => ({
     // 原始 props (扁平化，方便直接使用)
     ...props,

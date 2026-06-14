@@ -1,46 +1,45 @@
 @import './tailwind.utilities.css';
 
 :root {
-    /* 主題色變數 - 預設 violet（這些會被 JavaScript 動態更新） */
-    --color-vdt-50: oklch(96.9% 0.016 293.756);
-    --color-vdt-100: oklch(94.3% 0.029 294.588);
-    --color-vdt-200: oklch(89.4% 0.057 293.283);
-    --color-vdt-300: oklch(81.1% 0.111 293.571);
-    --color-vdt-400: oklch(70.2% 0.183 293.541);
-    --color-vdt-500: oklch(60.6% 0.25 292.717);
-    --color-vdt-600: oklch(54.1% 0.281 293.009);
-    --color-vdt-700: oklch(49.1% 0.27 292.581);
-    --color-vdt-800: oklch(43.2% 0.232 292.759);
-    --color-vdt-900: oklch(38% 0.189 293.745);
-    --color-vdt-950: oklch(28.3% 0.141 291.089);
+    /* ===== 主題主色：唯一輸入（runtime 由 JS 綁定 --color-vdt-primary 覆蓋） ===== */
+    --color-vdt-primary: oklch(58.5% 0.233 277.117); /* indigo 預設 */
 
-    /* 語義化顏色 - 淺色模式 */
+    /* ===== 由主色衍生的狀態色 =====
+       不需使用者提供；會隨主色與深淺模式（surface）自動調整。 */
+    --color-vdt-primary-hover: color-mix(in oklch, var(--color-vdt-primary), black 12%);
+    --color-vdt-primary-strong: color-mix(in oklch, var(--color-vdt-primary), black 26%);
+    --color-vdt-primary-subtle: color-mix(in oklch, var(--color-vdt-primary), var(--color-vdt-surface) 88%);
+    --color-vdt-primary-border: color-mix(in oklch, var(--color-vdt-primary), var(--color-vdt-surface) 55%);
+    --color-vdt-primary-ring: color-mix(in oklch, var(--color-vdt-primary), transparent 50%);
+    --color-vdt-on-primary: white;
+
+    /* ===== 中性語義色 - 淺色模式（自包含，不依賴外部 Tailwind 變數） ===== */
     --color-vdt-light-surface: white;
-    --color-vdt-light-surface-secondary: var(--color-gray-50);
+    --color-vdt-light-surface-secondary: oklch(98.5% 0.002 247.839);
     --color-vdt-light-surface-elevated: white;
-    --color-vdt-light-content: var(--color-gray-900);
-    --color-vdt-light-content-secondary: var(--color-slate-700);
-    --color-vdt-light-content-muted: var(--color-slate-500);
-    --color-vdt-light-outline: var(--color-gray-200);
+    --color-vdt-light-content: oklch(21% 0.034 264.665);
+    --color-vdt-light-content-secondary: oklch(37.2% 0.044 257.287);
+    --color-vdt-light-content-muted: oklch(55.4% 0.046 257.417);
+    --color-vdt-light-outline: oklch(92.8% 0.006 264.531);
     --color-vdt-light-outline-strong: oklch(75.2% 0.01 258.338);
     --color-vdt-light-outline-stronger: oklch(65.7% 0.022 261.325);
-    --color-vdt-light-interactive-hover: var(--color-gray-100);
+    --color-vdt-light-interactive-hover: oklch(96.7% 0.003 264.542);
     --color-vdt-light-interactive-active: oklch(87.2% 0.01 258.338);
 
-    /* 語義化顏色 - 深色模式 */
+    /* ===== 中性語義色 - 深色模式 ===== */
     --color-vdt-dark-surface: oklch(20% 0.034 264.665);
     --color-vdt-dark-surface-secondary: oklch(25% 0.033 256.848);
     --color-vdt-dark-surface-elevated: oklch(32% 0.033 256.848);
     --color-vdt-dark-content: oklch(96.7% 0.003 264.542);
     --color-vdt-dark-content-secondary: oklch(87.2% 0.01 258.338);
-    --color-vdt-dark-content-muted: var(--color-gray-300);
+    --color-vdt-dark-content-muted: oklch(87.2% 0.01 258.338);
     --color-vdt-dark-outline: oklch(45.3% 0.034 259.733);
     --color-vdt-dark-outline-strong: oklch(52.6% 0.03 256.802);
     --color-vdt-dark-outline-stronger: oklch(66.1% 0.027 264.364);
     --color-vdt-dark-interactive-hover: oklch(35.3% 0.034 259.733);
     --color-vdt-dark-interactive-active: oklch(44.6% 0.03 256.802);
 
-    /* 語義化顏色 - 淺色模式（預設） */
+    /* ===== 套用：預設淺色 ===== */
     --color-vdt-surface: var(--color-vdt-light-surface);
     --color-vdt-surface-secondary: var(--color-vdt-light-surface-secondary);
     --color-vdt-surface-elevated: var(--color-vdt-light-surface-elevated);
@@ -53,12 +52,11 @@
     --color-vdt-interactive-hover: var(--color-vdt-light-interactive-hover);
     --color-vdt-interactive-active: var(--color-vdt-light-interactive-active);
 
-    /* 狀態顏色 */
+    /* 狀態色 */
     --color-vdt-error: oklch(63.7% 0.237 25.331);
 }
 
-
-/* 強制深色模式 - 當 data-vdt-mode="dark" 時 */
+/* 深色模式：明確指定 data-vdt-mode="dark"，或頁面全域 .dark */
 .dark,
 [data-vdt-mode="dark"] {
     --color-vdt-surface: var(--color-vdt-dark-surface);
@@ -74,8 +72,7 @@
     --color-vdt-interactive-active: var(--color-vdt-dark-interactive-active);
 }
 
-/* 強制淺色模式 - 當 data-vdt-mode="light" 時 */
-.light,
+/* 明確指定 data-vdt-mode="light"：強制淺色（可覆蓋頁面全域 .dark） */
 [data-vdt-mode="light"] {
     --color-vdt-surface: var(--color-vdt-light-surface);
     --color-vdt-surface-secondary: var(--color-vdt-light-surface-secondary);
@@ -90,13 +87,26 @@
     --color-vdt-interactive-active: var(--color-vdt-light-interactive-active);
 }
 
-/*
-  The default border color has changed to `currentcolor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
+/* 自動模式：未明確指定 mode 時跟隨系統偏好（明確 light 可退出） */
+@media (prefers-color-scheme: dark) {
+    .vdt-table-wrapper:not([data-vdt-mode="light"]) {
+        --color-vdt-surface: var(--color-vdt-dark-surface);
+        --color-vdt-surface-secondary: var(--color-vdt-dark-surface-secondary);
+        --color-vdt-surface-elevated: var(--color-vdt-dark-surface-elevated);
+        --color-vdt-content: var(--color-vdt-dark-content);
+        --color-vdt-content-secondary: var(--color-vdt-dark-content-secondary);
+        --color-vdt-content-muted: var(--color-vdt-dark-content-muted);
+        --color-vdt-outline: var(--color-vdt-dark-outline);
+        --color-vdt-outline-strong: var(--color-vdt-dark-outline-strong);
+        --color-vdt-outline-stronger: var(--color-vdt-dark-outline-stronger);
+        --color-vdt-interactive-hover: var(--color-vdt-dark-interactive-hover);
+        --color-vdt-interactive-active: var(--color-vdt-dark-interactive-active);
+    }
+}
 
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
+/*
+  Tailwind CSS v4 預設邊框色為 currentcolor，這裡讓元件內元素預設使用 vdt 邊框色，
+  維持與舊版一致的外觀。
 */
 @layer base {
 

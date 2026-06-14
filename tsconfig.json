@@ -10,6 +10,7 @@
   ],
   "exclude": ["src/**/__tests__/*", "node_modules", "dist"],
   "compilerOptions": {
+    "ignoreDeprecations": "6.0",
     "composite": true,
     "baseUrl": ".",
     "paths": {

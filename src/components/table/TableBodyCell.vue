@@ -7,13 +7,11 @@
     ]" :style="cellStyle" @click="handleCellClick">
         <!-- Selection Checkbox -->
         <template v-if="column === 'checkbox'">
-            <template v-if="column === 'checkbox'">
-                <slot name="selection-checkbox"
-                    v-bind="{ item, index, isDisabled, toggleSelectItem: handleToggleSelect }">
-                    <SingleSelectCheckbox :checked="!!item.checkbox" :disabled="isDisabled"
-                        @change="handleToggleSelect" />
-                </slot>
-            </template>
+            <slot name="selection-checkbox"
+                v-bind="{ item, index, isDisabled, toggleSelectItem: handleToggleSelect }">
+                <SingleSelectCheckbox :checked="!!item.checkbox" :disabled="isDisabled"
+                    @change="handleToggleSelect" />
+            </slot>
         </template>
 
         <!-- Expand Button -->
@@ -108,9 +106,9 @@ const cellStyle = computed(() => {
     return baseStyle;
 })
 
-const handleCellClick = () => {
+const handleCellClick = (event: MouseEvent) => {
     if (isExpandColumn.value && props.expandColumn === '') {
-        emit('toggle-expand', event as MouseEvent)
+        emit('toggle-expand', event)
     }
 }
 

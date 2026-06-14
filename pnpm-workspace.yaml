@@ -1,3 +1,6 @@
 allowBuilds:
   '@tailwindcss/oxide': true
   esbuild: true
+minimumReleaseAgeExclude:
+  - '@vue/language-core@3.3.5'
+  - vue-tsc@3.3.5

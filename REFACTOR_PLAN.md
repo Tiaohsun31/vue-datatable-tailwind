@@ -1,0 +1,239 @@
+# vue-datatable-tailwind 重構計畫書
+
+> 本檔為跨 session 工作文件。任何接手的 session 請**先完整讀過本檔**，再依「進度追蹤」接續。
+> 套件名：`@tiaohsun/vue-datatable-tailwind`　當前版本：2.3.2　目標版本：**3.0.0（允許合理破壞性變更）**
+> 來源：fork 自 [vue3-easy-data-table](https://github.com/HC200ok/vue3-easy-data-table)（MIT），改用 Tailwind 4。
+
+---
+
+## 0. 背景與總目標
+
+專案分層方向正確（`DataTable.vue` 協調 + composables 邏輯 + 元件 UI），但有三類問題要一次清掉：
+1. **主題系統過度工程化**（themeManager 單例 + setTimeout + DOM 偵測 + 280 行手刻顏色轉換）。
+2. **CSS 混血亂局**（template 撒 utility + 另外手刻 300 行假 utility CSS），導致 README 的 `!important` workaround。
+3. **資料識別脆弱**（全靠 `JSON.stringify` 比對，且會改動使用者的 item 物件）。
+
+總目標：結構清晰、樣式可維護、行為可預期、對外可用穩定 class hook 覆蓋、**使用者免裝 Tailwind**。
+
+破壞性變更接受度：**可接受合理破壞**，集中在 v3，文件需附 migration 說明。
+
+---
+
+## 1. 已定案決策（含理由）
+
+### 決策 1：主題顏色 — 單一主色 + `color-mix()` 衍生
+- 元件實際只用到 primary 的 `100 / 300 / 500 / 600 / 800` + `500/50`，其餘 6 階是 dead weight。
+- 改為**唯一輸入** `--color-vdt-primary`，其餘狀態用 `color-mix()` 在 CSS 衍生。
+- 使用者傳什麼色就用什麼色（**取消「吸附最近 Tailwind 色」**）。
+- 因 `color-mix()` 吃任意 CSS 顏色（hex/rgb/oklch），**不需要任何顏色轉換** → 刪掉 `colorUtils.ts` 絕大部分。
+- 色名（如 `indigo`）非 CSS 原生色名，需小對照表 → `tailwind4-color.ts` 從 291 行縮成「色名 → 單一 base 值」約 22 行。
+- hover 用**混黑加深**（`color-mix(... black 12%)`）而非透明度（彩色疊透明在不同底色會糊）。
+- 前提：`color-mix()` = Baseline 2023，與 Tailwind 4 既有需求一致，無新增瀏覽器限制。
+
+### 決策 2：CSS 出貨 — 純預編譯、移除 tailwindcss peerDependency
+- runtime 換色 = 改一個 CSS 變數，不需重新生成 class，故可純出貨自包含 CSS。
+- 使用者**不需安裝 Tailwind**，`import '.../style.css'` 即可。
+- 鐵則：出貨 CSS 不可引用 consumer Tailwind theme 的變數；自訂 `--vdt-*` 命名空間 token 或 inline 字面值。
+
+### 決策 3：項目識別 — 新增 `itemKey` prop
+- 新增 `itemKey?: string`（指定唯一欄位，如 `'id'`）；未傳則 fallback（優先 `item.key`，否則穩定 index）。
+- 選取狀態改用 `Set<key>` 管理，render 時查表；**不再 `delete item.checkbox / item.index` 改動使用者資料**。
+- 移除所有 `JSON.stringify` 身分比對（展開、選取、分頁快取、批次選取）。
+
+### 決策 4：泛型 `DataTable<T>` — 本輪延後
+- DX 加分但與其他項獨立，硬塞會拉長戰線。留待 v3 之後增量。
+
+### 決策 5：composable 接線 — 改 options 物件 + 聚合
+- 長位置參數串（`useHeaders` 21 個位置參數）→ 改傳單一 options 物件（介面 `HeadersConfig`/`ReactiveHeadersConfig` 已存在卻沒用）。
+- 內部接線收斂到 `useDataTable(props, emit)`，`DataTable.vue` 瘦成薄協調層。
+
+### 決策 CSS 架構：採 (II) 語義 component class
+- 樣式收進 `.vdt-*` class，用 Tailwind 4 token 撰寫（`padding: --spacing(3) --spacing(4); font-size: var(--text-sm);`）。
+- README 早已宣傳的 13 個 `.vdt-*` hook（目前全空）→ 變成真的可覆蓋表面，移除 `!important` workaround。
+- 代價：逐元件把 template utility 搬進 CSS，是本輪最大工程塊；但元件庫樣式表面有限，一次寫好長期受益。
+
+### 決策 6：搜尋預設改「子字串包含」（行為變更，影響極小）
+- 純文字搜尋 contains 與 regex 結果相同；差異只在使用者打正則特殊字元，屬罕見進階用法。
+- 改 contains 同時修掉特殊字元 crash。保留 `searchType: 'contains' | 'regex'` 逃生門，預設 `'contains'`。
+- 與 Phase 0 的 regex bug 修復合併（同一行）。
+
+### 決策 7：捨棄批次選取（移除功能 + prop）
+- `useBatchSelection`(178行) + 進度遮罩 + `useTotalItems` 雙路徑，維護成本高而 99% 使用者不觸發。
+- 刪 `src/composables/useBatchSelection.ts`、`src/components/loadings/SelectionLoadingOverlay.vue`。
+- 移除 `batchSelectionThreshold` prop 與其 default、`isProcessing`/`processProgress`、`updateSelectionStatus` 事件。
+- 併入 Phase 2（選取重寫時一起，避免先重寫批次路徑又刪掉）。
+
+### 決策 8：新增簡易 i18n（內建 en / zh-TW / zh-CN，可擴充）
+- 內建三語系 locale 包；使用者可：(a) `locale` 選內建、(b) `localeOverrides` 覆蓋個別字串、(c) 傳完整自訂 locale 物件支援未內建語言。
+- **既有 message props 仍可用且優先序最高**（向後相容，現有使用者不破）。
+- 解析序：個別 message prop > `localeOverrides` > 內建 `locale` 包。透過 inject 提供，順帶消除 `rowsPerPageMessage`/`rowsOfPageSeparatorMessage` 的 prop-drilling。
+- 併入 Phase 1（template 已全開，避免二次改動）；見 Phase 1.5。
+
+---
+
+## 2. 分階段任務（低風險優先）
+
+> 每個 phase 結束都應 `pnpm type-check` + `pnpm build` 通過；Phase 5 前可手動在 playground 驗證。
+> playground 被 .gitignore（`index.html` 指向 `/playground/main.ts`）——接手 session 若要跑 `pnpm dev` 需自建最小 playground。
+
+### Phase 0 — 清理與明確 Bug 修復（風險最低，先做）
+
+> ✅ **已完成（type-check + build 通過）**。註：`updateFilter` 事件從未觸發，已從 emits/EmitsEventName 移除（屬無害的公開 API 清理）。
+> onMounted 的 `removeEventListener` bug 連同整個空轉的水平捲動偵測（含 MutationObserver）一併刪除，故該 bug 自然消失。
+
+**Bug 修復：**
+- [ ] `src/DataTable.vue:690` — `onUnmounted` 內 `window.addEventListener('resize', ...)` 應為 `removeEventListener`（監聽器洩漏）。
+- [ ] `src/components/table/TableBodyCell.vue:113` — `handleCellClick` 用裸 `event`，改從參數接收 `MouseEvent`。
+- [ ] `src/utils/colorUtils.ts:236,239` — 移除 `console.log`（此檔 Phase 1 多半會刪，但先清）。
+- [ ] `src/DataTable.vue:215` — 移除 `withDefaults` 裡不存在於 `DataTableProps` 的 `instanceTheme: false`。
+- [ ] `src/composables/useTotalItems.ts:49` — **搜尋預設改子字串包含**（取代未跳脫的 `new RegExp`，同時修掉特殊字元 throw 的 crash）。新增 `searchType?: 'contains' | 'regex'` prop，預設 `'contains'`；`'regex'` 時才用 RegExp（仍須 try/catch 包住避免 throw）。比對維持 case-insensitive。
+- [ ] `src/composables/useServerOptions.ts:48-60` — 直接 `serverOptionsComputed.value.sortBy.push/splice` 就地改 props/computed 回傳物件；改為產生新物件再 set。
+- [ ] `src/components/table/TableBodyCell.vue:9-10` — 移除重複巢狀的 `<template v-if="column === 'checkbox'">`。
+
+**死碼 / 殘留清理：**
+- [ ] `src/composables/useTotalItems.ts:10` — 未使用的 `BATCH_SELECTION_THRESHOLD` 常數。
+- [ ] `src/composables/useTotalItems.ts:192` — `shouldUseBatchSelection` 內 `isServerSideMode ? …` 前已 `return false` 的死分支。
+- [ ] `src/components/table/TableFooter.vue:111-134` — 未使用的 `rowsPerPageSlotProps`/`paginationInfoSlotProps`/`paginationSlotProps` computed。
+- [ ] `src/DataTable.vue:558-563,665-694` — `hasHorizontalScroll` 唯一讀取點在註解碼（:578），整個含 `MutationObserver` 的偵測是空轉，刪除（陰影改由 `useFixedColumn` 負責）。
+- [ ] 清掉大段註解碼：`src/types/main.ts:299-397`、`useTotalItems.ts:137-157,268-299`、`themeManager.ts:209-212` 等。
+- [ ] 刪除失效檔 `src/types/vue-datatable-tailwind.d.ts`（宣告模組名 `vue-datatable-tailwind` 與發佈名不符，相對路徑無法從消費端解析，無人引用）。
+- [ ] `src/index.ts:1` — import 路徑 `'../src/styles/theme.css'` 改 `'./styles/theme.css'`。
+- [ ] `package.json` — `files` 移除不存在的 `"types"`；新增 `"sideEffects": ["**/*.css"]`（避免 CSS 被 tree-shake）。
+- [ ] `emits` 與 `EmitsEventName` 對齊：`updateFilter` 在型別/陣列有但實際被註解掉沒 emit，決定要嘛接回要嘛移除宣告。
+
+### Phase 1 — 主題系統重寫 + CSS 語義 class + packaging（最大塊）
+
+> **執行分兩階段：**
+> - ✅ **1a 主題引擎（已完成，type-check + build 通過，dist CSS 確認自包含）**：token 模型、useTheme 響應式重寫、刪 themeManager/colorUtils、縮 tailwind4-color、repoint+slim tailwind.utilities.css、移除 tailwind peer。JS 81.9→64.6 kB。
+> - ⬜ **1b 語義 class + 深色模式全面校正（待辦）**：把 template utility 收斂為 `.vdt-*` component class、把所有硬寫 `gray`/`dark:` 換語義 token（徹底修深色模式）。需視覺 QA。詳見下方「CSS 語義 class」與「Phase 1b 已知待修點」。
+
+**主題 token 模型（寫進 `src/styles/theme.css`）：** ✅ 1a 完成
+- [ ] 定義唯一輸入 `--color-vdt-primary`（預設 indigo 的 oklch）。
+- [ ] 衍生狀態：
+  ```css
+  --color-vdt-primary-hover:  color-mix(in oklch, var(--color-vdt-primary), black 12%);   /* 取代 600 */
+  --color-vdt-primary-subtle: color-mix(in oklch, var(--color-vdt-primary), var(--color-vdt-surface) 88%); /* 取代 100 */
+  --color-vdt-primary-ring:   color-mix(in oklch, var(--color-vdt-primary), transparent 50%); /* 取代 500/50 */
+  --color-vdt-on-primary:     white;
+  ```
+  （原 300 淡邊框、800 文字色亦由 primary 衍生或併入既有語義 token。）
+- [ ] 保留既有中性語義 token（surface / content / outline / interactive，含 `[data-vdt-mode]` 深淺切換）——這套設計是好的。
+- [ ] 定義自包含 `--vdt-*` 設計 token（spacing/text/radius/font）或確認 build 後 CSS 無外部變數相依。
+
+**移除舊主題機制：**
+- [ ] 刪除 `src/utils/themeManager.ts`（383 行單例）。
+- [ ] 刪除 `src/utils/colorUtils.ts` 大部分；若色名仍需，留最小 helper。
+- [ ] `src/utils/tailwind4-color.ts` 縮為「色名 → 單一 base oklch」對照（約 22 行）。
+- [ ] 重寫 `src/composables/useTheme.ts`：移除 setTimeout/querySelector/getComputedStyle/訂閱；改為解析輸入色 → 回傳 `computed` 給 `DataTable.vue` 用 `:style="{ '--color-vdt-primary': resolved }"` 綁定。
+  - 解析規則：色名 → 查表；hex/rgb/oklch → 原樣 pass-through。
+  - 深淺模式：`mode` prop → 綁 `data-vdt-mode`；未給走 auto（`prefers-color-scheme`，可用 `matchMedia` 或純 CSS `@media`）。
+- [ ] `DataTable.vue` 移除 `watch(theme)` / `watch(mode)` 的命令式呼叫，改宣告式綁定。
+
+**CSS 語義 class（採 (II)）：** ⬜ 1b 待辦
+
+> **Phase 1b 已知待修點（1a 過程中發現的潛在問題，移到 .vdt-* class 時一併處理）：**
+> - 多處硬寫 `dark:` variant（依賴全域 `.dark`）：`DataTable.vue` loading 遮罩 `bg-white/50 dark:bg-black/50`、`RowsPerPageSelector.vue` 的 `ring-gray-200 dark:ring-gray-700`、`TableHeader.vue` 的 `divide-gray-300 dark:divide-gray-600`、`TableHeaderCell.vue` 的 `bg-gray-200 dark:bg-gray-700` 等 → 全改語義 token。
+> - 既有 hand-written utility 有缺漏（部分 class 其實沒生效）：`peer-focus:ring-vdt-primary-500/50`（BaseCheckbox 的 focus ring 色）原本未定義 variant；`hover:text-vdt-content`、`hover:bg-vdt-surface` 1a 已補上。移到 .vdt-* 後這些 edge case 自然消失。
+> - 移到 .vdt-* 後可移除出貨 CSS 中的泛用 Tailwind utility（`.flex`/`.px-4` 等），避免與使用者全域樣式衝突，達到真正乾淨的自包含。
+- [ ] 刪除 `src/styles/tailwind.utilities.css`（300+ 行手刻假 utility）。
+- [ ] 為每個 `.vdt-*` hook 撰寫實際樣式（`.vdt-table-wrapper / -container / -table / -thead / -thead-tr / -thead-th / -tbody / -tbody-tr / -tbody-td / -expand-row / -footer / -pagination`），用 Tailwind 4 token 函式。
+- [ ] 逐元件把 template 的 utility 搬進對應 `.vdt-*` class（template 僅保留結構性/狀態性 class）。
+- [ ] **修深色模式 bug**：`TableHeaderCell.vue:4`、`TableHeader.vue:8` 的硬寫 `bg-gray-200 dark:bg-gray-700` / `divide-gray-*` 改用 `--color-vdt-*` 語義 token（現況：`mode="dark"` 但無全域 `.dark` 時表頭不變深色）。
+- [ ] 統一固定列陰影邏輯到 `useFixedColumn`（Phase 0 已刪 DataTable 的重複偵測）。
+
+**Packaging：**
+- [ ] `package.json` 移除 `tailwindcss` 的 `peerDependencies`（保留 `vue`）。
+- [ ] build 後檢查 `dist/vue-datatable-tailwind.css` 為自包含（grep 不應殘留 consumer-only 變數）。
+- [ ] 更新 README：移除 `@source` / tailwind.config 掃描指引與 `!important` workaround；改為「import style.css 即可，免裝 Tailwind」。
+
+### Phase 1.5 — i18n（與 Phase 1 template 改寫同步進行）
+
+- [ ] 新增 `src/i18n/`：`DataTableLocale` 型別 + 內建 `en` / `zh-TW` / `zh-CN` 三包。
+  ```ts
+  interface DataTableLocale {
+    emptyMessage: string          // 'No Available Data'
+    rowsPerPageMessage: string    // 'rows per page:'
+    rowsOfPageSeparatorMessage: string // 'of'
+    loading?: string
+  }
+  ```
+- [ ] `DataTableProps` 新增 `locale?: 'en' | 'zh-TW' | 'zh-CN'`（預設 `'en'`）與 `localeOverrides?: Partial<DataTableLocale> | DataTableLocale`（後者支援未內建語言）。
+- [ ] `DataTable.vue` 算出 `messages` computed：`{ ...內建[locale], ...localeOverrides, ...(若有設個別 message prop 則覆蓋) }`，用 `provide(localeKey, messages)`。
+- [ ] `PaginationInfo.vue` / `RowsPerPageSelector.vue` / `DataTable.vue` 空資料區改 `inject` 讀 `messages`，取代硬編碼字串與 prop-drilling。
+- [ ] 保留 `emptyMessage` / `rowsPerPageMessage` / `rowsOfPageSeparatorMessage` props 為最高優先（向後相容）。
+
+### Phase 2 — 項目識別與選取解耦
+
+- [ ] **先移除批次選取**（決策 7）：刪 `src/composables/useBatchSelection.ts`、`src/components/loadings/SelectionLoadingOverlay.vue`；`useTotalItems.ts` 移除雙路徑、`isProcessing`/`processProgress`；`DataTable.vue` 移除 `SelectionLoadingOverlay` 引用、`batchSelectionThreshold` prop/default、`updateSelectionStatus` 事件。
+- [ ] `DataTableProps` 新增 `itemKey?: string`。
+- [ ] 新增 `src/utils/itemKey.ts`：`getItemKey(item, itemKey?, index?)` — 優先 `item[itemKey]` → `item.key` → 穩定 index。
+- [ ] `useTotalItems.ts` 選取邏輯：改 `Set<key>` + 查表；移除 `delete item.checkbox/index`、移除 `JSON.stringify` 過濾。
+- [ ] `usePageItems.ts`：移除 `PageCacheManager` 的 `JSON.stringify` key，改用 `getItemKey`；選取狀態用查表而非把 `checkbox` 灌進 item 複本（或至少集中於一處）。
+- [ ] `useExpandableRow.ts:24`：用 `getItemKey` 取代 `JSON.stringify` 比對。
+- [ ] `useBatchSelection.ts:17-25`：`getItemKey` 統一。
+- [ ] `useClickRow.ts`：`prepareRowEventData` 改為不依賴 item 上被灌入的 `checkbox/index`。
+- [ ] 行為驗證：選取（單/全/批次）、跨頁選取、展開、disabledRows 互動。
+
+### Phase 3 — composable 接線重構
+
+- [ ] 各 composable 改 options 物件傳參（先 `useHeaders`，套用既有 `HeadersConfig`/`ReactiveHeadersConfig`）。
+- [ ] 修正多鍵排序 `recursionMuiltSort`（`useTotalItems.ts:114`，命名拼錯 + 重複 sort 低效）→ 單一 comparator 依序比較欄位，一次 `.sort()`。
+- [ ] 新增 `src/composables/useDataTable.ts` 聚合內部接線；`DataTable.vue` 從 712 行瘦身。
+- [ ] 評估 `DataTable.vue` 移到 `src/components/` 或 `src/core/` 統一位置。
+- [ ] `provide('dataTable')`（被 `RowsPerPageSelector.vue:92` inject）改用具型別的 `InjectionKey`。
+
+### Phase 4 — 型別與 DX（不含泛型）
+
+- [ ] `defineEmits` 改 typed 形式（payload 型別），對齊 `EmitsEventName`。
+- [ ] `DataTable.vue` 加 `defineSlots<DataTableSlots>()`（`src/types/slot.ts` 已定義卻沒接），讓使用者拿到 slot 型別。
+- [ ] 收斂重複型別：`HeaderForRender` vs `Header`、`ServerOptionsComputed` vs `ServerOptions` 改用 `Omit/Required` 衍生。
+- [ ] 清理 `Item.key`／新 `itemKey` 的型別文件。
+
+### Phase 5 — 測試、文件、發佈
+
+- [ ] 補單元測試（vitest 已配置但 0 測試）：`getItemValue` 巢狀路徑、排序（單/多）、過濾（number/string/array/custom）、分頁、選取（含批次）、`getItemKey`、主色解析。
+- [ ] 無障礙：表頭 `aria-sort`/鍵盤、展開鈕 `aria-expanded`/`aria-label`、全選 `indeterminate`。
+- [ ] 將最小 playground 納入版控（或 `examples/`），讓 clone 後可 `pnpm dev`。
+- [ ] 更新 `README.md` / `README.zh-TW.md` / `CHANGELOG.md`，撰寫 v3 migration 指引。
+- [ ] bump 版本 3.0.0、驗證 `npm pack` 內容、`exports`/`style`/CSS 檔名一致。
+
+---
+
+## 3. 對外 Props 建議（v3 可一併處理，需寫 migration）
+
+- `theme`：行為改為「不吸附最近色、直接採用」；色名仍支援。
+- `checkboxColumnWidth` 預設 `null → 36`（移除到處 `?? 36`）。
+- `mustSort` 預設 `true → false`（讓可排序欄位能回到無排序，符合慣例）。
+- Footer 樣式 props 命名統一：`footerClassName` / `mobileFooterClasses` / `desktopFooterClasses`（單複數不一致）。
+- `itemsSelected` 用 `null` 當「不可選」開關較隱晦 → 評估獨立 `selectable` boolean（保留 `itemsSelected` 做 v-model）。
+- 新增 `itemKey`（Phase 2）。
+- **新增 `searchType: 'contains' | 'regex'`**（預設 contains）— 決策 6。
+- **新增 `locale` + `localeOverrides`**（Phase 1.5）— 決策 8。
+- **移除 `batchSelectionThreshold`**（決策 7，破壞性）；migration 註明「大量資料選取的進度遮罩已移除」。
+
+---
+
+## 4. 風險與注意事項
+
+- **playground 在 .gitignore**：接手 session 跑不起 dev server 屬正常，需自建。
+- **CSS 自包含鐵則**：Phase 1 build 後務必確認出貨 CSS 無 consumer-only 變數。
+- **選取解耦（Phase 2）**易踩坑：跨頁選取、批次選取、disabledRows 三者交互要逐一驗。
+- **破壞性變更**集中 v3；每項對外變更都要在 migration 文件記一筆。
+- 每 phase 完成跑 `pnpm type-check && pnpm build`。
+
+---
+
+## 5. 進度追蹤
+
+| Phase | 狀態 | 備註 |
+|-------|------|------|
+| 0 清理與 Bug | ✅ 完成 | 含搜尋改 contains（決策6）；type-check + build 通過 |
+| 1a 主題引擎 | ✅ 完成 | token 模型 + useTheme + 移除 themeManager/colorUtils + 移除 peer；build 通過、CSS 自包含 |
+| 1b 語義 class + 深色校正 | ⬜ 未開始 | 需視覺 QA；含硬寫 dark: 全面替換 |
+| 1.5 i18n | ⬜ 未開始 | 與 Phase 1b template 同步 |
+| 2 項目識別與選取解耦 | ⬜ 未開始 | 先刪批次選取（決策7） |
+| 3 composable 接線 | ⬜ 未開始 | |
+| 4 型別與 DX | ⬜ 未開始 | 泛型延後 |
+| 5 測試與發佈 | ⬜ 未開始 | |
+
+> 接手 session：完成項目請勾選對應 checkbox，並更新本表狀態（⬜未開始 / 🟡進行中 / ✅完成）。
