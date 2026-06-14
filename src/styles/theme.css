@@ -1,4 +1,5 @@
 @import './tailwind.utilities.css';
+@import './components.css';
 
 :root {
     /* ===== 主題主色：唯一輸入（runtime 由 JS 綁定 --color-vdt-primary 覆蓋） ===== */

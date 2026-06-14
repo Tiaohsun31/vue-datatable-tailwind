@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full h-[3px] relative overflow-hidden bg-gray-300">
+    <div class="w-full h-[3px] relative overflow-hidden bg-vdt-surface-secondary">
         <div class="absolute h-[3px] w-2/5 animate-loading-line bg-vdt-primary-500"></div>
     </div>
 </template>

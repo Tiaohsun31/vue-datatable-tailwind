@@ -40,8 +40,24 @@
         border-color: var(--color-vdt-outline-stronger);
     }
 
-    .divide-vdt-outline {
+    .divide-vdt-outline> :not([hidden])~ :not([hidden]) {
         border-color: var(--color-vdt-outline);
+    }
+
+    .bg-vdt-interactive-active {
+        background-color: var(--color-vdt-interactive-active);
+    }
+
+    .bg-vdt-overlay {
+        background-color: color-mix(in srgb, var(--color-vdt-surface) 65%, transparent);
+    }
+
+    .ring-vdt-outline {
+        --tw-ring-color: var(--color-vdt-outline);
+    }
+
+    .hover\:border-vdt-outline-strong:hover {
+        border-color: var(--color-vdt-outline-strong);
     }
 
     .hover\:bg-vdt-surface:hover {

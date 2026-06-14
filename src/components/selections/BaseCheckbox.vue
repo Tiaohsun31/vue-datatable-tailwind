@@ -16,7 +16,7 @@
                 !disabled && 'group-hover:bg-vdt-primary-600 group-hover:border-vdt-primary-600'
             ],
             !isChecked && !isPartial && [
-                'border-gray-300 bg-white',
+                'border-vdt-outline-strong bg-vdt-surface',
                 !disabled && 'group-hover:border-vdt-primary-300'
             ],
 

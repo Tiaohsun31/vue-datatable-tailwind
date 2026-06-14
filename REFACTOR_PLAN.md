@@ -105,7 +105,15 @@
 
 > **執行分兩階段：**
 > - ✅ **1a 主題引擎（已完成，type-check + build 通過，dist CSS 確認自包含）**：token 模型、useTheme 響應式重寫、刪 themeManager/colorUtils、縮 tailwind4-color、repoint+slim tailwind.utilities.css、移除 tailwind peer。JS 81.9→64.6 kB。
-> - ⬜ **1b 語義 class + 深色模式全面校正（待辦）**：把 template utility 收斂為 `.vdt-*` component class、把所有硬寫 `gray`/`dark:` 換語義 token（徹底修深色模式）。需視覺 QA。詳見下方「CSS 語義 class」與「Phase 1b 已知待修點」。
+> - 🟡 **1b 進行中**：
+>   - ✅ **深色模式全面校正完成**：所有硬寫 `gray`/`dark:` 已換語義 token（TableHeaderCell/TableHeader/TableExpandRow/RowsPerPageSelector/BaseCheckbox/LoadingLine/ButtonsPagination 死碼/DataTable loading 遮罩）。新增橋接 class：`.bg-vdt-interactive-active`/`.bg-vdt-overlay`/`.ring-vdt-outline`/`.hover:border-vdt-outline-strong`，修正 `.divide-vdt-outline` 子選擇器。build 通過。
+>   - 🟡 **`.vdt-*` hook class 結構化（進行中）**：
+>     - ✅ 已建 `src/styles/components.css`（自包含字面 CSS + token），theme.css 已 import。
+>     - ✅ **核心表格結構 hook 已遷移並驗證**（computed-style light+dark 皆正確、build 自包含）：`.vdt-table-wrapper/-container/-table/-thead(+--sticky)/-thead-th(+--sortable/--sorted)/-tbody/-tbody-tr/-tbody-td/-expand-row/-loading-overlay/-empty`。對應模板靜態 utility 已移除。
+>     - ⬜ **剩餘子元件內層 utility 待遷移**（仍依賴 Tailwind 生成，尚未自包含）：TableHeaderCell 內層（標題 div/排序 icon/多排序徽章）、TableBodyCell 內層（checkbox/expand 按鈕容器）、TableExpandRow grid 過渡、TableFooter（響應式 mobile/desktop 版面）、RowsPerPageSelector、ButtonsPagination、PaginationArrows、PaginationInfo、BaseCheckbox/Single/Multi、Loading/LoadingLine。
+>     - ⬜ 殘留 arbitrary utility：fixed-column 陰影 `shadow-[...]`、`divide-x`/`border-b`/`last:`/`first:` 等版面 utility。全部遷移完才能真正移除泛用 utility 污染、peer 移除才生效。
+>   - ⬜ **on-primary 白色**（checkbox 勾、主色按鈕文字）維持 `text-white`，可選擇改 `--color-vdt-on-primary`。
+>   - ⬜ **checkbox focus ring**（`peer-focus:ring-vdt-primary-500/50`）variant 未定義，hook 化時一併處理。
 
 **主題 token 模型（寫進 `src/styles/theme.css`）：** ✅ 1a 完成
 - [ ] 定義唯一輸入 `--color-vdt-primary`（預設 indigo 的 oklch）。
@@ -142,7 +150,10 @@
 - [ ] 統一固定列陰影邏輯到 `useFixedColumn`（Phase 0 已刪 DataTable 的重複偵測）。
 
 **Packaging：**
-- [ ] `package.json` 移除 `tailwindcss` 的 `peerDependencies`（保留 `vue`）。
+- ⚠️ **重要發現**：目前 dist CSS **不含** Tailwind 版面 utility（`px-4`/`flex` 等），元件實際依賴**使用者的 Tailwind**（README `@source`）來生成版面。因此：
+  - 1a 已移除 `tailwindcss` peer，但**在 `.vdt-*` hook 結構化（含 `@apply` 自包含）完成前，此移除尚未真正成立**——沒裝 Tailwind 的使用者目前會缺版面。
+  - 自包含目標的正解：模板只用 `.vdt-*`（+狀態 class），`.vdt-*` CSS 以 `@apply` 撰寫，build 時 Tailwind 把屬性 inline 進出貨 CSS → 無泛用 utility 污染、真正自包含。完成後 peer 移除才生效。
+- [x] `package.json` 移除 `tailwindcss` 的 `peerDependencies`（保留 `vue`）— 已移除，待自包含完成後生效。
 - [ ] build 後檢查 `dist/vue-datatable-tailwind.css` 為自包含（grep 不應殘留 consumer-only 變數）。
 - [ ] 更新 README：移除 `@source` / tailwind.config 掃描指引與 `!important` workaround；改為「import style.css 即可，免裝 Tailwind」。
 
@@ -193,7 +204,7 @@
 
 - [ ] 補單元測試（vitest 已配置但 0 測試）：`getItemValue` 巢狀路徑、排序（單/多）、過濾（number/string/array/custom）、分頁、選取（含批次）、`getItemKey`、主色解析。
 - [ ] 無障礙：表頭 `aria-sort`/鍵盤、展開鈕 `aria-expanded`/`aria-label`、全選 `indeterminate`。
-- [ ] 將最小 playground 納入版控（或 `examples/`），讓 clone 後可 `pnpm dev`。
+- [x] 最小 playground 已建立（`playground/main.ts`/`App.vue`/`style.css`，gitignored）；`.claude/launch.json` 設好（preview_start name=`playground`, port 5173）。1a 淺色 + 1b 深色 baseline 皆已截圖驗證正確。（仍待：納入版控或 examples/）
 - [ ] 更新 `README.md` / `README.zh-TW.md` / `CHANGELOG.md`，撰寫 v3 migration 指引。
 - [ ] bump 版本 3.0.0、驗證 `npm pack` 內容、`exports`/`style`/CSS 檔名一致。
 
@@ -229,7 +240,7 @@
 |-------|------|------|
 | 0 清理與 Bug | ✅ 完成 | 含搜尋改 contains（決策6）；type-check + build 通過 |
 | 1a 主題引擎 | ✅ 完成 | token 模型 + useTheme + 移除 themeManager/colorUtils + 移除 peer；build 通過、CSS 自包含 |
-| 1b 語義 class + 深色校正 | ⬜ 未開始 | 需視覺 QA；含硬寫 dark: 全面替換 |
+| 1b 語義 class + 深色校正 | 🟡 進行中 | ✅深色模式校正完成；⬜.vdt-* hook 結構化(需視覺QA) |
 | 1.5 i18n | ⬜ 未開始 | 與 Phase 1b template 同步 |
 | 2 項目識別與選取解耦 | ⬜ 未開始 | 先刪批次選取（決策7） |
 | 3 composable 接線 | ⬜ 未開始 | |

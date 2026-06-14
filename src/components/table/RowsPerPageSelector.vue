@@ -7,14 +7,14 @@
                 class="relative w-full cursor-pointer rounded-md bg-vdt-surface py-1.5 pl-3 pr-8 text-left text-sm shadow-xs border border-vdt-outline"
                 :class="[
                     'focus:border-vdt-primary-500 focus:outline-hidden focus:ring-1 focus:ring-vdt-primary-500',
-                    showList ? 'ring-1 ring-vdt-primary-500 border-vdt-primary-500' : 'hover:border-gray-400'
+                    showList ? 'ring-1 ring-vdt-primary-500 border-vdt-primary-500' : 'hover:border-vdt-outline-strong'
                 ]" @click="toggleDropdown" aria-haspopup="listbox" :aria-expanded="showList">
                 <!-- Selected Value -->
                 <span class="block truncate">{{ rowsComputed }}</span>
 
                 <!-- Dropdown Icon -->
                 <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                    <svg class="h-4 w-4 text-gray-400 transition-transform duration-200"
+                    <svg class="h-4 w-4 text-vdt-content-muted transition-transform duration-200"
                         :class="{ 'rotate-180': showList }" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -28,7 +28,7 @@
                 leave-active-class="transition duration-75 ease-in" leave-from-class="transform scale-100 opacity-100"
                 leave-to-class="transform scale-95 opacity-0">
                 <ul v-if="showList"
-                    class="absolute right-0 z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-vdt-surface  py-1 shadow-lg ring-1 ring-gray-200 dark:ring-gray-700 ring-opacity-5 focus:outline-hidden"
+                    class="absolute right-0 z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-vdt-surface py-1 shadow-lg ring-1 ring-vdt-outline focus:outline-hidden"
                     :class="{ 'bottom-full mb-1': showInsideOfTable }" tabindex="-1" role="listbox"
                     @focusout="handleFocusOut">
                     <li v-for="item in rowsItems" :key="item"

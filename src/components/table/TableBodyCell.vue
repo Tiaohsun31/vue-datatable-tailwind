@@ -1,6 +1,6 @@
 <!-- components/table/TableBodyCell.vue -->
 <template>
-    <td class="vdt-tbody-td px-4 py-2" :class="[
+    <td class="vdt-tbody-td" :class="[
         { 'cursor-pointer': column === 'expand' && expandColumn === '' },
         ...fixedColumnClasses,
         cellClassName

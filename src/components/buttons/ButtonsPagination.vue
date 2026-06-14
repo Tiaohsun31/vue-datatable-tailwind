@@ -79,56 +79,6 @@ type PaginationItem = {
     type: 'omission'
 };
 
-function getButtonClasses(item: PaginationItem, index: number) {
-    const baseClasses = [
-        'min-w-[32px] h-8 text-sm',
-        // First item styles
-        index === 0 && 'rounded-l-md',
-        // Last item styles
-        index === paginationItemsForRender.value.length - 1 && 'rounded-r-md'
-    ];
-
-    if (item.type === 'button') {
-        baseClasses.push('border border-gray-300');
-
-        if (item.active) {
-            baseClasses.push(
-                'z-10',
-                'relative',
-                'bg-vdt-primary-500 border-vdt-primary-500 text-white',
-            );
-        } else {
-            baseClasses.push(
-                'bg-white',
-                'text-gray-700',
-                'hover:bg-gray-50',
-                'focus:z-10',
-                'focus:outline-hidden',
-                `focus:ring-vdt-primary-500`,
-                `focus:border-vdt-primary-500`,
-                'cursor-pointer'
-            );
-        }
-
-        if (index !== 0) {
-            baseClasses.push('-ml-px');
-        }
-    } else {
-        baseClasses.push(
-            'bg-white',
-            'border',
-            'border-gray-300',
-            'text-gray-700'
-        );
-        if (index !== 0) {
-            baseClasses.push('-ml-px');
-        }
-    }
-
-    return baseClasses;
-}
-
-
 const changePage = (item: PaginationItem) => {
     if (item.type === 'button' && !item.active) {
         emits('updatePage', item.page);

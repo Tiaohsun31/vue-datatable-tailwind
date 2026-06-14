@@ -1,16 +1,14 @@
 <!-- components/table/TableHeaderCell.vue -->
 <template>
     <th :style="fixedDistance"
-        class="vdt-thead-th px-4 py-3 font-semibold tracking-wider bg-gray-200 dark:bg-gray-700 group" :class="[
-            'px-4 py-3 font-semibold tracking-wider group',
+        class="vdt-thead-th group" :class="[
             {
-                'cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-600': header.sortable,
+                'vdt-thead-th--sortable': header.sortable,
                 'shadow-[1px_0_0_0_rgba(0,0,0,0.1)]': header.value === lastLeftFixedColumn,
                 'shadow-[-1px_0_0_0_rgba(0,0,0,0.1)]': header.value === firstRightFixedColumn,
             },
             header.sortable && {
-                'bg-gray-200': header.sortType === 'none',
-                'bg-gray-300': header.sortType && ['desc', 'asc'].includes(header.sortType)
+                'vdt-thead-th--sorted': header.sortType && ['desc', 'asc'].includes(header.sortType)
             },
             typeof headerItemClassName === 'string'
                 ? headerItemClassName
@@ -32,7 +30,7 @@
 
             <!-- Multi Sort Number -->
             <span v-if="multiSort && isMultiSorting(header.value)"
-                class="ml-1 text-xs px-1.5 py-0.5 bg-gray-200 rounded-full">
+                class="ml-1 text-xs px-1.5 py-0.5 bg-vdt-surface-secondary rounded-full">
                 {{ getMultiSortNumber(header.value) }}
             </span>
         </div>

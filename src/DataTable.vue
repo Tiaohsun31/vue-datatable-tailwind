@@ -1,11 +1,10 @@
 <template>
-    <div ref="tableWrapper" class="vdt-table-wrapper relative w-full " :class="[wrapperClassName]"
+    <div ref="tableWrapper" class="vdt-table-wrapper" :class="[wrapperClassName]"
         :style="themeStyle" v-bind="themeAttrs">
         <!-- Main Table Container -->
-        <div ref="tableContainer"
-            class="vdt-table-container relative overflow-auto border border-vdt-outline scroll-smooth min-h-[180px] "
+        <div ref="tableContainer" class="vdt-table-container"
             :class="[{ 'shadow-xs show-shadow': showShadow }, containerClassName]">
-            <table :id="tableNodeId" class="vdt-table w-full border-collapse bg-vdt-surface" :class="[tableClassName]">
+            <table :id="tableNodeId" class="vdt-table" :class="[tableClassName]">
                 <colgroup>
                     <col v-for="(header, index) in headersForRender" :key="index" :style="getColStyle(header)" />
                 </colgroup>
@@ -38,7 +37,7 @@
                 <!-- Table Body -->
                 <slot v-if="ifHasBodySlot" name="body" v-bind="pageItems"></slot>
 
-                <tbody v-else-if="headerColumns.length" class="vdt-tbody text-sm" :class="[bodyClassName]">
+                <tbody v-else-if="headerColumns.length" class="vdt-tbody" :class="[bodyClassName]">
                     <!-- Body Prepend Slot -->
                     <slot name="body-prepend" v-bind="{
                         items: pageItems,
@@ -86,7 +85,7 @@
             </table>
 
             <!-- Loading Overlay -->
-            <div v-if="loading" class="absolute inset-0 flex items-center justify-center bg-white/50 dark:bg-black/50">
+            <div v-if="loading" class="vdt-loading-overlay">
                 <div class="relative z-10">
                     <slot name="loading">
                         <Loading />
@@ -95,8 +94,7 @@
             </div>
 
             <!-- Empty Message -->
-            <div v-if="!pageItems.length && !loading"
-                class="flex items-center py-12 justify-center text-vdt-content-secondary bg-vdt-surface-elevated">
+            <div v-if="!pageItems.length && !loading" class="vdt-empty">
                 <slot name="empty-message">
                     {{ emptyMessage }}
                 </slot>

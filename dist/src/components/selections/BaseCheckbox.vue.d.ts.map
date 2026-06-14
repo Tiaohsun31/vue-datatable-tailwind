@@ -1,1 +1,0 @@
-{"version":3,"file":"BaseCheckbox.vue.d.ts","sourceRoot":"","sources":["../../../../src/components/selections/BaseCheckbox.vue"],"names":[],"mappings":";AAsCA;AA8DA,KAAK,WAAW,GAAG;IACf,OAAO,EAAE,OAAO,CAAC;IACjB,OAAO,EAAE,OAAO,CAAC;IACjB,QAAQ,CAAC,EAAE,OAAO,CAAA;CACrB,CAAC;AA+HF,QAAA,MAAM,YAAY;;;;;aAlIL,OAAO;aACP,OAAO;cACL,OAAO;6EAoIpB,CAAC;wBACkB,OAAO,YAAY;AAAxC,wBAAyC"}

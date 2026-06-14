@@ -1,0 +1,101 @@
+/* components.css
+   vdt-* 語義 component class：承載元件的預設外觀（版面 + 顏色）。
+   - 自包含：只用字面值與 --color-vdt-* / --vdt-* token，不依賴使用者的 Tailwind。
+   - 可覆蓋：使用者可直接針對這些 class 名稱覆寫樣式。
+   注意：狀態性顏色（交替列、hover、選中）仍以 bridge utility（tailwind.utilities.css，已出貨）綁定於模板。 */
+
+/* ===== 容器結構 ===== */
+.vdt-table-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.vdt-table-container {
+    position: relative;
+    overflow: auto;
+    min-height: 180px;
+    border: 1px solid var(--color-vdt-outline);
+    background-color: var(--color-vdt-surface);
+    scroll-behavior: smooth;
+}
+
+.vdt-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--color-vdt-surface);
+}
+
+/* ===== 表頭 ===== */
+.vdt-thead {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    text-align: left;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--color-vdt-content-secondary);
+}
+
+.vdt-thead--sticky {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.vdt-thead-th {
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    background-color: var(--color-vdt-surface-secondary);
+}
+
+.vdt-thead-th--sortable {
+    cursor: pointer;
+}
+
+.vdt-thead-th--sortable:hover {
+    background-color: var(--color-vdt-interactive-active);
+}
+
+.vdt-thead-th--sorted {
+    background-color: var(--color-vdt-interactive-active);
+}
+
+/* ===== 表身 ===== */
+.vdt-tbody {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+}
+
+.vdt-tbody-tr {
+    color: var(--color-vdt-content);
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.vdt-tbody-td {
+    padding: 0.5rem 1rem;
+}
+
+/* ===== 展開列 ===== */
+.vdt-expand-row {
+    border: 0;
+}
+
+/* ===== 狀態區塊：loading 遮罩 / 空資料 ===== */
+.vdt-loading-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: color-mix(in srgb, var(--color-vdt-surface) 65%, transparent);
+}
+
+.vdt-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    color: var(--color-vdt-content-secondary);
+    background-color: var(--color-vdt-surface-elevated);
+}

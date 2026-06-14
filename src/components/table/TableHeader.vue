@@ -1,11 +1,10 @@
 <!-- components/table/TableHeader.vue -->
 <template>
     <thead v-if="headers.length && !hideHeader" class="vdt-thead" :class="[
-        'text-sm  text-vdt-content-secondary uppercase text-nowrap text-left',
-        { 'sticky top-0 z-10': fixedHeader },
+        { 'vdt-thead--sticky': fixedHeader },
         headerClassName,
     ]">
-        <tr class="vdt-thead-tr" :class="[{ 'divide-x divide-gray-300 dark:divide-gray-600': borderCell }]">
+        <tr class="vdt-thead-tr" :class="[{ 'divide-x divide-vdt-outline': borderCell }]">
             <TableHeaderCell v-for="(header, index) in headers" :key="index" :header="header" :index="index"
                 :fixed-distance="getFixedDistance(header.value)" :last-left-fixed-column="lastLeftFixedColumn"
                 :first-right-fixed-column="firstRightFixedColumn" :header-item-class-name="headerItemClassName"
