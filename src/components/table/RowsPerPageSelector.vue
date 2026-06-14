@@ -1,22 +1,17 @@
 <template>
-    <div class="flex items-center gap-2 text-sm text-vdt-content-secondary">
+    <div class="vdt-rows-per-page">
         {{ message }}
-        <div class="relative inline-block min-w-[70px]">
+        <div class="vdt-rows-select-wrap">
             <!-- Custom Select Button -->
-            <button type="button"
-                class="relative w-full cursor-pointer rounded-md bg-vdt-surface py-1.5 pl-3 pr-8 text-left text-sm shadow-xs border border-vdt-outline"
-                :class="[
-                    'focus:border-vdt-primary-500 focus:outline-hidden focus:ring-1 focus:ring-vdt-primary-500',
-                    showList ? 'ring-1 ring-vdt-primary-500 border-vdt-primary-500' : 'hover:border-vdt-outline-strong'
-                ]" @click="toggleDropdown" aria-haspopup="listbox" :aria-expanded="showList">
+            <button type="button" class="vdt-rows-select" :class="{ 'vdt-rows-select--open': showList }"
+                @click="toggleDropdown" aria-haspopup="listbox" :aria-expanded="showList">
                 <!-- Selected Value -->
-                <span class="block truncate">{{ rowsComputed }}</span>
+                <span class="vdt-rows-select__value">{{ rowsComputed }}</span>
 
                 <!-- Dropdown Icon -->
-                <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                    <svg class="h-4 w-4 text-vdt-content-muted transition-transform duration-200"
-                        :class="{ 'rotate-180': showList }" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor">
+                <span class="vdt-rows-select__caret">
+                    <svg :class="{ 'vdt-rows-caret-up': showList }" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                     </svg>
                 </span>
@@ -27,25 +22,17 @@
                 enter-from-class="transform scale-95 opacity-0" enter-to-class="transform scale-100 opacity-100"
                 leave-active-class="transition duration-75 ease-in" leave-from-class="transform scale-100 opacity-100"
                 leave-to-class="transform scale-95 opacity-0">
-                <ul v-if="showList"
-                    class="absolute right-0 z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-vdt-surface py-1 shadow-lg ring-1 ring-vdt-outline focus:outline-hidden"
-                    :class="{ 'bottom-full mb-1': showInsideOfTable }" tabindex="-1" role="listbox"
-                    @focusout="handleFocusOut">
-                    <li v-for="item in rowsItems" :key="item"
-                        class="relative cursor-pointer select-none py-2 pl-3 pr-9 text-sm" :class="[
-                            item === rowsComputed
-                                ? 'text-vdt-primary-800 bg-vdt-primary-100 font-semibold'
-                                : 'text-vdt-content hover:bg-vdt-interactive-hover'
-                        ]" role="option" :aria-selected="item === rowsComputed" @click="changeSelectedRows(item)">
+                <ul v-if="showList" class="vdt-rows-menu" :class="{ 'vdt-rows-menu--top': showInsideOfTable }"
+                    tabindex="-1" role="listbox" @focusout="handleFocusOut">
+                    <li v-for="item in rowsItems" :key="item" class="vdt-rows-option"
+                        :class="{ 'vdt-rows-option--selected': item === rowsComputed }" role="option"
+                        :aria-selected="item === rowsComputed" @click="changeSelectedRows(item)">
                         <!-- Option Text -->
-                        <span class="block " :class="{ 'font-medium': item === rowsComputed }">
-                            {{ item }}
-                        </span>
+                        <span>{{ item }}</span>
 
                         <!-- Selected Indicator -->
-                        <span v-if="item === rowsComputed"
-                            class="absolute inset-y-0 right-0 flex items-center pr-4 text-vdt-primary-600">
-                            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <span v-if="item === rowsComputed" class="vdt-rows-option__check">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5 13l4 4L19 7" />
                             </svg>
@@ -116,7 +103,7 @@ const toggleDropdown = () => {
 // Handle click outside
 const handleClickOutside = (event: MouseEvent) => {
     const target = event.target as HTMLElement;
-    if (!target.closest('.relative')) {
+    if (!target.closest('.vdt-rows-select-wrap')) {
         showList.value = false;
     }
 };
@@ -124,7 +111,7 @@ const handleClickOutside = (event: MouseEvent) => {
 // Handle focus out
 const handleFocusOut = (event: FocusEvent) => {
     const relatedTarget = event.relatedTarget as HTMLElement;
-    if (!relatedTarget?.closest('.relative')) {
+    if (!relatedTarget?.closest('.vdt-rows-select-wrap')) {
         showList.value = false;
     }
 };

@@ -29,8 +29,7 @@
             <HeaderSortIcon v-if="header.sortable" :sort-type="header.sortType || 'none'" />
 
             <!-- Multi Sort Number -->
-            <span v-if="multiSort && isMultiSorting(header.value)"
-                class="ml-1 text-xs px-1.5 py-0.5 bg-vdt-surface-secondary rounded-full">
+            <span v-if="multiSort && isMultiSorting(header.value)" class="vdt-sort-badge">
                 {{ getMultiSortNumber(header.value) }}
             </span>
         </div>

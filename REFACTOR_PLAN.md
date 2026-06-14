@@ -110,8 +110,9 @@
 >   - 🟡 **`.vdt-*` hook class 結構化（進行中）**：
 >     - ✅ 已建 `src/styles/components.css`（自包含字面 CSS + token），theme.css 已 import。
 >     - ✅ **核心表格結構 hook 已遷移並驗證**（computed-style light+dark 皆正確、build 自包含）：`.vdt-table-wrapper/-container/-table/-thead(+--sticky)/-thead-th(+--sortable/--sorted)/-tbody/-tbody-tr/-tbody-td/-expand-row/-loading-overlay/-empty`。對應模板靜態 utility 已移除。
->     - ⬜ **剩餘子元件內層 utility 待遷移**（仍依賴 Tailwind 生成，尚未自包含）：TableHeaderCell 內層（標題 div/排序 icon/多排序徽章）、TableBodyCell 內層（checkbox/expand 按鈕容器）、TableExpandRow grid 過渡、TableFooter（響應式 mobile/desktop 版面）、RowsPerPageSelector、ButtonsPagination、PaginationArrows、PaginationInfo、BaseCheckbox/Single/Multi、Loading/LoadingLine。
->     - ⬜ 殘留 arbitrary utility：fixed-column 陰影 `shadow-[...]`、`divide-x`/`border-b`/`last:`/`first:` 等版面 utility。全部遷移完才能真正移除泛用 utility 污染、peer 移除才生效。
+>     - ✅ **主要子元件已遷移並驗證**（computed-style + 截圖）：TableFooter(響應式 mobile/desktop)、PaginationArrows、PaginationInfo、ButtonsPagination、RowsPerPageSelector(含下拉，順修 click-outside 依賴 `.relative` 的 bug→改 `.vdt-rows-select-wrap`)、BaseCheckbox(`.vdt-checkbox*`)、Loading/LoadingLine(scoped style)、TableHeaderCell 排序徽章、TableBodyCell expand 按鈕、TableExpandRow grid 過渡。全部 `.vdt-*` 自包含字面 CSS，build 通過。
+>     - ⬜ **剩餘「長尾」版面 utility**（仍需 Tailwind，阻礙 100% 自包含）：TableBodyRow 的 `divide-x`/`border-b`/`last:`/`first:`/`border-t`（borderCell/borderRow，建議改 `.vdt-tbody-tr--border-cell/--border-row`）、TableBodyCell `cursor-pointer`、DataTable 容器 `shadow-xs`+loading inner `relative z-10`、TableHeaderCell fixed-column `shadow-[...]`、TableHeaderCell 內層 `items-center gap-2`(no-op)、RowsPerPageSelector `<Transition>` 動畫 class。
+>     - ⬜ **最終驗證**：把 dist CSS 在「無 Tailwind」環境測一次（playground 目前自帶 Tailwind 會遮蔽長尾缺漏），確認真正自包含後，1a 的 peer 移除才正式成立。
 >   - ⬜ **on-primary 白色**（checkbox 勾、主色按鈕文字）維持 `text-white`，可選擇改 `--color-vdt-on-primary`。
 >   - ⬜ **checkbox focus ring**（`peer-focus:ring-vdt-primary-500/50`）variant 未定義，hook 化時一併處理。
 

@@ -2,11 +2,10 @@
 <template>
     <tr class="vdt-expand-row"
         :class="[expandRowClassName, { 'bg-vdt-surface-secondary': (index + 1) % 2 === 0, 'border-t': isExpanded }]">
-        <td :colspan="columnsCount" class="relative p-0">
-            <LoadingLine v-if="loading" class="mb-4" />
-            <div class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-in-out"
-                :class="[{ 'grid-rows-[1fr]': isExpanded }]">
-                <div class="overflow-hidden">
+        <td :colspan="columnsCount" class="vdt-expand-row__cell">
+            <LoadingLine v-if="loading" class="vdt-expand-row__loading" />
+            <div class="vdt-expand-row__grid" :class="{ 'vdt-expand-row__grid--open': isExpanded }">
+                <div class="vdt-expand-row__inner">
                     <slot :isExpanded="isExpanded" :item="item" :index="index">
 
                     </slot>

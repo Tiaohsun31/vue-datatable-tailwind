@@ -1,13 +1,46 @@
 <template>
-    <div class="inline-flex relative w-[60px] h-[60px]">
-        <div v-for="i in 4" :key="i"
-            class="box-border absolute w-4/5 h-4/5 m-2 border-[8px] border-transparent rounded-full animate-ring border-t-vdt-primary-500"
-            :class="[`animate-delay-${(i - 1) * 150}`]">
+    <div class="vdt-loading">
+        <div v-for="i in 4" :key="i" class="vdt-loading__ring" :class="[`vdt-loading__ring--${(i - 1) * 150}`]">
         </div>
     </div>
 </template>
 
 <style scoped>
+.vdt-loading {
+    display: inline-flex;
+    position: relative;
+    width: 60px;
+    height: 60px;
+}
+
+.vdt-loading__ring {
+    box-sizing: border-box;
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    margin: 8px;
+    border: 8px solid transparent;
+    border-radius: 9999px;
+    border-top-color: var(--color-vdt-primary);
+    animation: ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+
+.vdt-loading__ring--0 {
+    animation-delay: -0.45s;
+}
+
+.vdt-loading__ring--150 {
+    animation-delay: -0.3s;
+}
+
+.vdt-loading__ring--300 {
+    animation-delay: -0.15s;
+}
+
+.vdt-loading__ring--450 {
+    animation-delay: 0s;
+}
+
 @keyframes ring {
     0% {
         transform: rotate(0deg);
@@ -16,25 +49,5 @@
     100% {
         transform: rotate(360deg);
     }
-}
-
-.animate-ring {
-    animation: ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-}
-
-.animate-delay-0 {
-    animation-delay: -0.45s;
-}
-
-.animate-delay-150 {
-    animation-delay: -0.3s;
-}
-
-.animate-delay-300 {
-    animation-delay: -0.15s;
-}
-
-.animate-delay-450 {
-    animation-delay: 0s;
 }
 </style>

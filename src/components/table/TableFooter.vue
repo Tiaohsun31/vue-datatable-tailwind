@@ -1,19 +1,18 @@
 <!-- TableFooter.vue - 優化的響應式設計 -->
 <template>
     <div class="vdt-footer" :class="[
-        'bg-vdt-surface border border-vdt-outline border-t-0',
         { 'shadow-sm': showShadow },
         footerClassName
     ]">
         <!-- Mobile View -->
         <slot name="footer-mobile" v-bind="slotProps">
-            <div class="vdt-footer-mobile sm:hidden px-4 py-3 w-full" :class="mobileFooterClasses">
+            <div class="vdt-footer-mobile" :class="mobileFooterClasses">
                 <PaginationArrows :is-first-page="isFirstPage" :is-last-page="isLastPage"
                     @click-next-page="() => emit('nextPage')" @click-prev-page="() => emit('prevPage')"
-                    class="sm:hidden flex items-center justify-between w-full">
+                    class="vdt-pagination-arrows--full">
                     <template #buttonsPagination>
-                        <div class="flex-1 flex justify-center">
-                            <span class="text-sm text-vdt-content px-3">
+                        <div class="vdt-pagination-page-wrap">
+                            <span class="vdt-pagination-page">
                                 {{ currentPaginationNumber }} / {{ maxPaginationNumber }}
                             </span>
                         </div>
@@ -24,10 +23,9 @@
 
         <!-- Desktop View -->
         <slot name="footer-desktop" v-bind="slotProps">
-            <div class="vdt-footer-desktop hidden sm:flex items-center justify-between px-4 py-3 w-full"
-                :class="desktopFooterClasses">
+            <div class="vdt-footer-desktop" :class="desktopFooterClasses">
                 <!-- Rows Per Page -->
-                <div class="flex-1 flex items-center justify-start">
+                <div class="vdt-footer-col vdt-footer-col--start">
                     <slot name="rows-per-page" v-bind="slotProps.rowsPerPage" v-bind:raw-props="slotProps">
                         <div v-if="!hideRowsPerPage" class="text-sm">
                             <RowsPerPageSelector :model-value="rowsPerPage" :rows-items="rowsItems"
@@ -37,7 +35,7 @@
                     </slot>
                 </div>
                 <!-- Pagination Info -->
-                <div class="flex-1 flex items-center justify-center">
+                <div class="vdt-footer-col vdt-footer-col--center">
                     <slot name="pagination-info" v-bind="slotProps.paginationInfo" v-bind:raw-props="slotProps">
                         <div v-if="!hidePaginationInfo" class="text-sm">
                             <PaginationInfo :current-page-first-index="currentPageFirstIndex"
@@ -47,7 +45,7 @@
                     </slot>
                 </div>
                 <!-- Pagination -->
-                <div class="flex-1 flex items-center justify-end">
+                <div class="vdt-footer-col vdt-footer-col--end">
                     <slot name="pagination" v-bind="slotProps.pagination" v-bind:raw-props="slotProps">
                         <PaginationArrows :is-first-page="isFirstPage" :is-last-page="isLastPage"
                             @click-next-page="() => emit('nextPage')" @click-prev-page="() => emit('prevPage')">

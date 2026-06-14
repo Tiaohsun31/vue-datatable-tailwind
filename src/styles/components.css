@@ -99,3 +99,400 @@
     color: var(--color-vdt-content-secondary);
     background-color: var(--color-vdt-surface-elevated);
 }
+
+/* ===== Footer ===== */
+.vdt-footer {
+    background-color: var(--color-vdt-surface);
+    border: 1px solid var(--color-vdt-outline);
+    border-top: 0;
+}
+
+.vdt-footer-mobile {
+    padding: 0.75rem 1rem;
+    width: 100%;
+}
+
+.vdt-footer-desktop {
+    display: none;
+}
+
+@media (min-width: 640px) {
+    .vdt-footer-mobile {
+        display: none;
+    }
+
+    .vdt-footer-desktop {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.75rem 1rem;
+        width: 100%;
+    }
+}
+
+.vdt-footer-col {
+    flex: 1 1 0%;
+    display: flex;
+    align-items: center;
+}
+
+.vdt-footer-col--start {
+    justify-content: flex-start;
+}
+
+.vdt-footer-col--center {
+    justify-content: center;
+}
+
+.vdt-footer-col--end {
+    justify-content: flex-end;
+}
+
+/* ===== Pagination：上一頁/下一頁箭頭 ===== */
+.vdt-pagination-arrows {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.vdt-pagination-arrows--full {
+    width: 100%;
+    justify-content: space-between;
+}
+
+.vdt-pagination-arrow {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.375rem;
+    border: 1px solid var(--color-vdt-outline);
+    border-radius: 0.375rem;
+    background-color: var(--color-vdt-surface);
+    color: var(--color-vdt-content-secondary);
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.vdt-pagination-arrow:hover:not(:disabled) {
+    background-color: var(--color-vdt-interactive-hover);
+    color: var(--color-vdt-content);
+}
+
+.vdt-pagination-arrow:disabled {
+    color: var(--color-vdt-content-muted);
+    cursor: not-allowed;
+}
+
+.vdt-pagination-arrow:disabled svg {
+    opacity: 0.5;
+}
+
+.vdt-pagination-page-wrap {
+    flex: 1 1 0%;
+    display: flex;
+    justify-content: center;
+}
+
+.vdt-pagination-page {
+    font-size: 0.875rem;
+    padding: 0 0.75rem;
+    color: var(--color-vdt-content);
+}
+
+/* ===== Pagination info ===== */
+.vdt-pagination-info {
+    font-size: 0.875rem;
+    color: var(--color-vdt-content-secondary);
+}
+
+/* ===== Pagination：數字按鈕 ===== */
+.vdt-pagination-buttons {
+    display: inline-flex;
+    border-radius: 0.375rem;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+.vdt-pagination-item {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 2rem;
+    font-size: 0.875rem;
+    border: 1px solid var(--color-vdt-outline);
+    background-color: var(--color-vdt-surface);
+    color: var(--color-vdt-content);
+    transition: background-color 0.15s ease;
+}
+
+.vdt-pagination-item:not(:first-child) {
+    margin-left: -1px;
+}
+
+.vdt-pagination-item:first-child {
+    border-top-left-radius: 0.375rem;
+    border-bottom-left-radius: 0.375rem;
+}
+
+.vdt-pagination-item:last-child {
+    border-top-right-radius: 0.375rem;
+    border-bottom-right-radius: 0.375rem;
+}
+
+.vdt-pagination-item--button {
+    cursor: pointer;
+}
+
+.vdt-pagination-item--button:hover {
+    background-color: var(--color-vdt-interactive-hover);
+}
+
+.vdt-pagination-item--button:focus {
+    z-index: 10;
+    outline: none;
+    border-color: var(--color-vdt-primary);
+    box-shadow: 0 0 0 1px var(--color-vdt-primary);
+}
+
+.vdt-pagination-item--active {
+    z-index: 10;
+    background-color: var(--color-vdt-primary);
+    border-color: var(--color-vdt-primary);
+    color: var(--color-vdt-on-primary);
+}
+
+.vdt-pagination-item--omission {
+    color: var(--color-vdt-content-muted);
+}
+
+.vdt-pagination-item__label {
+    padding: 0.375rem 0.75rem;
+}
+
+.vdt-pagination-item--active .vdt-pagination-item__label {
+    font-weight: 500;
+}
+
+/* ===== Rows per page 選擇器 ===== */
+.vdt-rows-per-page {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--color-vdt-content-secondary);
+}
+
+.vdt-rows-select-wrap {
+    position: relative;
+    display: inline-block;
+    min-width: 70px;
+}
+
+.vdt-rows-select {
+    position: relative;
+    width: 100%;
+    cursor: pointer;
+    border-radius: 0.375rem;
+    background-color: var(--color-vdt-surface);
+    border: 1px solid var(--color-vdt-outline);
+    padding: 0.375rem 2rem 0.375rem 0.75rem;
+    text-align: left;
+    font-size: 0.875rem;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+.vdt-rows-select:hover {
+    border-color: var(--color-vdt-outline-strong);
+}
+
+.vdt-rows-select:focus {
+    outline: none;
+    border-color: var(--color-vdt-primary);
+    box-shadow: 0 0 0 1px var(--color-vdt-primary);
+}
+
+.vdt-rows-select--open {
+    border-color: var(--color-vdt-primary);
+    box-shadow: 0 0 0 1px var(--color-vdt-primary);
+}
+
+.vdt-rows-select__value {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.vdt-rows-select__caret {
+    pointer-events: none;
+    position: absolute;
+    inset: 0 0 0 auto;
+    display: flex;
+    align-items: center;
+    padding-right: 0.5rem;
+    color: var(--color-vdt-content-muted);
+}
+
+.vdt-rows-select__caret svg {
+    height: 1rem;
+    width: 1rem;
+    transition: transform 0.2s ease;
+}
+
+.vdt-rows-caret-up {
+    transform: rotate(180deg);
+}
+
+.vdt-rows-menu {
+    position: absolute;
+    right: 0;
+    z-index: 50;
+    margin-top: 0.25rem;
+    max-height: 15rem;
+    width: 100%;
+    overflow: auto;
+    border-radius: 0.375rem;
+    background-color: var(--color-vdt-surface);
+    padding: 0.25rem 0;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 0 0 1px var(--color-vdt-outline);
+}
+
+.vdt-rows-menu--top {
+    bottom: 100%;
+    margin-bottom: 0.25rem;
+}
+
+.vdt-rows-option {
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    padding: 0.5rem 2.25rem 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    color: var(--color-vdt-content);
+}
+
+.vdt-rows-option:hover {
+    background-color: var(--color-vdt-interactive-hover);
+}
+
+.vdt-rows-option--selected {
+    color: var(--color-vdt-primary-strong);
+    background-color: var(--color-vdt-primary-subtle);
+    font-weight: 600;
+}
+
+.vdt-rows-option__check {
+    position: absolute;
+    inset: 0 0 0 auto;
+    display: flex;
+    align-items: center;
+    padding-right: 1rem;
+    color: var(--color-vdt-primary);
+}
+
+.vdt-rows-option__check svg {
+    height: 1rem;
+    width: 1rem;
+}
+
+/* ===== Checkbox ===== */
+.vdt-checkbox {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 1.25rem;
+    width: 1.25rem;
+}
+
+.vdt-checkbox--clickable {
+    cursor: pointer;
+}
+
+.vdt-checkbox--disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.vdt-checkbox__native {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.vdt-checkbox__box {
+    height: 1rem;
+    width: 1rem;
+    border-radius: 0.125rem;
+    border: 1px solid var(--color-vdt-outline-strong);
+    background-color: var(--color-vdt-surface);
+    transition: all 0.2s ease;
+}
+
+.vdt-checkbox__box--checked {
+    background-color: var(--color-vdt-primary);
+    border-color: var(--color-vdt-primary);
+}
+
+.vdt-checkbox--clickable:hover .vdt-checkbox__box--checked {
+    background-color: var(--color-vdt-primary-hover);
+    border-color: var(--color-vdt-primary-hover);
+}
+
+.vdt-checkbox--clickable:hover .vdt-checkbox__box:not(.vdt-checkbox__box--checked) {
+    border-color: var(--color-vdt-primary-border);
+}
+
+.vdt-checkbox__native:focus+.vdt-checkbox__box {
+    box-shadow: 0 0 0 1px var(--color-vdt-surface), 0 0 0 3px var(--color-vdt-primary-ring);
+}
+
+.vdt-checkbox__icon {
+    height: 1rem;
+    width: 1rem;
+    color: var(--color-vdt-on-primary);
+}
+
+/* ===== 表頭多重排序徽章 ===== */
+.vdt-sort-badge {
+    margin-left: 0.25rem;
+    font-size: 0.75rem;
+    padding: 0.125rem 0.375rem;
+    background-color: var(--color-vdt-surface-secondary);
+    border-radius: 9999px;
+}
+
+/* ===== 展開按鈕 / 展開列內層 ===== */
+.vdt-expand-btn {
+    display: inline-flex;
+    align-items: center;
+}
+
+.vdt-expand-row__cell {
+    position: relative;
+    padding: 0;
+}
+
+.vdt-expand-row__loading {
+    margin-bottom: 1rem;
+}
+
+.vdt-expand-row__grid {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease-in-out;
+}
+
+.vdt-expand-row__grid--open {
+    grid-template-rows: 1fr;
+}
+
+.vdt-expand-row__inner {
+    overflow: hidden;
+}

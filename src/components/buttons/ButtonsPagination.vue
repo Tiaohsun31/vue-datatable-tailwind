@@ -1,43 +1,13 @@
 <template>
-    <div class="vdt-pagination inline-flex rounded-md shadow-xs" role="navigation" aria-label="Pagination">
-        <div v-for="(item, i) in paginationItemsForRender" :key="i"
-            class="relative inline-flex items-center justify-center" :class="[
-                // Common styles for all items
-                'min-w-[32px] h-8 text-sm transition-colors',
-                // First item styles
-                i === 0 && 'rounded-l-md',
-                // Last item styles
-                i === paginationItemsForRender.length - 1 && 'rounded-r-md',
-                // Button specific styles
-                item.type === 'button' && [
-                    'border border-vdt-outline',
-                    // Active state
-                    item.active ? [
-                        'z-10',
-                        'bg-vdt-primary-500 border-vdt-primary-500 text-white',
-                        'relative'
-                    ] : [
-                        'bg-vdt-surface',
-                        'text-vdt-content',
-                        'hover:bg-vdt-interactive-hover',
-                        'focus:z-10 focus:outline-hidden focus:ring-1',
-                        'focus:ring-vdt-primary-500',
-                        'focus:border-vdt-primary-500'
-                    ],
-                    // Disable hover effect for active button
-                    !item.active && 'cursor-pointer',
-                    // Connect borders for middle buttons
-                    i !== 0 && '-ml-px'
-                ],
-                // Omission (ellipsis) styles
-                item.type === 'omission' && [
-                    'bg-vdt-surface border border-vdt-outline text-vdt-content-muted',
-                    i !== 0 && '-ml-px'
-                ]
-            ]" @click="changePage(item)">
+    <div class="vdt-pagination vdt-pagination-buttons" role="navigation" aria-label="Pagination">
+        <div v-for="(item, i) in paginationItemsForRender" :key="i" class="vdt-pagination-item" :class="{
+            'vdt-pagination-item--button': item.type === 'button' && !item.active,
+            'vdt-pagination-item--active': item.type === 'button' && item.active,
+            'vdt-pagination-item--omission': item.type === 'omission',
+        }" @click="changePage(item)">
             <!-- Button Content -->
             <template v-if="item.type === 'button'">
-                <span class="px-3 py-1.5" :class="{ 'font-medium': item.active }">
+                <span class="vdt-pagination-item__label">
                     {{ item.page }}
                 </span>
             </template>

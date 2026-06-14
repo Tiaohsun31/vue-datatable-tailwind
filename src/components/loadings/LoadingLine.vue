@@ -1,10 +1,26 @@
 <template>
-    <div class="w-full h-[3px] relative overflow-hidden bg-vdt-surface-secondary">
-        <div class="absolute h-[3px] w-2/5 animate-loading-line bg-vdt-primary-500"></div>
+    <div class="vdt-loading-line">
+        <div class="vdt-loading-line__bar"></div>
     </div>
 </template>
 
 <style scoped>
+.vdt-loading-line {
+    width: 100%;
+    height: 3px;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-vdt-surface-secondary);
+}
+
+.vdt-loading-line__bar {
+    position: absolute;
+    height: 3px;
+    width: 40%;
+    background-color: var(--color-vdt-primary);
+    animation: loading-line 1s linear infinite;
+}
+
 @keyframes loading-line {
     0% {
         left: -40%;
@@ -19,9 +35,5 @@
         left: 100%;
         width: 100%;
     }
-}
-
-.animate-loading-line {
-    animation: loading-line 1s linear infinite;
 }
 </style>
