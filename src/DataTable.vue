@@ -96,7 +96,7 @@
             <!-- Empty Message -->
             <div v-if="!pageItems.length && !loading" class="vdt-empty">
                 <slot name="empty-message">
-                    {{ emptyMessage }}
+                    {{ messages.emptyMessage }}
                 </slot>
             </div>
         </div>
@@ -138,8 +138,9 @@ import useRows from './composables/useRows';
 import useServerOptions from './composables/useServerOptions';
 import useTotalItems from './composables/useTotalItems';
 
-import type { Header, Item, DataTableProps } from './types/main';
+import type { Header, Item, DataTableProps, DataTableLocale } from './types/main';
 import type { HeaderForRender, ClickEventType } from './types/internal';
+import { locales, defaultLocale } from './i18n';
 
 import TableHeader from './components/table/TableHeader.vue';
 import TableBodyRow from './components/table/TableBodyRow.vue';
@@ -153,7 +154,6 @@ const props = withDefaults(defineProps<DataTableProps>(), {
     buttonsPagination: true,
     checkboxColumnWidth: null,
     currentPage: 1,
-    emptyMessage: 'No Available Data',
     expandColumnWidth: 36,
     filterOptions: null,
     fixedExpand: false,
@@ -169,7 +169,7 @@ const props = withDefaults(defineProps<DataTableProps>(), {
     loading: false,
     rowsPerPage: 25,
     rowsItems: () => [25, 50, 100],
-    rowsPerPageMessage: 'rows per page:',
+    locale: 'en',
     searchField: '',
     searchValue: '',
     serverOptions: null,
@@ -197,7 +197,6 @@ const props = withDefaults(defineProps<DataTableProps>(), {
     borderCell: false,
     borderRow: true,
     mustSort: true,
-    rowsOfPageSeparatorMessage: 'of',
     clickEventType: 'single',
     clickRowToExpand: false,
     clickRowToSelect: false,
@@ -299,6 +298,16 @@ const emits = defineEmits([
 const isMultipleSelectable = computed((): boolean => itemsSelected.value !== null);
 const isServerSideMode = computed((): boolean => serverOptions.value !== null);
 
+// i18n：合併內建語系 + localeOverrides + 既有個別 message props（後者優先序最高，向後相容）
+const messages = computed<DataTableLocale>(() => {
+    const base = locales[props.locale] ?? locales[defaultLocale];
+    const result: DataTableLocale = { ...base, ...(props.localeOverrides ?? {}) };
+    if (props.rowsPerPageMessage !== undefined) result.rowsPerPageMessage = props.rowsPerPageMessage;
+    if (props.rowsOfPageSeparatorMessage !== undefined) result.rowsOfPageSeparatorMessage = props.rowsOfPageSeparatorMessage;
+    if (props.emptyMessage !== undefined) result.emptyMessage = props.emptyMessage;
+    return result;
+});
+
 // 傳遞給完全自定義 footer 的所有屬性
 const footerSlotProps = computed(() => ({
     // 分頁相關
@@ -315,8 +324,8 @@ const footerSlotProps = computed(() => ({
     // 每頁行數相關
     rowsPerPage: rowsPerPageRef.value,
     rowsItems: rowsItemsComputed.value,
-    rowsPerPageMessage: props.rowsPerPageMessage,
-    rowsOfPageSeparatorMessage: props.rowsOfPageSeparatorMessage,
+    rowsPerPageMessage: messages.value.rowsPerPageMessage,
+    rowsOfPageSeparatorMessage: messages.value.rowsOfPageSeparatorMessage,
 
     // 配置相關
     hideRowsPerPage: props.hideRowsPerPage,
@@ -354,8 +363,8 @@ const tableFooterProps = computed(() => ({
 
     rowsPerPage: rowsPerPageRef.value,
     rowsItems: rowsItemsComputed.value,
-    rowsPerPageMessage: props.rowsPerPageMessage,
-    rowsOfPageSeparatorMessage: props.rowsOfPageSeparatorMessage,
+    rowsPerPageMessage: messages.value.rowsPerPageMessage,
+    rowsOfPageSeparatorMessage: messages.value.rowsOfPageSeparatorMessage,
 
     currentPageFirstIndex: currentPageFirstIndex.value,
     currentPageLastIndex: currentPageLastIndex.value,

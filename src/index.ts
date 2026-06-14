@@ -2,6 +2,7 @@ import './styles/theme.css'
 import type { App } from 'vue'
 import DataTable from './DataTable.vue'
 export { createFilter } from './utils/filter'
+export { locales } from './i18n'
 
 // 導出組件本身
 export default DataTable
@@ -19,6 +20,10 @@ export type {
 
     // 主題相關
     TailwindColor,
+
+    // i18n
+    DataTableLocale,
+    LocaleName,
 
     // 資料相關類型
     Item,

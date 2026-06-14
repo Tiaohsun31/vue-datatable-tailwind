@@ -27,6 +27,17 @@ export type TailwindColor =
 export type TextDirection = 'center' | 'left' | 'right'
 export type SortType = 'asc' | 'desc'
 
+// i18n 語系
+export type LocaleName = 'en' | 'zh-TW' | 'zh-CN'
+export interface DataTableLocale {
+    /** 空資料提示 */
+    emptyMessage: string
+    /** 每頁筆數標籤 */
+    rowsPerPageMessage: string
+    /** 分頁資訊分隔字（如 "1–5 of 12" 中的 of） */
+    rowsOfPageSeparatorMessage: string
+}
+
 // 表頭欄位定義
 export interface Header {
     text: string  // 顯示的標題文字
@@ -154,10 +165,14 @@ export interface DataTableProps {
     hideFooter?: boolean
     /** 隱藏每頁行數選擇器 */
     hideRowsPerPage?: boolean
-    /** 每頁行數文本信息 */
+    /** 每頁行數文本信息（優先序高於 locale / localeOverrides） */
     rowsPerPageMessage?: string
-    /** 分頁分隔符文本 */
+    /** 分頁分隔符文本（優先序高於 locale / localeOverrides） */
     rowsOfPageSeparatorMessage?: string
+    /** 語系（內建 en / zh-TW / zh-CN，預設 en） */
+    locale?: LocaleName
+    /** 覆寫個別語系字串；亦可傳完整 DataTableLocale 以支援未內建語言 */
+    localeOverrides?: Partial<DataTableLocale>
     /** 使用按鈕式分頁 */
     buttonsPagination?: boolean,
     /** 隱藏分頁信息 */

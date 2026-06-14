@@ -160,9 +160,11 @@
 - [ ] build 後檢查 `dist/vue-datatable-tailwind.css` 為自包含（grep 不應殘留 consumer-only 變數）。
 - [ ] 更新 README：移除 `@source` / tailwind.config 掃描指引與 `!important` workaround；改為「import style.css 即可，免裝 Tailwind」。
 
-### Phase 1.5 — i18n（與 Phase 1 template 改寫同步進行）
+### Phase 1.5 — i18n ✅ 完成（build + playground 三語系驗證）
 
-- [ ] 新增 `src/i18n/`：`DataTableLocale` 型別 + 內建 `en` / `zh-TW` / `zh-CN` 三包。
+> 驗證：zh-TW → 「每頁筆數：」/「1–5 / 12」/ 空資料「無可用資料」皆正確。`DataTableLocale`/`LocaleName`/`locales` 已從 index.ts 匯出。移除了 `emptyMessage`/`rowsPerPageMessage`/`rowsOfPageSeparatorMessage` 的 withDefaults 預設（改由 locale 提供；en 預設值與舊版相同→現有英文使用者無感）。
+
+- [x] 新增 `src/i18n/`：`DataTableLocale` 型別 + 內建 `en` / `zh-TW` / `zh-CN` 三包。
   ```ts
   interface DataTableLocale {
     emptyMessage: string          // 'No Available Data'
@@ -244,7 +246,7 @@
 | 0 清理與 Bug | ✅ 完成 | 含搜尋改 contains（決策6）；type-check + build 通過 |
 | 1a 主題引擎 | ✅ 完成 | token 模型 + useTheme + 移除 themeManager/colorUtils + 移除 peer；build 通過、CSS 自包含 |
 | 1b 語義 class + 深色校正 | ✅ 完成 | 深色校正 + 全元件 .vdt-* 結構化；無-Tailwind 截圖驗證自包含；CSS 17.3kB/JS 54kB。僅 SelectionLoadingOverlay 留待 Phase 2 刪除 |
-| 1.5 i18n | ⬜ 未開始 | 與 Phase 1b template 同步 |
+| 1.5 i18n | ✅ 完成 | en/zh-TW/zh-CN；locale + localeOverrides + 既有 message props(最高優先)；三語系驗證 |
 | 2 項目識別與選取解耦 | ⬜ 未開始 | 先刪批次選取（決策7） |
 | 3 composable 接線 | ⬜ 未開始 | |
 | 4 型別與 DX | ⬜ 未開始 | 泛型延後 |
