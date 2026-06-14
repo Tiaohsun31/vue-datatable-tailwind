@@ -4,12 +4,15 @@ import type { Item } from '../types/main';
 import type { EmitsEventName } from '../types/internal';
 import { getItemKey } from '../utils/itemKey';
 
-export default function useExpandableRow(
-    items: Ref<Item[]>,
-    prevPageEndIndex: ComputedRef<number>,
-    itemKey: Ref<string | undefined>,
-    emits: (event: EmitsEventName, ...args: any[]) => void,
-) {
+export interface UseExpandableRowOptions {
+    items: Ref<Item[]>;
+    prevPageEndIndex: ComputedRef<number>;
+    itemKey: Ref<string | undefined>;
+    emits: (event: EmitsEventName, ...args: any[]) => void;
+}
+
+export default function useExpandableRow(options: UseExpandableRowOptions) {
+    const { items, prevPageEndIndex, itemKey, emits } = options;
     // 存儲展開項的索引列表
     const expandingItemIndexList = ref<number[]>([]);
 

@@ -42,7 +42,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onBeforeUnmount, inject, watch, type Ref, type ComputedRef } from 'vue';
+import { ref, computed, onMounted, onBeforeUnmount, inject, watch } from 'vue';
+import { dataTableKey } from '../../keys';
 const props = defineProps({
     modelValue: {
         type: Number,
@@ -73,7 +74,7 @@ const rowsComputed = computed({
 });
 
 // Inject data table ref from parent
-const dataTable = inject('dataTable') as Ref<HTMLDivElement>;
+const dataTable = inject(dataTableKey);
 
 
 // Watch dropdown state to determine position

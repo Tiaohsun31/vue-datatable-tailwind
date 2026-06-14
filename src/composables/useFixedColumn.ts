@@ -16,10 +16,13 @@ type FixedColumnsInfo = {
     width: number,
 };
 
-export default function useFixedColumn(
-    headersForRender: Ref<HeaderForRender[]>,
-    tableContainerRef: Ref<HTMLElement | null>,
-) {
+export interface UseFixedColumnOptions {
+    headersForRender: Ref<HeaderForRender[]>;
+    tableContainerRef: Ref<HTMLElement | null>;
+}
+
+export default function useFixedColumn(options: UseFixedColumnOptions) {
+    const { headersForRender, tableContainerRef } = options;
     // 篩選出設置了 fixed: true 的列
     const fixedHeaders = computed((): HeaderForRender[] => headersForRender.value.filter((header) => header.fixed));
 

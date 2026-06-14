@@ -139,6 +139,7 @@ import useTotalItems from './composables/useTotalItems';
 import type { Header, Item, DataTableProps, DataTableLocale } from './types/main';
 import type { HeaderForRender, ClickEventType } from './types/internal';
 import { locales, defaultLocale } from './i18n';
+import { dataTableKey } from './keys';
 
 import TableHeader from './components/table/TableHeader.vue';
 import TableBodyRow from './components/table/TableBodyRow.vue';
@@ -275,7 +276,7 @@ const shouldEnableTransition = computed(() =>
 // global dataTable $ref
 const tableWrapper = ref<HTMLDivElement | null>(null);
 const tableContainer = ref<HTMLDivElement | null>(null);
-provide('dataTable', tableWrapper);
+provide(dataTableKey, tableWrapper);
 
 const emits = defineEmits([
     'clickRow',
@@ -377,11 +378,11 @@ const {
     updateServerOptionsPage,
     updateServerOptionsSort,
     updateServerOptionsRowsPerPage,
-} = useServerOptions(
+} = useServerOptions({
     serverOptions,
     multiSort,
     emits,
-);
+});
 
 const {
     clientSortOptions,
@@ -390,7 +391,7 @@ const {
     updateSortField,
     isMultiSorting,
     getMultiSortNumber,
-} = useHeaders(
+} = useHeaders({
     showIndexSymbol,
     checkboxColumnWidth,
     expandColumnWidth,
@@ -411,18 +412,18 @@ const {
     expandColumn,
     updateServerOptionsSort,
     emits,
-);
+});
 
 const {
     rowsItemsComputed,
     rowsPerPageRef,
     updateRowsPerPage,
-} = useRows(
+} = useRows({
     isServerSideMode,
     rowsItems,
     serverOptions,
     rowsPerPage,
-);
+});
 
 const {
     totalItems,
@@ -430,7 +431,7 @@ const {
     totalItemsLength,
     toggleSelectAll,
     toggleSelectItem,
-} = useTotalItems(
+} = useTotalItems({
     clientSortOptions,
     filterOptions,
     isServerSideMode,
@@ -442,9 +443,9 @@ const {
     serverItemsLength,
     multiSort,
     itemKey,
-    props.disabledRows,
+    disabledRows: props.disabledRows,
     emits,
-);
+});
 
 const {
     currentPaginationNumber,
@@ -455,22 +456,22 @@ const {
     prevPage,
     updatePage,
     updateCurrentPaginationNumber,
-} = usePagination(
+} = usePagination({
     currentPage,
     isServerSideMode,
     loading,
     totalItemsLength,
-    rowsPerPageRef,
+    rowsPerPage: rowsPerPageRef,
     serverOptions,
     updateServerOptionsPage,
-);
+});
 
 const {
     currentPageFirstIndex,
     currentPageLastIndex,
     multipleSelectStatus,
     pageItems,
-} = usePageItems(
+} = usePageItems({
     currentPaginationNumber,
     isMultipleSelectable,
     isServerSideMode,
@@ -480,9 +481,9 @@ const {
     showIndex,
     totalItems,
     totalItemsLength,
-    props.disabledRows,
-    itemKey
-);
+    disabledRows: props.disabledRows,
+    itemKey,
+});
 
 const prevPageEndIndex = computed(() => {
     if (currentPaginationNumber.value === 0) return 0;
@@ -493,12 +494,12 @@ const {
     expandingItemIndexList,
     updateExpandingItemIndexList: handleExpandToggle,
     clearExpandingItemIndexList,
-} = useExpandableRow(
-    pageItems,
+} = useExpandableRow({
+    items: pageItems,
     prevPageEndIndex,
     itemKey,
     emits,
-);
+});
 
 const {
     fixedHeaders,
@@ -508,10 +509,10 @@ const {
     firstRightFixedColumn,
     fixedColumnsInfos,
     showShadow
-} = useFixedColumn(
+} = useFixedColumn({
     headersForRender,
-    tableContainer,
-);
+    tableContainerRef: tableContainer,
+});
 
 // template style generation function
 const getColStyle = (header: HeaderForRender): string | undefined => {
@@ -582,7 +583,7 @@ const {
     handleRowClick,
     handleRowDoubleClick,
     handleRowContextMenu,
-} = useClickRow(
+} = useClickRow({
     clickEventType,
     isMultipleSelectable,
     showIndex,
@@ -592,7 +593,7 @@ const {
     handleExpandToggle,
     toggleSelectItem,
     emits
-);
+});
 
 watch(loading, (newVal, oldVal) => {
     if (serverOptionsComputed.value) {

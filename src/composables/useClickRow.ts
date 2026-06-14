@@ -3,17 +3,23 @@ import { type Ref, type ComputedRef } from 'vue';
 import type { Item } from '../types/main';
 import type { EmitsEventName, ClickEventType } from '../types/internal';
 
-export default function useClickRow(
-    clickEventType: Ref<ClickEventType>,
-    isMultipleSelectable: ComputedRef<boolean>,
-    showIndex: Ref<boolean>,
-    isItemDisabled: (item: Item) => boolean,
-    clickRowToExpand: Ref<boolean>,
-    clickRowToSelect: Ref<boolean>,
-    handleExpandToggle:(expandingItemIndex: number, expandingItem: Item, event: Event) => void,
-    toggleSelectItem: (item: Item) => void,
-    emits: (event: EmitsEventName, ...args: any[]) => void,
-) {
+export interface UseClickRowOptions {
+    clickEventType: Ref<ClickEventType>;
+    isMultipleSelectable: ComputedRef<boolean>;
+    showIndex: Ref<boolean>;
+    isItemDisabled: (item: Item) => boolean;
+    clickRowToExpand: Ref<boolean>;
+    clickRowToSelect: Ref<boolean>;
+    handleExpandToggle: (expandingItemIndex: number, expandingItem: Item, event: Event) => void;
+    toggleSelectItem: (item: Item) => void;
+    emits: (event: EmitsEventName, ...args: any[]) => void;
+}
+
+export default function useClickRow(options: UseClickRowOptions) {
+    const {
+        clickEventType, isMultipleSelectable, showIndex, isItemDisabled,
+        clickRowToExpand, clickRowToSelect, handleExpandToggle, toggleSelectItem, emits,
+    } = options;
 
     const prepareRowEventData = (item: Item, index: number) => {
         const rowData = { ...item };

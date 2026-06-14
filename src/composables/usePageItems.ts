@@ -5,19 +5,25 @@ import type { Item } from '../types/main';
 import type { MultipleSelectStatus } from '../types/internal';
 import { getItemKey } from '../utils/itemKey';
 
-export default function usePageItems(
-    currentPaginationNumber: Ref<number>,
-    isMultipleSelectable: ComputedRef<boolean>,
-    isServerSideMode: ComputedRef<boolean>,
-    items: Ref<Item[]>,
-    rowsPerPageRef: Ref<number>,
-    selectItemsComputed: WritableComputedRef<Item[]>,
-    showIndex: Ref<boolean>,
-    totalItems: ComputedRef<Item[]>,
-    totalItemsLength: ComputedRef<number>,
-    disabledRows: (item: Item) => boolean,
-    itemKey: Ref<string | undefined>,
-) {
+export interface UsePageItemsOptions {
+    currentPaginationNumber: Ref<number>;
+    isMultipleSelectable: ComputedRef<boolean>;
+    isServerSideMode: ComputedRef<boolean>;
+    items: Ref<Item[]>;
+    rowsPerPageRef: Ref<number>;
+    selectItemsComputed: WritableComputedRef<Item[]>;
+    showIndex: Ref<boolean>;
+    totalItems: ComputedRef<Item[]>;
+    totalItemsLength: ComputedRef<number>;
+    disabledRows: (item: Item) => boolean;
+    itemKey: Ref<string | undefined>;
+}
+
+export default function usePageItems(options: UsePageItemsOptions) {
+    const {
+        currentPaginationNumber, isMultipleSelectable, isServerSideMode, items, rowsPerPageRef,
+        selectItemsComputed, showIndex, totalItems, totalItemsLength, disabledRows, itemKey,
+    } = options;
     // 當前頁第一筆 / 最後一筆的索引
     const currentPageFirstIndex = computed((): number =>
         (currentPaginationNumber.value - 1) * rowsPerPageRef.value + 1

@@ -8,15 +8,21 @@
 import { ref, type Ref, computed, type ComputedRef } from 'vue';
 import type { ServerOptions } from '../types/main';
 
-export default function usePagination(
-    currentPage: Ref<number>,
-    isServerSideMode: ComputedRef<boolean>,
-    loading: Ref<boolean>,
-    totalItemsLength: Ref<number>,
-    rowsPerPage: Ref<number>,
-    serverOptions: Ref<ServerOptions | null>,
-    updateServerOptionsPage: (page: number) => void,
-) {
+export interface UsePaginationOptions {
+    currentPage: Ref<number>;
+    isServerSideMode: ComputedRef<boolean>;
+    loading: Ref<boolean>;
+    totalItemsLength: Ref<number>;
+    rowsPerPage: Ref<number>;
+    serverOptions: Ref<ServerOptions | null>;
+    updateServerOptionsPage: (page: number) => void;
+}
+
+export default function usePagination(options: UsePaginationOptions) {
+    const {
+        currentPage, isServerSideMode, loading, totalItemsLength,
+        rowsPerPage, serverOptions, updateServerOptionsPage,
+    } = options;
 
     const currentPaginationNumber = ref(serverOptions.value ? serverOptions.value.page : currentPage.value);
     const maxPaginationNumber = computed((): number => Math.ceil(totalItemsLength.value / rowsPerPage.value));

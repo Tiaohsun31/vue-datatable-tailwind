@@ -192,13 +192,14 @@
 - [ ] `useClickRow.ts`：`prepareRowEventData` 改為不依賴 item 上被灌入的 `checkbox/index`。
 - [ ] 行為驗證：選取（單/全/批次）、跨頁選取、展開、disabledRows 互動。
 
-### Phase 3 — composable 接線重構
+### Phase 3 — composable 接線重構 ✅ 完成（型別檢查 + sort 執行驗證）
 
-- [ ] 各 composable 改 options 物件傳參（先 `useHeaders`，套用既有 `HeadersConfig`/`ReactiveHeadersConfig`）。
-- [ ] 修正多鍵排序 `recursionMuiltSort`（`useTotalItems.ts:114`，命名拼錯 + 重複 sort 低效）→ 單一 comparator 依序比較欄位，一次 `.sort()`。
-- [ ] 新增 `src/composables/useDataTable.ts` 聚合內部接線；`DataTable.vue` 從 712 行瘦身。
-- [ ] 評估 `DataTable.vue` 移到 `src/components/` 或 `src/core/` 統一位置。
-- [ ] `provide('dataTable')`（被 `RowsPerPageSelector.vue:92` inject）改用具型別的 `InjectionKey`。
+> 決策：**不做 useDataTable 聚合器、不移動 DataTable.vue 位置**（聚合器高 churn、會藏起資料流，對此規模屬過度設計；options 物件化已取得主要可維護性效益）。
+
+- [x] **全部 9 個 composable 改 options 物件傳參**（useHeaders/useTotalItems/usePageItems/usePagination/useRows/useServerOptions/useClickRow/useExpandableRow/useFixedColumn），各 export `UseXxxOptions` 介面；DataTable 呼叫端改具名物件。型別檢查保證鍵名正確。
+- [x] **修正多鍵排序**：`recursionMuiltSort`（重複 sort）→ `multiSortComparator` 依序比較欄位、單次 `.sort()`、O(n log n)。
+- [x] **`provide('dataTable')` → 具型別 `InjectionKey`**（新增 `src/keys.ts` 的 `dataTableKey`）。順手把 `useServerOptions` 的 `Ref<Boolean>` 修為 `Ref<boolean>`。
+- [~] ~~useDataTable 聚合器 / 移動檔案位置~~：依決策略過。
 
 ### Phase 4 — 型別與 DX（不含泛型）
 
@@ -250,7 +251,7 @@
 | 1b 語義 class + 深色校正 | ✅ 完成 | 深色校正 + 全元件 .vdt-* 結構化；無-Tailwind 截圖驗證自包含；CSS 17.3kB/JS 54kB。僅 SelectionLoadingOverlay 留待 Phase 2 刪除 |
 | 1.5 i18n | ✅ 完成 | en/zh-TW/zh-CN；locale + localeOverrides + 既有 message props(最高優先)；三語系驗證 |
 | 2 項目識別與選取解耦 | ✅ 完成 | itemKey + Set<key>；批次移除；無 JSON.stringify/無污染；playground 驗證 |
-| 3 composable 接線 | ⬜ 未開始 | |
+| 3 composable 接線 | ✅ 完成 | 9 composable options 物件化 + 多鍵排序修正 + InjectionKey；聚合器依決策略過 |
 | 4 型別與 DX | ⬜ 未開始 | 泛型延後 |
 | 5 測試與發佈 | ⬜ 未開始 | |
 

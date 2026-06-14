@@ -6,52 +6,52 @@ import type {
     ServerOptionsComputed, HeaderForRender, ClientSortOptions, EmitsEventName,
 } from '../types/internal';
 
-interface HeadersConfig {
-    showIndexSymbol: string;
-    expandColumnWidth: number;
-    indexColumnWidth: number;
-    mustSort: boolean;
-    multiSort: boolean;
-}
-
-interface ReactiveHeadersConfig {
+export interface UseHeadersOptions {
+    showIndexSymbol: Ref<string>;
     checkboxColumnWidth: Ref<number | null>;
+    expandColumnWidth: Ref<number>;
     fixedCheckbox: Ref<boolean>;
     fixedExpand: Ref<boolean>;
     fixedIndex: Ref<boolean>;
     headers: Ref<Header[]>;
+    ifHasExpandSlot: ComputedRef<boolean>;
+    indexColumnWidth: Ref<number>;
+    isMultipleSelectable: ComputedRef<boolean>;
+    isServerSideMode: ComputedRef<boolean>;
+    mustSort: Ref<boolean>;
+    serverOptionsComputed: WritableComputedRef<ServerOptionsComputed | null>;
     showIndex: Ref<boolean>;
     sortBy: Ref<string | string[]>;
     sortType: Ref<SortType | SortType[]>;
-    ifHasExpandSlot: ComputedRef<boolean>,
-    isMultipleSelectable: ComputedRef<boolean>,
-    isServerSideMode: ComputedRef<boolean>,
-    serverOptionsComputed: WritableComputedRef<ServerOptionsComputed | null>,
+    multiSort: Ref<boolean>;
+    expandColumn: Ref<string>;
+    updateServerOptionsSort: (newSortBy: string, newSortType: SortType | null) => void;
+    emits: (event: EmitsEventName, ...args: any[]) => void;
 }
 
-export default function useHeaders(
-    showIndexSymbol: Ref<string>,
-    checkboxColumnWidth: Ref<number | null>,
-    expandColumnWidth: Ref<number>,
-    fixedCheckbox: Ref<boolean>,
-    fixedExpand: Ref<boolean>,
-    fixedIndex: Ref<boolean>,
-    headers: Ref<Header[]>,
-    ifHasExpandSlot: ComputedRef<boolean>,
-    indexColumnWidth: Ref<number>,
-    isMultipleSelectable: ComputedRef<boolean>,
-    isServerSideMode: ComputedRef<boolean>,
-    mustSort: Ref<boolean>,
-    serverOptionsComputed: WritableComputedRef<ServerOptionsComputed | null>,
-    showIndex: Ref<boolean>,
-    sortBy: Ref<string | string[]>,
-    sortType: Ref<SortType | SortType[]>,
-    multiSort: Ref<boolean>,
-    expandColumn: Ref<string>,
-
-    updateServerOptionsSort: (newSortBy: string, newSortType: SortType | null) => void,
-    emits: (event: EmitsEventName, ...args: any[]) => void,
-) {
+export default function useHeaders(options: UseHeadersOptions) {
+    const {
+        showIndexSymbol,
+        checkboxColumnWidth,
+        expandColumnWidth,
+        fixedCheckbox,
+        fixedExpand,
+        fixedIndex,
+        headers,
+        ifHasExpandSlot,
+        indexColumnWidth,
+        isMultipleSelectable,
+        isServerSideMode,
+        mustSort,
+        serverOptionsComputed,
+        showIndex,
+        sortBy,
+        sortType,
+        multiSort,
+        expandColumn,
+        updateServerOptionsSort,
+        emits,
+    } = options;
     // 固定列相關計算
     const computeFixedColumns = computed(() => {
         if (!headers.value.length) return { hasFixedColumns: false, fixedHeaders: [], unFixedHeaders: [] };

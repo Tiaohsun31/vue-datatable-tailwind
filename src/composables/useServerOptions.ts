@@ -3,11 +3,14 @@ import { type Ref, computed } from 'vue';
 import type { SortType, ServerOptions } from '../types/main';
 import type { ServerOptionsComputed, EmitsEventName } from '../types/internal';
 
-export default function useServerOptions(
-    serverOptions: Ref<ServerOptions | null>,
-    multiSort: Ref<Boolean>,
-    emits: (event: EmitsEventName, ...args: any[]) => void,
-) {
+export interface UseServerOptionsOptions {
+    serverOptions: Ref<ServerOptions | null>;
+    multiSort: Ref<boolean>;
+    emits: (event: EmitsEventName, ...args: any[]) => void;
+}
+
+export default function useServerOptions(options: UseServerOptionsOptions) {
+    const { serverOptions, multiSort, emits } = options;
     const serverOptionsComputed = computed({
         get: (): ServerOptionsComputed | null => {
             if (serverOptions.value) {

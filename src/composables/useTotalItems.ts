@@ -7,21 +7,28 @@ import type { ClientSortOptions, EmitsEventName } from '../types/internal';
 import { getItemValue } from '../utils/utils';
 import { getItemKey, omitUiFields } from '../utils/itemKey';
 
-export default function useTotalItems(
-    clientSortOptions: Ref<ClientSortOptions | null>,
-    filterOptions: Ref<FilterOption[] | null>,
-    isServerSideMode: ComputedRef<boolean>,
-    items: Ref<Item[]>,
-    itemsSelected: Ref<Item[] | null>,
-    searchField: Ref<string | string[]>,
-    searchValue: Ref<string>,
-    searchType: Ref<'contains' | 'regex'>,
-    serverItemsLength: Ref<number>,
-    multiSort: Ref<boolean>,
-    itemKey: Ref<string | undefined>,
-    disabledRows: (item: Item) => boolean,
-    emits: (event: EmitsEventName, ...args: any[]) => void,
-) {
+export interface UseTotalItemsOptions {
+    clientSortOptions: Ref<ClientSortOptions | null>;
+    filterOptions: Ref<FilterOption[] | null>;
+    isServerSideMode: ComputedRef<boolean>;
+    items: Ref<Item[]>;
+    itemsSelected: Ref<Item[] | null>;
+    searchField: Ref<string | string[]>;
+    searchValue: Ref<string>;
+    searchType: Ref<'contains' | 'regex'>;
+    serverItemsLength: Ref<number>;
+    multiSort: Ref<boolean>;
+    itemKey: Ref<string | undefined>;
+    disabledRows: (item: Item) => boolean;
+    emits: (event: EmitsEventName, ...args: any[]) => void;
+}
+
+export default function useTotalItems(options: UseTotalItemsOptions) {
+    const {
+        clientSortOptions, filterOptions, isServerSideMode, items, itemsSelected,
+        searchField, searchValue, searchType, serverItemsLength, multiSort, itemKey,
+        disabledRows, emits,
+    } = options;
     // 搜索邏輯
     const searchTargetCache = new WeakMap<Item, string>();
 
@@ -121,28 +128,19 @@ export default function useTotalItems(
         return a < b ? (isDesc ? 1 : -1) : (isDesc ? -1 : 1);
     };
 
-    const recursionMuiltSort = (
-        items: Item[],
-        sortByArr: string[],
-        sortDescArr: boolean[],
-        depth: number
-    ): Item[] => {
-        if (depth < 0) return items;
-
-        return recursionMuiltSort(items, sortByArr, sortDescArr, depth - 1)
-            .sort((a, b) => {
-                const isPreviousEqual = sortByArr
-                    .slice(0, depth)
-                    .every(field => getItemValue(field, a) === getItemValue(field, b));
-
-                if (!isPreviousEqual) return 0;
-
-                const currentField = sortByArr[depth];
-                const valueA = getItemValue(currentField, a);
-                const valueB = getItemValue(currentField, b);
-                return compareValues(valueA, valueB, sortDescArr[depth]);
-            });
-    };
+    // 多鍵排序：依優先序逐欄位比較，第一個不相等者決定順序（單次 sort，O(n log n)）
+    const multiSortComparator = (sortByArr: string[], sortDescArr: boolean[]) =>
+        (a: Item, b: Item): number => {
+            for (let i = 0; i < sortByArr.length; i += 1) {
+                const result = compareValues(
+                    getItemValue(sortByArr[i], a),
+                    getItemValue(sortByArr[i], b),
+                    sortDescArr[i],
+                );
+                if (result !== 0) return result;
+            }
+            return 0;
+        };
 
     // flow: searching => filtering => sorting
     const totalItems = computed((): Item[] => {
@@ -154,7 +152,7 @@ export default function useTotalItems(
 
         if (multiSort.value && Array.isArray(sortBy) && Array.isArray(sortDesc)) {
             return sortBy.length
-                ? recursionMuiltSort(itemsToSort, sortBy, sortDesc, sortBy.length - 1)
+                ? itemsToSort.sort(multiSortComparator(sortBy, sortDesc))
                 : itemsToSort;
         }
 
