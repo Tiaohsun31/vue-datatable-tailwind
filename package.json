@@ -53,6 +53,7 @@
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
+    "@microsoft/api-extractor": "^7.58.9",
     "@tailwindcss/postcss": "^4.3.1",
     "@tailwindcss/vite": "^4.3.1",
     "@tsconfig/node22": "^22.0.5",
