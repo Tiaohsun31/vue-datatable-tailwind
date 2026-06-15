@@ -4,7 +4,7 @@ import type {
     StringFilterOption,
     ArrayFilterOption,
     CustomFilterOption
-} from '../types/main'
+} from '../types/public'
 
 // 類型守衛
 export function isNumberFilterOption(option: FilterOption): option is NumberFilterOption {

@@ -1,4 +1,4 @@
-import type { DataTableLocale, LocaleName } from '../types/main';
+import type { DataTableLocale, LocaleName } from '../types/public';
 
 /** 內建語系包 */
 export const locales: Record<LocaleName, DataTableLocale> = {

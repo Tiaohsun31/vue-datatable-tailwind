@@ -6,7 +6,7 @@
  * 不再使用全域單例 / setTimeout / querySelector / getComputedStyle。
  */
 import { computed, type Ref } from 'vue';
-import type { TailwindColor } from '../types/main';
+import type { TailwindColor } from '../types/public';
 import { tailwindBaseColors, isTailwindColorName } from '../utils/tailwind4-color';
 
 export type ThemeMode = 'light' | 'dark';
@@ -18,6 +18,18 @@ export type ThemeMode = 'light' | 'dark';
 export function resolvePrimaryColor(input?: TailwindColor | string): string {
     if (!input) return tailwindBaseColors.indigo;
     if (isTailwindColorName(input)) return tailwindBaseColors[input];
+    // 既非內建色名、也非合法 CSS 顏色 → 會被瀏覽器忽略而靜默失效，dev 模式提醒。
+    if (
+        import.meta.env.DEV &&
+        typeof CSS !== 'undefined' &&
+        typeof CSS.supports === 'function' &&
+        !CSS.supports('color', input)
+    ) {
+        console.warn(
+            `[vue-datatable-tailwind] theme="${input}" 既非內建色名（22 色）也非合法 CSS 顏色，` +
+            `將被瀏覽器忽略。請改傳 hex / rgb / oklch 或內建色名。`,
+        );
+    }
     return input;
 }
 

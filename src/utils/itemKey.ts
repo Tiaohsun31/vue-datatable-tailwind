@@ -1,4 +1,4 @@
-import type { Item } from '../types/main';
+import type { Item } from '../types/public';
 
 // UI 注入的暫時欄位，不應參與識別或回傳給使用者
 const UI_FIELDS = ['checkbox', 'index'] as const;

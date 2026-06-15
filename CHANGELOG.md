@@ -20,6 +20,7 @@
 - `.vdt-*` 語義 class 全面承載預設樣式，可直接覆寫；輸出 CSS 自包含、無泛用 utility 污染。
 - typed `defineEmits` / `defineSlots`，事件與插槽具型別。
 - 無障礙：可排序表頭 `aria-sort` + 鍵盤操作、展開鈕 `aria-expanded`/`aria-label`、全選 `indeterminate`。
+- 增加`taupe`、`mauve`、`mist`、`olive`，tailwind 顏色支援。
 
 ### Bug Fixes
 

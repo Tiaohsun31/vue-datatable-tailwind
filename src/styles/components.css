@@ -1,8 +1,8 @@
 /* components.css
    vdt-* 語義 component class：承載元件的預設外觀（版面 + 顏色）。
    - 自包含：只用字面值與 --color-vdt-* / --vdt-* token，不依賴使用者的 Tailwind。
-   - 可覆蓋：使用者可直接針對這些 class 名稱覆寫樣式。
-   注意：狀態性顏色（交替列、hover、選中）仍以 bridge utility（tailwind.utilities.css，已出貨）綁定於模板。 */
+   - 可覆蓋：使用者可直接針對這些 class 名稱覆寫樣式，或覆寫 theme.css 的 --vdt-* 設計 token。
+   - 本檔含三段橋接 utility（交替列 / hover）、固定列陰影、scrollbar 樣式（原 tailwind.utilities.css）。 */
 
 /* ===== 容器結構 ===== */
 .vdt-table-wrapper {
@@ -27,8 +27,8 @@
 
 /* ===== 表頭 ===== */
 .vdt-thead {
-    font-size: 0.875rem;
-    line-height: 1.25rem;
+    font-size: var(--vdt-text-sm);
+    line-height: var(--vdt-leading-sm);
     text-align: left;
     text-transform: uppercase;
     white-space: nowrap;
@@ -42,8 +42,8 @@
 }
 
 .vdt-thead-th {
-    padding: 0.75rem 1rem;
-    font-weight: 600;
+    padding: var(--vdt-space-3) var(--vdt-space-4);
+    font-weight: var(--vdt-font-semibold);
     letter-spacing: 0.05em;
     background-color: var(--color-vdt-surface-secondary);
 }
@@ -62,8 +62,8 @@
 
 /* ===== 表身 ===== */
 .vdt-tbody {
-    font-size: 0.875rem;
-    line-height: 1.25rem;
+    font-size: var(--vdt-text-sm);
+    line-height: var(--vdt-leading-sm);
 }
 
 .vdt-tbody-tr {
@@ -72,7 +72,7 @@
 }
 
 .vdt-tbody-td {
-    padding: 0.5rem 1rem;
+    padding: var(--vdt-space-2) var(--vdt-space-4);
 }
 
 /* ===== 展開列 ===== */
@@ -108,7 +108,7 @@
 }
 
 .vdt-footer-mobile {
-    padding: 0.75rem 1rem;
+    padding: var(--vdt-space-3) var(--vdt-space-4);
     width: 100%;
 }
 
@@ -125,7 +125,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 0.75rem 1rem;
+        padding: var(--vdt-space-3) var(--vdt-space-4);
         width: 100%;
     }
 }
@@ -152,7 +152,7 @@
 .vdt-pagination-arrows {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: var(--vdt-space-2);
 }
 
 .vdt-pagination-arrows--full {
@@ -164,9 +164,9 @@
     position: relative;
     display: inline-flex;
     align-items: center;
-    padding: 0.375rem;
+    padding: var(--vdt-space-1_5);
     border: 1px solid var(--color-vdt-outline);
-    border-radius: 0.375rem;
+    border-radius: var(--vdt-radius);
     background-color: var(--color-vdt-surface);
     color: var(--color-vdt-content-secondary);
     transition: background-color 0.15s ease, color 0.15s ease;
@@ -193,21 +193,21 @@
 }
 
 .vdt-pagination-page {
-    font-size: 0.875rem;
-    padding: 0 0.75rem;
+    font-size: var(--vdt-text-sm);
+    padding: 0 var(--vdt-space-3);
     color: var(--color-vdt-content);
 }
 
 /* ===== Pagination info ===== */
 .vdt-pagination-info {
-    font-size: 0.875rem;
+    font-size: var(--vdt-text-sm);
     color: var(--color-vdt-content-secondary);
 }
 
 /* ===== Pagination：數字按鈕 ===== */
 .vdt-pagination-buttons {
     display: inline-flex;
-    border-radius: 0.375rem;
+    border-radius: var(--vdt-radius);
     box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 }
 
@@ -218,7 +218,7 @@
     justify-content: center;
     min-width: 32px;
     height: 2rem;
-    font-size: 0.875rem;
+    font-size: var(--vdt-text-sm);
     border: 1px solid var(--color-vdt-outline);
     background-color: var(--color-vdt-surface);
     color: var(--color-vdt-content);
@@ -230,13 +230,13 @@
 }
 
 .vdt-pagination-item:first-child {
-    border-top-left-radius: 0.375rem;
-    border-bottom-left-radius: 0.375rem;
+    border-top-left-radius: var(--vdt-radius);
+    border-bottom-left-radius: var(--vdt-radius);
 }
 
 .vdt-pagination-item:last-child {
-    border-top-right-radius: 0.375rem;
-    border-bottom-right-radius: 0.375rem;
+    border-top-right-radius: var(--vdt-radius);
+    border-bottom-right-radius: var(--vdt-radius);
 }
 
 .vdt-pagination-item--button {
@@ -266,19 +266,19 @@
 }
 
 .vdt-pagination-item__label {
-    padding: 0.375rem 0.75rem;
+    padding: var(--vdt-space-1_5) var(--vdt-space-3);
 }
 
 .vdt-pagination-item--active .vdt-pagination-item__label {
-    font-weight: 500;
+    font-weight: var(--vdt-font-medium);
 }
 
 /* ===== Rows per page 選擇器 ===== */
 .vdt-rows-per-page {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    font-size: 0.875rem;
+    gap: var(--vdt-space-2);
+    font-size: var(--vdt-text-sm);
     color: var(--color-vdt-content-secondary);
 }
 
@@ -292,12 +292,12 @@
     position: relative;
     width: 100%;
     cursor: pointer;
-    border-radius: 0.375rem;
+    border-radius: var(--vdt-radius);
     background-color: var(--color-vdt-surface);
     border: 1px solid var(--color-vdt-outline);
-    padding: 0.375rem 2rem 0.375rem 0.75rem;
+    padding: var(--vdt-space-1_5) 2rem var(--vdt-space-1_5) var(--vdt-space-3);
     text-align: left;
-    font-size: 0.875rem;
+    font-size: var(--vdt-text-sm);
     box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 }
 
@@ -329,7 +329,7 @@
     inset: 0 0 0 auto;
     display: flex;
     align-items: center;
-    padding-right: 0.5rem;
+    padding-right: var(--vdt-space-2);
     color: var(--color-vdt-content-muted);
 }
 
@@ -347,27 +347,27 @@
     position: absolute;
     right: 0;
     z-index: 50;
-    margin-top: 0.25rem;
+    margin-top: var(--vdt-space-1);
     max-height: 15rem;
     width: 100%;
     overflow: auto;
-    border-radius: 0.375rem;
+    border-radius: var(--vdt-radius);
     background-color: var(--color-vdt-surface);
-    padding: 0.25rem 0;
+    padding: var(--vdt-space-1) 0;
     box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 0 0 1px var(--color-vdt-outline);
 }
 
 .vdt-rows-menu--top {
     bottom: 100%;
-    margin-bottom: 0.25rem;
+    margin-bottom: var(--vdt-space-1);
 }
 
 .vdt-rows-option {
     position: relative;
     cursor: pointer;
     user-select: none;
-    padding: 0.5rem 2.25rem 0.5rem 0.75rem;
-    font-size: 0.875rem;
+    padding: var(--vdt-space-2) 2.25rem var(--vdt-space-2) var(--vdt-space-3);
+    font-size: var(--vdt-text-sm);
     color: var(--color-vdt-content);
 }
 
@@ -378,7 +378,7 @@
 .vdt-rows-option--selected {
     color: var(--color-vdt-primary-strong);
     background-color: var(--color-vdt-primary-subtle);
-    font-weight: 600;
+    font-weight: var(--vdt-font-semibold);
 }
 
 .vdt-rows-option__check {
@@ -386,7 +386,7 @@
     inset: 0 0 0 auto;
     display: flex;
     align-items: center;
-    padding-right: 1rem;
+    padding-right: var(--vdt-space-4);
     color: var(--color-vdt-primary);
 }
 
@@ -429,7 +429,7 @@
 .vdt-checkbox__box {
     height: 1rem;
     width: 1rem;
-    border-radius: 0.125rem;
+    border-radius: var(--vdt-radius-sm);
     border: 1px solid var(--color-vdt-outline-strong);
     background-color: var(--color-vdt-surface);
     transition: all 0.2s ease;
@@ -461,11 +461,11 @@
 
 /* ===== 表頭多重排序徽章 ===== */
 .vdt-sort-badge {
-    margin-left: 0.25rem;
-    font-size: 0.75rem;
-    padding: 0.125rem 0.375rem;
+    margin-left: var(--vdt-space-1);
+    font-size: var(--vdt-text-xs);
+    padding: 0.125rem var(--vdt-space-1_5);
     background-color: var(--color-vdt-surface-secondary);
-    border-radius: 9999px;
+    border-radius: var(--vdt-radius-full);
 }
 
 /* ===== 展開按鈕 / 展開列內層 ===== */
@@ -485,7 +485,7 @@
 }
 
 .vdt-expand-row__loading {
-    margin-bottom: 1rem;
+    margin-bottom: var(--vdt-space-4);
 }
 
 .vdt-expand-row__grid {
@@ -596,7 +596,7 @@
 }
 
 .vdt-ellipsis {
-    padding: 0.375rem 0.75rem;
+    padding: var(--vdt-space-1_5) var(--vdt-space-3);
 }
 
 .vdt-sort-icon {
@@ -612,4 +612,104 @@
 /* 滑過表頭時顯示未啟用的排序圖示（.group 標記在 .vdt-thead-th 上） */
 .group:hover .vdt-sort-icon--inactive {
     opacity: 1;
+}
+
+/* ===== 橋接 utility（仍由模板以條件 class 綁定：交替列底色 + 列 hover） ===== */
+@layer components {
+    .bg-vdt-surface {
+        background-color: var(--color-vdt-surface);
+    }
+
+    .bg-vdt-surface-secondary {
+        background-color: var(--color-vdt-surface-secondary);
+    }
+
+    .hover\:bg-vdt-interactive-hover:hover {
+        background-color: var(--color-vdt-interactive-hover);
+    }
+}
+
+/* ===== 固定列 ===== */
+.fixed-column {
+    background-color: inherit !important;
+}
+
+/* 最後一個左側固定列的陰影 */
+.fixed-left-shadow::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -36px;
+    width: 36px;
+    height: 100%;
+    pointer-events: none;
+    box-shadow: none;
+}
+
+/* 當表格滾動時顯示陰影 */
+.vdt-table-container.show-shadow .fixed-left-shadow::after {
+    box-shadow: inset 6px 0 5px -3px rgba(0, 0, 0, 0.2);
+}
+
+/* 右側固定列陰影效果 */
+.fixed-right-shadow::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -36px;
+    width: 36px;
+    height: 100%;
+    pointer-events: none;
+    box-shadow: none;
+}
+
+.vdt-table-container.show-shadow .fixed-right-shadow::after {
+    box-shadow: inset -6px 0 5px -3px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== Scrollbar 樣式 ===== */
+.vdt-table-container {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-vdt-outline) var(--color-vdt-surface);
+}
+
+.vdt-table-container::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.vdt-table-container::-webkit-scrollbar-track {
+    background: var(--color-vdt-surface);
+    border-radius: 4px;
+}
+
+.vdt-table-container::-webkit-scrollbar-thumb {
+    background: var(--color-vdt-outline);
+    border-radius: 4px;
+    border: 1px solid var(--color-vdt-surface);
+}
+
+.vdt-table-container::-webkit-scrollbar-thumb:hover {
+    background: var(--color-vdt-outline-strong);
+}
+
+.vdt-table-container::-webkit-scrollbar-corner {
+    background: var(--color-vdt-surface);
+}
+
+/* 深色模式 scrollbar */
+.dark .vdt-table-container,
+[data-vdt-mode="dark"] .vdt-table-container {
+    scrollbar-color: var(--color-vdt-outline-strong) var(--color-vdt-surface);
+}
+
+.dark .vdt-table-container::-webkit-scrollbar-thumb,
+[data-vdt-mode="dark"] .vdt-table-container::-webkit-scrollbar-thumb {
+    background: var(--color-vdt-outline-strong);
+    border: 1px solid var(--color-vdt-surface);
+}
+
+.dark .vdt-table-container::-webkit-scrollbar-thumb:hover,
+[data-vdt-mode="dark"] .vdt-table-container::-webkit-scrollbar-thumb:hover {
+    background: var(--color-vdt-outline-stronger);
 }

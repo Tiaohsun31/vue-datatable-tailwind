@@ -1,5 +1,5 @@
 // slots.ts
-import { type Header, type Item, type PaginationInfo } from './main';
+import { type Header, type Item, type PaginationInfo } from './public';
 
 export interface DataTableSlots {
     // 表格整體

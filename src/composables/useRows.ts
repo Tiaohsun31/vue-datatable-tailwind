@@ -1,6 +1,6 @@
 // src/composables/useRows.ts
 import { ref, type Ref, computed } from 'vue';
-import type { ServerOptions } from '../types/main';
+import type { ServerOptions } from '../types/public';
 
 // 用於計算每頁行數選項
 export interface UseRowsOptions {

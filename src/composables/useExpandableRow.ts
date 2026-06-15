@@ -1,6 +1,6 @@
 // src/composables/useExpandableRow.ts
 import { ref, type Ref, type ComputedRef } from 'vue';
-import type { Item } from '../types/main';
+import type { Item } from '../types/public';
 import type { DataTableEmitFn } from '../types/internal';
 import { getItemKey } from '../utils/itemKey';
 

@@ -22,7 +22,7 @@
 
 <script setup lang="ts">
 import { type PropType } from 'vue'
-import type { Header } from '@/types/main'
+import type { Header } from '@/types/public'
 import type { HeaderForRender, MultipleSelectStatus } from '@/types/internal'
 import TableHeaderCell from './TableHeaderCell.vue'
 

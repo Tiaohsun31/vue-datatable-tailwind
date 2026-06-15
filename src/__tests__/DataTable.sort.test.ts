@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { mount } from '@vue/test-utils';
-import DataTable from '../DataTable.vue';
+import DataTable from '../core/DataTable.vue';
 
 const headers = [
     { text: 'Name', value: 'name', sortable: true },

@@ -124,30 +124,30 @@ import {
     useSlots, computed, toRef, toRefs, ref, watch, provide
 } from 'vue';
 
-import Loading from './components/loadings/Loading.vue';
+import Loading from '../components/loadings/Loading.vue';
 
-import useClickRow from './composables/useClickRow';
-import useExpandableRow from './composables/useExpandableRow';
-import useFixedColumn from './composables/useFixedColumn';
-import useHeaders from './composables/useHeaders';
-import usePageItems from './composables/usePageItems';
-import usePagination from './composables/usePagination';
-import useRows from './composables/useRows';
-import useServerOptions from './composables/useServerOptions';
-import useTotalItems from './composables/useTotalItems';
+import useClickRow from '../composables/useClickRow';
+import useExpandableRow from '../composables/useExpandableRow';
+import useFixedColumn from '../composables/useFixedColumn';
+import useHeaders from '../composables/useHeaders';
+import usePageItems from '../composables/usePageItems';
+import usePagination from '../composables/usePagination';
+import useRows from '../composables/useRows';
+import useServerOptions from '../composables/useServerOptions';
+import useTotalItems from '../composables/useTotalItems';
 
-import type { Header, Item, DataTableProps, DataTableLocale } from './types/main';
-import type { HeaderForRender, ClickEventType, DataTableEmits } from './types/internal';
-import type { DataTableSlots } from './types/slot';
-import { locales, defaultLocale } from './i18n';
-import { dataTableKey } from './keys';
+import type { Header, Item, DataTableProps, DataTableLocale } from '../types/public';
+import type { HeaderForRender, ClickEventType, DataTableEmits } from '../types/internal';
+import type { DataTableSlots } from '../types/slot';
+import { locales, defaultLocale } from '../i18n';
+import { dataTableKey } from '../keys';
 
-import TableHeader from './components/table/TableHeader.vue';
-import TableBodyRow from './components/table/TableBodyRow.vue';
-import TableExpandRow from './components/table/TableExpandRow.vue';
-import TableFooter from './components/table/TableFooter.vue';
+import TableHeader from '../components/table/TableHeader.vue';
+import TableBodyRow from '../components/table/TableBodyRow.vue';
+import TableExpandRow from '../components/table/TableExpandRow.vue';
+import TableFooter from '../components/table/TableFooter.vue';
 
-import { useTheme } from './composables/useTheme';
+import { useTheme } from '../composables/useTheme';
 
 const props = withDefaults(defineProps<DataTableProps>(), {
     alternating: true,

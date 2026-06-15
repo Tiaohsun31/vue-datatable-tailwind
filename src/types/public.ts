@@ -1,28 +1,9 @@
-// types/main.ts - 主要供外部使用的類型定義
+// types/public.ts - 主要供外部使用的類型定義
 import type { ClickEventType } from './internal'
-export type TailwindColor =
-    | 'slate'
-    | 'gray'
-    | 'zinc'
-    | 'neutral'
-    | 'stone'
-    | 'red'
-    | 'orange'
-    | 'amber'
-    | 'yellow'
-    | 'lime'
-    | 'green'
-    | 'emerald'
-    | 'teal'
-    | 'cyan'
-    | 'sky'
-    | 'blue'
-    | 'indigo'
-    | 'violet'
-    | 'purple'
-    | 'fuchsia'
-    | 'pink'
-    | 'rose';
+
+// 色名 union 的單一事實來源在 tailwind4-color.ts（由 tailwindBaseColors 的鍵衍生），此處再匯出。
+export type { TailwindColor } from '../utils/tailwind4-color'
+import type { TailwindColor } from '../utils/tailwind4-color'
 
 export type TextDirection = 'center' | 'left' | 'right'
 export type SortType = 'asc' | 'desc'
@@ -208,8 +189,8 @@ export interface DataTableProps {
     serverItemsLength?: number
 
     // 表格外觀配置
-    /** 主題顏色 */
-    theme?: TailwindColor | string;
+    /** 主題顏色（內建色名有自動補全；亦可傳任意 hex / rgb / oklch 字串） */
+    theme?: TailwindColor | (string & {});
     /** 主題模式 */
     mode?: 'light' | 'dark';
     /** 是否使用交替行顏色 */

@@ -1,7 +1,7 @@
 import {
     type Ref, computed, type ComputedRef, type WritableComputedRef
 } from 'vue';
-import type { Item } from '../types/main';
+import type { Item } from '../types/public';
 import type { MultipleSelectStatus } from '../types/internal';
 import { getItemKey } from '../utils/itemKey';
 

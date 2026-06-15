@@ -1,7 +1,7 @@
 import {
     ref, type Ref, computed, type ComputedRef, type WritableComputedRef,
 } from 'vue';
-import type { Header, SortType } from '../types/main';
+import type { Header, SortType } from '../types/public';
 import type {
     ServerOptionsComputed, HeaderForRender, ClientSortOptions, DataTableEmitFn,
 } from '../types/internal';

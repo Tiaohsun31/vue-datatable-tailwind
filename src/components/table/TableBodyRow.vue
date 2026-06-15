@@ -28,7 +28,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { Item } from '../../types/main'
+import type { Item } from '../../types/public'
 import TableBodyCell from './TableBodyCell.vue'
 
 const props = defineProps<{

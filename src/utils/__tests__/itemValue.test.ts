@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { getItemValue, generateColumnContent } from '../utils';
+import { getItemValue, generateColumnContent } from '../itemValue';
 
 describe('getItemValue', () => {
     it('reads a top-level field', () => {

@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
-import type { Item } from '../../types/main'
+import type { Item } from '../../types/public'
 import LoadingLine from '../loadings/LoadingLine.vue'
 
 const props = defineProps<{

@@ -1,6 +1,6 @@
 import './styles/theme.css'
 import type { App } from 'vue'
-import DataTable from './DataTable.vue'
+import DataTable from './core/DataTable.vue'
 export { createFilter } from './utils/filter'
 export { locales } from './i18n'
 
@@ -39,6 +39,10 @@ export type {
     HeaderItemClassNameFunction,
     BodyRowClassNameFunction,
     BodyItemClassNameFunction,
+    BodyRowDisabledFunction,
+
+    // 分頁資訊（pagination slot / 事件處理用）
+    PaginationInfo,
 
     // 過濾器相關類型
     NumberFilterOption,
@@ -50,7 +54,13 @@ export type {
     // 事件相關類型
     ClickRowArgument,
     UpdateSortArgument
-} from './types/main'
+} from './types/public'
+
+// 插槽型別（供外部標註）
+export type { DataTableSlots } from './types/slot'
+
+// update:serverOptions 事件 payload 型別
+export type { ServerOptionsComputed } from './types/internal'
 
 
 DataTable.install = install

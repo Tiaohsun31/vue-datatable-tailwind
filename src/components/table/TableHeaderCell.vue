@@ -40,7 +40,7 @@
 
 <script setup lang="ts">
 import { type PropType, computed, useSlots } from 'vue'
-import type { Header } from '@/types/main'
+import type { Header } from '@/types/public'
 import type { HeaderForRender, MultipleSelectStatus } from '@/types/internal'
 import { HeaderSortIcon } from '../icons'
 import MultipleSelectCheckBox from '../selections/MultipleSelectCheckBox.vue'

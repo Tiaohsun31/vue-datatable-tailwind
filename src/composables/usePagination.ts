@@ -6,7 +6,7 @@
     整合數據索引和原始數據
 */
 import { ref, type Ref, computed, type ComputedRef } from 'vue';
-import type { ServerOptions } from '../types/main';
+import type { ServerOptions } from '../types/public';
 
 export interface UsePaginationOptions {
     currentPage: Ref<number>;

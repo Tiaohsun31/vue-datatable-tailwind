@@ -1,5 +1,5 @@
 
-import type { Item } from '../types/main';
+import type { Item } from '../types/public';
 export function getItemValue(field: string, item: Item): string | number {
     if (field.includes('.')) {
         const keys = field.split('.')

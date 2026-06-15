@@ -1,5 +1,5 @@
 // 內部使用的類型定義，不導出
-import type { SortType, Header, Item, ServerOptions, ClickRowArgument, UpdateSortArgument } from './main';
+import type { SortType, Header, Item, ServerOptions, ClickRowArgument, UpdateSortArgument } from './public';
 
 // 服務端選項計算結果：由 ServerOptions 衍生（page/rowsPerPage 必填，sort* 必填但可為 null）
 export type ServerOptionsComputed = Omit<ServerOptions, 'sortBy' | 'sortType'> & {

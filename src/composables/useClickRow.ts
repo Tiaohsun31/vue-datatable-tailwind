@@ -1,6 +1,6 @@
 // useClickRow.ts
 import { type Ref, type ComputedRef } from 'vue';
-import type { Item } from '../types/main';
+import type { Item } from '../types/public';
 import type { ClickEventType, DataTableEmitFn } from '../types/internal';
 
 export interface UseClickRowOptions {

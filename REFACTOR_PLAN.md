@@ -223,6 +223,73 @@
 
 ---
 
+### Phase 6 — 後續優化（使用者提問衍生）✅ 完成（type-check + 27 測試 + build 自包含 + playground 截圖驗證）
+
+> 以下 4 項為 v3 完成後的 review 問題，皆為「可做可不做」的優化，無功能 bug。每項都附決策與具體做法。
+>
+> **執行結果（本輪）：**
+> - ✅ **6.1**：`theme.css` 新增 13 個自有 `--vdt-*` 設計 token；`components.css` 字面值改引用 token（dist 含 13 token 定義 / 54 處使用 / 0 consumer-only 變數殘留，值等價）。
+> - ✅ **6.2**：刪除 `tailwind.utilities.css`，3 個 bridge class + 固定列陰影 + scrollbar 併入 `components.css`；`theme.css` 移除其 `@import`。styles/ 收斂為 **2 檔**（theme.css + components.css）。
+> - ✅ **6.3（型別）**：`TailwindColor` 改由 `tailwind4-color.ts` 的 `keyof typeof tailwindBaseColors` 單一來源衍生（main→public 再匯出）；`theme?: TailwindColor | (string & {})` 保留色名補全；新增 `export`：`BodyRowDisabledFunction` / `PaginationInfo` / `DataTableSlots` / `ServerOptionsComputed`。**`SimpleFilterOption` 依使用者決定保留不收緊**（向後相容）。
+> - ✅ **6.3（位置/命名）**：`types/main.ts → types/public.ts`、`utils/utils.ts → utils/itemValue.ts`（含測試檔）、`DataTable.vue → core/DataTable.vue`；全部 import specifier 已更新。
+> - ✅ **6.4**：`tailwind4-color.ts` 保留（單一事實來源）；`resolvePrimaryColor` 於 dev 模式對「既非內建色名、`CSS.supports('color', …)` 亦為 false」的輸入 `console.warn`，避免靜默失效。
+
+#### 6.1 CSS 改用設計 token（Q1）
+- **問題**：`.vdt-*` class 目前用字面值（`font-size: 0.875rem`）。是否改用 token？
+- **決策**：**不要直接用 Tailwind 的 `var(--text-sm)` / `calc(var(--spacing)*N)`** —— 出貨 CSS 已移除 Tailwind，這些 `@theme` 變數不存在於我們的 CSS，會解析失敗、樣式壞掉（違反「免裝 Tailwind / 自包含」）。
+- **建議做法**：在 `theme.css` 定義**自有命名空間** `--vdt-*` 設計 token（自包含字面值），`components.css` 改引用：
+  ```css
+  /* theme.css :root */
+  --vdt-text-xs: 0.75rem;   --vdt-text-sm: 0.875rem;
+  --vdt-leading-sm: 1.25rem;
+  --vdt-space-1: 0.25rem; --vdt-space-2: 0.5rem; --vdt-space-3: 0.75rem; --vdt-space-4: 1rem;
+  --vdt-radius: 0.375rem;  --vdt-radius-sm: 0.125rem;
+  --vdt-font-semibold: 600; --vdt-font-medium: 500;
+  ```
+  ```css
+  /* components.css */
+  .vdt-tbody { font-size: var(--vdt-text-sm); line-height: var(--vdt-leading-sm); }
+  .vdt-thead-th { padding: var(--vdt-space-3) var(--vdt-space-4); font-weight: var(--vdt-font-semibold); }
+  ```
+- **效益**：單一調整點、尺寸一致、使用者可覆蓋（如 `--vdt-text-sm`）。**風險低**（純值替換，可由 computed-style 驗證等值）。中等工作量（掃過 components.css 全部字面值）。
+
+#### 6.2 整併 styles/ 三個 CSS 檔（Q2）
+- **問題**：`theme.css` / `tailwind.utilities.css` / `components.css` 是否整併？
+- **對使用者**：無差異（最終打包成單一 `dist/vue-datatable-tailwind.css`）。
+- **對維護**：`tailwind.utilities.css` 已**名不符實**（只剩 `.bg-vdt-surface`/`.bg-vdt-surface-secondary`/`.hover:bg-vdt-interactive-hover` 3 個 bridge class + 固定列 + scrollbar）。
+- **建議做法**：併成 **2 檔**——
+  - `theme.css`：tokens + 深淺模式（+ 6.1 的 `--vdt-*` 設計 token）。
+  - `components.css`：所有 `.vdt-*` class + 那 3 個 bridge class + 固定列陰影 + scrollbar。
+  - 刪除 `tailwind.utilities.css`，移除 `theme.css` 對它的 `@import`。
+- **風險低**（純搬移）。建議搬完後重建並確認 dist CSS 內容無缺。
+
+#### 6.3 檔案位置 / 命名 / 對外 type（Q3）
+- **對外 type 匯出缺漏（建議補 `export`）**：
+  - `BodyRowDisabledFunction`（`disabledRows` prop 的型別）—— 目前**未匯出**，使用者標註自己的 disabledRows 函式時拿不到。
+  - `DataTableSlots`（`src/types/slot.ts`）—— **未匯出**；雖有 `defineSlots` 給模板提示，但匯出可讓使用者在外部標註。
+  - 評估匯出 `PaginationInfo`、`ServerOptionsComputed`（後者是 `update:serverOptions` 事件的 payload 型別，使用者處理該事件時可能需要）。
+- **型別品質**：
+  - `theme?: TailwindColor | string` —— `TailwindColor | string` 在 TS 會塌成 `string`，**失去色名自動補全**。改 `theme?: TailwindColor | (string & {})` 可同時保留色名提示與接受任意字串。
+  - `SimpleFilterOption`（`{ field; comparison: string; criteria: any }`）過鬆，會弱化整個 `FilterOption` union 的型別檢查 —— 評估移除或收緊（v3 已是 major，可考慮）。
+  - `TailwindColor`（main.ts 手寫 union）與 `tailwindBaseColors`（`Record<TailwindColor,…>`）已透過 Record 耦合（缺 key 會編譯錯）；可評估改 `type TailwindColor = keyof typeof tailwindBaseColors` 單一來源。
+- **位置 / 命名（低優先、純整理）**：
+  - `src/DataTable.vue` 在 `src/` 根，其餘元件在 `src/components/` —— 可移到 `components/` 或新增 `core/` 一致化（牽動 import 路徑）。
+  - `src/types/main.ts`（對外型別）命名為 *main* 較不直觀，可改 `types/index.ts` 或 `types/public.ts`。
+  - `src/utils/utils.ts`（`getItemValue`/`generateColumnContent`）泛名，可改 `itemValue.ts`。
+  - `src/keys.ts`、`src/i18n/index.ts` 位置合理。
+
+#### 6.4 tailwind4-color.ts 去留與「新色」處理（Q4）
+- **要保留**：它是「色名 shorthand（`'indigo'`）→ 基準色 oklch」對照，是 `resolvePrimaryColor` 唯一需要查表的路徑；沒有它，使用者只能傳 hex/oklch。檔案很小（22 筆）。
+- **「Tailwind 新增顏色、我們沒有」時的行為**：`resolvePrimaryColor('未知色名')` → 不在表內 → **原樣回傳** → CSS `--color-vdt-primary: 未知色名` → 非合法 CSS 顏色 → 瀏覽器忽略 → 該變數無效（沿用上一個值 / initial）。即**靜默失效，不會 throw**。
+- **風險低**：Tailwind 很少新增色；22 色穩定；傳 hex/oklch 的使用者完全不受影響。
+- **建議**：
+  - 文件註明「色名 shorthand 僅支援內建 22 色；其他請傳 hex / rgb / oklch」。
+  - （可選）dev 模式對「既非已知色名、且 `CSS.supports('color', input)` 為 false」的輸入 `console.warn`，避免靜默失效難以察覺。
+  - 維持 `TailwindColor` 與 `tailwindBaseColors` 同步（已耦合）。
+  - 若未來想完全免維護該表：接受只支援 hex/oklch + CSS 原生色名，移除 Tailwind 色名 shorthand（破壞性，需評估既有使用者）。
+
+---
+
 ## 3. 對外 Props 建議（v3 可一併處理，需寫 migration）
 
 - `theme`：行為改為「不吸附最近色、直接採用」；色名仍支援。
@@ -259,5 +326,6 @@
 | 3 composable 接線 | ✅ 完成 | 9 composable options 物件化 + 多鍵排序修正 + InjectionKey；聚合器依決策略過 |
 | 4 型別與 DX | ✅ 完成 | typed emits + defineSlots + 型別收斂；泛型延後 |
 | 5 測試與發佈 | 🟡 主要完成 | 27 測試/a11y/CHANGELOG/3.0.0/README install；剩 playground 入庫、dts rollup 優化 |
+| 6 後續優化(review 衍生) | ✅ 完成 | 6.1 自有 --vdt-* token / 6.2 併 CSS 為 2 檔 / 6.3 type 匯出+單一來源+檔案改名(main→public, utils→itemValue, DataTable→core/) / 6.4 色名表保留+dev warn；SimpleFilterOption 依決定保留 |
 
 > 接手 session：完成項目請勾選對應 checkbox，並更新本表狀態（⬜未開始 / 🟡進行中 / ✅完成）。

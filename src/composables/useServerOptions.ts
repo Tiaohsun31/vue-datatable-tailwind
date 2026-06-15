@@ -1,6 +1,6 @@
 // src/composables/useServerOptions.ts
 import { type Ref, computed } from 'vue';
-import type { SortType, ServerOptions } from '../types/main';
+import type { SortType, ServerOptions } from '../types/public';
 import type { ServerOptionsComputed, DataTableEmitFn } from '../types/internal';
 
 export interface UseServerOptionsOptions {

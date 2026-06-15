@@ -1,10 +1,10 @@
 import {
     type Ref, computed, type ComputedRef,
 } from 'vue';
-import type { Item, FilterOption, NumberFilterOption } from '../types/main';
+import type { Item, FilterOption, NumberFilterOption } from '../types/public';
 import { isNumeric, isArrayFilterOption, isNumberFilterOption, isCustomFilterOption } from '../utils/filter';
 import type { ClientSortOptions, DataTableEmitFn } from '../types/internal';
-import { getItemValue } from '../utils/utils';
+import { getItemValue } from '../utils/itemValue';
 import { getItemKey, omitUiFields } from '../utils/itemKey';
 
 export interface UseTotalItemsOptions {

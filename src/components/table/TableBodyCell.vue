@@ -39,10 +39,10 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { Item } from '../../types/main'
+import type { Item } from '../../types/public'
 import SingleSelectCheckbox from '../selections/SingleSelectCheckBox.vue'
 import { IconExpand } from '../icons'
-import { generateColumnContent } from '../../utils/utils'
+import { generateColumnContent } from '../../utils/itemValue'
 
 const props = defineProps<{
     column: string
