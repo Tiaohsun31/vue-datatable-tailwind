@@ -21,6 +21,7 @@
 - `.vdt-*` 語義 class 全面承載預設樣式，可直接覆寫；輸出 CSS 自包含、無泛用 utility 污染。
 - typed `defineEmits` / `defineSlots`，事件與插槽具型別。
 - `selection-checkbox` slot 新增 `isSelected` slot prop（不需再讀內部的 `item.checkbox`）。
+- 新增 `--tia-*` 家族共用設計基元層（`@tiaohsun/vue-*` 各元件可共讀）：`--vdt-*` 設計 token 與預設 `--color-vdt-primary` 改為引用 `--tia-*`（帶字面 fallback，單獨安裝仍可運作）。設一次 `--tia-theme-primary` 即可調整整個家族主色；未指定 `theme` prop 時才走此層，指定時仍以 per-instance inline 覆蓋。
 - 無障礙：可排序表頭 `aria-sort` + 鍵盤操作、展開鈕 `aria-expanded`/`aria-label`、全選 `indeterminate`。
 - 增加`taupe`、`mauve`、`mist`、`olive`，tailwind 顏色支援。
 

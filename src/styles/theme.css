@@ -1,23 +1,41 @@
 @import './components.css';
 
 :root {
-    /* ===== 設計 token（自包含字面值，可由使用者覆寫以統一調整尺寸） ===== */
-    --vdt-text-xs: 0.75rem;
-    --vdt-text-sm: 0.875rem;
-    --vdt-leading-sm: 1.25rem;
-    --vdt-space-1: 0.25rem;
-    --vdt-space-1_5: 0.375rem;
-    --vdt-space-2: 0.5rem;
-    --vdt-space-3: 0.75rem;
-    --vdt-space-4: 1rem;
-    --vdt-radius-sm: 0.125rem;
-    --vdt-radius: 0.375rem;
-    --vdt-radius-full: 9999px;
-    --vdt-font-medium: 500;
-    --vdt-font-semibold: 600;
+    /* ===== 共用設計基元（@tiaohsun/vue-* 家族共用層） =====
+       設一次即可整組調整（含姊妹套件 vue-datepicker 等）；各元件 token 引用這層。 */
+    --tia-theme-primary: oklch(58.5% 0.233 277.117); /* 家族預設主色：indigo */
+    --tia-text-xs: 0.75rem;
+    --tia-text-sm: 0.875rem;
+    --tia-leading-sm: 1.25rem;
+    --tia-space-1: 0.25rem;
+    --tia-space-1_5: 0.375rem;
+    --tia-space-2: 0.5rem;
+    --tia-space-3: 0.75rem;
+    --tia-space-4: 1rem;
+    --tia-radius-sm: 0.125rem;
+    --tia-radius: 0.375rem;
+    --tia-radius-full: 9999px;
+    --tia-font-medium: 500;
+    --tia-font-semibold: 600;
 
-    /* ===== 主題主色：唯一輸入（runtime 由 JS 綁定 --color-vdt-primary 覆蓋） ===== */
-    --color-vdt-primary: oklch(58.5% 0.233 277.117); /* indigo 預設 */
+    /* ===== 本元件設計 token：引用共用基元，帶字面 fallback（單獨安裝也可運作） =====
+       要只調整本元件、不動家族層時，覆寫這些 --vdt-* 即可。 */
+    --vdt-text-xs: var(--tia-text-xs, 0.75rem);
+    --vdt-text-sm: var(--tia-text-sm, 0.875rem);
+    --vdt-leading-sm: var(--tia-leading-sm, 1.25rem);
+    --vdt-space-1: var(--tia-space-1, 0.25rem);
+    --vdt-space-1_5: var(--tia-space-1_5, 0.375rem);
+    --vdt-space-2: var(--tia-space-2, 0.5rem);
+    --vdt-space-3: var(--tia-space-3, 0.75rem);
+    --vdt-space-4: var(--tia-space-4, 1rem);
+    --vdt-radius-sm: var(--tia-radius-sm, 0.125rem);
+    --vdt-radius: var(--tia-radius, 0.375rem);
+    --vdt-radius-full: var(--tia-radius-full, 9999px);
+    --vdt-font-medium: var(--tia-font-medium, 500);
+    --vdt-font-semibold: var(--tia-font-semibold, 600);
+
+    /* ===== 主題主色：預設引用共用基元；指定 theme prop 時由 useTheme 以 inline style 覆蓋（per-instance） ===== */
+    --color-vdt-primary: var(--tia-theme-primary, oklch(58.5% 0.233 277.117)); /* indigo 預設 */
 
     /* ===== 由主色衍生的狀態色 =====
        不需使用者提供；會隨主色與深淺模式（surface）自動調整。 */

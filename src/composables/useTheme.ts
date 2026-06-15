@@ -37,10 +37,14 @@ export function useTheme(
     theme: Ref<TailwindColor | string | undefined>,
     mode: Ref<ThemeMode | undefined>,
 ) {
-    // 綁定到根元素的 inline style（只需一個變數，其餘由 CSS 衍生）
-    const themeStyle = computed<Record<string, string>>(() => ({
-        '--color-vdt-primary': resolvePrimaryColor(theme.value),
-    }));
+    // 綁定到根元素的 inline style（只需一個變數，其餘由 CSS 衍生）。
+    // 只有指定 theme prop 時才以 inline 覆蓋；未指定則交由 :root 的 --color-vdt-primary
+    // （引用家族共用基元 --tia-theme-primary）決定，讓家族層級換色能生效、亦尊重消費者全域覆寫。
+    const themeStyle = computed<Record<string, string>>(() => {
+        const style: Record<string, string> = {};
+        if (theme.value) style['--color-vdt-primary'] = resolvePrimaryColor(theme.value);
+        return style;
+    });
 
     // 明確指定模式時設 data-vdt-mode；未指定則不設，跟隨系統偏好
     const themeAttrs = computed<Record<string, string>>(() => {

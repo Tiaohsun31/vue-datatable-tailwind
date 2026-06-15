@@ -14,11 +14,11 @@
   "typings": "./dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Tiaohsun31/vue-datatable-tailwind.git"
+    "url": "git+https://github.com/Tiaohsun31/vue-datatable.git"
   },
-  "homepage": "https://github.com/Tiaohsun31/vue-datatable-tailwind#readme",
+  "homepage": "https://github.com/Tiaohsun31/vue-datatable#readme",
   "bugs": {
-    "url": "https://github.com/Tiaohsun31/vue-datatable-tailwind/issues"
+    "url": "https://github.com/Tiaohsun31/vue-datatable/issues"
   },
   "publishConfig": {
     "access": "public"
