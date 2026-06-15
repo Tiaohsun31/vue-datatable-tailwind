@@ -167,6 +167,7 @@ In addition to the original [Props](https://hc200ok.github.io/vue3-easy-data-tab
 - [Theme](./docs/api/theme.md)
 - [i18n / Locale](./docs/api/i18n.md)
 - [itemKey](./docs/api/itemKey.md)
+- [Roadmap / Future enhancements](./docs/ROADMAP.md)
 
 ## Acknowledgements
 
