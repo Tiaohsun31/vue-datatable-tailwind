@@ -8,7 +8,7 @@
         <!-- Selection Checkbox -->
         <template v-if="column === 'checkbox'">
             <slot name="selection-checkbox"
-                v-bind="{ item, index, isDisabled, toggleSelectItem: handleToggleSelect }">
+                v-bind="{ item, index, isSelected: !!item.checkbox, isDisabled, toggleSelectItem: handleToggleSelect }">
                 <SingleSelectCheckbox :checked="!!item.checkbox" :disabled="isDisabled"
                     @change="handleToggleSelect" />
             </slot>

@@ -10,7 +10,7 @@
 
 版本說明：
 
-- **v3+**：出貨自包含樣式表 —— **不再需要安裝 Tailwind CSS** 即可使用本元件。
+- **v3+**：自包含樣式表 —— **不再需要安裝 Tailwind CSS** 即可使用本元件。
 - **v2**：基於 Tailwind 4。
 - **v1**：適用 Tailwind 3。
 
@@ -149,19 +149,23 @@ const bodyRowClassNameFunction: BodyRowClassNameFunction = (
 
 除了原本的[Props](https://hc200ok.github.io/vue3-easy-data-table-doc/props/common-props.html)外，新增下面Props
 
-| **Name**         | **Required** | **Type**                                                              | **Default** | **Description**                                                                    |
-| ---------------- | ------------ | --------------------------------------------------------------------- | ----------- | --------------------------------------------------------------------------------- |
-| expand-column    | false        | string                                                                | ''          | 指定某 Column 欄位可以擴展。                                                       |
+| **Name**         | **Required** | **Type**                                                              | **Default** | **Description**                                                                     |
+| ---------------- | ------------ | --------------------------------------------------------------------- | ----------- | ----------------------------------------------------------------------------------- |
+| expand-column    | false        | string                                                                | ''          | 指定某 Column 欄位可以擴展。                                                        |
 | theme            | false        | string \| TailwindColor (ex: 'indigo'、'rose')                        | 'indigo'    | 主色。可填入內建色名、HEX（`#42b883`）、rgb 或 oklch；狀態色由 `color-mix()` 衍生。 |
-| mode             | false        | 'light' \| 'dark'                                                     | —           | 強制淺色或深色；未設定則跟隨系統 `prefers-color-scheme`。                          |
+| mode             | false        | 'light' \| 'dark'                                                     | —           | 強制淺色或深色；未設定則跟隨系統 `prefers-color-scheme`。                           |
 | itemKey          | false        | string                                                                | —           | 列的唯一識別欄位（選取／展開／比對用）；未指定則用 `item.key`，再退回內容比對。     |
 | searchType       | false        | 'contains' \| 'regex'                                                 | 'contains'  | 不分大小寫子字串包含（預設）或正規表達式。                                          |
-| locale           | false        | 'en' \| 'zh-TW' \| 'zh-CN'                                            | 'en'        | 內建語系（頁尾／空資料提示）。                                                     |
+| locale           | false        | 'en' \| 'zh-TW' \| 'zh-CN'                                            | 'en'        | 內建語系（頁尾／空資料提示）。                                                      |
 | localeOverrides  | false        | Partial\<DataTableLocale\>                                            | —           | 覆寫個別語系字串，或傳入完整自訂語系物件。                                          |
-| clickRowToSelect | false        | boolean                                                               | false       | 點擊列，是否選擇項目。                                                             |
-| disabledRows     | false        | BodyRowDisabledFunction = (item: Item, rowNumber?: number) => boolean | —           | 禁止特定行被選取。                                                                 |
+| clickRowToSelect | false        | boolean                                                               | false       | 點擊列，是否選擇項目。                                                              |
+| disabledRows     | false        | BodyRowDisabledFunction = (item: Item, rowNumber?: number) => boolean | —           | 禁止特定行被選取。                                                                  |
 | expandTransition | false        | boolean                                                               | true        | 如果有設置擴展列，預設啟用擴展列過渡效果。                                          |
 
-## Slot
+## API 文件
 
-參考 [Slot](./docs/api/slot.md)
+- [Slot](./docs/api/slot.md)
+- [Filter Options](./docs/api/filterOptions.md)
+- [Theme（主題與顏色）](./docs/api/theme.md)
+- [i18n（多語系）](./docs/api/i18n.md)
+- [itemKey（列識別）](./docs/api/itemKey.md)

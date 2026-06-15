@@ -32,6 +32,7 @@ export interface DataTableSlots {
     'selection-checkbox': {    // 選擇框
         item: Item;
         index: number;
+        isSelected: boolean;   // 此列目前是否被選取
         isDisabled: boolean;
         toggleSelectItem: () => void;
     };

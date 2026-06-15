@@ -160,6 +160,10 @@ In addition to the original [Props](https://hc200ok.github.io/vue3-easy-data-tab
 | disabledRows     | false        | BodyRowDisabledFunction = (item: Item, rowNumber?: number) => boolean | —           | Disable specific rows from being selected.                                                               |
 | expandTransition | false        | boolean                                                               | true        | If an expand column is set, the expand-row transition is enabled by default.                            |
 
-## Slots
+## API Documentation
 
-[Slot](./docs/api/slot.md)
+- [Slots](./docs/api/slot.md)
+- [Filter Options](./docs/api/filterOptions.md)
+- [Theme](./docs/api/theme.md)
+- [i18n / Locale](./docs/api/i18n.md)
+- [itemKey](./docs/api/itemKey.md)

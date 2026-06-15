@@ -19,6 +19,7 @@
 - **`searchType`**：`'contains'`（預設）或 `'regex'`；預設改為不分大小寫子字串包含。
 - `.vdt-*` 語義 class 全面承載預設樣式，可直接覆寫；輸出 CSS 自包含、無泛用 utility 污染。
 - typed `defineEmits` / `defineSlots`，事件與插槽具型別。
+- `selection-checkbox` slot 新增 `isSelected` slot prop（不需再讀內部的 `item.checkbox`）。
 - 無障礙：可排序表頭 `aria-sort` + 鍵盤操作、展開鈕 `aria-expanded`/`aria-label`、全選 `indeterminate`。
 - 增加`taupe`、`mauve`、`mist`、`olive`，tailwind 顏色支援。
 

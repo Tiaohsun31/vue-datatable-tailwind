@@ -96,12 +96,11 @@ Customize a specific column's cell content.
 
 ### `selection-checkbox`
 
-Customize the selection checkbox.
+Customize the selection checkbox. The slot exposes `isSelected` (whether this row is currently selected), `isDisabled`, and `toggleSelectItem`.
 
 ```vue
-<template #selection-checkbox="{ item, index, isDisabled, toggleSelectItem }">
-  <!-- 目前選取狀態以 item.checkbox 提供（render 列上的布林值） -->
-  <CustomCheckbox :checked="!!item.checkbox" :disabled="isDisabled" @change="toggleSelectItem" />
+<template #selection-checkbox="{ item, index, isSelected, isDisabled, toggleSelectItem }">
+  <CustomCheckbox :checked="isSelected" :disabled="isDisabled" @change="toggleSelectItem" />
 </template>
 ```
 

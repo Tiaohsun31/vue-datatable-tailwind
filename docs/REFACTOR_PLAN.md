@@ -210,7 +210,7 @@
 - [x] **型別收斂**：`HeaderForRender = Header`（結構一致，移除重複定義）；`ServerOptionsComputed = Omit<ServerOptions,'sortBy'|'sortType'> & {...}`（由 ServerOptions 衍生）。
 - [x] **`Item.key` 文件**：註明與 `itemKey` prop 的關係（getItemKey 優先序）。
 
-### Phase 5 — 測試、文件、發佈 ✅ 完成（剩 README.zh-TW 同步）
+### Phase 5 — 測試、文件、發佈 ✅ 完成
 
 - [x] **單元測試（0 → 27 測試 / 5 檔，全綠）**：`getItemValue`（巢狀路徑）、`getItemKey`/`omitUiFields`、filter type-guards + `createFilter`、`resolvePrimaryColor`、`DataTable` 排序（單/多鍵 component test）。位置 `src/**/__tests__/`。以 `npx vitest run` 執行。
 - [x] **無障礙**：可排序表頭 `aria-sort` + `tabindex`/Enter/Space 鍵盤；展開鈕 `aria-expanded`/`aria-label`；全選 `indeterminate` + `aria-checked="mixed"`。playground eval 驗證。
@@ -223,6 +223,13 @@
   - 同時清掉 dead config：`tsconfig.json` 移除 `declaration/declarationDir/outDir/declarationMap`（改純 type-check，`noEmit` 繼承自 @vue/tsconfig）與失效的 `types/**` include；vite.config 加 `copyPublicDir:false`（不再把 favicon 打進包）。
   - 結果：`rootDir:src` 使 `src/index.ts → dist/index.d.ts`（對映 package.json `types`）；逐檔 `.d.ts`（42 檔）；消費端 tsc 驗證公開型別可解析、`TailwindColor` union 未塌成 string；npm pack 49 檔、無 favicon、無 `.d.ts.map`。build < 1s。
 - [x] **README（中英）v3 同步**：兩版皆更新 —— 版本說明（v3 免裝 Tailwind）、v3 重點區、Install（中文移除舊 `@source`/tailwind.config 指引）、Theme（50–950 色階 → 單一 `--color-vdt-primary`+color-mix）、自訂樣式段（移除 `!important` workaround 框架，改為直接覆寫 `.vdt-*`/`--color-vdt-*`/`--vdt-*`）、Props 表（移除 `batchSelectionThreshold`，新增 `itemKey`/`mode`/`searchType`/`locale`/`localeOverrides`）。
+
+**發佈前補充（v3.0.0 前）：**
+- [x] **docs/api 檢視與補充**：修正 `filterOptions.md` 的 `createFilter` import 路徑（→ 套件根）；新增 `docs/api/theme.md`、`i18n.md`、`itemKey.md`；README（中英）加上 API 文件索引。
+- [x] **`selection-checkbox` slot 新增 `isSelected` slot prop**（消費端不需再讀內部 `item.checkbox`）；slot.ts 型別 + TableBodyCell v-bind + slot.md + CHANGELOG 同步。
+- [x] **package.json metadata 補強**：description 改「自包含 / 免裝 Tailwind」、新增 `homepage`/`bugs`/`publishConfig.access=public`、擴充 keywords。publish dry-run 乾淨（49 檔、latest、public）。
+- [x] **本計畫書移至 `docs/REFACTOR_PLAN.md`**（v3 完成後，作為決策/歷史紀錄保留，移出 repo 根目錄）。
+- 命名決策：**保留 `@tiaohsun/vue-datatable-tailwind`**（已發佈 v1/v2，改名成本高；「免裝 Tailwind」已於 README/description 澄清）。
 
 ---
 
