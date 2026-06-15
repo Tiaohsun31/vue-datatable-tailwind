@@ -6,7 +6,13 @@ The new features and modifications were developed by tiaohsun, and all rights ar
 
 The project is only a customized version. Please read the document below for relevant modifications. The original functions were not fully tested during reconstruction. If there are bugs, please leave a message to me through Discussions.
 
-Version 2 (v2) and later will use Tailwind4. If you use Tailwind3, please use v1.
+Version notes:
+
+- **v3+**: ships a self-contained stylesheet — **Tailwind CSS is no longer required** to use this component.
+- **v2**: built on Tailwind 4.
+- **v1**: for Tailwind 3.
+
+See the [CHANGELOG](CHANGELOG.md) for the full v3 migration notes.
 
 ### README
 
@@ -20,7 +26,6 @@ Version 2 (v2) and later will use Tailwind4. If you use Tailwind3, please use v1
 - Modified `usePageItems` to compare cached keys, improving performance and addressing lag issues with large data selections.
 - Added `expandColumn` to allow custom expandable columns.
 - Added the `filterOption` utility method `createFilter`.
-- Added `useBatchSelection` to handle large data selections, enabled by default for datasets exceeding 10,000 entries.
 - Modified some default values.
 - Default mobile view only supports next/previous page navigation.
 - Added `clickRowToSelect`, which allows you to select a table row by clicking on it.
@@ -28,11 +33,21 @@ Version 2 (v2) and later will use Tailwind4. If you use Tailwind3, please use v1
 - Added `disabledRows` to disable `clickRowToSelect` click event.
 - Rename `tableClassName` > `wrapperClassName`，`tableClassName` is now in `<table :class=[tableClassName]>`
 - Added `containerClassName`, `footerClassName`
-- Added `.vdt-table-wrapper`, `.vdt-table-container`, `.vdt-table`, `.vdt-thead`, `.vdt-thead-tr`, `.vdt-thead-th`, `.vdt-tbody`, `.vdt-tbody-tr`, `.vdt-tbody-td`, `.vdt-expand-row`, `.vdt-footer`, `.vdt-pagination` , CSS, defaults to no value.
+- Added stable `.vdt-*` class hooks (`.vdt-table-wrapper`, `.vdt-table-container`, `.vdt-table`, `.vdt-thead`, `.vdt-thead-tr`, `.vdt-thead-th`, `.vdt-tbody`, `.vdt-tbody-tr`, `.vdt-tbody-td`, `.vdt-expand-row`, `.vdt-footer`, `.vdt-pagination`, …). **As of v3 these carry the component's default styles and can be overridden directly.**
 - Remove `headerTextDirection`, please use `headerClassName` unified control instead, the default is `text-left`
 - Removed `bodyTextDirection`, added `bodyClassName`, `footerClassName`。
 - Added `expandTransition` to enable expanded column transition effects.
 - Added `mode` to set dark or light, the default is `light`.
+
+### v3 highlights
+
+- **Self-contained stylesheet** — Tailwind CSS is no longer required; just `import '.../style.css'`.
+- **`theme`** now uses your color directly (no snapping to the nearest Tailwind shade); state colors are derived via `color-mix()` from a single `--color-vdt-primary` (the old 50–950 scale variables are gone).
+- Added **`itemKey`** for stable row identity (selection / expand / matching).
+- Added **i18n**: `locale` (`en` / `zh-TW` / `zh-CN`) and `localeOverrides`.
+- Added **`searchType`** (`'contains'` default, or `'regex'`); search is now case-insensitive substring by default.
+- Added Tailwind color names `taupe`, `mauve`, `mist`, `olive`.
+- **Removed** batch selection (`batchSelectionThreshold` prop, `updateSelectionStatus` event).
 
 ## Usage Suggestions
 
@@ -69,18 +84,25 @@ app.component('DataTable', DataTable)
 
 ## Theme
 
-### After Version 2
+### v3 (current)
 
-- `theme:'indigo'`
-- `theme:'#6366f1'`
-- `theme:oklch(64.5% 0.246 16.439)`
-- Directly modify the base variable
+Provide a single primary color — state colors (hover / subtle / ring) are derived automatically via `color-mix()`.
+
+- Via the `theme` prop:
+  - `theme="indigo"` (built-in Tailwind color name)
+  - `theme="#6366f1"`
+  - `theme="oklch(64.5% 0.246 16.439)"`
+- Or override the CSS variable globally:
   ```css
   :root {
-    --color-vdt-500: oklch(0.65 0.25 130) !important; /* Modify to green */
-    /* Other colors...(50-950) */
+    --color-vdt-primary: oklch(0.65 0.25 130); /* derived states update automatically */
   }
   ```
+- Color-name shorthands cover the 22 built-in names; for anything else pass a hex / rgb / oklch value.
+- Dark / light: use the `mode` prop (`'light'` | `'dark'`) or set `[data-vdt-mode]`. If unset, it follows the OS `prefers-color-scheme`.
+- Sizing tokens (`--vdt-text-sm`, `--vdt-space-*`, `--vdt-radius`, …) can be overridden to adjust spacing / typography.
+
+> **Migration from v2:** the old 50–950 scale (`--color-vdt-500` … with `!important`) has been replaced by the single `--color-vdt-primary` + `color-mix()` model.
 
 ### version 1.x.x
 
@@ -88,9 +110,11 @@ app.component('DataTable', DataTable)
 - `theme:'#6366f1'`
 - `:theme:{ color:'indigo', variant: 'DEFAULT' }`
 
-## Class
+## Custom Styling
 
-Because TailwindCSS is modified for style management, the rendering of some styles will lag behind the default styles. Please use the following methods.
+As of v3 the `.vdt-*` classes carry the default styles and act as stable override hooks — target them directly in your own CSS (no `!important` needed), or retheme via the `--color-vdt-*` / `--vdt-*` CSS variables.
+
+The class-name props (`bodyRowClassName`, `headerClassName`, …) still accept any class string. If you use Tailwind in your app you can pass Tailwind utilities; the `!` modifier forces them to win over the defaults:
 
 1. Use Tailwind's `!` modifier to force styles to be applied
 
@@ -123,14 +147,18 @@ const bodyRowClassNameFunction: BodyRowClassNameFunction = (
 
 In addition to the original [Props](https://hc200ok.github.io/vue3-easy-data-table-doc/props/common-props.html), the following new props have been added:
 
-| **Name**                | **Required** | **Type**                                                              | **Default** | **Description**                                                                                            |
-| ----------------------- | ------------ | --------------------------------------------------------------------- | ----------- | ---------------------------------------------------------------------------------------------------------- |
-| expand-column           | false        | string                                                                | ‘’          | Specifies which column can be expanded.                                                                    |
-| theme                   | false        | string or TailwindColor(ex:'indigo'、'rose')                          | 'indigo'    | Replaces `theme-color`. Accepts HEX values like `#42b883`、oklch(After version 2) or Tailwind color names. |
-| batchSelectionThreshold | false        | number                                                                | 10,000      | Enables batch selection for datasets exceeding this threshold, with a loading style.                       |
-| clickRowToSelect        | false        | boolean                                                               | false       | Click on the column to select the item or not                                                              |
-| disabledRows            | false        | BodyRowDisabledFunction = (item: Item, rowNumber?: number) => boolean | false       | Disable specific rows from being selected                                                                  |
-| expandTransition        | false        | boolean                                                               | true        | If an extended column is set, the extended column transition effect is enabled by default.                 |
+| **Name**         | **Required** | **Type**                                                              | **Default** | **Description**                                                                                          |
+| ---------------- | ------------ | --------------------------------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------- |
+| expand-column    | false        | string                                                                | ''          | Specifies which column can be expanded.                                                                 |
+| theme            | false        | string \| TailwindColor (ex: 'indigo', 'rose')                        | 'indigo'    | Primary color. Accepts a built-in color name, HEX (`#42b883`), rgb or oklch. State colors are derived via `color-mix()`. |
+| mode             | false        | 'light' \| 'dark'                                                     | —           | Force light or dark. If unset, follows the OS `prefers-color-scheme`.                                    |
+| itemKey          | false        | string                                                                | —           | Unique field used for selection / expand / identity matching; falls back to `item.key`, then content.   |
+| searchType       | false        | 'contains' \| 'regex'                                                 | 'contains'  | Case-insensitive substring match (default) or regular expression.                                       |
+| locale           | false        | 'en' \| 'zh-TW' \| 'zh-CN'                                            | 'en'        | Built-in locale for footer / empty-data messages.                                                       |
+| localeOverrides  | false        | Partial\<DataTableLocale\>                                            | —           | Override individual locale strings, or pass a full custom locale object.                                 |
+| clickRowToSelect | false        | boolean                                                               | false       | Click a row to select the item.                                                                         |
+| disabledRows     | false        | BodyRowDisabledFunction = (item: Item, rowNumber?: number) => boolean | —           | Disable specific rows from being selected.                                                               |
+| expandTransition | false        | boolean                                                               | true        | If an expand column is set, the expand-row transition is enabled by default.                            |
 
 ## Slots
 

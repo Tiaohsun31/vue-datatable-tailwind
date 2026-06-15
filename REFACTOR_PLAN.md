@@ -222,7 +222,7 @@
   - 做法：新增 `tsconfig.build.json`（`extends ./tsconfig.json`，覆寫 `noEmit:false`/`emitDeclarationOnly`/`outDir:dist`/`rootDir:src`/`composite:false`/`declarationMap:false`）；`build:types` 改 `vue-tsc -p tsconfig.build.json`；`build` 改 `run-p type-check build-only && npm run build:types`（型別在 vite 之後 emit，避開 emptyOutDir race）。
   - 同時清掉 dead config：`tsconfig.json` 移除 `declaration/declarationDir/outDir/declarationMap`（改純 type-check，`noEmit` 繼承自 @vue/tsconfig）與失效的 `types/**` include；vite.config 加 `copyPublicDir:false`（不再把 favicon 打進包）。
   - 結果：`rootDir:src` 使 `src/index.ts → dist/index.d.ts`（對映 package.json `types`）；逐檔 `.d.ts`（42 檔）；消費端 tsc 驗證公開型別可解析、`TailwindColor` union 未塌成 string；npm pack 49 檔、無 favicon、無 `.d.ts.map`。build < 1s。
-- ⬜ **剩餘（低優先）**：README.zh-TW.md 同步；README 的 `!important` workaround 段落可放寬（hook 已生效）。
+- [x] **README（中英）v3 同步**：兩版皆更新 —— 版本說明（v3 免裝 Tailwind）、v3 重點區、Install（中文移除舊 `@source`/tailwind.config 指引）、Theme（50–950 色階 → 單一 `--color-vdt-primary`+color-mix）、自訂樣式段（移除 `!important` workaround 框架，改為直接覆寫 `.vdt-*`/`--color-vdt-*`/`--vdt-*`）、Props 表（移除 `batchSelectionThreshold`，新增 `itemKey`/`mode`/`searchType`/`locale`/`localeOverrides`）。
 
 ---
 
