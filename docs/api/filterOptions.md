@@ -3,7 +3,7 @@
 透過 `filterOptions` prop 傳入篩選條件陣列。可直接寫物件（簡單方式），或用 `createFilter` 取得具型別的 `FilterOption`。
 
 ```typescript
-import { createFilter } from '@tiaohsun/vue-datatable-tailwind'
+import { createFilter } from '@tiaohsun/vue-datatable'
 ```
 
 `createFilter` 方法：`string(field, comparison, criteria)`、`number(field, comparison, criteria)`、`array(field, criteria)`、`custom(field, predicate, criteria)`。
@@ -27,7 +27,7 @@ const filterOptions = computed(() => {
 ## 使用 createFilter 範例
 
 ```javascript
-import { createFilter } from '@tiaohsun/vue-datatable-tailwind'
+import { createFilter } from '@tiaohsun/vue-datatable'
 
 const filterOptions = computed(() => {
   const filterOptionsArray = []

@@ -1,5 +1,5 @@
 {
-  "name": "@tiaohsun/vue-datatable-tailwind",
+  "name": "@tiaohsun/vue-datatable",
   "author": "tiaohsun",
   "version": "3.0.0",
   "description": "A self-contained Vue 3 data table (Tailwind 4-styled, no Tailwind install required) with dark mode, i18n, sorting and selection.",
@@ -30,11 +30,11 @@
       "require": "./dist/index.umd.cjs"
     },
     "./style.css": {
-      "import": "./dist/vue-datatable-tailwind.css",
-      "require": "./dist/vue-datatable-tailwind.css"
+      "import": "./dist/vue-datatable.css",
+      "require": "./dist/vue-datatable.css"
     }
   },
-  "style": "./dist/vue-datatable-tailwind.css",
+  "style": "./dist/vue-datatable.css",
   "files": [
     "dist"
   ],

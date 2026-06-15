@@ -6,7 +6,8 @@
 
 ### Breaking Changes
 
-- **免裝 Tailwind**：元件改為出貨自包含 CSS，已移除 `tailwindcss` peerDependency。使用者不再需要在自己的 Tailwind 設定加 `@source '.../@tiaohsun/vue-datatable-tailwind/dist/**'`，只要 `import '@tiaohsun/vue-datatable-tailwind/style.css'` 即可。
+- **套件改名**：`@tiaohsun/vue-datatable-tailwind` → **`@tiaohsun/vue-datatable`**（v3 起免裝 Tailwind，後綴名實不符）。舊套件停止維護並導向新名；請改 `npm install @tiaohsun/vue-datatable` 與 `import '@tiaohsun/vue-datatable/style.css'`。
+- **免裝 Tailwind**：元件改為出貨自包含 CSS，已移除 `tailwindcss` peerDependency。使用者不再需要在自己的 Tailwind 設定加 `@source '.../@tiaohsun/vue-datatable-tailwind/dist/**'`，只要 `import '@tiaohsun/vue-datatable/style.css'` 即可。
 - **主題色**：`theme` 改為「直接採用使用者顏色」，不再吸附到最近的 Tailwind 色票；色階改由單一主色 + `color-mix()` 衍生（不再有 50–950 全色階變數）。
 - 移除批次選取相關：prop `batchSelectionThreshold`、事件 `updateSelectionStatus`、`SelectionLoadingOverlay`。
 - 移除從未觸發的 `updateFilter` 事件宣告。

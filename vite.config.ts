@@ -18,7 +18,9 @@ export default defineConfig({
         copyPublicDir: false,
         lib: {
             entry: fileURLToPath(new URL('./src/index.ts', import.meta.url)),
-            name: 'VueDataTableTailwind',
+            name: 'VueDataTable',
+            // 固定 CSS 檔名（與套件名解耦，避免改名時連動）
+            cssFileName: 'vue-datatable',
             fileName: (format) => `index.${format === 'es' ? 'js' : 'umd.cjs'}`
         },
         rollupOptions: {

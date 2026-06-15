@@ -26,7 +26,7 @@ export function resolvePrimaryColor(input?: TailwindColor | string): string {
         !CSS.supports('color', input)
     ) {
         console.warn(
-            `[vue-datatable-tailwind] theme="${input}" 既非內建色名（22 色）也非合法 CSS 顏色，` +
+            `[vue-datatable] theme="${input}" 既非內建色名（22 色）也非合法 CSS 顏色，` +
             `將被瀏覽器忽略。請改傳 hex / rgb / oklch 或內建色名。`,
         );
     }

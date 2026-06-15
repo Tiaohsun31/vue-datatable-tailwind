@@ -1,4 +1,4 @@
-# vue-datatable-tailwind
+# @tiaohsun/vue-datatable
 
 ## Introduction
 
@@ -10,8 +10,8 @@
 
 版本說明：
 
-- **v3+**：自包含樣式表 —— **不再需要安裝 Tailwind CSS** 即可使用本元件。
-- **v2**：基於 Tailwind 4。
+- **v3+**：套件改名為 **`@tiaohsun/vue-datatable`**（舊的 `@tiaohsun/vue-datatable-tailwind` 已停止維護）；自包含樣式表 —— **不再需要安裝 Tailwind CSS** 即可使用本元件。
+- **v2**：基於 Tailwind 4（套件名 `@tiaohsun/vue-datatable-tailwind`）。
 - **v1**：適用 Tailwind 3。
 
 完整 v3 遷移說明請見 [CHANGELOG](CHANGELOG.md)。
@@ -69,15 +69,15 @@
 
 ```bash
 // npm install
-npm install @tiaohsun/vue-datatable-tailwind
+npm install @tiaohsun/vue-datatable
 // pnpm add
-pnpm add @tiaohsun/vue-datatable-tailwind
+pnpm add @tiaohsun/vue-datatable
 ```
 
 ```Typescript
 // 全域使用main.ts中註冊 or 組件中使用
-import DataTable from '@tiaohsun/vue-datatable-tailwind'
-import '@tiaohsun/vue-datatable-tailwind/style.css'
+import DataTable from '@tiaohsun/vue-datatable'
+import '@tiaohsun/vue-datatable/style.css'
 
 app.component('DataTable', DataTable)
 ```

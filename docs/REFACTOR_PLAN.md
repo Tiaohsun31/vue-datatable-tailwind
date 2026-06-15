@@ -229,7 +229,7 @@
 - [x] **`selection-checkbox` slot 新增 `isSelected` slot prop**（消費端不需再讀內部 `item.checkbox`）；slot.ts 型別 + TableBodyCell v-bind + slot.md + CHANGELOG 同步。
 - [x] **package.json metadata 補強**：description 改「自包含 / 免裝 Tailwind」、新增 `homepage`/`bugs`/`publishConfig.access=public`、擴充 keywords。publish dry-run 乾淨（49 檔、latest、public）。
 - [x] **本計畫書移至 `docs/REFACTOR_PLAN.md`**（v3 完成後，作為決策/歷史紀錄保留，移出 repo 根目錄）。
-- 命名決策：**保留 `@tiaohsun/vue-datatable-tailwind`**（已發佈 v1/v2，改名成本高；「免裝 Tailwind」已於 README/description 澄清）。
+- 命名決策（更新）：**改名為 `@tiaohsun/vue-datatable`**。原評估傾向保留，但補充考量後翻轉：(1) 姊妹套件 `@tiaohsun/vue-datepicker` 無後綴，形成 `@tiaohsun/vue-*` 家族；(2) `@tiaohsun/vue-datatable` 名稱未被佔用；(3) v3 尚未發佈，現在改是乾淨切點、無 3.x 使用者要遷移；(4) v3 真的免 Tailwind，後綴名實不符。做法：package.json `name` + CSS 檔名（`dist/vue-datatable.css`，vite `cssFileName` 釘住）+ README/CHANGELOG/docs import 範例；GitHub repo URL 不動（GitHub 自動轉址）。發佈後對舊套件 `npm deprecate`。
 
 ---
 

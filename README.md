@@ -8,8 +8,8 @@ The project is only a customized version. Please read the document below for rel
 
 Version notes:
 
-- **v3+**: ships a self-contained stylesheet — **Tailwind CSS is no longer required** to use this component.
-- **v2**: built on Tailwind 4.
+- **v3+**: published as **`@tiaohsun/vue-datatable`** (the old `@tiaohsun/vue-datatable-tailwind` package is deprecated); ships a self-contained stylesheet — **Tailwind CSS is no longer required** to use this component.
+- **v2**: built on Tailwind 4 (package `@tiaohsun/vue-datatable-tailwind`).
 - **v1**: for Tailwind 3.
 
 See the [CHANGELOG](CHANGELOG.md) for the full v3 migration notes.
@@ -67,15 +67,15 @@ Make sure you have Node.js installed. **As of v3, Tailwind CSS is no longer requ
 
 ```bash
 // npm install
-npm install @tiaohsun/vue-datatable-tailwind
+npm install @tiaohsun/vue-datatable
 // pnpm add
-pnpm add @tiaohsun/vue-datatable-tailwind
+pnpm add @tiaohsun/vue-datatable
 ```
 
 ```Typescript
 // Global use registered in main.ts or used in components
-import DataTable from '@tiaohsun/vue-datatable-tailwind'
-import '@tiaohsun/vue-datatable-tailwind/style.css'
+import DataTable from '@tiaohsun/vue-datatable'
+import '@tiaohsun/vue-datatable/style.css'
 
 app.component('DataTable', DataTable)
 ```
