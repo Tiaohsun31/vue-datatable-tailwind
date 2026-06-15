@@ -2,7 +2,7 @@
     <div class="vdt-checkbox" :class="!disabled ? 'vdt-checkbox--clickable' : 'vdt-checkbox--disabled'"
         @click.stop.prevent="!disabled && $emit('change')">
         <input type="checkbox" class="vdt-checkbox__native" :checked="isChecked" :disabled="disabled"
-            :aria-checked="isChecked" />
+            :indeterminate.prop="isPartial" :aria-checked="isPartial ? 'mixed' : isChecked" />
         <div class="vdt-checkbox__box" :class="{ 'vdt-checkbox__box--checked': isChecked || isPartial }">
             <!-- Checkmark for checked state -->
             <svg v-show="isChecked && !isPartial" class="vdt-checkbox__icon" fill="none" viewBox="1 1 24 24"

@@ -13,7 +13,9 @@
             typeof headerItemClassName === 'string'
                 ? headerItemClassName
                 : headerItemClassName(header as Header, index + 1),
-        ]" @click.stop="handleHeaderClick(header)">
+        ]" :aria-sort="ariaSort" :tabindex="header.sortable ? 0 : undefined"
+        @click.stop="handleHeaderClick(header)" @keydown.enter.prevent="handleHeaderClick(header)"
+        @keydown.space.prevent="handleHeaderClick(header)">
         <!-- Checkbox Header -->
         <MultipleSelectCheckBox v-if="header.text === 'checkbox'" :disabled="areAllVisibleRowsDisabled"
             :status="multipleSelectStatus" @change="$emit('toggleSelectAll', $event)" />
@@ -37,7 +39,7 @@
 </template>
 
 <script setup lang="ts">
-import { type PropType, useSlots } from 'vue'
+import { type PropType, computed, useSlots } from 'vue'
 import type { Header } from '@/types/main'
 import type { HeaderForRender, MultipleSelectStatus } from '@/types/internal'
 import { HeaderSortIcon } from '../icons'
@@ -82,6 +84,14 @@ const emit = defineEmits<{
 }>()
 
 const slots = useSlots()
+
+// 無障礙：可排序欄位回報 aria-sort
+const ariaSort = computed<'ascending' | 'descending' | 'none' | undefined>(() => {
+    if (!props.header.sortable) return undefined
+    if (props.header.sortType === 'asc') return 'ascending'
+    if (props.header.sortType === 'desc') return 'descending'
+    return 'none'
+})
 
 const getHeaderSlotName = (header: Header) => {
     const slotNames = [

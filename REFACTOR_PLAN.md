@@ -210,13 +210,16 @@
 - [x] **型別收斂**：`HeaderForRender = Header`（結構一致，移除重複定義）；`ServerOptionsComputed = Omit<ServerOptions,'sortBy'|'sortType'> & {...}`（由 ServerOptions 衍生）。
 - [x] **`Item.key` 文件**：註明與 `itemKey` prop 的關係（getItemKey 優先序）。
 
-### Phase 5 — 測試、文件、發佈
+### Phase 5 — 測試、文件、發佈 🟡 主要完成
 
-- [ ] 補單元測試（vitest 已配置但 0 測試）：`getItemValue` 巢狀路徑、排序（單/多）、過濾（number/string/array/custom）、分頁、選取（含批次）、`getItemKey`、主色解析。
-- [ ] 無障礙：表頭 `aria-sort`/鍵盤、展開鈕 `aria-expanded`/`aria-label`、全選 `indeterminate`。
-- [x] 最小 playground 已建立（`playground/main.ts`/`App.vue`/`style.css`，gitignored）；`.claude/launch.json` 設好（preview_start name=`playground`, port 5173）。1a 淺色 + 1b 深色 baseline 皆已截圖驗證正確。（仍待：納入版控或 examples/）
-- [ ] 更新 `README.md` / `README.zh-TW.md` / `CHANGELOG.md`，撰寫 v3 migration 指引。
-- [ ] bump 版本 3.0.0、驗證 `npm pack` 內容、`exports`/`style`/CSS 檔名一致。
+- [x] **單元測試（0 → 27 測試 / 5 檔，全綠）**：`getItemValue`（巢狀路徑）、`getItemKey`/`omitUiFields`、filter type-guards + `createFilter`、`resolvePrimaryColor`、`DataTable` 排序（單/多鍵 component test）。位置 `src/**/__tests__/`。以 `npx vitest run` 執行。
+- [x] **無障礙**：可排序表頭 `aria-sort` + `tabindex`/Enter/Space 鍵盤；展開鈕 `aria-expanded`/`aria-label`；全選 `indeterminate` + `aria-checked="mixed"`。playground eval 驗證。
+- [x] **CHANGELOG 3.0.0**（breaking / features / fixes）、**bump `package.json` 3.0.0**、README 安裝段修正（移除已失效的 `@source`/Tailwind 需求、指向 CHANGELOG migration）。
+- [x] `npm pack` 驗證：版本 3.0.0、CSS 17.3kB 一併打包。
+- ⬜ **待辦（低優先）**：
+  - playground 納入版控或 `examples/`（目前 gitignored）。
+  - README.zh-TW.md 同步、README 的 `!important` workaround 段落可放寬（hook 已生效）。
+  - **dts 打包優化**：`dist/index.d.ts` 目前是 stub（`export * from './src/index.js'`），真正型別在 `dist/src/**`，故 `files` 必須保持 `["dist"]`（不能只列 index.d.ts，否則型別斷掉）。理想是讓 vite-plugin-dts 真正 rollup 成單一 index.d.ts（需調整 type-check 不輸出宣告 / dts plugin 設定，屬獨立 build-config 工作）。
 
 ---
 
@@ -255,6 +258,6 @@
 | 2 項目識別與選取解耦 | ✅ 完成 | itemKey + Set<key>；批次移除；無 JSON.stringify/無污染；playground 驗證 |
 | 3 composable 接線 | ✅ 完成 | 9 composable options 物件化 + 多鍵排序修正 + InjectionKey；聚合器依決策略過 |
 | 4 型別與 DX | ✅ 完成 | typed emits + defineSlots + 型別收斂；泛型延後 |
-| 5 測試與發佈 | ⬜ 未開始 | |
+| 5 測試與發佈 | 🟡 主要完成 | 27 測試/a11y/CHANGELOG/3.0.0/README install；剩 playground 入庫、dts rollup 優化 |
 
 > 接手 session：完成項目請勾選對應 checkbox，並更新本表狀態（⬜未開始 / 🟡進行中 / ✅完成）。

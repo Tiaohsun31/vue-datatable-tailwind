@@ -17,7 +17,8 @@
         <!-- Expand Button -->
         <template v-else-if="isExpandColumn">
             <slot name="expand-button" v-bind="{ item, expanded: isExpanded, toggle: handleExpandToggle }">
-                <button @click.stop="handleExpandToggle" class="vdt-expand-btn">
+                <button @click.stop="handleExpandToggle" class="vdt-expand-btn" type="button"
+                    :aria-expanded="!!isExpanded" aria-label="Toggle row details">
                     <IconExpand :class="{ 'vdt-rotate-90': isExpanded }" />
                 </button>
             </slot>

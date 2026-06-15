@@ -1,5 +1,35 @@
 # Changelog
 
+## [3.0.0] - 2026-06-15
+
+主版本重構，聚焦主題系統、樣式自包含、選取邏輯與型別 DX。
+
+### Breaking Changes
+
+- **免裝 Tailwind**：元件改為出貨自包含 CSS，已移除 `tailwindcss` peerDependency。使用者不再需要在自己的 Tailwind 設定加 `@source '.../@tiaohsun/vue-datatable-tailwind/dist/**'`，只要 `import '@tiaohsun/vue-datatable-tailwind/style.css'` 即可。
+- **主題色**：`theme` 改為「直接採用使用者顏色」，不再吸附到最近的 Tailwind 色票；色階改由單一主色 + `color-mix()` 衍生（不再有 50–950 全色階變數）。
+- 移除批次選取相關：prop `batchSelectionThreshold`、事件 `updateSelectionStatus`、`SelectionLoadingOverlay`。
+- 移除從未觸發的 `updateFilter` 事件宣告。
+- 個別文字 props（`emptyMessage` / `rowsPerPageMessage` / `rowsOfPageSeparatorMessage`）不再有預設值，改由 `locale` 提供（en 預設值與舊版相同，英文使用者無感）。
+
+### Features
+
+- **i18n**：新增 `locale`（內建 `en` / `zh-TW` / `zh-CN`）與 `localeOverrides`（可覆寫個別字串或傳完整自訂語系）。
+- **`itemKey` prop**：指定唯一識別欄位，用於選取 / 展開 / 比對；未指定則用 `item.key`，再退回內容比對。
+- **`searchType`**：`'contains'`（預設）或 `'regex'`；預設改為不分大小寫子字串包含。
+- `.vdt-*` 語義 class 全面承載預設樣式，可直接覆寫；輸出 CSS 自包含、無泛用 utility 污染。
+- typed `defineEmits` / `defineSlots`，事件與插槽具型別。
+- 無障礙：可排序表頭 `aria-sort` + 鍵盤操作、展開鈕 `aria-expanded`/`aria-label`、全選 `indeterminate`。
+
+### Bug Fixes
+
+- 修復搜尋輸入正則特殊字元（如 `(`、`[`）導致整個搜尋崩潰。
+- 修復 server 端多欄排序就地改動 props 物件、以及取消排序時誤刪末項。
+- 修復深色模式下表頭等硬寫灰階未隨 `mode` 切換的問題。
+- 修正多鍵排序實作（重複排序 → 單次穩定比較）。
+- 移除選取流程對使用者資料物件的污染（不再 `delete item.checkbox/index`）與 `JSON.stringify` 身分比對。
+- 修復 `onUnmounted` 內監聽器未正確移除（記憶體洩漏）。
+
 ## [2.3.2] - 2026-03-10
 
 ### Bug Fixes

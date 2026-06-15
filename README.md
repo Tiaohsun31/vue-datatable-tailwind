@@ -48,8 +48,7 @@ Version 2 (v2) and later will use Tailwind4. If you use Tailwind3, please use v1
 
 ## Install
 
-1. Make sure that you have Node.js and Tailwind CSS installed.
-2. Additionally to your own content data you should add Vue-DataTable-Tailwind to apply the classes from the interactive elements in the tailwind.config.js file:
+Make sure you have Node.js installed. **As of v3, Tailwind CSS is no longer required** — the package ships a self-contained stylesheet.
 
 ```bash
 // npm install
@@ -66,24 +65,7 @@ import '@tiaohsun/vue-datatable-tailwind/style.css'
 app.component('DataTable', DataTable)
 ```
 
-```TypeScript
-// tailwind 4
-@import "tailwindcss";
-/* DataTable (Please pay attention to the node_modules path) */
-@source './node_modules/@tiaohsun/vue-datatable-tailwind/dist/**/*.{js,vue}';
-```
-
-```TypeScript
-// tailwind 3 tailwind.config.ts
-export default {
-    content: [
-        "./index.html",
-        "./src/**/*.{vue,js,ts,jsx,tsx}",
-        // 添加 node_modules 中 DataTable 的內容
-        "./node_modules/@tiaohsun/vue-datatable-tailwind/dist/**/*.{js,vue}"
-    ]
-}
-```
+> **v3 migration:** earlier versions required adding `@source '.../@tiaohsun/vue-datatable-tailwind/dist/**'` to your Tailwind config (or the equivalent `content` entry for Tailwind 3). This is **no longer needed** — importing `style.css` is enough. See the [CHANGELOG](CHANGELOG.md) for the full list of v3 changes.
 
 ## Theme
 
