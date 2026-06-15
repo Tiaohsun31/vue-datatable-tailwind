@@ -4,24 +4,18 @@
     "env.d.ts",
     "src/**/*",
     "src/**/*.vue",
-    "src/**/*.ts",
-    "types/**/*.ts",
-    "types/**/*.d.ts"
+    "src/**/*.ts"
   ],
   "exclude": ["src/**/__tests__/*", "node_modules", "dist"],
   "compilerOptions": {
+    // 純型別檢查（noEmit 繼承自 @vue/tsconfig）；宣告產生改由 tsconfig.build.json + build:types。
     "ignoreDeprecations": "6.0",
     "composite": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     },
-    "declaration": true,
-    "declarationDir": "./dist",
-    "declarationMap": true,
     "moduleResolution": "bundler",
-    "allowJs": true,
-    "outDir": "./dist",
     "target": "ES2020",
     "module": "ESNext",
     "skipLibCheck": true,

@@ -217,9 +217,12 @@
 - [x] **CHANGELOG 3.0.0**（breaking / features / fixes）、**bump `package.json` 3.0.0**、README 安裝段修正（移除已失效的 `@source`/Tailwind 需求、指向 CHANGELOG migration）。
 - [x] `npm pack` 驗證：版本 3.0.0、CSS 18.3kB 一併打包。
 - [x] **playground 入庫**：移出 `.gitignore`，`playground/{App.vue,main.ts,style.css}` 納入版控；import 改用公開入口 `../src/index`；不影響 npm 發佈（`files: ["dist"]`）。
-- [x] **dts 打包優化（已成）**：root cause = `vite-plugin-dts@5` 為 `unplugin-dts` 薄殼，**選項名改為 `bundleTypes`（非舊 `rollupTypes`）**，且需 peer dep `@microsoft/api-extractor`（已加 devDep 7.58.9）。config 改 `bundleTypes: true` + `copyDtsFiles: false`。結果：`dist/index.d.ts` 變單一 479 行打包檔（型別 inline、`tailwindBaseColors` 一併納入故 `TailwindColor` keyof 可解析）、**`dist/src/**` 不再散落**；`pnpm build`（type-check 並行）確認不會重新散落；消費端 tsc 驗證所有公開型別可解析、`TailwindColor` union 未塌成 string。npm pack 9 檔。
-  - 註：api-extractor 7.58.9 內建 TS 5.9.3 < 專案 6.0.3，build 會印非致命警告（bundling 仍成功）。
-- ⬜ **剩餘（低優先）**：README.zh-TW.md 同步；README 的 `!important` workaround 段落可放寬（hook 已生效）；（可選）`dist/favicon.ico` 由 publicDir 帶入 npm 包，可清。
+- [x] **dts 型別產生（plugin-less，最終方案）**：依使用者決定**移除 `vite-plugin-dts` + `@microsoft/api-extractor`**，改與其他專案一致 —— 由 `vue-tsc` 產逐檔 `.d.ts`。
+  - 診斷過程記錄：`vite-plugin-dts@5` 實為 `unplugin-dts` 薄殼，bundling 選項是 `bundleTypes`（非舊 `rollupTypes`，舊名被忽略）且需 api-extractor；曾以此成功打包單一 index.d.ts，但 api-extractor 內建 TS 5.9.3 < 專案 6.0.3 會印警告，且多一個重依賴 → 改走 plugin-less。
+  - 做法：新增 `tsconfig.build.json`（`extends ./tsconfig.json`，覆寫 `noEmit:false`/`emitDeclarationOnly`/`outDir:dist`/`rootDir:src`/`composite:false`/`declarationMap:false`）；`build:types` 改 `vue-tsc -p tsconfig.build.json`；`build` 改 `run-p type-check build-only && npm run build:types`（型別在 vite 之後 emit，避開 emptyOutDir race）。
+  - 同時清掉 dead config：`tsconfig.json` 移除 `declaration/declarationDir/outDir/declarationMap`（改純 type-check，`noEmit` 繼承自 @vue/tsconfig）與失效的 `types/**` include；vite.config 加 `copyPublicDir:false`（不再把 favicon 打進包）。
+  - 結果：`rootDir:src` 使 `src/index.ts → dist/index.d.ts`（對映 package.json `types`）；逐檔 `.d.ts`（42 檔）；消費端 tsc 驗證公開型別可解析、`TailwindColor` union 未塌成 string；npm pack 49 檔、無 favicon、無 `.d.ts.map`。build < 1s。
+- ⬜ **剩餘（低優先）**：README.zh-TW.md 同步；README 的 `!important` workaround 段落可放寬（hook 已生效）。
 
 ---
 
@@ -325,7 +328,7 @@
 | 2 項目識別與選取解耦 | ✅ 完成 | itemKey + Set<key>；批次移除；無 JSON.stringify/無污染；playground 驗證 |
 | 3 composable 接線 | ✅ 完成 | 9 composable options 物件化 + 多鍵排序修正 + InjectionKey；聚合器依決策略過 |
 | 4 型別與 DX | ✅ 完成 | typed emits + defineSlots + 型別收斂；泛型延後 |
-| 5 測試與發佈 | ✅ 完成 | 27 測試/a11y/CHANGELOG/3.0.0/README install；playground 入庫 ✅；dts 改 bundleTypes+api-extractor→單一 index.d.ts ✅；剩 README.zh-TW 同步 |
+| 5 測試與發佈 | ✅ 完成 | 27 測試/a11y/CHANGELOG/3.0.0/README install；playground 入庫 ✅；dts 改 plugin-less（移除 vite-plugin-dts/api-extractor，vue-tsc -p tsconfig.build.json 產逐檔 .d.ts）✅；剩 README.zh-TW 同步 |
 | 6 後續優化(review 衍生) | ✅ 完成 | 6.1 自有 --vdt-* token / 6.2 併 CSS 為 2 檔 / 6.3 type 匯出+單一來源+檔案改名(main→public, utils→itemValue, DataTable→core/) / 6.4 色名表保留+dev warn；SimpleFilterOption 依決定保留 |
 
 > 接手 session：完成項目請勾選對應 checkbox，並更新本表狀態（⬜未開始 / 🟡進行中 / ✅完成）。

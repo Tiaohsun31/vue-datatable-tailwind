@@ -4,28 +4,18 @@ import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import tailwindcss from '@tailwindcss/vite'
 
-import dts from 'vite-plugin-dts'
-
+// 型別宣告由 build:types（vue-tsc -p tsconfig.build.json）產生，不在 vite build 內處理。
 // https://vite.dev/config/
 export default defineConfig({
     plugins: [
         vue(),
         vueDevTools(),
         tailwindcss(),
-        dts({
-            include: ['src/**/*.ts', 'src/**/*.vue'],
-            // bundleTypes（unplugin-dts 選項，需 @microsoft/api-extractor）將所有宣告打包為單一 dist/index.d.ts
-            bundleTypes: true,
-            // 不複製分散的逐檔 .d.ts（避免 dist/src/** 殘留；型別已打包進 index.d.ts）
-            copyDtsFiles: false,
-            // 確保 Vue 組件的類型也被生成
-            staticImport: true,
-            // 插入專案的類型引用
-            insertTypesEntry: true
-        })
     ],
     build: {
         cssCodeSplit: false,
+        // 不把 public/（favicon 等）複製進 dist：函式庫發佈不需要這些資產（dev server 仍會服務）。
+        copyPublicDir: false,
         lib: {
             entry: fileURLToPath(new URL('./src/index.ts', import.meta.url)),
             name: 'VueDataTableTailwind',

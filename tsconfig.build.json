@@ -1,0 +1,18 @@
+{
+  // 型別宣告產生專用（plugin-less）：由 build:types script 以 vue-tsc -p 此檔產生逐檔 .d.ts 到 dist。
+  // 繼承 tsconfig.json 的編譯選項（paths / noImplicitAny:false / types 等），僅覆寫為「emit 宣告」。
+  // type-check 仍走 tsconfig.json（noEmit），兩者編譯選項一致。
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "composite": false,
+    "noEmit": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    // 不產生 .d.ts.map：本套件只發佈 dist（不含 src），宣告 map 無對應來源檔，純屬冗餘。
+    "declarationMap": false,
+    "outDir": "dist",
+    "rootDir": "src"
+  },
+  "include": ["src/**/*.ts", "src/**/*.vue"],
+  "exclude": ["src/**/__tests__/*"]
+}
