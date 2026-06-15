@@ -100,7 +100,8 @@ Customize the selection checkbox.
 
 ```vue
 <template #selection-checkbox="{ item, index, isDisabled, toggleSelectItem }">
-  <CustomCheckbox :checked="item.selected" :disabled="isDisabled" @change="toggleSelectItem" />
+  <!-- 目前選取狀態以 item.checkbox 提供（render 列上的布林值） -->
+  <CustomCheckbox :checked="!!item.checkbox" :disabled="isDisabled" @change="toggleSelectItem" />
 </template>
 ```
 

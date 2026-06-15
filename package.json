@@ -2,7 +2,7 @@
   "name": "@tiaohsun/vue-datatable-tailwind",
   "author": "tiaohsun",
   "version": "3.0.0",
-  "description": "A Vue 3 data table component restructured and styled with TailwindCSS",
+  "description": "A self-contained Vue 3 data table (Tailwind 4-styled, no Tailwind install required) with dark mode, i18n, sorting and selection.",
   "license": "MIT",
   "type": "module",
   "sideEffects": [
@@ -15,6 +15,13 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Tiaohsun31/vue-datatable-tailwind.git"
+  },
+  "homepage": "https://github.com/Tiaohsun31/vue-datatable-tailwind#readme",
+  "bugs": {
+    "url": "https://github.com/Tiaohsun31/vue-datatable-tailwind/issues"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "exports": {
     ".": {
@@ -33,9 +40,13 @@
   ],
   "keywords": [
     "vue3",
+    "vue-component",
     "datatable",
+    "data-table",
+    "table",
     "tailwindcss",
-    "vue-component"
+    "dark-mode",
+    "i18n"
   ],
   "peerDependencies": {
     "vue": "^3.4.0"
