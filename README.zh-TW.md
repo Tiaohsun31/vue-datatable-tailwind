@@ -169,3 +169,12 @@ const bodyRowClassNameFunction: BodyRowClassNameFunction = (
 - [Theme（主題與顏色）](./docs/api/theme.md)
 - [i18n（多語系）](./docs/api/i18n.md)
 - [itemKey（列識別）](./docs/api/itemKey.md)
+
+## Acknowledgements
+
+本專案基於 HC 的 vue3-easy-data-table。
+
+原專案：
+https://github.com/HC200ok/vue3-easy-data-table
+
+感謝原作者創建並維護了該元件的基礎架構。

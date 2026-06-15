@@ -147,18 +147,18 @@ const bodyRowClassNameFunction: BodyRowClassNameFunction = (
 
 In addition to the original [Props](https://hc200ok.github.io/vue3-easy-data-table-doc/props/common-props.html), the following new props have been added:
 
-| **Name**         | **Required** | **Type**                                                              | **Default** | **Description**                                                                                          |
-| ---------------- | ------------ | --------------------------------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------- |
-| expand-column    | false        | string                                                                | ''          | Specifies which column can be expanded.                                                                 |
+| **Name**         | **Required** | **Type**                                                              | **Default** | **Description**                                                                                                          |
+| ---------------- | ------------ | --------------------------------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------ |
+| expand-column    | false        | string                                                                | ''          | Specifies which column can be expanded.                                                                                  |
 | theme            | false        | string \| TailwindColor (ex: 'indigo', 'rose')                        | 'indigo'    | Primary color. Accepts a built-in color name, HEX (`#42b883`), rgb or oklch. State colors are derived via `color-mix()`. |
-| mode             | false        | 'light' \| 'dark'                                                     | —           | Force light or dark. If unset, follows the OS `prefers-color-scheme`.                                    |
-| itemKey          | false        | string                                                                | —           | Unique field used for selection / expand / identity matching; falls back to `item.key`, then content.   |
-| searchType       | false        | 'contains' \| 'regex'                                                 | 'contains'  | Case-insensitive substring match (default) or regular expression.                                       |
-| locale           | false        | 'en' \| 'zh-TW' \| 'zh-CN'                                            | 'en'        | Built-in locale for footer / empty-data messages.                                                       |
-| localeOverrides  | false        | Partial\<DataTableLocale\>                                            | —           | Override individual locale strings, or pass a full custom locale object.                                 |
-| clickRowToSelect | false        | boolean                                                               | false       | Click a row to select the item.                                                                         |
-| disabledRows     | false        | BodyRowDisabledFunction = (item: Item, rowNumber?: number) => boolean | —           | Disable specific rows from being selected.                                                               |
-| expandTransition | false        | boolean                                                               | true        | If an expand column is set, the expand-row transition is enabled by default.                            |
+| mode             | false        | 'light' \| 'dark'                                                     | —           | Force light or dark. If unset, follows the OS `prefers-color-scheme`.                                                    |
+| itemKey          | false        | string                                                                | —           | Unique field used for selection / expand / identity matching; falls back to `item.key`, then content.                    |
+| searchType       | false        | 'contains' \| 'regex'                                                 | 'contains'  | Case-insensitive substring match (default) or regular expression.                                                        |
+| locale           | false        | 'en' \| 'zh-TW' \| 'zh-CN'                                            | 'en'        | Built-in locale for footer / empty-data messages.                                                                        |
+| localeOverrides  | false        | Partial\<DataTableLocale\>                                            | —           | Override individual locale strings, or pass a full custom locale object.                                                 |
+| clickRowToSelect | false        | boolean                                                               | false       | Click a row to select the item.                                                                                          |
+| disabledRows     | false        | BodyRowDisabledFunction = (item: Item, rowNumber?: number) => boolean | —           | Disable specific rows from being selected.                                                                               |
+| expandTransition | false        | boolean                                                               | true        | If an expand column is set, the expand-row transition is enabled by default.                                             |
 
 ## API Documentation
 
@@ -167,3 +167,13 @@ In addition to the original [Props](https://hc200ok.github.io/vue3-easy-data-tab
 - [Theme](./docs/api/theme.md)
 - [i18n / Locale](./docs/api/i18n.md)
 - [itemKey](./docs/api/itemKey.md)
+
+## Acknowledgements
+
+This project is based on
+vue3-easy-data-table by HC.
+
+Original project:
+https://github.com/HC200ok/vue3-easy-data-table
+
+Thanks to the original author for creating and maintaining the foundation of this component.
