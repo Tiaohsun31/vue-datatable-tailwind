@@ -1,8 +1,9 @@
-# vue-datatable-tailwind 重構計畫書
+# v3 重構決策紀錄（Architecture Decision Record）
 
-> 本檔為跨 session 工作文件。任何接手的 session 請**先完整讀過本檔**，再依「進度追蹤」接續。
-> 套件名：`@tiaohsun/vue-datatable-tailwind`　當前版本：2.3.2　目標版本：**3.0.0（允許合理破壞性變更）**
-> 來源：fork 自 [vue3-easy-data-table](https://github.com/HC200ok/vue3-easy-data-table)（MIT），改用 Tailwind 4。
+> **這是 `@tiaohsun/vue-datatable` v3 重構的歷史決策紀錄，非現行待辦清單。**
+> 保留下來是為了記錄「為什麼這樣設計」，供維護者與貢獻者參考；文中的勾選框與階段狀態反映的是重構當時的進度（v3.0.0 已完成發佈）。後續規劃請見 [ROADMAP](./ROADMAP.md)。
+>
+> 重構範圍：2.3.2 → 3.0.0（允許合理破壞性變更）。來源：fork 自 [vue3-easy-data-table](https://github.com/HC200ok/vue3-easy-data-table)（MIT），改用 Tailwind 4。發佈時套件由 `@tiaohsun/vue-datatable-tailwind` 改名為 `@tiaohsun/vue-datatable`。
 
 ---
 
@@ -73,8 +74,8 @@
 
 ## 2. 分階段任務（低風險優先）
 
-> 每個 phase 結束都應 `pnpm type-check` + `pnpm build` 通過；Phase 5 前可手動在 playground 驗證。
-> playground 被 .gitignore（`index.html` 指向 `/playground/main.ts`）——接手 session 若要跑 `pnpm dev` 需自建最小 playground。
+> 每個 phase 結束都應 `pnpm type-check` + `pnpm build` 通過，並以 playground（`pnpm dev`）手動驗證。
+> （重構期間 playground 曾被 .gitignore，後於 Phase 5 納入版控。）
 
 ### Phase 0 — 清理與明確 Bug 修復（風險最低，先做）
 
@@ -316,7 +317,6 @@
 
 ## 4. 風險與注意事項
 
-- **playground 在 .gitignore**：接手 session 跑不起 dev server 屬正常，需自建。
 - **CSS 自包含鐵則**：Phase 1 build 後務必確認出貨 CSS 無 consumer-only 變數。
 - **選取解耦（Phase 2）**易踩坑：跨頁選取、批次選取、disabledRows 三者交互要逐一驗。
 - **破壞性變更**集中 v3；每項對外變更都要在 migration 文件記一筆。
@@ -338,4 +338,4 @@
 | 5 測試與發佈 | ✅ 完成 | 27 測試/a11y/CHANGELOG/3.0.0/README install；playground 入庫 ✅；dts 改 plugin-less（移除 vite-plugin-dts/api-extractor，vue-tsc -p tsconfig.build.json 產逐檔 .d.ts）✅；剩 README.zh-TW 同步 |
 | 6 後續優化(review 衍生) | ✅ 完成 | 6.1 自有 --vdt-* token / 6.2 併 CSS 為 2 檔 / 6.3 type 匯出+單一來源+檔案改名(main→public, utils→itemValue, DataTable→core/) / 6.4 色名表保留+dev warn；SimpleFilterOption 依決定保留 |
 
-> 接手 session：完成項目請勾選對應 checkbox，並更新本表狀態（⬜未開始 / 🟡進行中 / ✅完成）。
+> 狀態圖例：⬜未開始 / 🟡進行中 / ✅完成。所有階段於 v3.0.0 發佈時已完成。
