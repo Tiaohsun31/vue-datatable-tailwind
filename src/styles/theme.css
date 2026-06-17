@@ -3,7 +3,8 @@
 :root {
     /* ===== 共用設計基元（@tiaohsun/vue-* 家族共用層） =====
        設一次即可整組調整（含姊妹套件 vue-datepicker 等）；各元件 token 引用這層。 */
-    --tia-theme-primary: oklch(58.5% 0.233 277.117); /* 家族預設主色：indigo */
+    --tia-theme-primary: oklch(58.5% 0.233 277.117);
+    /* 家族預設主色：indigo */
     --tia-text-xs: 0.75rem;
     --tia-text-sm: 0.875rem;
     --tia-leading-sm: 1.25rem;
@@ -35,7 +36,8 @@
     --vdt-font-semibold: var(--tia-font-semibold, 600);
 
     /* ===== 主題主色：預設引用共用基元；指定 theme prop 時由 useTheme 以 inline style 覆蓋（per-instance） ===== */
-    --color-vdt-primary: var(--tia-theme-primary, oklch(58.5% 0.233 277.117)); /* indigo 預設 */
+    --color-vdt-primary: var(--tia-theme-primary, oklch(58.5% 0.233 277.117));
+    /* indigo 預設 */
 
     /* 由主色衍生的狀態色（-hover/-strong/-subtle/-border/-ring）改宣告在元件 wrapper（見下方 .vdt-table-wrapper），
        才能依各實例有效的 --color-vdt-primary（theme prop 的 inline 覆蓋）重新代換；
@@ -100,7 +102,8 @@
 
 /* 深色模式：明確指定 data-vdt-mode="dark"，或頁面全域 .dark */
 .dark,
-[data-vdt-mode="dark"] {
+[data-vdt-mode="dark"],
+[data-tai-mode="dark"] {
     --color-vdt-surface: var(--color-vdt-dark-surface);
     --color-vdt-surface-secondary: var(--color-vdt-dark-surface-secondary);
     --color-vdt-surface-elevated: var(--color-vdt-dark-surface-elevated);
@@ -115,7 +118,8 @@
 }
 
 /* 明確指定 data-vdt-mode="light"：強制淺色（可覆蓋頁面全域 .dark） */
-[data-vdt-mode="light"] {
+[data-vdt-mode="light"],
+[data-tai-mode="light"] {
     --color-vdt-surface: var(--color-vdt-light-surface);
     --color-vdt-surface-secondary: var(--color-vdt-light-surface-secondary);
     --color-vdt-surface-elevated: var(--color-vdt-light-surface-elevated);
@@ -131,7 +135,7 @@
 
 /* 自動模式：未明確指定 mode 時跟隨系統偏好（明確 light 可退出） */
 @media (prefers-color-scheme: dark) {
-    .vdt-table-wrapper:not([data-vdt-mode="light"]) {
+    .vdt-table-wrapper:not([data-vdt-mode="light"]):not([data-tai-mode="light"]) {
         --color-vdt-surface: var(--color-vdt-dark-surface);
         --color-vdt-surface-secondary: var(--color-vdt-dark-surface-secondary);
         --color-vdt-surface-elevated: var(--color-vdt-dark-surface-elevated);
