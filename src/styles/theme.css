@@ -37,13 +37,10 @@
     /* ===== 主題主色：預設引用共用基元；指定 theme prop 時由 useTheme 以 inline style 覆蓋（per-instance） ===== */
     --color-vdt-primary: var(--tia-theme-primary, oklch(58.5% 0.233 277.117)); /* indigo 預設 */
 
-    /* ===== 由主色衍生的狀態色 =====
-       不需使用者提供；會隨主色與深淺模式（surface）自動調整。 */
-    --color-vdt-primary-hover: color-mix(in oklch, var(--color-vdt-primary), black 12%);
-    --color-vdt-primary-strong: color-mix(in oklch, var(--color-vdt-primary), black 26%);
-    --color-vdt-primary-subtle: color-mix(in oklch, var(--color-vdt-primary), var(--color-vdt-surface) 88%);
-    --color-vdt-primary-border: color-mix(in oklch, var(--color-vdt-primary), var(--color-vdt-surface) 55%);
-    --color-vdt-primary-ring: color-mix(in oklch, var(--color-vdt-primary), transparent 50%);
+    /* 由主色衍生的狀態色（-hover/-strong/-subtle/-border/-ring）改宣告在元件 wrapper（見下方 .vdt-table-wrapper），
+       才能依各實例有效的 --color-vdt-primary（theme prop 的 inline 覆蓋）重新代換；
+       若放在 :root，var(--color-vdt-primary) 會在 :root 以家族色代換完、子層只繼承結果，
+       導致 per-instance theme 無法驅動衍生色（ring/subtle 等）。 */
     --color-vdt-on-primary: white;
 
     /* ===== 中性語義色 - 淺色模式（自包含，不依賴外部 Tailwind 變數） ===== */
@@ -87,6 +84,18 @@
 
     /* 狀態色 */
     --color-vdt-error: oklch(63.7% 0.237 25.331);
+}
+
+/* ===== 主色衍生狀態：宣告在元件根，依各實例有效的 --color-vdt-primary 重新衍生 =====
+   theme prop 由 useTheme 以 inline style 設 --color-vdt-primary 於 wrapper；
+   未指定時 wrapper 繼承 :root 的 --color-vdt-primary（家族 --tia-theme-primary）。
+   兩種情況下，下列 color-mix 都在 wrapper 重新代換 → per-instance theme 與家族換色皆生效。 */
+.vdt-table-wrapper {
+    --color-vdt-primary-hover: color-mix(in oklch, var(--color-vdt-primary), black 12%);
+    --color-vdt-primary-strong: color-mix(in oklch, var(--color-vdt-primary), black 26%);
+    --color-vdt-primary-subtle: color-mix(in oklch, var(--color-vdt-primary), var(--color-vdt-surface) 88%);
+    --color-vdt-primary-border: color-mix(in oklch, var(--color-vdt-primary), var(--color-vdt-surface) 55%);
+    --color-vdt-primary-ring: color-mix(in oklch, var(--color-vdt-primary), transparent 50%);
 }
 
 /* 深色模式：明確指定 data-vdt-mode="dark"，或頁面全域 .dark */

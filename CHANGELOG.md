@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.0.1] - 2026-06-16
+
+### Bug Fixes
+
+- 修復 `theme` prop（如 `theme="red"`）只改變主色本身，但 hover / subtle / ring / strong / border 等**衍生狀態色仍維持預設色**的問題。原因：衍生色以 `color-mix(…, var(--color-vdt-primary), …)` 宣告在 `:root`，`var()` 會在 `:root` 以預設主色代換完成、子層只繼承結果，故 wrapper 上的 inline 主色無法驅動衍生色。修正：將 5 個衍生狀態色改宣告在元件 wrapper（`.vdt-table-wrapper`），依各實例有效的 `--color-vdt-primary` 重新代換。per-instance `theme` 與家族層 `--tia-theme-primary` 換色皆正確生效。
+
 ## [3.0.0] - 2026-06-15
 
 主版本重構，聚焦主題系統、樣式自包含、選取邏輯與型別 DX。
