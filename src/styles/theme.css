@@ -103,7 +103,7 @@
 /* 深色模式：明確指定 data-vdt-mode="dark"，或頁面全域 .dark */
 .dark,
 [data-vdt-mode="dark"],
-[data-tai-mode="dark"] {
+[data-tia-mode="dark"] {
     --color-vdt-surface: var(--color-vdt-dark-surface);
     --color-vdt-surface-secondary: var(--color-vdt-dark-surface-secondary);
     --color-vdt-surface-elevated: var(--color-vdt-dark-surface-elevated);
@@ -119,7 +119,7 @@
 
 /* 明確指定 data-vdt-mode="light"：強制淺色（可覆蓋頁面全域 .dark） */
 [data-vdt-mode="light"],
-[data-tai-mode="light"] {
+[data-tia-mode="light"] {
     --color-vdt-surface: var(--color-vdt-light-surface);
     --color-vdt-surface-secondary: var(--color-vdt-light-surface-secondary);
     --color-vdt-surface-elevated: var(--color-vdt-light-surface-elevated);
@@ -135,7 +135,7 @@
 
 /* 自動模式：未明確指定 mode 時跟隨系統偏好（明確 light 可退出） */
 @media (prefers-color-scheme: dark) {
-    .vdt-table-wrapper:not([data-vdt-mode="light"]):not([data-tai-mode="light"]) {
+    .vdt-table-wrapper:not([data-vdt-mode="light"]):not([data-tia-mode="light"]) {
         --color-vdt-surface: var(--color-vdt-dark-surface);
         --color-vdt-surface-secondary: var(--color-vdt-dark-surface-secondary);
         --color-vdt-surface-elevated: var(--color-vdt-dark-surface-elevated);
